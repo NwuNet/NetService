@@ -1,0 +1,142 @@
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+	<li id="menuindex" class="treeview">
+		<a href="<php>echo U('Admin/Index/index')</php>">
+			<i class="fa fa-dashboard"></i> <span>控制面板</span>
+		</a>
+	</li>
+	<li class="header">系统相关</li>
+	<li id="menulog" class="treeview">
+		<a href="#">
+			<i class="fa fa-fw fa-reorder"></i>
+			<span>系统日志</span>
+			<span class="label bg-yellow pull-right">30</span>
+		</a>
+		<ul  class="treeview-menu">
+			<li id="menuloghome">
+				<a href="<php>echo U('Admin/SystemLog/home')</php>">
+					<i class="fa fa-fw fa-user"></i>
+					<span>Home</span>
+					<span class="label bg-yellow pull-right">24</span></a>
+			</li>
+			<li id="menulogstaff">
+				<a href="<php>echo U('Admin/SystemLog/staff')</php>">
+					<i class="fa fa-fw fa-users"></i>
+					<span>Staff</span>
+					<span class="label bg-yellow pull-right">5</span></a>
+			</li>
+			<li id="menulogboss">
+				<a href="<php>echo U('Admin/SystemLog/boss')</php>">
+					<span class="glyphicon glyphicon-user"></span>
+					<span>Boss</span>
+					<span class="label bg-yellow pull-right">1</span></a>
+			</li>
+			<li id="menulogadmin">
+				<a href="<php>echo U('Admin/SystemLog/admin')</php>">
+					<i class="fa fa-fw fa-user"></i>
+					<span>Admin</span>
+					<span class="label bg-yellow pull-right">2</span></a>
+			</li>
+		</ul>
+	</li>
+	<li id="menudata">
+		<a href="<php>echo U('Admin/SystemData/index')</php>">
+			<i class="fa fa-fw fa-database"></i> <span>数据库</span>
+		</a>
+	</li>
+	<li id="menucache">
+		<a href="<php>echo U('Admin/SystemCache/index')</php>">
+			<i class="fa fa-fw fa-hourglass-half"></i> <span>系统缓存</span>
+			<span class="label bg-red pull-right">2</span>
+		</a>
+	</li>
+	<li id="menufile">
+		<a href="<php>echo U('Admin/SystemFile/index')</php>">
+			<i class="fa fa-fw fa-file"></i> <span>程序和文件</span>
+		</a>
+	</li>
+	<li id="menumodule">
+		<a href="<php>echo U('Admin/SystemModule/index')</php>">
+			<i class="fa fa-fw fa-th-large"></i> <span>模块管理</span>
+		</a>
+	</li>
+	<li class="header">用户相关</li>
+	<li id="menuauthor" class="treeview">
+		<a href="#">
+			<i class="fa fa-fw fa-key"></i>
+			<span>权限管理</span>
+			<i class="fa fa-angle-left pull-right"></i>
+		</a>
+		<ul class="treeview-menu">
+			<li id="menuauthorhome">
+				<a href="<php>echo U('Admin/UserAuthor/home')</php>">
+					<i class="fa fa-fw fa-user"></i>
+					<span>Home</span>
+				</a>
+			</li>
+			<li id="menuauthorstaff">
+				<a href="<php>echo U('Admin/UserAuthor/staff')</php>">
+					<i class="fa fa-fw fa-users"></i>
+					<span>Staff</span>
+				</a>
+			</li>
+			<li id="menuauthorboss">
+				<a href="<php>echo U('Admin/UserAuthor/boss')</php>">
+					<span class="glyphicon glyphicon-user"></span>
+					<span>Boss</span>
+				</a>
+			</li>
+			<li id="menuauthoradmin">
+				<a href="<php>echo U('Admin/UserAuthor/admin')</php>">
+					<span class="glyphicon glyphicon-user"></span>
+					<span>Admin</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+	<li id="menuuser">
+		<a href="#">
+			<i class="fa fa-fw fa-user"></i>
+			<span>用户管理</span>
+			<i class="fa fa-angle-left pull-right"></i>
+		</a>
+		<ul class="treeview-menu">
+			<li id="menuuserhome">
+				<a href="<php>echo U('Admin/User/home')</php>">
+					<i class="fa fa-fw fa-user"></i>
+					<span>Home</span>
+				</a>
+			</li>
+			<li id="menuuserstaff">
+				<a href="<php>echo U('Admin/User/staff')</php>">
+					<i class="fa fa-fw fa-users"></i>
+					<span>Staff</span>
+				</a>
+			</li>
+			<li id="menuuserboss">
+				<a href="<php>echo U('Admin/User/boss')</php>">
+					<span class="glyphicon glyphicon-user"></span>
+					<span>Boss</span>
+				</a>
+			</li>
+			<li id="menuuseradmin">
+				<a href="<php>echo U('Admin/User/admin')</php>">
+					<span class="glyphicon glyphicon-user"></span>
+					<span>Admin</span>
+				</a>
+			</li>
+		</ul>
+	</li>
+	<li id="menuusergroup">
+		<a href="<php>echo U('Admin/UserGroup/index')</php>">
+			<i class="fa fa-fw fa-users"></i> <span>用户组管理</span>
+		</a>
+	</li>
+	<li class="header">内容相关</li>
+</ul>
+<!-- jQuery 2.1.4 -->
+<js href="__PUBLIC__/AdminLTE2/plugins/jQuery/jQuery-2.1.4.min.js" />
+<script type="text/javascript">
+	$("#{$id1}").addClass("active");
+	$("#{$id2}").addClass("active");
+</script>

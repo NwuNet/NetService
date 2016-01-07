@@ -1,0 +1,86 @@
+<extend name="base" />
+<block name="title"><title>西北大学网络中心</title></block>
+<block name="full">
+  <div class="wrapper">
+  
+    <header class="main-header">
+      <nav class="navbar navbar-static-top">
+	    <div class="container">
+		  <div class="navbar-header">
+		    <a href="<php>echo U('Index')</php>" class="navbar-brand"><b>Network</b>Service</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+              <i class="fa fa-bars"></i>
+            </button>
+		  </div><!-- navbar-header -->
+		  
+		  <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">文档下载 </a></li>
+			  <li><a href="#">申请兼职 </a></li>
+			  <li><a href="#">信息反馈 </a></li>
+			  <li><a href="#">留言板 </a></li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" id="navbar-search-input" placeholder="搜索">
+              </div>
+            </form>
+          </div><!-- pull-left -->
+		  
+		  <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+			  <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">登录 <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">领导</a></li>
+                  <li><a href="#">员工</a></li>
+				  <li><a href="#">管理员</a></li>
+                  </ul>
+              </li>
+			</ul>
+		  </div><!-- navbar-custom-menu -->
+		</div><!-- container -->
+	  </nav>
+	</header/>
+	  
+	<div class="content-wrapper">
+      <div class="container">
+	    <section class="content-header">
+          <h1>
+            <i class="fa fa-fw fa-share-alt"></i>网络服务
+            <small><i class="fa fa-fw fa-calendar-plus-o"></i>报修</small>
+          </h1>
+        </section><!-- content-header -->
+		<section class="content">
+          <div class="row">
+		    <div class="col-md-12">
+              <!-- MAP & BOX PANE -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">预约维修</h3>
+				  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div><!-- box-tools -->
+				</div>
+				<div class="box-body no-padding">
+				</div>
+		      </div>
+			</div>
+		  </div><!-- row -->
+        </section><!-- content -->
+	  </div><!-- container -->
+	</div><!-- content-wrapper -->
+	
+    <footer class="main-footer">
+      <div class="container">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 1.0.0
+        </div>
+        <strong>Copyright &copy;2015 <a href="http://www.nwu.edu.cn">西北大学网络中心</a>.</strong> All rights reserved.
+      </div><!-- container -->
+    </footer>
+  </div>
+</block>

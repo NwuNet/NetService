@@ -1,0 +1,178 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 后台管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<!-- Sidebar user panel -->
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>胡洋</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('menuuser','menuuseradmin'))}
+	<!--menu widget-->
+</block>
+
+<block name="content-header">
+	<h1>用户管理
+		<small><i class="fa fa-fw fa-user"></i></small>
+      </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">用户管理</li>
+	</ol>
+</block>
+
+<block name="content">
+	<!-- Small boxes (Stat box) -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-user"></i>
+					<h3 class="box-title">用户管理</h3>&ensp;
+					<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal">
+						<i class="fa fa-plus">添加</i>
+					</button>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<table id="example1" class="table table-bordered table-hover">
+						<thead>
+							<th>ID</th>
+							<th>用户名</th>
+							<th>注册时间</th>
+							<th>最近登录ip</th>
+						</thead>
+						<tbody>
+							
+						</tbody>
+						<tfoot>
+							<th>ID</th>
+							<th>用户名</th>
+							<th>注册时间</th>
+							<th>最近登录ip</th>
+						</tfoot>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+	</div>
+	<!-- row -->
+</block>
+
+<block name="script">
+	<!-- add Modal -->
+	<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">添加用户</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addform">
+						<div class="form-group">
+							<label for="addname" class="control-label">用户名</label>
+							<input type="text" class="form-control" id="addname" />
+						</div>
+						<div class="form-group">
+							<label for="addpwd" class="control-label">密码</label>
+							<input type="password" class="form-control" id="addpwd" />
+						</div>
+						<div class="form-group">
+							<label for="repwd" class="control-label">确认密码</label>
+							<input type="password" class="form-control" id="repwd" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="addbtn" disabled="disabled" type="button" class="btn btn-primary">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		/**
+		 * 确认密码
+		 * */
+		$("#repwd,#addpwd").keyup(function(){
+			if($("#repwd")[0].value != $("#addpwd")[0].value){
+				$("#repwd").parent().addClass("has-error");
+				$("#addbtn").attr("disabled","disabled");
+			}else{
+				$("#repwd").parent().removeClass("has-error");
+				$("#addbtn").removeAttr("disabled");
+			}
+		});
+		/*
+		 * 添加用户
+		 * */
+		$("#addbtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Admin/User/adminadd')</php>", {
+					uname: $("#addname")[0].value,
+					password: $("#addpwd")[0].value,
+					repassword: $("#repwd")[0].value
+				},
+				function(data) {
+					$btn.button('reset');
+					if (data == true) {
+						alert("添加成功");
+					} else {
+						alert(data);
+					}
+					location.reload();
+				});
+		});
+		/*
+		 * datatables
+		 * */
+		var table = $("#example1").DataTable({
+			"processing": true,
+            "serverSide": true,
+            "ajax": "<php>echo U('Admin/User/admintable')</php>",
+			"language": {
+				"sProcessing":   "处理中...",
+				"lengthMenu": "每页 _MENU_ 条记录",
+				"zeroRecords": "没有找到记录",
+				"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty": "无记录",
+				"infoFiltered": "(从 _MAX_ 条记录过滤)",
+				"search": "搜索",
+				"sLoadingRecords": "载入中...",
+				"paginate": {
+					"previous": "前页",
+					"next": "后页"
+				}
+			}
+		});
+		$('#example1 tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Admin-User-admincard-id-" + id;
+		});
+	</script>
+</block>

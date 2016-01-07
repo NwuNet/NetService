@@ -1,0 +1,1143 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	<!-- Messages: style can be found in dropdown.less-->
+	<li class="dropdown messages-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-envelope-o"></i>
+			<span class="label label-success">4</span>
+		</a>
+		<ul class="dropdown-menu">
+			<li class="header">4条消息</li>
+			<li>
+				<!-- inner menu: contains the actual data -->
+				<ul class="menu">
+					<li>
+						<!-- start message -->
+						<a href="#">
+							<div class="pull-left">
+								<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+							</div>
+							<h4>
+				胡洋
+				<small><i class="fa fa-clock-o"></i> 5 分钟</small>
+			  </h4>
+							<p>记得备份数据库</p>
+						</a>
+					</li>
+					<!-- end message -->
+					<li>
+						<a href="#">
+							<div class="pull-left">
+								<img src="__PUBLIC__/AdminLTE2/dist/img/tang.png" class="img-circle" alt="User Image">
+							</div>
+							<h4>
+				唐嫣
+				<small><i class="fa fa-clock-o"></i> 2 小时</small>
+			  </h4>
+							<p>能不能提高我的权限？</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<div class="pull-left">
+								<img src="__PUBLIC__/AdminLTE2/dist/img/zhou.jpg" class="img-circle" alt="User Image">
+							</div>
+							<h4>
+				周杰伦
+				<small><i class="fa fa-clock-o"></i> 昨天</small>
+			  </h4>
+							<p>哎呦，不错哟！</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<div class="pull-left">
+								<img src="__PUBLIC__/AdminLTE2/dist/img/hu.jpg" class="img-circle" alt="User Image">
+							</div>
+							<h4>
+				胡歌
+				<small><i class="fa fa-clock-o"></i> 2 天</small>
+			  </h4>
+							<p>策马迎风，看人生起伏。啸歌书景，笑天地荒老。以梦为马，驰骋流年。</p>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="footer"><a href="#">查看所有消息</a></li>
+		</ul>
+	</li>
+
+	<!-- Notifications: style can be found in dropdown.less -->
+	<li class="dropdown notifications-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bell-o"></i>
+			<span class="label label-warning">2</span>
+		</a>
+		<ul class="dropdown-menu">
+			<li class="header">2条通知</li>
+			<li>
+				<!-- inner menu: contains the actual data -->
+				<ul class="menu">
+					<li>
+						<a href="#">
+							<i class="fa fa-users text-aqua"></i> 今天访问人数达到66人
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-warning text-yellow"></i> 图片缓存已达到1024M，注意清理
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="footer"><a href="#">查看所有通知</a></li>
+		</ul>
+	</li>
+
+	<!-- Tasks: style can be found in dropdown.less -->
+	<li class="dropdown tasks-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-flag-o"></i>
+			<span class="label label-danger">2</span>
+		</a>
+		<ul class="dropdown-menu">
+			<li class="header">2个任务</li>
+			<li>
+				<!-- inner menu: contains the actual data -->
+				<ul class="menu">
+					<li>
+						<!-- Task item -->
+						<a href="#">
+							<h3>
+				备份数据库
+				<small class="pull-right">20%</small>
+			  </h3>
+							<div class="progress xs">
+								<div class="progress-bar progress-bar-red" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+									<span class="sr-only">20% </span>
+								</div>
+							</div>
+						</a>
+					</li>
+					<!-- end task item -->
+					<li>
+						<!-- Task item -->
+						<a href="#">
+							<h3>
+				清理缓存
+				<small class="pull-right">40%</small>
+			  </h3>
+							<div class="progress xs">
+								<div class="progress-bar progress-bar-yellow" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+									<span class="sr-only">40% </span>
+								</div>
+							</div>
+						</a>
+					</li>
+					<!-- end task item -->
+				</ul>
+			</li>
+			<li class="footer">
+				<a href="#">查看所有任务</a>
+			</li>
+		</ul>
+	</li>
+	<!-- User Account: style can be found in dropdown.less -->
+	<li class="dropdown user user-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="user-image" alt="User Image">
+			<span class="hidden-xs">胡洋</span>
+		</a>
+		<ul class="dropdown-menu">
+			<!-- User image -->
+			<li class="user-header">
+				<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+
+				<p>
+					胡洋 - 后台管理员
+					<small>注册于2015.11.08</small>
+				</p>
+			</li>
+			<!-- Menu Footer-->
+			<li class="user-footer">
+				<div class="pull-left">
+					<a href="#" class="btn btn-default btn-flat">个人设置</a>
+				</div>
+				<div class="pull-right">
+					<a href="#" class="btn btn-default btn-flat">退出</a>
+				</div>
+			</li>
+		</ul>
+	</li>
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>胡洋</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+	<!-- search form -->
+	<form action="#" method="get" class="sidebar-form">
+		<div class="input-group">
+			<input type="text" name="q" class="form-control" placeholder="搜索...">
+			<span class="input-group-btn">
+			<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+			</button>
+		  </span>
+		</div>
+	</form>
+	<!-- /.search form -->
+	<!-- sidebar menu: : style can be found in sidebar.less -->
+	<ul class="sidebar-menu">
+		<li class="treeview">
+			<a href="<php>echo U('Boss/Index/index')</php>">
+				<i class="fa fa-dashboard"></i> <span>首页</span>
+			</a>
+		</li>
+		<li class="header">操作相关</li>
+		<li class="active treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-truck"></i>
+				<span>资产管理</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="<php>echo U('Boss/DoAsset/tool')</php>">
+						<i class="fa fa-fw fa-wrench"></i>
+						<span>工具</span>
+					</a>
+				</li>
+				<li class="active">
+					<a href="#">
+						<i class="fa fa-fw fa-recycle"></i>
+						<span>耗材</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoAsset/device')</php>">
+						<span class="fa fa-fw fa-cubes"></span>
+						<span>设备</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoAsset/paper')</php>">
+						<span class="fa fa-fw fa-image"></span>
+						<span>证照</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoAsset/other')</php>">
+						<span class="fa fa-fw fa-arrows"></span>
+						<span>其他</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-users"></i>
+				<span>人事管理</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/register')</php>">
+						<i class="fa fa-fw fa-calendar-check-o"></i>
+						<span>考勤信息</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/employ')</php>">
+						<i class="fa fa-fw fa-newspaper-o"></i>
+						<span>招聘信息</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/evaluate')</php>">
+						<i class="fa fa-fw fa-sort-numeric-asc"></i>
+						<span>绩效评分</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/query')</php>">
+						<i class="fa fa-fw fa-line-chart"></i>
+						<span>绩效查询</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/staff')</php>">
+						<i class="fa fa-fw fa-user"></i>
+						<span>员工管理</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-hand-o-up"></i>
+				<span>服务管理</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="<php>echo U('Boss/DoService/send')</php>">
+						<i class="fa fa-fw fa-check-square-o"></i>
+						<span>服务派单</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoService/query')</php>">
+						<i class="fa fa-fw fa-list-ol"></i>
+						<span>服务查询</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="header">数据相关</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-fw fa-table"></i> <span>资产报表</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-fw fa-list-alt"></i> <span>服务报表</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-fw fa-user-plus"></i> <span>人事报表</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-fw fa-commenting"></i> <span>反馈报表</span>
+			</a>
+		</li>
+		<li class="header">设置相关</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-truck"></i>
+				<span>资产设置</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/tool')</php>">
+						<i class="fa fa-fw fa-wrench"></i>
+						<span>工具</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/exhaust')</php>">
+						<i class="fa fa-fw fa-recycle"></i>
+						<span>耗材</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/device')</php>">
+						<span class="fa fa-fw fa-cubes"></span>
+						<span>设备</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/paper')</php>">
+						<span class="fa fa-fw fa-image"></span>
+						<span>证照</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/other')</php>">
+						<span class="fa fa-fw fa-arrows"></span>
+						<span>其他</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/overall')</php>">
+						<span class="fa fa-fw fa-circle-o"></span>
+						<span>全局字段</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-users"></i>
+				<span>人事设置</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-calendar-check-o"></i>
+						<span>考勤设置</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-sort-numeric-asc"></i>
+						<span>绩效设置</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-user"></i>
+						<span>员工设置</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-calendar-plus-o"></i>
+						<span>排班设置</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-area-chart"></i>
+				<span>报表设置</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-table"></i>
+						<span>资产</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-list-alt"></i>
+						<span>服务</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="fa fa-fw fa-user-plus"></span>
+						<span>人事</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</block>
+
+<block name="content-header">
+	<h1>
+	资产管理
+	<small><i class="fa fa-fw fa-recycle"></i>耗材</small>
+  </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li>资产管理</li>
+		<li class="active">耗材</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-shopping-cart"></i>
+					<h3 class="box-title">耗材入库</h3>
+
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body">
+					<div class="form-group">
+						<label>名称</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option selected="selected">请选择</option>
+							<option>垃圾袋</option>
+							<option>双绞线</option>
+							<option>水晶头</option>
+							<option>标签纸</option>
+							<option>打印纸</option>
+						</select>
+						<label>品牌</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option selected="selected">请选择</option>
+							<option>装天下</option>
+							<option>连世界</option>
+							<option>安棒</option>
+							<option>印辉</option>
+						</select>
+						<label>型号</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option selected="selected">请选择</option>
+							<option>大</option>
+							<option>中</option>
+							<option>小</option>
+							<option>50 mm</option>
+							<option>30 mm</option>
+						</select>
+						<label>入库数量</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								Num
+							</div>
+							<input type="text" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
+						</div>
+						<label>数量单位</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option>个</option>
+							<option>把</option>
+							<option>袋</option>
+							<option>盒</option>
+							<option>米</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary btn-block">提交</button>
+				</div>
+				<!-- box-body -->
+			</div>
+			<!-- box -->
+		</div>
+		<!-- col -->
+
+		<div class="col-md-6">
+			<div class="box box-solid bg-green-gradient">
+				<div class="box-header">
+					<i class="fa fa-recycle"></i>
+					<h3 class="box-title">耗材</h3>
+					<!-- tools box -->
+					<div class="pull-right box-tools">
+						<button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
+					<!-- /. tools -->
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body border-radius-none">
+					<div class="chart" id="chart_exhaust" style="height: 250px;"></div>
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer text-black">
+					<div class="row">
+						<div class="col-sm-6">
+							<!-- Progress bars -->
+							<div class="clearfix" style="border-bottom: 1px solid #eee">
+								<span class="pull-left">垃圾袋</span>
+								<small class="pull-right">2 包</small>
+							</div>
+							<div class="clearfix" style="border-bottom: 1px solid #eee">
+								<span class="pull-left">水晶头</span>
+								<small class="pull-right">54 个</small>
+							</div>
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-6">
+							<div class="clearfix" style="border-bottom: 1px solid #eee">
+								<span class="pull-left">双绞线</span>
+								<small class="pull-right">14 米</small>
+							</div>
+							<div class="clearfix" style="border-bottom: 1px solid #eee">
+								<span class="pull-left">标签纸</span>
+								<small class="pull-right">2 包</small>
+							</div>
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+			</div>
+			<!-- /.box -->
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-warning">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-table"></i>
+					<h3 class="box-title">耗材表</h3>
+
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+
+				<div class="box-body table-responsive">
+					<table id="example1" class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>id</th>
+								<th>批次</th>
+								<th>名称</th>
+								<th>品牌</th>
+								<th>型号</th>
+								<th>剩余数量</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>2015-10-12</td>
+								<td>垃圾袋</td>
+								<td>装天下</td>
+								<td>小</td>
+								<td>2 包</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>2015-10-12</td>
+								<td>水晶头</td>
+								<td>安棒</td>
+								<td>X</td>
+								<td>1 盒</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>2015-10-12</td>
+								<td>标签纸</td>
+								<td>印辉</td>
+								<td>30 mm</td>
+								<td>2 盒</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>2015-10-12</td>
+								<td>标签纸</td>
+								<td>印辉</td>
+								<td>30 mm</td>
+								<td>1 盒</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>2015-10-28</td>
+								<td>垃圾袋</td>
+								<td>装天下</td>
+								<td>小</td>
+								<td>2 包</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>2015-10-28</td>
+								<td>水晶头</td>
+								<td>安棒</td>
+								<td>X</td>
+								<td>1 盒</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>2015-10-28</td>
+								<td>标签纸</td>
+								<td>印辉</td>
+								<td>30 mm</td>
+								<td>2 盒</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>2015-10-28</td>
+								<td>标签纸</td>
+								<td>印辉</td>
+								<td>30 mm</td>
+								<td>1 盒</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>2015-10-29</td>
+								<td>标签纸</td>
+								<td>印辉</td>
+								<td>30 mm</td>
+								<td>2 盒</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>2015-10-29</td>
+								<td>标签纸</td>
+								<td>印辉</td>
+								<td>30 mm</td>
+								<td>1 盒</td>
+							</tr>
+							<tr>
+								<td>11</td>
+								<td>Camino 1.0</td>
+								<td>OSX.2+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>12</td>
+								<td>Camino 1.5</td>
+								<td>OSX.3+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>13</td>
+								<td>Netscape 7.2</td>
+								<td>Win 95+ / Mac OS 8.6-9.2</td>
+								<td>1.7</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>14</td>
+								<td>Netscape Browser 8</td>
+								<td>Win 98SE+</td>
+								<td>1.7</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>15</td>
+								<td>Netscape Navigator 9</td>
+								<td>Win 98+ / OSX.2+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>16</td>
+								<td>Mozilla 1.0</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>17</td>
+								<td>Mozilla 1.1</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.1</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>18</td>
+								<td>Mozilla 1.2</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.2</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>19</td>
+								<td>Mozilla 1.3</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.3</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>20</td>
+								<td>Mozilla 1.4</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.4</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>21</td>
+								<td>Mozilla 1.5</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.5</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>22</td>
+								<td>Mozilla 1.6</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.6</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>23</td>
+								<td>Mozilla 1.7</td>
+								<td>Win 98+ / OSX.1+</td>
+								<td>1.7</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>24</td>
+								<td>Mozilla 1.8</td>
+								<td>Win 98+ / OSX.1+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>25</td>
+								<td>Seamonkey 1.1</td>
+								<td>Win 98+ / OSX.2+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>26</td>
+								<td>Epiphany 2.20</td>
+								<td>Gnome</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>27</td>
+								<td>Safari 1.2</td>
+								<td>OSX.3</td>
+								<td>125.5</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>28</td>
+								<td>Safari 1.3</td>
+								<td>OSX.3</td>
+								<td>312.8</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>29</td>
+								<td>Safari 2.0</td>
+								<td>OSX.4+</td>
+								<td>419.3</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>30</td>
+								<td>Safari 3.0</td>
+								<td>OSX.4+</td>
+								<td>522.1</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>31</td>
+								<td>OmniWeb 5.5</td>
+								<td>OSX.4+</td>
+								<td>420</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>32</td>
+								<td>iPod Touch / iPhone</td>
+								<td>iPod</td>
+								<td>420.1</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>33</td>
+								<td>S60</td>
+								<td>S60</td>
+								<td>413</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>34</td>
+								<td>Opera 7.0</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>-</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>35</td>
+								<td>Opera 7.5</td>
+								<td>Win 95+ / OSX.2+</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>36</td>
+								<td>Opera 8.0</td>
+								<td>Win 95+ / OSX.2+</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>37</td>
+								<td>Opera 8.5</td>
+								<td>Win 95+ / OSX.2+</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>38</td>
+								<td>Opera 9.0</td>
+								<td>Win 95+ / OSX.3+</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>39</td>
+								<td>Opera 9.2</td>
+								<td>Win 88+ / OSX.3+</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>40</td>
+								<td>Opera 9.5</td>
+								<td>Win 88+ / OSX.3+</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>41</td>
+								<td>Opera for Wii</td>
+								<td>Wii</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>42</td>
+								<td>Nokia N800</td>
+								<td>N800</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>43</td>
+								<td>Nintendo DS browser</td>
+								<td>Nintendo DS</td>
+								<td>8.5</td>
+								<td>C/A<sup>1</sup></td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>44</td>
+								<td>Konqureror 3.1</td>
+								<td>KDE 3.1</td>
+								<td>3.1</td>
+								<td>C</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>45</td>
+								<td>Konqureror 3.3</td>
+								<td>KDE 3.3</td>
+								<td>3.3</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>46</td>
+								<td>Konqureror 3.5</td>
+								<td>KDE 3.5</td>
+								<td>3.5</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>47</td>
+								<td>Internet Explorer 4.5</td>
+								<td>Mac OS 8-9</td>
+								<td>-</td>
+								<td>X</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>48</td>
+								<td>Internet Explorer 5.1</td>
+								<td>Mac OS 7.6-9</td>
+								<td>1</td>
+								<td>C</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>49</td>
+								<td>Internet Explorer 5.2</td>
+								<td>Mac OS 8-X</td>
+								<td>1</td>
+								<td>C</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>50</td>
+								<td>NetFront 3.1</td>
+								<td>Embedded devices</td>
+								<td>-</td>
+								<td>C</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>51</td>
+								<td>NetFront 3.4</td>
+								<td>Embedded devices</td>
+								<td>-</td>
+								<td>A</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>52</td>
+								<td>Dillo 0.8</td>
+								<td>Embedded devices</td>
+								<td>-</td>
+								<td>X</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>53</td>
+								<td>Links</td>
+								<td>Text only</td>
+								<td>-</td>
+								<td>X</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>54</td>
+								<td>Lynx</td>
+								<td>Text only</td>
+								<td>-</td>
+								<td>X</td>
+								<td>盒</td>
+							</tr>
+							<tr>
+								<td>55</td>
+								<td>IE Mobile</td>
+								<td>Windows Mobile 6</td>
+								<td>-</td>
+								<td>C</td>
+								<td>袋</td>
+							</tr>
+							<tr>
+								<td>56</td>
+								<td>PSP browser</td>
+								<td>PSP</td>
+								<td>-</td>
+								<td>C</td>
+								<td>袋</td>
+							</tr>
+							<tr>
+								<td>57</td>
+								<td>All others</td>
+								<td>-</td>
+								<td>-</td>
+								<td>U</td>
+								<td>袋</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>id</th>
+								<th>编号</th>
+								<th>名称</th>
+								<th>品牌</th>
+								<th>型号</th>
+								<th>单位</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+			<!-- box -->
+		</div>
+		<!-- col-md-12 -->
+	</div>
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		//Morris
+		var line_exhaust = new Morris.Line({
+			element: 'chart_exhaust',
+			resize: true,
+			data: [{
+				y: '2015-02',
+				item1: 23
+			}, {
+				y: '2015-03',
+				item1: 35
+			}, {
+				y: '2015-04',
+				item1: 35
+			}, {
+				y: '2015-05',
+				item1: 29
+			}, {
+				y: '2015-06',
+				item1: 36
+			}, {
+				y: '2015-07',
+				item1: 19
+			}, {
+				y: '2015-08',
+				item1: 45
+			}, {
+				y: '2015-09',
+				item1: 43
+			}, {
+				y: '2015-10',
+				item1: 52
+			}, {
+				y: '2015-11',
+				item1: 56
+			}],
+			xkey: 'y',
+			ykeys: ['item1'],
+			labels: ['耗材总数'],
+			lineColors: ['#efefef'],
+			lineWidth: 2,
+			hideHover: 'auto',
+			gridTextColor: "#fff",
+			gridStrokeWidth: 0.4,
+			pointSize: 4,
+			pointStrokeColors: ["#efefef"],
+			gridLineColor: "#efefef",
+			gridTextFamily: "Open Sans",
+			gridTextSize: 10
+		});
+		//select2
+		$(".select2").select2();
+		//datatables
+		var table = $("#example1").DataTable({
+			"language": {
+				"lengthMenu": "每页 _MENU_ 条记录",
+				"zeroRecords": "没有找到记录",
+				"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty": "无记录",
+				"infoFiltered": "(从 _MAX_ 条记录过滤)",
+				"search": "搜索",
+				"paginate": {
+					"previous": "前页",
+					"next": "后页"
+				}
+			}
+		});
+		$('#example1 tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Boss-DoAsset-exhaustcard-id-" + id;
+		});
+	</script>
+</block>

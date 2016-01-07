@@ -1,0 +1,250 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 后台管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<!-- Sidebar user panel -->
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>胡洋</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('menuusergroup'))}
+	<!--menu widget-->
+</block>
+
+<block name="content-header">
+	<h1>用户组管理
+		<small><i class="fa fa-fw fa-users"></i></small>
+      </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">用户组管理</li>
+	</ol>
+</block>
+
+<block name="content">
+	<!-- Small boxes (Stat box) -->
+	<div class="row">
+		<div class="col-md-4">
+			<div class="box">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-users"></i>
+					<h3 class="box-title">Admin用户组</h3>&ensp;
+					<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal" data-whatever="Admin">
+						<i class="fa fa-plus">添加</i>
+					</button>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table id="admingroup" class="table table-hover">
+						<thead>
+							<th>ID</th>
+							<th>组名</th>
+							<th>状态</th>
+						</thead>
+						<tbody>
+							<volist name="admin" id="vo">
+								<tr>
+									<td>{$vo.group_id}</td>
+									<td>{$vo.gname}</td>
+									<td>
+										<if condition="$vo.status eq 1">
+											<span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+											<else/><span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span>
+										</if>
+									</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-users"></i>
+					<h3 class="box-title"><font color="#3c8dbc">Boss</font>用户组</h3>&ensp;
+					<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal" data-whatever="Boss">
+						<i class="fa fa-plus">添加</i>
+					</button>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table id="bossgroup" class="table table-hover">
+						<thead>
+							<th>ID</th>
+							<th>组名</th>
+							<th>状态</th>
+						</thead>
+						<tbody>
+							<volist name="boss" id="vo">
+								<tr>
+									<td>{$vo.group_id}</td>
+									<td>{$vo.gname}</td>
+									<td>
+										<if condition="$vo.status eq 1">
+											<span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+											<else/><span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span>
+										</if>
+									</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="box box-success">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-users"></i>
+					<h3 class="box-title"><font color="#00a65a">Staff</font>用户组</h3>&ensp;
+					<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal" data-whatever="Staff">
+						<i class="fa fa-plus">添加</i>
+					</button>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table id="staffgroup" class="table table-hover">
+						<thead>
+							<th>ID</th>
+							<th>组名</th>
+							<th>状态</th>
+						</thead>
+						<tbody>
+							<volist name="staff" id="vo">
+								<tr>
+									<td>{$vo.group_id}</td>
+									<td>{$vo.gname}</td>
+									<td>
+										<if condition="$vo.status eq 1">
+											<span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+											<else/><span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span>
+										</if>
+									</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+	</div>
+	<!-- row -->
+</block>
+
+<block name="script">
+	<!-- add Modal -->
+	<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">添加用户组</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addform">
+						<div class="form-group">
+							<label for="level" class="control-label">用户组所属模块</label>
+							<input type="text" class="form-control" id="level" name="level" disabled="disabled"/>
+						</div>
+						<div class="form-group">
+							<label for="gname" class="control-label">用户组名</label>
+							<input type="text" class="form-control" id="gname" name="gname" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="addbtn" disabled="disabled" type="button" class="btn btn-primary">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		/*
+		 * 模态框:添加用户组
+		 * */
+		$('#addmodal').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Button that triggered the modal
+		  var recipient = button.data('whatever') // Extract info from data-* attributes
+		  var modal = $(this)
+		  modal.find('.modal-title').text('添加用户组到 ' + recipient)
+		  modal.find('.modal-body #level').val(recipient)
+		});
+		/*
+		 * 添加用户组
+		 * */
+		$("#addbtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Admin/UserGroup/add')</php>",{
+				gname:$("#gname")[0].value,
+				level:$("#level")[0].value
+				},
+				function(data) {
+					$btn.button('reset');
+					if (data == true) {
+						alert("添加成功");
+					} else {
+						alert(data);
+					}
+					location.reload();
+				});
+		});
+		/*
+		 * 判断用户组名是否为空
+		 * */
+		$("#gname").keyup(function(){
+			if($("#gname")[0].value == ''){
+				$("#gname").parent().addClass("has-error");
+				$("#addbtn").attr("disabled","disabled");
+			}else{
+				$("#gname").parent().removeClass("has-error");
+				$("#addbtn").removeAttr("disabled");
+			}
+		});
+		/**
+		 * admin表跳转
+		 * */
+		$('#admingroup tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Admin-UserGroup-admincard-id-" + id;
+		});
+	</script>
+</block>

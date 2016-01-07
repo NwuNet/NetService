@@ -1,0 +1,252 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 后台管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<!-- Sidebar user panel -->
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>胡洋</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('menumodule'))}
+	<!--menu widget-->
+</block>
+
+<block name="content-header">
+	<h1>模块管理
+		<small><i class="fa fa-fw fa-th-large"></i></small>
+      </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">模块管理</li>
+	</ol>
+</block>
+
+<block name="content">
+	<!-- Small boxes (Stat box) -->
+	<div class="row">
+		<div class="col-md-6">
+			<div class="box">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-th-large"></i>
+					<h3 class="box-title">Admin</h3>
+					<div class="box-tools pull-right">
+						<span class="label label-default">后台模块</span>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table id="adminmenu" class="table table-hover">
+						<thead>
+							<th>菜单名</th>
+							<th>别名</th>
+							<th>描述</th>
+						</thead>
+						<tbody>
+							<volist name="admin" id="vo">
+								<tr>
+									<td><i class="fa fa-fw {$vo.icon}"></i>{$vo.mname}</td>
+									<td>{$vo.label}</td>
+									<td>{$vo.note}</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+		
+		<div class="col-md-6">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<font color="#3c8dbc"><i class="fa fa-fw fa-th-large"></i></font>
+					<h3 class="box-title"><font color="#3c8dbc">Boss</font></h3>
+					<div class="box-tools pull-right">
+						<span class="label label-primary">管理模块</span>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table id="bossmenu" class="table table-hover">
+						<thead>
+							<th>菜单名</th>
+							<th>别名</th>
+							<th>描述</th>
+						</thead>
+						<tbody>
+							<volist name="boss" id="vo">
+								<tr>
+									<td><i class="fa fa-fw {$vo.icon}"></i>{$vo.mname}</td>
+									<td>{$vo.label}</td>
+									<td>{$vo.note}</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+		
+		<div class="col-md-6">
+			<div class="box box-success">
+				<div class="box-header with-border">
+					<font color="#00a65a"><i class="fa fa-fw fa-th-large"></i></font>
+					<h3 class="box-title"><font color="#00a65a">Home</font></h3>
+					<div class="box-tools pull-right">
+						<span class="label label-success">前台模块</span>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table id="homemenu" class="table table-hover">
+						<thead>
+							<th>菜单名</th>
+							<th>别名</th>
+							<th>描述</th>
+						</thead>
+						<tbody>
+							<volist name="home" id="vo">
+								<tr>
+									<td><i class="fa fa-fw {$vo.icon}"></i>{$vo.mname}</td>
+									<td>{$vo.label}</td>
+									<td>{$vo.note}</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+		
+		<div class="col-md-6">
+			<div class="box box-success">
+				<div class="box-header with-border">
+					<font color="#00a65a"><i class="fa fa-fw fa-th-large"></i></font>
+					<h3 class="box-title"><font color="#00a65a">Staff</font></h3>
+					<div class="box-tools pull-right">
+						<span class="label label-success">员工模块</span>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table id="homemenu" class="table table-hover">
+						<thead>
+							<th>菜单名</th>
+							<th>别名</th>
+							<th>描述</th>
+						</thead>
+						<tbody>
+							<volist name="staff" id="vo">
+								<tr>
+									<td><i class="fa fa-fw {$vo.icon}"></i>{$vo.mname}</td>
+									<td>{$vo.label}</td>
+									<td>{$vo.note}</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+	</div>
+	<!-- row -->
+</block>
+
+<block name="script">
+	<!-- add Modal -->
+	<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">添加用户组</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addform">
+						<div class="form-group">
+							<label for="level" class="control-label">用户组所属模块</label>
+							<input type="text" class="form-control" id="level" name="level" disabled="disabled"/>
+						</div>
+						<div class="form-group">
+							<label for="gname" class="control-label">用户组名</label>
+							<input type="text" class="form-control" id="gname" name="gname" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="addbtn" disabled="disabled" type="button" class="btn btn-primary">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(".chklist").labelauty("chklist", "check");
+		/*
+		 * 模态框:添加用户组
+		 * */
+		$('#addmodal').on('show.bs.modal', function (event) {
+		  var button = $(event.relatedTarget) // Button that triggered the modal
+		  var recipient = button.data('whatever') // Extract info from data-* attributes
+		  var modal = $(this)
+		  modal.find('.modal-title').text('添加用户组到 ' + recipient)
+		  modal.find('.modal-body #level').val(recipient)
+		});
+		/*
+		 * 添加用户组
+		 * */
+		$("#addbtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Admin/UserGroup/add')</php>",{
+				gname:$("#gname")[0].value,
+				level:$("#level")[0].value
+				},
+				function(data) {
+					$btn.button('reset');
+					if (data == true) {
+						alert("添加成功");
+					} else {
+						alert(data);
+					}
+					location.reload();
+				});
+		});
+		/*
+		 * 判断用户组名是否为空
+		 * */
+		$("#gname").keyup(function(){
+			if($("#gname")[0].value == ''){
+				$("#gname").parent().addClass("has-error");
+				$("#addbtn").attr("disabled","disabled");
+			}else{
+				$("#gname").parent().removeClass("has-error");
+				$("#addbtn").removeAttr("disabled");
+			}
+		});
+		/**
+		 * admin表跳转
+		 * */
+		/*$('#admingroup tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Admin-UserGroup-admincard-id-" + id;
+		});*/
+	</script>
+</block>

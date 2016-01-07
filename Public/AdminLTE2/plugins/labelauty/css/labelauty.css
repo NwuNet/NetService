@@ -1,0 +1,62 @@
+.rdolist, .chklist {
+    display: none;
+}
+
+.rdobox, .chkbox {
+	cursor: pointer;
+    width:100%;
+    display: inline-block;
+    padding: 10px;
+    height: 32px;
+    line-height: 16px;
+    background: #eee;
+    border-radius: 3px;
+    color: #666;
+    font-family: 'Microsoft YaHei';
+}
+
+.uncheck-image {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-top: -4px;
+    background: url(../images/input-unchecked.png) no-repeat;
+    vertical-align: middle;
+}
+
+.check-image {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-top: -4px;
+    background: url(../images/input-checked.png) no-repeat;
+    vertical-align: middle;
+}
+
+.unchecked {
+    background: #ECF0F1;
+    color: #666;
+    transition-property: background;
+    transition-delay: 0s;
+    transition-duration: .1s;
+    transition-timing-function: linear;
+}
+
+.unchecked:hover {
+    background: #dedfe0;
+}
+
+.checked {
+    background: #3498DB;
+    color: #fff;
+}
+
+.checked-warning {
+    background: #f39c12;
+    color: #fff;
+}
+
+.checked-danger {
+    background: #dd4b39;
+    color: #fff;
+}

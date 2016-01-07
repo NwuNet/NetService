@@ -1,0 +1,288 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 后台管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<!-- Sidebar user panel -->
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>胡洋</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('menudata'))}
+	<!--menu widget-->
+
+</block>
+
+<block name="content-header">
+	<h1>数据库管理
+		<small><i class="fa fa-fw fa-database"></i></small>
+      </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">数据库</li>
+	</ol>
+</block>
+<block name="content">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-database"></i>
+					<h3 class="box-title">所有数据表</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table class="table table-hover no-margin">
+						<thead>
+							<th>表名</th>
+							<th>说明</th>
+							<th>索引大小</th>
+							<th>当前记录数</th>
+							<th>平均记录长度</th>
+							<th>创建时间</th>
+						</thead>
+						<tbody>
+							<foreach name="list" item="vo">
+								<tr>
+									<td>{$vo.name}</td>
+									<td>{$vo.comment}</td>
+									<td>{$vo.index_length}</td>
+									<td>{$vo.rows}</td>
+									<td>{$vo.avg_row_length}</td>
+									<td>{$vo.create_time}</td>
+								</tr>
+							</foreach>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+				<div class="box-footer">
+					<div class="btn-group">
+						<button class="btn btn-primary" data-toggle="modal" data-target="#backupmodal">
+							<i class="fa fa-save"></i> 备份表
+						</button>
+						<button id="optimizebtn" class="btn btn-info">
+							<i class="fa fa-arrow-up"></i> 优化表
+						</button>
+						<button id="repairbtn" class="btn btn-info">
+							<i class="fa fa-refresh"></i> 修复表
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-database"></i>
+					<h3 class="box-title">已备份数据库</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive no-padding">
+					<table class="table no-margin table-striped">
+						<thead>
+							<th>备份时间节点</th>
+							<th>操作</th>
+						</thead>
+						<tbody>
+							<foreach name="table" item="vo">
+								<tr>
+									<td>{$vo.time}</td>
+									<td>
+										<button onclick="idtomodal(this)" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#restoremodal">
+											<i class="fa fa-arrow-left">还原</i>
+										</button>
+										<button onclick="idtomodal(this)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deletemodal">
+											<i class="fa fa-remove">删除</i>
+										</button>
+									</td>
+								</tr>
+							</foreach>
+						</tbody>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+	<!-- backup Modal -->
+	<div class="modal fade" id="backupmodal" tabindex="-1" role="dialog" aria-labelledby="backlabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h3>确认备份当前所有表？</h3>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="backupbtn" type="button" class="btn btn-primary">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- restore Modal -->
+	<div class="modal fade" id="restoremodal" tabindex="-1" role="dialog" aria-labelledby="deletelabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h3>确认还原该备份？</h3>
+					<input type="text" class="form-control" id="time1" name="time" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="restorebtn" type="button" class="btn btn-warning">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete Modal -->
+	<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="deletelabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h3>确认删除该备份？</h3>
+					<input type="text" class="form-control" id="time2" name="time" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="deletebtn" type="button" class="btn btn-danger">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var prewarning = '<div class="callout callout-warning" id="call1">';
+		var presuccess = '<div class="callout callout-success" id="call2">';
+		var endmsg = '</div>'
+		var msg1 = "你已有30天未备份数据库了"
+		setTimeout(function() {
+			$(".content").prepend(prewarning + msg1 + endmsg);
+			setTimeout(function() {
+				$("#call1").fadeOut("slow", function() {
+					$(this).remove();
+				});
+			}, 5000);
+		}, 6000);
+		/*
+		 * 备份事件
+		 * */
+		$("#backupbtn").click(function() {
+			var $btn = $(this).button('loading')
+			$.post("<php>echo U('Admin/SystemData/backup')</php>", {
+				s: "1"
+			}, function(data) {
+				if (data) {
+					$btn.button('reset');
+					alert("备份成功");
+					location.reload();
+				} else {
+					alert("备份失败");
+				}
+			});
+		});
+		/*
+		 * 优化事件
+		 * */
+		$("#optimizebtn").click(function() {
+			var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+			$(".box").append(loading);
+			var $btn = $(this).button('loading')
+			$.post("<php>echo U('Admin/SystemData/optimize')</php>", {
+				s: "1"
+			}, function(data) {
+				if (data) {
+					$btn.button('reset');
+					$("div").remove(".overlay");
+					alert("优化成功");
+				} else {
+					alert("优化失败");
+				}
+			});
+		});
+		/*
+		 * 修复事件
+		 * */
+		$("#repairbtn").click(function() {
+			var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+			$(".box").append(loading);
+			var $btn = $(this).button('loading')
+			$.post("<php>echo U('Admin/SystemData/repair')</php>", {
+				s: "1"
+			}, function(data) {
+				if (data) {
+					$btn.button('reset');
+					$("div").remove(".overlay");
+					alert("修复成功");
+				} else {
+					alert("修复失败");
+				}
+			});
+		});
+		/*
+		 * 还原数据事件
+		 * */
+		$("#restorebtn").click(function() {
+			var $btn = $(this).button('loading')
+			$.post("<php>echo U('Admin/SystemData/restorebackup')</php>", {
+				time: $("#time1")[0].value
+			}, function(data) {
+				if (data) {
+					$btn.button('reset');
+					alert("还原数据成功");
+					location.reload();
+				} else {
+					alert("还原数据失败");
+				}
+			});
+		});
+		/*
+		 * 删除数据事件
+		 * */
+		$("#deletebtn").click(function() {
+			var $btn = $(this).button('loading')
+			$.post("<php>echo U('Admin/SystemData/deletebackup')</php>", {
+				time: $("#time2")[0].value
+			}, function(data) {
+				if (data) {
+					$btn.button('reset');
+					alert("删除成功");
+					location.reload();
+				} else {
+					alert("删除失败");
+				}
+			});
+		});
+		/*添加数据绑定*/
+		function idtomodal(obj) {
+			var time = obj.parentElement.parentElement.children[0].innerHTML;
+			$("#time1")[0].value = time;
+			$("#time2")[0].value = time;
+		}
+	</script>
+</block>

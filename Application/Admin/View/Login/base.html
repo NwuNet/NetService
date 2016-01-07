@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Network Service</title>
+
+		<!--必要样式-->
+		<css href="__PUBLIC__/sidetext/css/style.css" media="screen" />
+		<css href="__PUBLIC__/sidetext/css/normalize.css" />
+		<css href="__PUBLIC__/AdminLTE2/bootstrap/css/bootstrap.min.css" />
+
+		<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="body--black">
+					<canvas class="canvas"></canvas>
+
+					<div class="ui" style="visibility:hidden;">
+						<input class="ui-input" type="text" />
+						<span class="ui-return"></span>
+					</div>
+
+					<div class="overlay">
+						<div class="tabs">
+							<div class="tabs-labels"><span class="tabs-label">Commands</span><span class="tabs-label">Info</span><span class="tabs-label">Share</span></div>
+
+							<div class="tabs-panels">
+								<ul class="tabs-panel commands">
+									<li class="commands-item"><span class="commands-item-title">Text</span><span class="commands-item-info" data-demo="Hello :)">Type anything</span><span class="commands-item-action">Demo</span></li>
+									<li class="commands-item"><span class="commands-item-title">Countdown</span><span class="commands-item-info" data-demo="#countdown 10">#countdown<span class="commands-item-mode">number</span></span><span class="commands-item-action">Demo</span></li>
+									<li class="commands-item"><span class="commands-item-title">Time</span><span class="commands-item-info" data-demo="#time">#time</span><span class="commands-item-action">Demo</span></li>
+									<li class="commands-item"><span class="commands-item-title">Rectangle</span><span class="commands-item-info" data-demo="#rectangle 30x15">#rectangle<span class="commands-item-mode">width x height</span></span><span class="commands-item-action">Demo</span></li>
+									<li class="commands-item"><span class="commands-item-title">Circle</span><span class="commands-item-info" data-demo="#circle 25">#circle<span class="commands-item-mode">diameter</span></span><span class="commands-item-action">Demo</span></li>
+									<li class="commands-item commands-item--gap"><span class="commands-item-title">Animate</span><span class="commands-item-info" data-demo="The time is|#time|#countdown 3|#icon thumbs-up"><span class="commands-item-mode">command1</span>&nbsp;|<span class="commands-item-mode">command2</span></span>
+										<span class="commands-item-action">Demo</span>
+									</li>
+								</ul>
+							</div>
+							<!-- tabs-panels -->
+						</div>
+						<!-- tabs -->
+					</div>
+					<!-- overlay -->
+				</div>
+				<!-- body--green -->
+			</div>
+			<!-- row -->
+			<div class="main-center">
+				<form action="" name="login_form" id="login_form" method="post">
+					<div class="form-group">
+						<input name="uname" id="uname" type="text" style="height:32px;width:256px;" placeholder="用户名" />
+					</div>
+					<div class="form-group">
+						<input name="password" id="password" type="password" style="height:32px;width:256px;" placeholder="密码" />
+					</div>
+					<div class="form-group">
+						<img id="verify_img" alt="验证码" src="<php>echo U('Admin/Login/verify_c')</php>" title="点击刷新" />
+					</div>
+					<div class="form-group">
+						<input name="verify" id="verify" type="text" style="height:32px;width:256px;" placeholder="验证码" />
+					</div>
+					<a id="submit" class="btn btn-large btn-default btn-block">登录</a>
+				</form>
+			</div>
+		</div>
+
+		<js href="__PUBLIC__/sidetext/js/admin.js" />
+		<js href="__PUBLIC__/AdminLTE2/plugins/jQuery/jQuery-2.1.4.min.js" />
+		<js href="__PUBLIC__/AdminLTE2/bootstrap/js/bootstrap.min.js" />
+		<script type="text/javascript">
+			$("#uname").focus();
+			/*验证码刷新*/
+			$("#verify_img").click(function() {
+				var verify_link = "<php>echo U('Admin/Login/verify_c','','')</php>-" + Math.random() + ".html";
+				$(this).attr("src", verify_link);
+			});
+			/*表单验证*/
+			$("#submit").click(function() {
+				if ($("#uname").val() == '') {
+					alert("请输入用户名");
+					$("#uname").focus();
+				} else if ($("#password").val() == '') {
+					alert("请输入密码");
+					$("#password").focus();
+				} else if ($("#verify").val() == '') {
+					alert("请输入验证码");
+					$("#verify").focus();
+				} else {
+					$.post("<php>echo U('Admin/Login/verify')</php>", $("#login_form").serialize(), function(data) {
+						if (data) {
+							location.href = "index.php?s=/Admin-Index-index.html";
+						} else {
+							alert("登录失败");
+							$("#password,#verify").val('');
+							$("#uname").val('').focus();
+							$("#verify_img").click();
+						}
+					});
+				}
+			});
+		</script>
+	</body>
+
+</html>

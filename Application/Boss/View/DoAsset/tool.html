@@ -1,0 +1,921 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	<!-- Messages: style can be found in dropdown.less-->
+	<li class="dropdown messages-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-envelope-o"></i>
+			<span class="label label-success">4</span>
+		</a>
+		<ul class="dropdown-menu">
+			<li class="header">4条消息</li>
+			<li>
+				<!-- inner menu: contains the actual data -->
+				<ul class="menu">
+					<li>
+						<!-- start message -->
+						<a href="#">
+							<div class="pull-left">
+								<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+							</div>
+							<h4>
+				胡洋
+				<small><i class="fa fa-clock-o"></i> 5 分钟</small>
+			  </h4>
+							<p>记得备份数据库</p>
+						</a>
+					</li>
+					<!-- end message -->
+					<li>
+						<a href="#">
+							<div class="pull-left">
+								<img src="__PUBLIC__/AdminLTE2/dist/img/tang.png" class="img-circle" alt="User Image">
+							</div>
+							<h4>
+				唐嫣
+				<small><i class="fa fa-clock-o"></i> 2 小时</small>
+			  </h4>
+							<p>能不能提高我的权限？</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							<div class="pull-left">
+								<img src="__PUBLIC__/AdminLTE2/dist/img/zhou.jpg" class="img-circle" alt="User Image">
+							</div>
+							<h4>
+				周杰伦
+				<small><i class="fa fa-clock-o"></i> 昨天</small>
+			  </h4>
+							<p>哎呦，不错哟！</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<div class="pull-left">
+								<img src="__PUBLIC__/AdminLTE2/dist/img/hu.jpg" class="img-circle" alt="User Image">
+							</div>
+							<h4>
+				胡歌
+				<small><i class="fa fa-clock-o"></i> 2 天</small>
+			  </h4>
+							<p>策马迎风，看人生起伏。啸歌书景，笑天地荒老。以梦为马，驰骋流年。</p>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="footer"><a href="#">查看所有消息</a></li>
+		</ul>
+	</li>
+
+	<!-- Notifications: style can be found in dropdown.less -->
+	<li class="dropdown notifications-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bell-o"></i>
+			<span class="label label-warning">2</span>
+		</a>
+		<ul class="dropdown-menu">
+			<li class="header">2条通知</li>
+			<li>
+				<!-- inner menu: contains the actual data -->
+				<ul class="menu">
+					<li>
+						<a href="#">
+							<i class="fa fa-users text-aqua"></i> 今天访问人数达到66人
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-warning text-yellow"></i> 图片缓存已达到1024M，注意清理
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="footer"><a href="#">查看所有通知</a></li>
+		</ul>
+	</li>
+
+	<!-- Tasks: style can be found in dropdown.less -->
+	<li class="dropdown tasks-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-flag-o"></i>
+			<span class="label label-danger">2</span>
+		</a>
+		<ul class="dropdown-menu">
+			<li class="header">2个任务</li>
+			<li>
+				<!-- inner menu: contains the actual data -->
+				<ul class="menu">
+					<li>
+						<!-- Task item -->
+						<a href="#">
+							<h3>
+				备份数据库
+				<small class="pull-right">20%</small>
+			  </h3>
+							<div class="progress xs">
+								<div class="progress-bar progress-bar-red" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+									<span class="sr-only">20% </span>
+								</div>
+							</div>
+						</a>
+					</li>
+					<!-- end task item -->
+					<li>
+						<!-- Task item -->
+						<a href="#">
+							<h3>
+				清理缓存
+				<small class="pull-right">40%</small>
+			  </h3>
+							<div class="progress xs">
+								<div class="progress-bar progress-bar-yellow" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+									<span class="sr-only">40% </span>
+								</div>
+							</div>
+						</a>
+					</li>
+					<!-- end task item -->
+				</ul>
+			</li>
+			<li class="footer">
+				<a href="#">查看所有任务</a>
+			</li>
+		</ul>
+	</li>
+	<!-- User Account: style can be found in dropdown.less -->
+	<li class="dropdown user user-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="user-image" alt="User Image">
+			<span class="hidden-xs">胡洋</span>
+		</a>
+		<ul class="dropdown-menu">
+			<!-- User image -->
+			<li class="user-header">
+				<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+
+				<p>
+					胡洋 - 后台管理员
+					<small>注册于2015.11.08</small>
+				</p>
+			</li>
+			<!-- Menu Footer-->
+			<li class="user-footer">
+				<div class="pull-left">
+					<a href="#" class="btn btn-default btn-flat">个人设置</a>
+				</div>
+				<div class="pull-right">
+					<a href="#" class="btn btn-default btn-flat">退出</a>
+				</div>
+			</li>
+		</ul>
+	</li>
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>胡洋</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+	<!-- search form -->
+	<form action="#" method="get" class="sidebar-form">
+		<div class="input-group">
+			<input type="text" name="q" class="form-control" placeholder="搜索...">
+			<span class="input-group-btn">
+			<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+			</button>
+		  </span>
+		</div>
+	</form>
+	<!-- /.search form -->
+	<!-- sidebar menu: : style can be found in sidebar.less -->
+	<ul class="sidebar-menu">
+		<li class="treeview">
+			<a href="<php>echo U('Boss/Index/index')</php>">
+				<i class="fa fa-dashboard"></i> <span>首页</span>
+			</a>
+		</li>
+		<li class="header">操作相关</li>
+		<li class="active treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-truck"></i>
+				<span>资产管理</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li class="active">
+					<a href="#">
+						<i class="fa fa-fw fa-wrench"></i>
+						<span>工具</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoAsset/exhaust')</php>">
+						<i class="fa fa-fw fa-recycle"></i>
+						<span>耗材</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoAsset/device')</php>">
+						<span class="fa fa-fw fa-cubes"></span>
+						<span>设备</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoAsset/paper')</php>">
+						<span class="fa fa-fw fa-image"></span>
+						<span>证照</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoAsset/other')</php>">
+						<span class="fa fa-fw fa-arrows"></span>
+						<span>其他</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-users"></i>
+				<span>人事管理</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/register')</php>">
+						<i class="fa fa-fw fa-calendar-check-o"></i>
+						<span>考勤信息</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/employ')</php>">
+						<i class="fa fa-fw fa-newspaper-o"></i>
+						<span>招聘信息</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/evaluate')</php>">
+						<i class="fa fa-fw fa-sort-numeric-asc"></i>
+						<span>绩效评分</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/query')</php>">
+						<i class="fa fa-fw fa-line-chart"></i>
+						<span>绩效查询</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoPeople/staff')</php>">
+						<i class="fa fa-fw fa-user"></i>
+						<span>员工管理</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-hand-o-up"></i>
+				<span>服务管理</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="<php>echo U('Boss/DoService/send')</php>">
+						<i class="fa fa-fw fa-check-square-o"></i>
+						<span>服务派单</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/DoService/query')</php>">
+						<i class="fa fa-fw fa-list-ol"></i>
+						<span>服务查询</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="header">数据相关</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-fw fa-table"></i> <span>资产报表</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-fw fa-list-alt"></i> <span>服务报表</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-fw fa-user-plus"></i> <span>人事报表</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-fw fa-commenting"></i> <span>反馈报表</span>
+			</a>
+		</li>
+		<li class="header">设置相关</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-truck"></i>
+				<span>资产设置</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/tool')</php>">
+						<i class="fa fa-fw fa-wrench"></i>
+						<span>工具</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/exhaust')</php>">
+						<i class="fa fa-fw fa-recycle"></i>
+						<span>耗材</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/device')</php>">
+						<span class="fa fa-fw fa-cubes"></span>
+						<span>设备</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/paper')</php>">
+						<span class="fa fa-fw fa-image"></span>
+						<span>证照</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/other')</php>">
+						<span class="fa fa-fw fa-arrows"></span>
+						<span>其他</span>
+					</a>
+				</li>
+				<li>
+					<a href="<php>echo U('Boss/SetAsset/overall')</php>">
+						<span class="fa fa-fw fa-circle-o"></span>
+						<span>全局字段</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-users"></i>
+				<span>人事设置</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-calendar-check-o"></i>
+						<span>考勤设置</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-sort-numeric-asc"></i>
+						<span>绩效设置</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-user"></i>
+						<span>员工设置</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-calendar-plus-o"></i>
+						<span>排班设置</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class="treeview">
+			<a href="#">
+				<i class="fa fa-fw fa-area-chart"></i>
+				<span>报表设置</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-table"></i>
+						<span>资产</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-fw fa-list-alt"></i>
+						<span>服务</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="fa fa-fw fa-user-plus"></span>
+						<span>人事</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</block>
+
+<block name="content-header">
+	<h1>
+	资产管理
+	<small><i class="fa fa-fw fa-wrench"></i>工具</small>
+  </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li>资产管理</li>
+		<li class="active">工具</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-shopping-cart"></i>
+					<h3 class="box-title">工具入库</h3>
+
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body">
+					<div class="form-group">
+						<label>名称</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option selected="selected">请选择</option>
+							<option>螺丝刀</option>
+							<option>剪线钳</option>
+							<option>测线仪</option>
+							<option>剥线刀</option>
+							<option>跳线</option>
+						</select>
+						<label>品牌</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option selected="selected">请选择</option>
+							<option>螺丝刀</option>
+							<option>剪线钳</option>
+							<option>测线仪</option>
+							<option>剥线刀</option>
+							<option>跳线</option>
+						</select>
+						<label>型号</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option selected="selected">请选择</option>
+							<option>大</option>
+							<option>中</option>
+							<option>小</option>
+							<option>剥线刀</option>
+							<option>跳线</option>
+						</select>
+						<label>入库数量</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+								Num
+							</div>
+							<input type="text" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
+						</div>
+						<label>数量单位</label>
+						<select class="form-control select2" style="width: 100%;">
+							<option>个</option>
+							<option>把</option>
+							<option>袋</option>
+							<option>盒</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary btn-block">提交</button>
+				</div>
+				<!-- box-body -->
+			</div>
+			<!-- box -->
+		</div>
+		<!-- col -->
+
+		<div class="col-md-6">
+			<div class="box box-solid bg-yellow-gradient">
+				<div class="box-header">
+					<i class="fa fa-wrench"></i>
+					<h3 class="box-title">工具库存数量</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body border-radius-none">
+					<div class="chart" id="chart_tools" style="height: 250px;"></div>
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer text-black">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="clearfix" style="border-bottom: 1px solid #eee">
+								<span class="pull-left">剪线钳</span>
+								<small class="pull-right">2 把</small>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="clearfix" style="border-bottom: 1px solid #eee">
+								<span class="pull-left">剥线刀</span>
+								<small class="pull-right">10 个</small>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="clearfix" style="border-bottom: 1px solid #eee">
+								<span class="pull-left">螺丝刀</span>
+								<small class="pull-right">3 把</small>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="clearfix" style="border-bottom: 1px solid #eee">
+								<span class="pull-left">测线仪</span>
+								<small class="pull-right">4 个</small>
+							</div>
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.box-footer -->
+			</div>
+			<!-- /.box -->
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-warning">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-table"></i>
+					<h3 class="box-title">工具表</h3>
+
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+
+				<div class="box-body table-responsive">
+					<table id="example1" class="table no-margin table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>id</th>
+								<th>编号</th>
+								<th>名称</th>
+								<th>品牌</th>
+								<th>型号</th>
+								<th>单位</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>lsd14479013901
+								</td>
+								<td>螺丝刀</td>
+								<td>能手</td>
+								<td>平口大</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>lsd14479013902
+								</td>
+								<td>螺丝刀</td>
+								<td>能手</td>
+								<td>平口小</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>lsd14479013903
+								</td>
+								<td>螺丝刀</td>
+								<td>能手</td>
+								<td>十字口大</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>lsd14479013904
+								</td>
+								<td>螺丝刀</td>
+								<td>能手</td>
+								<td>十字口小</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>cxy14479016231
+								</td>
+								<td>测线仪</td>
+								<td>劳动</td>
+								<td>小</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>cxy14479016232
+								</td>
+								<td>测线仪</td>
+								<td>劳动</td>
+								<td>中</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>cxy14479016233
+								</td>
+								<td>测线仪</td>
+								<td>劳动</td>
+								<td>大</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>cxy14479100711
+								</td>
+								<td>剪线钳</td>
+								<td>强力</td>
+								<td>小</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>cxy14479100712
+								</td>
+								<td>剪线钳</td>
+								<td>强力</td>
+								<td>中</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>cxy14479100713
+								</td>
+								<td>剪线钳</td>
+								<td>强力</td>
+								<td>大</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>11</td>
+								<td>Camino 1.0</td>
+								<td>OSX.2+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>12</td>
+								<td>Camino 1.5</td>
+								<td>OSX.3+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>13</td>
+								<td>Netscape 7.2</td>
+								<td>Win 95+ / Mac OS 8.6-9.2</td>
+								<td>1.7</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>14</td>
+								<td>Netscape Browser 8</td>
+								<td>Win 98SE+</td>
+								<td>1.7</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>15</td>
+								<td>Netscape Navigator 9</td>
+								<td>Win 98+ / OSX.2+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>16</td>
+								<td>Mozilla 1.0</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>17</td>
+								<td>Mozilla 1.1</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.1</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>18</td>
+								<td>Mozilla 1.2</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.2</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>19</td>
+								<td>Mozilla 1.3</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.3</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>20</td>
+								<td>Mozilla 1.4</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.4</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>21</td>
+								<td>Mozilla 1.5</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.5</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>22</td>
+								<td>Mozilla 1.6</td>
+								<td>Win 95+ / OSX.1+</td>
+								<td>1.6</td>
+								<td>A</td>
+								<td>把</td>
+							</tr>
+							<tr>
+								<td>23</td>
+								<td>Mozilla 1.7</td>
+								<td>Win 98+ / OSX.1+</td>
+								<td>1.7</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>24</td>
+								<td>Mozilla 1.8</td>
+								<td>Win 98+ / OSX.1+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>25</td>
+								<td>Seamonkey 1.1</td>
+								<td>Win 98+ / OSX.2+</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>26</td>
+								<td>Epiphany 2.20</td>
+								<td>Gnome</td>
+								<td>1.8</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>27</td>
+								<td>Safari 1.2</td>
+								<td>OSX.3</td>
+								<td>125.5</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+							<tr>
+								<td>28</td>
+								<td>Safari 1.3</td>
+								<td>OSX.3</td>
+								<td>312.8</td>
+								<td>A</td>
+								<td>个</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>id</th>
+								<th>编号</th>
+								<th>名称</th>
+								<th>品牌</th>
+								<th>型号</th>
+								<th>单位</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+			<!-- box -->
+		</div>
+		<!-- col-md-12 -->
+	</div>
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		//Morris
+		var line_tools = new Morris.Line({
+			element: 'chart_tools',
+			resize: true,
+			data: [{
+				y: '2015-02',
+				item1: 88
+			}, {
+				y: '2015-03',
+				item1: 69
+			}, {
+				y: '2015-04',
+				item1: 67
+			}, {
+				y: '2015-05',
+				item1: 62
+			}, {
+				y: '2015-06',
+				item1: 54
+			}, {
+				y: '2015-07',
+				item1: 57
+			}, {
+				y: '2015-08',
+				item1: 42
+			}, {
+				y: '2015-09',
+				item1: 33
+			}, {
+				y: '2015-10',
+				item1: 28
+			}, {
+				y: '2015-11',
+				item1: 11
+			}],
+			xkey: 'y',
+			ykeys: ['item1'],
+			labels: ['工具总数'],
+			lineColors: ['#efefef'],
+			lineWidth: 2,
+			hideHover: 'auto',
+			gridTextColor: "#fff",
+			gridStrokeWidth: 0.4,
+			pointSize: 4,
+			pointStrokeColors: ["#efefef"],
+			gridLineColor: "#efefef",
+			gridTextFamily: "Open Sans",
+			gridTextSize: 10
+		});
+		//select2
+		$(".select2").select2();
+		//datatables
+		var table = $("#example1").DataTable({
+			"language": {
+				"lengthMenu": "每页 _MENU_ 条记录",
+				"zeroRecords": "没有找到记录",
+				"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty": "无记录",
+				"infoFiltered": "(从 _MAX_ 条记录过滤)",
+				"search": "搜索",
+				"paginate": {
+					"previous": "前页",
+					"next": "后页"
+				}
+			}
+		});
+		$('#example1 tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Boss-DoAsset-toolcard-id-" + id;
+		});
+	</script>
+</block>

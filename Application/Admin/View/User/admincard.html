@@ -1,0 +1,281 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 后台管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<!-- Sidebar user panel -->
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>胡洋</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('menuuser','menuuseradmin'))}
+	<!--menu widget-->
+</block>
+
+<block name="content-header">
+	<h1>
+		<a href="<php>echo U('Admin/User/admin')</php>" class="">
+	  <i class="ion ion-backspace" data-toggle="tooltip" data-placement="top" title="返回"></i>
+	</a>
+		<i class="fa fa-fw fa-user"></i>用户详细信息
+      </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">用户管理</li>
+	</ol>
+</block>
+
+<block name="content">
+	<!-- Small boxes (Stat box) -->
+	<div class="row">
+		<div class="col-md-4">
+			<div class="box box-widget widget-user">
+				<!-- Add the bg color to the header using any of the bg-* classes -->
+				<div class="widget-user-header bg-primary">
+					<h3 class="widget-user-username">{$uname}</h3>
+					<h5 class="widget-user-desc" id="userid">ID: {$id}</h5>
+				</div>
+				<div class="widget-user-image">
+					<img class="img-circle" src="__PUBLIC__{$img}" alt="{$uname}">
+				</div>
+				<div class="box-footer">
+					<div class="row">
+						<div class="form-group margin">
+							<label for="uname">用户名</label>
+							<input type="email" class="form-control" id="uname" value="{$uname}">
+						</div>
+						<div class="form-group margin">
+							<label for="password">密码</label>
+							<input type="password" class="form-control" id="password" placeholder="密码">
+						</div>
+						<div class="form-group margin">
+							<label for="repassword">确认密码</label>
+							<input type="password" class="form-control" id="repassword" placeholder="确认密码">
+						</div>
+						<div class="form-group margin">
+							<label for="">注册时间</label>
+							<input type="text" disabled="true" class="form-control" value="{$begintime}">
+						</div>
+						<button id="editbtn" disabled="disabled" class="btn btn-primary margin">修改</button>
+					</div>
+					<!-- /.row -->
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title">用户组权限</h3>
+					<div class="box-tools">
+						<span class="label label-primary">超级管理员</span>
+					</div>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body table-responsive no-padding">
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+								<th colspan="3">系统相关</th>
+							</tr>
+							<tr>
+								<td rowspan="5"><i class="fa fa-fw fa-reorder"></i>系统日志</td>
+							</tr>
+							<tr>
+								<td>Home</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td>Staff</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td>Boss</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td>Admin</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td><i class="fa fa-fw fa-database"></i>数据库</td>
+								<td></td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td><i class="fa fa-fw fa-hourglass-half"></i>系统缓存</td>
+								<td></td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td><i class="fa fa-fw fa-file"></i>程序和文件</td>
+								<td></td>
+								<td><span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span></td>
+							</tr>
+							<tr>
+								<td><i class="fa fa-fw fa-th-large"></i>模块管理</td>
+								<td></td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<th colspan="3">用户相关</th>
+							</tr>
+							<tr>
+								<td rowspan="5"><i class="fa fa-fw fa-key"></i>权限管理</td>
+							</tr>
+							<tr>
+								<td>Home</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td>Staff</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td>Boss</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td>Admin</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td rowspan="5"><i class="fa fa-fw fa-user"></i>用户管理</td>
+							</tr>
+							<tr>
+								<td>Home</td>
+								<td><span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span></td>
+							</tr>
+							<tr>
+								<td>Staff</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td>Boss</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td>Admin</td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+							<tr>
+								<td><i class="fa fa-fw fa-users"></i>用户组管理</td>
+								<td></td>
+								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- /.box-body -->
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="box box-solid bg-green-gradient">
+				<div class="box-header">
+					<i class="fa fa-industry"></i>
+					<h3 class="box-title">登陆记录</h3>
+					<!-- tools box -->
+					<div class="pull-right box-tools">
+						<button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
+					<!-- /. tools -->
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body no-padding border-radius-none">
+					<div class="chart" id="chart_userlog" style="height: 250px;"></div>
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer text-black text-center">
+					<a href="#" class="btn-block">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+			<!-- /.box -->
+		</div>
+	</div>
+	<!-- row -->
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		var line_exhaust = new Morris.Line({
+			element: 'chart_userlog',
+			resize: true,
+			data: [{
+				y: '2015-02',
+				item1: 23
+			}, {
+				y: '2015-03',
+				item1: 35
+			}, {
+				y: '2015-04',
+				item1: 35
+			}, {
+				y: '2015-05',
+				item1: 29
+			}, {
+				y: '2015-06',
+				item1: 36
+			}, {
+				y: '2015-07',
+				item1: 19
+			}, {
+				y: '2015-08',
+				item1: 45
+			}, {
+				y: '2015-09',
+				item1: 43
+			}, {
+				y: '2015-10',
+				item1: 52
+			}, {
+				y: '2015-11',
+				item1: 56
+			}],
+			xkey: 'y',
+			ykeys: ['item1'],
+			labels: ['登陆记录'],
+			lineColors: ['#efefef'],
+			lineWidth: 2,
+			hideHover: 'auto',
+			gridTextColor: "#fff",
+			gridStrokeWidth: 0.4,
+			pointSize: 4,
+			pointStrokeColors: ["#efefef"],
+			gridLineColor: "#efefef",
+			gridTextFamily: "Open Sans",
+			gridTextSize: 10
+		});
+		/**
+		 * 确认密码
+		 * */
+		$("#repassword,#password").keyup(function(){
+			if($("#repassword")[0].value != $("#password")[0].value){
+				$("#repassword").parent().addClass("has-error");
+				$("#editbtn").attr("disabled","disabled");
+			}else{
+				$("#repassword").parent().removeClass("has-error");
+				$("#editbtn").removeAttr("disabled");
+			}
+		});
+	</script>
+</block>
