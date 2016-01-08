@@ -3,6 +3,7 @@
 }
 
 .rdobox, .chkbox {
+	margin: 0px;
 	cursor: pointer;
     width:100%;
     display: inline-block;
