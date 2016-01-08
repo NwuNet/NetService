@@ -69,17 +69,63 @@ class UserGroupController extends BaseController {
 		}
 	}
 	/*
-	 * 后台用户组页面
+	 * admin后台用户组页面
 	 * */
 	public function admincard($id=0){
 		if($id){
 			$UserGroup = D('UserGroup');
 			$menu = M('Menu');
-			$admin = $UserGroup->where('group_id = %d ',$id)->find();
+			$admin = $UserGroup->where('group_id = %d and level =1',$id)->find();
 			$adminmenu = $menu->where('group_id = 1 and status = 1')->select();
 			$this->assign('admin',$admin);
 			$this->assign('adminmenu',$adminmenu);
-			$this->display();
+			if(empty($admin)||empty($adminmenu)){
+				$this->_empty();
+			}else{
+				$this->display();
+			}
 		}
 	}
+	/*
+	 * boss管理用户组页面
+	 * */
+	public function bosscard($id=0){
+		if($id){
+			$UserGroup = D('UserGroup');
+			$menu = M('Menu');
+			$boss = $UserGroup->where('group_id = %d and level = 2',$id)->find();
+			$bossmenu = $menu->where('group_id = 2 and status = 1')->select();
+			$this->assign('boss',$boss);
+			$this->assign('bossmenu',$bossmenu);
+			if(empty($boss)||empty($bossmenu)){
+				$this->_empty();
+			}else{
+				$this->display();
+			}
+		}
+	}
+	/*
+	 * staff员工用户组页面
+	 * */
+	public function staffcard($id=0){
+		if($id){
+			$UserGroup = D('UserGroup');
+			$menu = M('Menu');
+			$staff = $UserGroup->where('group_id = %d and level = 4',$id)->find();
+			$staffmenu = $menu->where('group_id = 4 and status = 1')->select();
+			$this->assign('staff',$staff);
+			$this->assign('staffmenu',$staffmenu);
+			if(empty($staff)||empty($staffmenu)){
+				$this->_empty();
+			}else{
+				$this->display();
+			}
+		}
+	}
+	/*
+	 * 空页面
+	 * */
+	public function _empty($name){
+		echo "Not Found!";
+    }
 }

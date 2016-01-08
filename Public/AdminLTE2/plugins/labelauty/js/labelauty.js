@@ -30,7 +30,7 @@
             $('.' + tag).each(function (i) {
                 var rdobox = $('.' + tag).eq(i).next();
                 if ($('.' + tag).eq(i).prop("checked") == false) {
-                	if(rdobox.hasClass("chkwaring")){
+                	if(rdobox.hasClass("chkwarning")){
                 		rdobox.removeClass("checked-warning").addClass("unchecked");
                 	}else if(rdobox.hasClass("chkdanger")){
                 		rdobox.removeClass("checked-danger").addClass("unchecked");
@@ -40,7 +40,7 @@
                     rdobox.find("#chkbox-img").removeClass("check-image").addClass("uncheck-image");
                 }
                 else {
-                	if(rdobox.hasClass("chkwaring")){
+                	if(rdobox.hasClass("chkwarning")){
                 		rdobox.removeClass("unchecked").addClass("checked-warning");
                 	}else if(rdobox.hasClass("chkdanger")){
                     	rdobox.removeClass("unchecked").addClass("checked-danger");

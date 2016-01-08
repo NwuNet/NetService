@@ -33,7 +33,7 @@
 		<a href="<php>echo U('Admin/UserGroup/index')</php>" >
 	  <i class="ion ion-backspace" data-toggle="tooltip" data-placement="top" title="返回"></i>
 	</a>
-		<i class="fa fa-fw fa-users"></i>{$admin['gname']}
+		<i class="fa fa-fw fa-users"></i>{$boss['gname']}
       </h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
@@ -45,9 +45,9 @@
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
 		<div class="col-md-4">
-			<div class="box">
+			<div class="box box-primary">
 				<div class="box-header">
-					<h3 class="box-title"><span class="label label-default">{$admin['gname']}</span> Admin模块</h3>
+					<h3 class="box-title"><span class="label label-primary">{$boss['gname']}</span> Boss模块</h3>
 					<div class="box-tools pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
@@ -58,9 +58,9 @@
 					<form id="editform" action="" method="post">
 						<div class="form-group">
 	                  		<label for="gname">组名</label>
-	                  		<input type="text" class="form-control" id="gname" name="gname" value="{$admin['gname']}"/>
+	                  		<input type="text" class="form-control" id="gname" name="gname" value="{$boss['gname']}"/>
 	                	</div>
-	                	<if condition="$admin['status'] eq 1">
+	                	<if condition="$boss['status'] eq 1">
 	                		<input type="checkbox" id="status" name="status" class="chklist" />
 	                		<else/><input type="checkbox" id="status" name="status" class="chklist" checked="checked"/>
 	                	</if>
@@ -68,7 +68,7 @@
 	            			<span id="chkbox-img"></span>
 	            			<span class="radiobox-content">&nbsp;禁止登录</span>
 	        			</label>
-	        			<a id="editbtn" style="margin: 10px 0px;" class="btn btn-block btn-default">修改</a>
+	        			<a id="editbtn" style="margin: 10px 0px;" class="btn btn-block btn-primary">修改</a>
                 	</form>
 				</div>
 				<!-- box-body -->
@@ -76,9 +76,9 @@
 		</div>
 		
 		<div class="col-md-8">
-			<div class="box">
+			<div class="box box-primary">
 				<div class="box-header">
-					<h3 class="box-title"><span class="label label-default">{$admin['gname']} 权限</span> Admin模块</h3>
+					<h3 class="box-title"><span class="label label-primary">{$boss['gname']} 权限</span> Boss模块</h3>
 					<div class="box-tools pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
@@ -86,7 +86,7 @@
 					</div>
 				</div>
 				<div class="box-body">
-					<volist name="adminmenu" id="vo">
+					<volist name="bossmenu" id="vo">
 						<input type="checkbox" name="chk" class="chklist" />
 	        			<label class="chkbox">
 	            			<span id="chkbox-img"></span>
@@ -127,9 +127,9 @@
 		$("#editbtn").click(function() {
 			var $btn = $(this).button('loading');
 			$.post("<php>echo U('Admin/UserGroup/edit')</php>",{
-				id : {$admin['group_id']},
+				id : {$boss['group_id']},
 				gname : $("#gname")[0].value,
-				level : 'Admin',
+				level : 'Boss',
 				status : $("#status")[0].checked?0:1
 				},
 				function(data) {

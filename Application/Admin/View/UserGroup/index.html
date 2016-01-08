@@ -46,7 +46,7 @@
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-users"></i>
 					<h3 class="box-title">Admin用户组</h3>&ensp;
-					<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal" data-whatever="Admin">
+					<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#addmodal" data-whatever="Admin">
 						<i class="fa fa-plus">添加</i>
 					</button>
 					<div class="box-tools pull-right">
@@ -128,7 +128,7 @@
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-users"></i>
 					<h3 class="box-title"><font color="#00a65a">Staff</font>用户组</h3>&ensp;
-					<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal" data-whatever="Staff">
+					<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addmodal" data-whatever="Staff">
 						<i class="fa fa-plus">添加</i>
 					</button>
 					<div class="box-tools pull-right">
@@ -245,6 +245,20 @@
 		$('#admingroup tbody').on('click', 'tr', function() {
 			var id = $(this).children().first().html();
 			location.href = "index.php?s=/Admin-UserGroup-admincard-id-" + id;
+		});
+		/**
+		 * boss表跳转
+		 * */
+		$('#bossgroup tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Admin-UserGroup-bosscard-id-" + id;
+		});
+		/**
+		 * staff表跳转
+		 * */
+		$('#staffgroup tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Admin-UserGroup-staffcard-id-" + id;
 		});
 	</script>
 </block>
