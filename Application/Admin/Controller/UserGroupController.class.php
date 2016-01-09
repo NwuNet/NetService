@@ -123,9 +123,19 @@ class UserGroupController extends BaseController {
 	public function bosscard($id=0){
 		if($id){
 			$UserGroup = D('UserGroup');
-			$menu = M('Menu');
+			$Author = M('Author');
+			$Menu = M('Menu');
 			$boss = $UserGroup->where('group_id = %d and level = 2',$id)->find();
-			$bossmenu = $menu->where('group_id = 2 and status = 1')->select();
+			$bossmenu = $Menu->where('group_id = 2 and status = 1')->select();
+			$menuauthor = $Author -> where('group_id = %d and status =1',$id)->select();
+			for($i=0;$i<count($bossmenu);$i++){
+				$bossmenu[$i]['author'] = 0;
+				foreach($menuauthor as $author){
+					if($bossmenu[$i]['menu_id'] == $author['menu_id']){
+						$bossmenu[$i]['author'] = 1;
+					}
+				}
+			}
 			$this->assign('boss',$boss);
 			$this->assign('bossmenu',$bossmenu);
 			if(empty($boss)||empty($bossmenu)){
@@ -141,9 +151,19 @@ class UserGroupController extends BaseController {
 	public function staffcard($id=0){
 		if($id){
 			$UserGroup = D('UserGroup');
-			$menu = M('Menu');
+			$Author = M('Author');
+			$Menu = M('Menu');
 			$staff = $UserGroup->where('group_id = %d and level = 4',$id)->find();
-			$staffmenu = $menu->where('group_id = 4 and status = 1')->select();
+			$staffmenu = $Menu->where('group_id = 4 and status = 1')->select();
+			$menuauthor = $Author -> where('group_id = %d and status =1',$id)->select();
+			for($i=0;$i<count($staffmenu);$i++){
+				$staffmenu[$i]['author'] = 0;
+				foreach($menuauthor as $author){
+					if($staffmenu[$i]['menu_id'] == $author['menu_id']){
+						$staffmenu[$i]['author'] = 1;
+					}
+				}
+			}
 			$this->assign('staff',$staff);
 			$this->assign('staffmenu',$staffmenu);
 			if(empty($staff)||empty($staffmenu)){

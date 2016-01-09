@@ -2,7 +2,7 @@
 namespace Admin\Service;
 use Think\Model;
 /**
- * 用户登录模型
+ * 用户登录服务
  */
 
 class LoginService{
@@ -16,8 +16,8 @@ class LoginService{
         $auth = array(
             'user_id' => $userId,
         );
-        session('admin_user', $auth);
-        session('admin_user_sign', data_auth_sign($auth));
+        session('admin_user', $auth, 'expire',3600);
+        session('admin_user_sign', data_auth_sign($auth), 'expire',3600);
 		return TRUE;
     }
 	/**

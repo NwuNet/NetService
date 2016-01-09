@@ -87,14 +87,21 @@
 				</div>
 				<div class="box-body">
 					<volist name="staffmenu" id="vo">
-						<input type="checkbox" name="chk" class="chklist" />
-	        			<label class="chkbox">
-	            			<span id="chkbox-img"></span>
-	            			<span class="radiobox-content">
-	            				<i class="fa fa-fw {$vo.icon}"></i>&nbsp;
-	            				{$vo.mname} &nbsp;&nbsp;&nbsp;&nbsp;{$vo.note}
-	            			</span>
-	        			</label>
+						<div class="elemenu" style="margin-bottom: 5px;">
+							
+							<if condition="$vo.author eq 1">
+								<input type="checkbox" name="chk" class="chklist" checked="checked" />
+							<else/>	<input type="checkbox" name="chk" class="chklist" />
+							</if>
+							
+		        			<label class="chkbox">
+		            			<span id="chkbox-img"></span>
+		            			<span class="radiobox-content">
+		            				<i class="fa fa-fw {$vo.icon}"></i>&nbsp;
+		            				{$vo.mname} &nbsp;&nbsp;&nbsp;&nbsp;{$vo.note}
+		            			</span>
+		        			</label>
+	        			</div>
 					</volist>
 					
 				</div>
@@ -109,6 +116,28 @@
 <block name="script">
 	<script type="text/javascript">
         $(".chklist").labelauty("chklist", "check");
+        /*菜单id数组*/
+		var menuid = [<foreach name="staffmenu" item="vo">{$vo.menu_id},</foreach>0];
+        /*菜单提交*/
+        $(".elemenu").click(function(){
+        	var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+			$(".box").append(loading);
+			$.post("<php>echo U('Admin/UserGroup/author')</php>",{
+				group_id : {$staff['group_id']},
+				menu_id : menuid[$(this).index()],
+				status : $(".elemenu input")[$(this).index()].checked?1:0
+				},
+				function(data) {
+					$("div").remove(".overlay");
+					if (data == true) {
+						//alert("修改成功");
+					} else {
+						alert(data);
+						location.reload();
+					}
+				});
+        	//alert(menuid[$(this).index()]);
+        });
         /*
 		 * 判断用户组名是否为空
 		 * */
