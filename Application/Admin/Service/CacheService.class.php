@@ -14,13 +14,49 @@ class CacheService{
      */
     public function getCache($key = ''){
         $list = array(
-                'html' => array('id'=>'html','name'=>'静态缓存', 'dir'=>HTML_PATH, 'size'=>(sizeFormat(dir_size(HTML_PATH)))),
-				'tpl' => array('id'=>'tpl','name'=>'模板缓存', 'dir'=>CACHE_PATH, 'size'=>(sizeFormat(dir_size(CACHE_PATH)))),
-                'data' => array('id'=>'data','name'=>'数据缓存', 'dir'=>DATA_PATH, 'size'=>(sizeFormat(dir_size(DATA_PATH)))),
-				'debug' => array('id'=>'debug','name'=>'日志缓存', 'dir'=>LOG_PATH, 'size'=>(sizeFormat(dir_size(LOG_PATH)))),
-				'app' => array('id'=>'app','name'=>'应用缓存', 'dir'=>TEMP_PATH, 'size'=>(sizeFormat(dir_size(TEMP_PATH)))),
-                'run' => array('id'=>'run','name'=>'运行缓存', 'dir'=>RUNTIME_PATH.'common~runtime.php', 'size'=>(sizeFormat(filesize(RUNTIME_PATH.'common~runtime.php')))),
-                );
+            'html' => array(
+            	'id'=>'html',
+            	'name'=>'静态缓存',
+            	'dir'=>HTML_PATH,
+            	'size'=>sizeFormat(dir_size(HTML_PATH)), 
+            	'level'=>sizeFormat(dir_size(HTML_PATH),'level')
+			),
+			'tpl' => array(
+				'id'=>'tpl',
+				'name'=>'模板缓存', 
+				'dir'=>CACHE_PATH, 
+				'size'=>sizeFormat(dir_size(CACHE_PATH)),
+				'level'=>sizeFormat(dir_size(CACHE_PATH),'level')
+			),
+            'data' => array(
+            	'id'=>'data',
+            	'name'=>'数据缓存', 
+            	'dir'=>DATA_PATH, 
+            	'size'=>sizeFormat(dir_size(DATA_PATH)),
+				'level'=>sizeFormat(dir_size(DATA_PATH),'level')
+			),
+			'debug' => array(
+				'id'=>'debug',
+				'name'=>'日志缓存', 
+				'dir'=>LOG_PATH, 
+				'size'=>sizeFormat(dir_size(LOG_PATH)),
+				'level'=>sizeFormat(dir_size(LOG_PATH),'level')
+			),
+			'app' => array(
+				'id'=>'app',
+				'name'=>'应用缓存', 
+				'dir'=>TEMP_PATH, 
+				'size'=>sizeFormat(dir_size(TEMP_PATH)),
+				'level'=>sizeFormat(dir_size(TEMP_PATH),'level')
+			),
+            'run' => array(
+            	'id'=>'run',
+            	'name'=>'运行缓存', 
+            	'dir'=>RUNTIME_PATH.'common~runtime.php', 
+            	'size'=>sizeFormat(filesize(RUNTIME_PATH.'common~runtime.php')),
+				'level'=>sizeFormat(filesize(RUNTIME_PATH.'common~runtime.php'),'level')
+			)
+        );
         if($key){
             return $list[$key];
         }

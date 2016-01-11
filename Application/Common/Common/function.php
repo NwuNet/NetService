@@ -71,22 +71,27 @@ function dir_size($directoty) {
  * @param int bytes
  * @return string
  * */
-function sizeFormat($bytes) {
+function sizeFormat($bytes,$type='size') {
 	$kb = 1024;
 	$mb = $kb * 1024;
 	$gb = $mb * 1024;
 	$tb = $gb * 1024;
-	if (($bytes >= 0) && ($bytes < $kb)) {
-		return $bytes . ' B';
+	if (($bytes > 0) && ($bytes < $kb)) {
+		$format = array('size'=>$bytes . ' B', 'level'=>1);
 	} elseif (($bytes >= $kb) && ($bytes < $mb)) {
-		return ceil($bytes / $kb) . ' KB';
+		$format = array('size'=>ceil($bytes / $kb) . ' KB', 'level'=>2);
 	} elseif (($bytes >= $mb) && ($bytes < $gb)) {
-		return ceil($bytes / $mb) . ' MB';
+		$format = array('size'=>ceil($bytes / $mb) . ' MB', 'level'=>3);
 	} elseif (($bytes >= $gb) && ($bytes < $tb)) {
-		return ceil($bytes / $gb) . ' GB';
+		$format = array('size'=>ceil($bytes / $gb) . ' GB', 'level'=>4);
 	} elseif ($bytes >= $tb) {
-		return ceil($bytes / $tb) . ' TB';
+		$format = array('size'=>ceil($bytes / $tb) . ' TB', 'level'=>5);
 	} else {
-		return $bytes . ' B';
+		$format = array('size'=>'0 B', 'level'=>0);
+	}
+	if($type == 'size'){
+		return $format['size'];
+	}elseif($type == 'level'){
+		return $format['level'];
 	}
 }
