@@ -16,8 +16,9 @@ class LoginService{
         $auth = array(
             'user_id' => $userId,
         );
-        session('admin_user', $auth,3600);
-        session('admin_user_sign', data_auth_sign($auth),3600);
+		session(array('name'=>$userId,'expire'=>3600));
+        session('admin_user', $auth);
+        session('admin_user_sign', data_auth_sign($auth));
 		return TRUE;
     }
 	/**
