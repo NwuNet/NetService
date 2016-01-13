@@ -45,7 +45,7 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-user"></i>
-					<h3 class="box-title">Admin用户管理</h3>&ensp;
+					<h3 class="box-title">Boss用户管理</h3>&ensp;
 					<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal">
 						<i class="fa fa-plus">添加</i>
 					</button>
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="box-body table-responsive">
-					<table id="example1" class="table table-bordered table-hover">
+					<table id="example2" class="table table-bordered table-hover">
 						<thead>
 							<th>ID</th>
 							<th>用户名</th>
@@ -109,31 +109,31 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button id="addbtn" disabled="disabled" type="button" class="btn btn-primary">确认</button>
+					<button id="addbtn" type="button" class="btn btn-primary">确认</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
-		/**
-		 * 确认密码
-		 * */
-		$("#repwd,#addpwd").keyup(function(){
-			if($("#repwd")[0].value != $("#addpwd")[0].value){
-				$("#repwd").parent().addClass("has-error");
-				$("#addbtn").attr("disabled","disabled");
-			}else{
-				$("#repwd").parent().removeClass("has-error");
-				$("#addbtn").removeAttr("disabled");
-			}
-		});
+	/**
+	 * 确认密码
+	 * */
+	$("#repwd,#addpwd").keyup(function(){
+		if($("#repwd")[0].value != $("#addpwd")[0].value){
+			$("#repwd").parent().addClass("has-error");
+			$("#addbtn").attr("disabled","disabled");
+		}else{
+			$("#repwd").parent().removeClass("has-error");
+			$("#addbtn").removeAttr("disabled");
+		}
+	});
 		/*
 		 * 添加用户
 		 * */
 		$("#addbtn").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Admin/User/adminadd')</php>", {
+			$.post("<php>echo U('Admin/User/bossadd')</php>", {
 					uname: $("#addname")[0].value,
 					password: $("#addpwd")[0].value,
 					repassword: $("#repwd")[0].value
@@ -151,10 +151,10 @@
 		/*
 		 * datatables
 		 * */
-		var table = $("#example1").DataTable({
+		var table = $("#example2").DataTable({
 			"processing": true,
             "serverSide": true,
-            "ajax": "<php>echo U('Admin/User/admintable')</php>",
+            "ajax": "<php>echo U('Admin/User/bosstable')</php>",
 			"language": {
 				"sProcessing":   "处理中...",
 				"lengthMenu": "每页 _MENU_ 条记录",
@@ -170,9 +170,9 @@
 				}
 			}
 		});
-		$('#example1 tbody').on('click', 'tr', function() {
+		$('#example2 tbody').on('click', 'tr', function() {
 			var id = $(this).children().first().html();
-			location.href = "index.php?s=/Admin-User-admincard-id-" + id;
+			location.href = "index.php?s=/Admin-User-bosscard-id-" + id;
 		});
 	</script>
 </block>

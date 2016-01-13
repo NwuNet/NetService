@@ -5,7 +5,7 @@ use Think\Model;
  * 后台用户
  */
 
-class AdminUserModel extends Model{
+class HomeUserModel extends Model{
 	
 	protected $_validate = array( 
 		array('ip', array(7,15), 'ip格式错误', 3, 'length') //验证ip地址长度
@@ -20,23 +20,26 @@ class AdminUserModel extends Model{
 	 public function plus($data){
 	 	if($this->where('user_id = %d ',$data['user_id'])->find()) return FALSE;
 	 	$this -> user_id = $data['user_id'];
-		$this -> ip = get_client_ip();
-		$this -> img  = $data['img'];
+	 	$this -> number = $data['number'];
+	 	$this -> address = $data['address'];
+//		$this -> ip = get_client_ip();
+		
 		if($this -> add()) return TRUE;
 		return FALSE;
 	 }
 	 /*
-	  * 添加
+	  * 修改
 	  * */
 	 public function edit($data){
-	 
-	     $this-> id = $data['id'];
-	 
-	     //$this -> ip = get_client_ip();
-	     $this -> img  = $data['img'];
-	     if($this -> save()) return TRUE;
-	     return FALSE;
-	 
-	 
+	     if($this->where('id = %d ',$data['id'])->find()) {
+	         $this -> id = $data['id'];
+	         $this -> number = $data['number'];
+	         $this -> address = $data['address'];
+	   
+	         if($this -> save()) return TRUE;
+	         return FALSE;
+	     }
+	     
+	     
 	 }
 }
