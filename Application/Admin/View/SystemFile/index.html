@@ -1,0 +1,77 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 后台管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<!-- Sidebar user panel -->
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>胡洋</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('menufile',''))}
+	<!--menu widget-->
+</block>
+
+<block name="content-header">
+	<h1>程序和文件
+		<small><i class="fa fa-fw fa-file-o"></i></small>
+      </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">程序和文件</li>
+	</ol>
+</block>
+
+<block name="content">
+	<!-- Small boxes (Stat box) -->
+	<div class="row">
+		<foreach name="files" item="vo">
+			<div class="col-lg-3 col-xs-6">
+				<if condition="($vo['level'] eq 1) ">
+					<div class="small-box bg-green">
+				<elseif condition="($vo['level'] eq 2) "/>
+					<div class="small-box bg-primary">
+				<elseif condition="($vo['level'] eq 3) "/>
+					<div class="small-box bg-yellow">
+				<elseif condition="($vo['level'] eq 4) "/>
+					<div class="small-box bg-red">
+				<else />
+					<div class="small-box bg-green">
+				</if>
+					<div class="inner">
+						<h3>{$vo.size}</h3>
+						<p>{$vo.name}</p>
+					</div>
+					<div class="icon">
+						{$vo.id|substr=0,1}
+					</div>
+					<a href="__URL__-mfile-id-{$vo.id}" class="small-box-footer">{$vo.id} <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+			<!-- ./col -->
+		</foreach>
+	</div>
+	<!-- row -->
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		
+	</script>
+</block>

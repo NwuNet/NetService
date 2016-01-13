@@ -14,43 +14,43 @@ class CacheService{
      */
     public function getCache($key = ''){
         $list = array(
-            'html' => array(
-            	'id'=>'html',
+            'Html' => array(
+            	'id'=>'Html',
             	'name'=>'静态缓存',
             	'dir'=>HTML_PATH,
             	'size'=>sizeFormat(dir_size(HTML_PATH)), 
             	'level'=>sizeFormat(dir_size(HTML_PATH),'level')
 			),
-			'tpl' => array(
-				'id'=>'tpl',
+			'Tpl' => array(
+				'id'=>'Tpl',
 				'name'=>'模板缓存', 
 				'dir'=>CACHE_PATH, 
 				'size'=>sizeFormat(dir_size(CACHE_PATH)),
 				'level'=>sizeFormat(dir_size(CACHE_PATH),'level')
 			),
-            'data' => array(
-            	'id'=>'data',
+            'Data' => array(
+            	'id'=>'Data',
             	'name'=>'数据缓存', 
             	'dir'=>DATA_PATH, 
             	'size'=>sizeFormat(dir_size(DATA_PATH)),
 				'level'=>sizeFormat(dir_size(DATA_PATH),'level')
 			),
-			'debug' => array(
-				'id'=>'debug',
+			'Debug' => array(
+				'id'=>'Debug',
 				'name'=>'日志缓存', 
 				'dir'=>LOG_PATH, 
 				'size'=>sizeFormat(dir_size(LOG_PATH)),
 				'level'=>sizeFormat(dir_size(LOG_PATH),'level')
 			),
-			'app' => array(
-				'id'=>'app',
+			'App' => array(
+				'id'=>'App',
 				'name'=>'应用缓存', 
 				'dir'=>TEMP_PATH, 
 				'size'=>sizeFormat(dir_size(TEMP_PATH)),
 				'level'=>sizeFormat(dir_size(TEMP_PATH),'level')
 			),
-            'run' => array(
-            	'id'=>'run',
+            'Run' => array(
+            	'id'=>'Run',
             	'name'=>'运行缓存', 
             	'dir'=>RUNTIME_PATH.'common~runtime.php', 
             	'size'=>sizeFormat(filesize(RUNTIME_PATH.'common~runtime.php')),
