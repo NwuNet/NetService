@@ -11,7 +11,7 @@
 	<!-- Sidebar user panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
 			<p>胡洋</p>
@@ -85,6 +85,7 @@
 						<form id="imageform" action="__URL__-upload" enctype="multipart/form-data" method="post">
 							<input type="file" class="sr-only" id="inputImage" name="photo" accept="image/*" />
 							<input type="text" class="sr-only" id="fname" name="fname" value="{$user.uname}" />
+							<input type="text" class="sr-only" id="user_id" name="user_id" value="{$user.id}" />
 						</form>
 						<span class="fa fa-upload"> 上传</span>
 					</label>
@@ -107,7 +108,12 @@
 				</div>
 				<!-- /.box-body -->
 				<div class="box-footer">
-					<a class="btn btn-primary ">保存头像</a>
+					<input type="text" class="sr-only" id="dataX" name="dataX" />
+					<input type="text" class="sr-only" id="dataY" name="dataY" />
+					<input type="text" class="sr-only" id="dataW" name="dataW" />
+					<input type="text" class="sr-only" id="dataH" name="dataH" />
+					<input type="text" class="sr-only" id="path" name="dataH" value="{$user.img}"/>
+					<a class="btn btn-primary" id="saveImage">保存头像</a>
 				</div>
 			</div>
 		</div>
@@ -152,6 +158,10 @@
 				}).html($clone);
 			},
 			crop: function(e) {
+				$("#dataX").val(Math.round(e.x));
+          		$("#dataY").val(Math.round(e.y));
+          		$("#dataH").val(Math.round(e.height));
+          		$("#dataW").val(Math.round(e.width));
 				var imageData = $(this).cropper('getImageData');
 				var previewAspectRatio = e.width / e.height;
 				$previews.each(function() {
@@ -170,6 +180,29 @@
 			aspectRatio: 1,
 			viewMode: 1,
 		});
+		/**
+		 * 保存图片
+		 */
+		$("#saveImage").click(function(){
+        	var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+			$(".box").append(loading);
+			$.post("<php>echo U('Admin/Self/save')</php>",{
+				imgX : $("#dataX")[0].value,
+				imgY : $("#dataY")[0].value,
+				imgW : $("#dataW")[0].value,
+				imgH : $("#dataH")[0].value,
+				path : $("#path")[0].value
+				},
+				function(data) {
+					$("div").remove(".overlay");
+					if (data == true) {
+						//alert("修改成功");
+					} else {
+						alert(data);
+					}
+					location.reload();
+				});
+        });
 		/**
 		 * 确认密码
 		 * */
