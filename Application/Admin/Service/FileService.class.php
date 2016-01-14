@@ -102,15 +102,15 @@ class FileService {
 				'id' => 'Backup', 
 				'name' => '数据库备份', 
 				'dir' => $path['Backup'], 
-				'size' => sizeFormat(filesize($path['Backup'])), 
-				'level' => sizeFormat(filesize($path['Backup']), 'level')
+				'size' => sizeFormat(dir_size($path['Backup'])), 
+				'level' => sizeFormat(dir_size($path['Backup']), 'level')
 			), 
 			'Images' => array(
 				'id' => 'Images', 
 				'name' => '图片目录', 
 				'dir' => $path['Images'], 
-				'size' => sizeFormat(filesize($path['Images'])), 
-				'level' => sizeFormat(filesize($path['Images']), 'level')
+				'size' => sizeFormat(dir_size($path['Images'])), 
+				'level' => sizeFormat(dir_size($path['Images']), 'level')
 			)
 		);
 		if ($key) {

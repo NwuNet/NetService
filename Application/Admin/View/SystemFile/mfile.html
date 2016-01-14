@@ -42,18 +42,57 @@
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
 		<div class="col-md-12">
-			<div class="box">
-				<div class="box-body no-padding">
-					<div class="row">
-						<div class="col-md-4 col-xs-12">
-							<foreach name="files" item="vo">
-								
-							</foreach>
+			<if condition="($root['level'] eq 1) ">
+				<div class="box box-solid box-success">
+			<elseif condition="($root['level'] eq 2) "/>
+				<div class="box box-solid box-primary">
+			<elseif condition="($root['level'] eq 3) "/>
+				<div class="box box-solid box-warning">
+			<elseif condition="($root['level'] eq 4) "/>
+				<div class="box box-solid box-danger">
+			<else />
+				<div class="box box-solid box-success">
+			</if>
+				<div class="box-header no-padding">
+					<a class="btn btn-default btn-sm" onclick="javascript:history.back(-1);">
+						<i class="ion ion-ios-arrow-back"></i>
+					</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<h3 class="box-title">
+						<a href="__URL__-mfile-key-{$root.id}">
+							<i class="ion ion-ios-folder"></i> {$root.id}
+						</a>
+					</h3>
+					<div class="box-tools pull-right">
+						{$root.name} {$root.size}
+					</div>
+				</div>
+				<div class="box-body no-padding ">
+					<if condition="($root['level'] eq 1) ">
+						<div class="col-md-3 col-xs-12 bg-green-active">
+					<elseif condition="($root['level'] eq 2) "/>
+						<div class="col-md-3 col-xs-12 bg-blue-active">
+					<elseif condition="($root['level'] eq 3) "/>
+						<div class="col-md-3 col-xs-12 bg-yellow-active">
+					<elseif condition="($root['level'] eq 4) "/>
+						<div class="col-md-3 col-xs-12 bg-red-active">
+					<else />
+						<div class="col-md-3 col-xs-12 bg-green-active">
+					</if>
+							<ul id="fileul" class="list-unstyled" style="overflow: auto;cursor: pointer;white-space: nowrap;">
+								<foreach name="files" item="vo">
+									<li class="li-file" >
+										<if condition="$vo['isdir'] eq 1">
+											<i class="ion ion-ios-folder"></i>
+										</if>
+										{$vo.name}
+									</li>
+									
+								</foreach>
+							</ul>
 						</div>
-						<div class="col-md-8 col-xs-12">
+						<div class="col-md-9 col-xs-12" id="fcontent">
 							
 						</div>
-					</div>
 				</div>
 				<!-- box-body -->
 			</div>
@@ -64,6 +103,43 @@
 
 <block name="script">
 	<script type="text/javascript">
-		
+		/*根目录*/
+		var root = ["{$root.id}","{$root.name}","{$root.dir}","{$root.size}","{$root.level}"];
+		/*文件名*/
+		var files = [<foreach name="files" item="vo">"{$vo.name}",</foreach>0];
+		/*是否为目录*/
+		var isdir = [<foreach name="files" item="vo">"{$vo.isdir}",</foreach>0];
+		/*父目录*/
+		var dir = "{$dir}";
+		$("#fileul li").click(function(){
+			//alert(files[$(this).index()]);
+			if(isdir[$(this).index()]=="1"){
+				if(dir=="./"){
+					window.location="__URL__-mfile-key-"+root[0]+"-dir-"+files[$(this).index()];
+				}else{
+					window.location="__URL__-mfile-key-"+root[0]+"-dir-"+dir+"+"+files[$(this).index()];
+				}
+			}else{
+				var fname = files[$(this).index()];
+				var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+				$(".box").append(loading);
+				$.post("<php>echo U('Admin/SystemFile/rfile')</php>",{
+				dir : dir,
+				fname : fname,
+				key : root[0]
+				},
+				function(data) {
+					$("div").remove(".overlay");
+					if (data['status'] == true) {
+						var head = "<h3>"+fname+"</h3>"
+						var fcontent = "<code>"+data['content']+"</code>";
+						$("#fcontent").empty().append(head+fcontent)
+					} else {
+						alert(data);
+						location.reload();
+					}
+				});
+			}
+		});
 	</script>
 </block>

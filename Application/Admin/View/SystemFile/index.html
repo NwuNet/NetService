@@ -42,6 +42,7 @@
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
 		<foreach name="files" item="vo">
+			<if condition="($vo['level'] neq 0)">
 			<div class="col-lg-3 col-xs-6">
 				<if condition="($vo['level'] eq 1) ">
 					<div class="small-box bg-green">
@@ -61,10 +62,11 @@
 					<div class="icon">
 						{$vo.id|substr=0,1}
 					</div>
-					<a href="__URL__-mfile-id-{$vo.id}" class="small-box-footer">{$vo.id} <i class="fa fa-arrow-circle-right"></i></a>
+					<a href="__URL__-mfile-key-{$vo.id}" class="small-box-footer">{$vo.id} <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
+			</if>
 		</foreach>
 	</div>
 	<!-- row -->
