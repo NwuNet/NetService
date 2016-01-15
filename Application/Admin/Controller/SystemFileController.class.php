@@ -46,9 +46,9 @@ class SystemFileController extends BaseController {
 			$content = $content.$temp;
 		}
 		if($content){
-			$content=str_replace("\n","<br/>",$content); 
+//			$content=str_replace("\n","<br/>",$content); 
 			//$content=str_replace("\t","&nbsp;",$content);
-			$content=str_replace(" ","&nbsp;&nbsp;",$content);
+//			$content=str_replace(" ","&nbsp;&nbsp;",$content);
 			$data['status'] = TRUE;
 			$data['content'] = $content;
 			$this->ajaxReturn($data);

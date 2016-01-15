@@ -66,18 +66,18 @@
 						{$root.name} {$root.size}
 					</div>
 				</div>
-				<div class="box-body no-padding ">
-					<if condition="($root['level'] eq 1) ">
-						<div class="col-md-3 col-xs-12 bg-green-active">
-					<elseif condition="($root['level'] eq 2) "/>
-						<div class="col-md-3 col-xs-12 bg-blue-active">
-					<elseif condition="($root['level'] eq 3) "/>
-						<div class="col-md-3 col-xs-12 bg-yellow-active">
-					<elseif condition="($root['level'] eq 4) "/>
-						<div class="col-md-3 col-xs-12 bg-red-active">
-					<else />
-						<div class="col-md-3 col-xs-12 bg-green-active">
-					</if>
+				<if condition="($root['level'] eq 1) ">
+				<div class="box-body no-padding bg-green-active">
+				<elseif condition="($root['level'] eq 2) "/>
+				<div class="box-body no-padding bg-blue-active">
+				<elseif condition="($root['level'] eq 3) "/>
+				<div class="box-body no-padding bg-yellow-active">
+				<elseif condition="($root['level'] eq 4) "/>
+				<div class="box-body no-padding bg-red-active">
+				<else />
+				<div class="box-body no-padding bg-green-active">
+				</if>
+						<div class="col-md-2 col-xs-12 ">
 							<ul id="fileul" class="list-unstyled" style="overflow: auto;cursor: pointer;white-space: nowrap;">
 								<foreach name="files" item="vo">
 									<li class="li-file" >
@@ -86,11 +86,10 @@
 										</if>
 										{$vo.name}
 									</li>
-									
 								</foreach>
 							</ul>
 						</div>
-						<div class="col-md-9 col-xs-12" id="fcontent">
+						<div class="col-md-10 col-xs-12" id="fcontent">
 							
 						</div>
 				</div>
@@ -132,8 +131,10 @@
 					$("div").remove(".overlay");
 					if (data['status'] == true) {
 						var head = "<h3>"+fname+"</h3>"
-						var fcontent = "<code>"+data['content']+"</code>";
-						$("#fcontent").empty().append(head+fcontent)
+						var fcontent = '<textarea class="col-md-12 text-code" rows="20">'+data['content']+"</textarea>";
+						var foot = '<h5>'+fname+'</h5>'
+						$("#fcontent").empty().append(head+fcontent+foot);
+						$("textarea").height($(this).scrollHeight);
 					} else {
 						alert(data);
 						location.reload();
