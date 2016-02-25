@@ -14,11 +14,14 @@ class LoginService{
     {
         //设置session sha1加密
         $auth = array(
-            'user_id' => $userId,
+            'admin_user_id' => $userId
         );
-		session(array('name'=>$userId,'expire'=>3600));
-        session('admin_user', $auth);
-        session('admin_user_sign', data_auth_sign($auth));
+		//session(array('name'=>$userId,'expire'=>3600));
+		//设置session过期时间
+        session(array('name'=>'admin_user','expire'=>3600));
+		session('admin_user',$auth);
+        session(array('name'=>'admin_user_sign','expire'=>3600));
+		session('admin_user_sign',data_auth_sign($auth));
 		return TRUE;
     }
 	/**
@@ -29,7 +32,7 @@ class LoginService{
 		if(empty($user)){
 			return FALSE;
 		}else{
-			return session('admin_user_sign') == data_auth_sign($user) ? $user['user_id'] : FALSE;
+			return session('admin_user_sign') == data_auth_sign($user) ? $user['admin_user_id'] : FALSE;
 		}
 	}
 	/**

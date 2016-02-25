@@ -53,4 +53,8 @@ class LoginController extends Controller {
 	 	}
 	 }
 
+	public function _empty($name) {
+		echo "Not Found!";
+	}
+
 }

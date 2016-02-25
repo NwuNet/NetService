@@ -17,7 +17,7 @@
 			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
-			<p>胡洋</p>
+			<p>{$user.uname}</p>
 			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 		</div>
 	</div>
@@ -330,19 +330,19 @@
 					}],
 					series: [{
 						name: 'Admin',
-						type: 'line',
+						type: 'bar',
 						data: [1, 5, 6, 9, 5]
 					}, {
 						name: 'Boss',
-						type: 'line',
+						type: 'bar',
 						data: [3, 3, 5, 7, 9]
 					}, {
 						name: 'Home',
-						type: 'line',
+						type: 'bar',
 						data: [5, 29, 35, 25, 19]
 					}, {
 						name: 'Staff',
-						type: 'line',
+						type: 'bar',
 						data: [9, 15, 29, 23, 16]
 					}]
 				});
@@ -381,7 +381,7 @@
 				window.onresize = myChart.resize;
 			}
 		);
-		var msg = '<div class="callout callout-success" id="call1">你好，欢迎登录Net Service后台管理</div>'
+		var msg = '<div class="callout callout-success" id="call1">你好{$user.uname}，欢迎登录Net Service后台管理</div>'
 		$(".content").prepend(msg);
 		setTimeout(function() {
 			$("#call1").fadeOut("slow",
