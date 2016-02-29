@@ -1,7 +1,7 @@
 <?php
 namespace Boss\Controller;
 use Think\Controller;
-class DoServiceController extends Controller {
+class DoServiceController extends BaseController {
 	// --------------------服务派单---------------------
     public function send(){
         $this->display();

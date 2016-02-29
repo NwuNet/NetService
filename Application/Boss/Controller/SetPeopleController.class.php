@@ -1,7 +1,7 @@
 <?php
 namespace Boss\Controller;
 use Think\Controller;
-class SetPeopleController extends Controller {
+class SetPeopleController extends BaseController {
     // --------------------考勤设置---------------------
     public function register(){
         $this->display();

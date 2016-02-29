@@ -1,9 +1,9 @@
 <?php
-namespace Admin\Controller;
+namespace Boss\Controller;
 use Think\Controller;
 class LoginController extends Controller {
 	public function index() {
-		$this->display();
+		$this -> display();
 	}
 
 	/*
@@ -16,8 +16,8 @@ class LoginController extends Controller {
 		if(empty($uname) || empty($password) || empty($verify)){
 			$this->ajaxReturn(FALSE);
 		}
-		$AdminUser = D('AdminUserView');
-		$user = $AdminUser ->where('uname = "%s" and status =1',$uname)->find();
+		$BossUser = D('Admin/BossUserView');
+		$user = $BossUser ->where('uname = "%s" and status =1',$uname)->find();
 		if(empty($user)){
 			$this->ajaxReturn(FALSE);
 		}
@@ -43,15 +43,15 @@ class LoginController extends Controller {
 		$verify = new \Think\Verify();
 		return $verify -> check($code, $id);
 	}
-	
+
 	/**
 	 * 退出
 	 * */
-	 public function logout(){
-	 	if(D('Login','Service')->logout()){
-	 		$this->redirect('Home/Index/index');	
-	 	}
-	 }
+	public function logout(){
+		if(D('Login','Service')->logout()){
+			$this->redirect('Home/Index/index');
+		}
+	}
 
 	public function _empty($name) {
 		echo "Not Found!";

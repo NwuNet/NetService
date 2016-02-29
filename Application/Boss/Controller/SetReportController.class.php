@@ -1,7 +1,7 @@
 <?php
 namespace Boss\Controller;
 use Think\Controller;
-class SetReportController extends Controller {
+class SetReportController extends BaseController {
     // --------------------资产---------------------
     public function asset(){
         $this->display();

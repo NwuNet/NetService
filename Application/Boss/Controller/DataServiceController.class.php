@@ -1,7 +1,7 @@
 <?php
 namespace Boss\Controller;
 use Think\Controller;
-class DataServiceController extends Controller {
+class DataServiceController extends BaseController {
     public function index(){
         $this->display();
     }

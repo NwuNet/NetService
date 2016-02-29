@@ -10,7 +10,8 @@ class AdminUserViewModel extends ViewModel {
 	public $viewFields = array(
 	'AdminUser' => array('id', 'user_id', 'ip', 'img'),
 	'User' => array(
-		'uname' => 'uname', 
+		'uname' => 'uname',
+		'password' => 'password',
 		'begintime' => 'begintime',
 		'status' => 'status',
 		'_on' => 'AdminUser.user_id=User.user_id'), 

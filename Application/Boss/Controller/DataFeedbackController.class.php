@@ -1,7 +1,7 @@
 <?php
 namespace Boss\Controller;
 use Think\Controller;
-class DataFeedbackController extends Controller {
+class DataFeedbackController extends BaseController {
     public function index(){
         $this->display();
     }

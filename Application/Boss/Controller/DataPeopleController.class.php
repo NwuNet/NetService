@@ -1,7 +1,7 @@
 <?php
 namespace Boss\Controller;
 use Think\Controller;
-class DataPeopleController extends Controller {
+class DataPeopleController extends BaseController {
     public function index(){
         $this->display();
     }

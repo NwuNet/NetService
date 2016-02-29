@@ -1,7 +1,7 @@
 <?php
 namespace Boss\Controller;
 use Think\Controller;
-class DoAssetController extends Controller {
+class DoAssetController extends BaseController {
 	// --------------------工具---------------------
     public function tool(){
         $this->display();
