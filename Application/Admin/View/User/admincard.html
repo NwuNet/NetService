@@ -4,17 +4,20 @@
 </block>
 
 <block name="quick-information">
-	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
 </block>
 
 <block name="navigation">
 	<!-- Sidebar user panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
-			<p>胡洋</p>
+			<p>{$user.uname}</p>
 			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 		</div>
 	</div>
@@ -44,7 +47,7 @@
 <block name="content">
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-widget widget-user">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header bg-primary">
@@ -56,7 +59,7 @@
 				</div>
 				<div class="box-footer">
 					<div class="row">
-					    <div class="form-group margin">
+					    <div class="form-group margin sr-only">
 							<label for="id">用户ID</label>
 							<input type="text" disabled="true" class="form-control" id="id" value="{$id}">
 						</div>
@@ -73,10 +76,10 @@
 							<input type="password" class="form-control" id="repassword" placeholder="确认新密码">
 						</div>
 						<div class="form-group margin">
-							<label for="">注册时间</label>
-							<input type="text" disabled="true" class="form-control" value="{$begintime}">
+							<label for="time">注册时间</label>
+							<input type="text" disabled="true" id="time" class="form-control" value="{$begintime}">
 						</div>	
-						<button id="updatebtn" type="button" class="btn btn-primary margin">修改</button>					
+						<button id="updatebtn" type="button" disabled="disabled" class="btn btn-primary margin">修改</button>
 									    						
 					</div>
 					<!-- /.row -->
@@ -84,115 +87,7 @@
 			</div>
 		</div>
 
-	
-		<div class="col-md-4">
-			<div class="box box-primary">
-				<div class="box-header">
-					<h3 class="box-title">用户组权限</h3>
-					<div class="box-tools">
-						<span class="label label-primary">超级管理员</span>
-					</div>
-				</div>
-				<!-- /.box-header -->
-				<div class="box-body table-responsive no-padding">
-					<table class="table table-hover">
-						<tbody>
-							<tr>
-								<th colspan="3">系统相关</th>
-							</tr>
-							<tr>
-								<td rowspan="5"><i class="fa fa-fw fa-reorder"></i>系统日志</td>
-							</tr>
-							<tr>
-								<td>Home</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td>Staff</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td>Boss</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td>Admin</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td><i class="fa fa-fw fa-database"></i>数据库</td>
-								<td></td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td><i class="fa fa-fw fa-hourglass-half"></i>系统缓存</td>
-								<td></td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td><i class="fa fa-fw fa-file"></i>程序和文件</td>
-								<td></td>
-								<td><span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span></td>
-							</tr>
-							<tr>
-								<td><i class="fa fa-fw fa-th-large"></i>模块管理</td>
-								<td></td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<th colspan="3">用户相关</th>
-							</tr>
-							<tr>
-								<td rowspan="5"><i class="fa fa-fw fa-key"></i>权限管理</td>
-							</tr>
-							<tr>
-								<td>Home</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td>Staff</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td>Boss</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td>Admin</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td rowspan="5"><i class="fa fa-fw fa-user"></i>用户管理</td>
-							</tr>
-							<tr>
-								<td>Home</td>
-								<td><span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span></td>
-							</tr>
-							<tr>
-								<td>Staff</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td>Boss</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td>Admin</td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-							<tr>
-								<td><i class="fa fa-fw fa-users"></i>用户组管理</td>
-								<td></td>
-								<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<!-- /.box-body -->
-			</div>
-		</div>
-
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-solid bg-green-gradient">
 				<div class="box-header">
 					<i class="fa fa-industry"></i>
@@ -219,23 +114,35 @@
 		</div>
 	</div>
 	<!-- row -->
-	
-	
+
 </block>
 
 <block name="script">
 	<script type="text/javascript">
-	/*
-	 * 修改用户
-	 * */
-	$("#updatebtn").click(function() {
-		var $btn = $(this).button('loading');
+		/**
+		 * 确认密码
+		 * */
+		$("#repassword,#password").keyup(function(){
+			if($("#repassword")[0].value != $("#password")[0].value){
+				$("#repassword").parent().addClass("has-error");
+				$("#updatebtn").attr("disabled","disabled");
+			}else{
+				$("#repassword").parent().removeClass("has-error");
+				$("#updatebtn").removeAttr("disabled");
+			}
+		});
+		/*
+		 * 修改用户
+		 * */
+		$("#updatebtn").click(function() {
+			var $btn = $(this).button('loading');
 		$.post("<php>echo U('Admin/User/adminedit')</php>", {
-			    id: $("#id")[0].value,
-				uname: $("#uname")[0].value,
-				password: $("#password")[0].value,
-				repassword: $("#repassword")[0].value
-			},			
+			id: $("#id")[0].value,
+			user_id:{$user_id},
+			uname: $("#uname")[0].value,
+			password: $("#password")[0].value,
+			repassword: $("#repassword")[0].value
+			},
 			function(data) {
 				$btn.button('reset');
 				if (data == true) {
@@ -245,7 +152,7 @@
 				}
 				location.reload();
 			});
-	});
+		});
 	
 		var line_exhaust = new Morris.Line({
 			element: 'chart_userlog',

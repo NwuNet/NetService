@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class UserController extends Controller {
+class UserController extends BaseController {
 	/*
 	 * 后台用户
 	 * */
@@ -18,6 +18,7 @@ class UserController extends Controller {
 			$adminUser = D('AdminUserView');
 			$table = $adminUser->where('id=%d',$id)->select();
 			$this->assign('id',$id);
+			$this->assign('user_id',$table[0]['user_id']);
 			$this->assign('img',$table[0]['img']);
 			$this->assign('uname',$table[0]['uname']);
 			$this->assign('begintime',$table[0]['begintime']);
@@ -30,6 +31,7 @@ class UserController extends Controller {
 	        $bossUser = D('BossUserView');
 	        $table = $bossUser->where('id=%d',$id)->select();
 	        $this->assign('id',$id);
+			$this->assign('user_id',$table[0]['user_id']);
 	        $this->assign('img',$table[0]['img']);
 	        $this->assign('uname',$table[0]['uname']);
 	        $this->assign('begintime',$table[0]['begintime']);
@@ -42,6 +44,7 @@ class UserController extends Controller {
 	        $homeUser = D('HomeUserView');
 	        $table = $homeUser->where('id=%d',$id)->select();
 	        $this->assign('id',$id);
+			$this->assign('user_id',$table[0]['user_id']);
 	        $this->assign('img',$table[0]['img']);
 	        $this->assign('uname',$table[0]['uname']);
 	        $this->assign('number',$table[0]['number']);
@@ -56,6 +59,7 @@ class UserController extends Controller {
 	        $staffUser = D('StaffUserView');
 	        $table = $staffUser->where('id=%d',$id)->select();
 	        $this->assign('id',$id);
+			$this->assign('user_id',$table[0]['user_id']);
 	        $this->assign('img',$table[0]['img']);
 	        $this->assign('uname',$table[0]['uname']);
 	        $this->assign('number',$table[0]['number']);
@@ -313,14 +317,14 @@ class UserController extends Controller {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
 	        $msg = "用户名已存在或认证失败";
-	        $this -> ajaxReturn(FALSE);
+	        $this -> ajaxReturn($msg);
 	    }
 	}
 	public function homeadd() {
 	    $User = D('User', 'Logic');
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
-	    $data['ip'] = get_client_ip();	  
+	    $data['ip'] = get_client_ip();
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    $data['number'] = I('post.number');
@@ -329,7 +333,7 @@ class UserController extends Controller {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
 	        $msg = "用户名已存在或认证失败";
-	        $this -> ajaxReturn(FALSE);
+	        $this -> ajaxReturn($msg);
 	    }
 	}
 	public function staffadd() {
@@ -346,17 +350,18 @@ class UserController extends Controller {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
 	        $msg = "用户名已存在或认证失败";
-	        $this -> ajaxReturn(FALSE);
+	        $this -> ajaxReturn($msg);
 	    }
 	}
 	/*
-	 * 修改后台用户
+	 * 修改Admin用户
 	 * */
 	public function adminedit() {
 	    $User = D('User', 'Logic');
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
 	    $data['id'] = I('post.id');
+		$data['user_id'] = I('post.user_id');
 //	    $data['ip'] = get_client_ip();
 //	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
@@ -374,6 +379,7 @@ class UserController extends Controller {
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
 	    $data['id'] = I('post.id');
+		$data['user_id'] = I('post.user_id');
 //	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');

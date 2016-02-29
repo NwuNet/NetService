@@ -28,7 +28,7 @@ class UserModel extends Model {
 	/*
 	 * @ prama {array{uname,password}}
 	 * @ return true/false
-	 * 添加
+	 * User添加
 	 * */
 	 public function plus($data){
 	 	if($this->where('uname = "%s"',$data['uname'])->find()) return FALSE;
@@ -39,4 +39,14 @@ class UserModel extends Model {
 		if( $this -> add()) return TRUE;
 		return FALSE;
 	 }
+	/*
+	 * User修改
+	 * */
+	public function edit($data){
+		$this -> user_id = $data['user_id'];
+		$this -> uname = $data['uname'];
+		$this -> password = md5($data['password']);
+		if($this -> save()) return true;
+		return false;
+	}
 }

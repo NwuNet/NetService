@@ -4,17 +4,20 @@
 </block>
 
 <block name="quick-information">
-	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
 </block>
 
 <block name="navigation">
 	<!-- Sidebar user panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
-			<p>胡洋</p>
+			<p>{$user.uname}</p>
 			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 		</div>
 	</div>
@@ -30,7 +33,7 @@
 
 <block name="content-header">
 	<h1>
-		<a href="<php>echo U('Admin/User/admin')</php>" class="">
+		<a href="<php>echo U('Admin/User/boss')</php>" class="">
 	  <i class="ion ion-backspace" data-toggle="tooltip" data-placement="top" title="返回"></i>
 	</a>
 		<i class="fa fa-fw fa-user"></i>用户详细信息
@@ -44,7 +47,7 @@
 <block name="content">
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-widget widget-user">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header bg-primary">
@@ -52,11 +55,11 @@
 					<h5 class="widget-user-desc" id="userid">ID: {$id}</h5>
 				</div>
 				<div class="widget-user-image">
-					<img  alt="{$uname}">
+					<img class="img-circle" src="__PUBLIC__{$img}" alt="{$uname}">
 				</div>
 				<div class="box-footer">
 					<div class="row">
-					    <div class="form-group margin">
+					    <div class="form-group margin sr-only">
 							<label for="id">用户ID</label>
 							<input type="text" disabled="true" class="form-control" id="id" value="{$id}">
 						</div>
@@ -83,9 +86,7 @@
 			</div>
 		</div>
 
-		
-
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-solid bg-green-gradient">
 				<div class="box-header">
 					<i class="fa fa-industry"></i>
@@ -116,17 +117,30 @@
 
 <block name="script">
 	<script type="text/javascript">
+		/**
+		 * 确认密码
+		 * */
+		$("#repassword,#password").keyup(function(){
+			if($("#repassword")[0].value != $("#password")[0].value){
+				$("#repassword").parent().addClass("has-error");
+				$("#updatebtn").attr("disabled","disabled");
+			}else{
+				$("#repassword").parent().removeClass("has-error");
+				$("#updatebtn").removeAttr("disabled");
+			}
+		});
 	/*
 	 * 修改用户
 	 * */
 	$("#updatebtn").click(function() {
 		var $btn = $(this).button('loading');
 		$.post("<php>echo U('Admin/User/adminedit')</php>", {
-			    id: $("#id")[0].value,
-				uname: $("#uname")[0].value,
-				password: $("#password")[0].value,
-				repassword: $("#repassword")[0].value
-			},			
+			id: $("#id")[0].value,
+			user_id:{$user_id},
+			uname: $("#uname")[0].value,
+			password: $("#password")[0].value,
+			repassword: $("#repassword")[0].value
+			},
 			function(data) {
 				$btn.button('reset');
 				if (data == true) {

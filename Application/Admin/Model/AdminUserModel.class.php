@@ -26,17 +26,13 @@ class AdminUserModel extends Model{
 		return FALSE;
 	 }
 	 /*
-	  * 添加
+	  * 修改
 	  * */
 	 public function edit($data){
-	 
 	     $this-> id = $data['id'];
-	 
 	     //$this -> ip = get_client_ip();
-	     $this -> img  = $data['img'];
+//	     $this -> img  = $data['img'];
 	     if($this -> save()) return TRUE;
 	     return FALSE;
-	 
-	 
 	 }
 }
