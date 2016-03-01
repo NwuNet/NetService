@@ -461,7 +461,9 @@
 					</div>
 				</div>
 				<div class="box-body">
-					<div class="form-group">
+					<form id="addform">
+						
+					  <div class="form-group">
 						<label>名称</label>
 						<select class="form-control select2" style="width: 100%;">
 							<option selected="selected">请选择</option>
@@ -470,31 +472,21 @@
 							<option>测线仪</option>
 							<option>剥线刀</option>
 							<option>跳线</option>
-						</select>
-						<label>品牌</label>
-						<select class="form-control select2" style="width: 100%;">
-							<option selected="selected">请选择</option>
-							<option>螺丝刀</option>
-							<option>剪线钳</option>
-							<option>测线仪</option>
-							<option>剥线刀</option>
-							<option>跳线</option>
-						</select>
+						</select>						
+						<div class="form-group">
+							<label for="addbrand" class="control-label">品牌</label>
+							<input type="text" class="form-control" id="addbrand" />
+						</div>
 						<label>型号</label>
 						<select class="form-control select2" style="width: 100%;">
 							<option selected="selected">请选择</option>
 							<option>大</option>
 							<option>中</option>
-							<option>小</option>
-							<option>剥线刀</option>
-							<option>跳线</option>
+							<option>小</option>							
 						</select>
-						<label>入库数量</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-								Num
-							</div>
-							<input type="text" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
+						<div class="form-group">
+							<label for="addprice" class="control-label">单价</label>
+							<input type="text" class="form-control" id="addprice" />
 						</div>
 						<label>数量单位</label>
 						<select class="form-control select2" style="width: 100%;">
@@ -504,7 +496,10 @@
 							<option>盒</option>
 						</select>
 					</div>
-					<button type="submit" class="btn btn-primary btn-block">提交</button>
+					</form>
+					<div class="modal-footer">
+					    <button id="addbtn" type="button" class="btn btn-primary btn-block">提交</button>
+					</div>
 				</div>
 				<!-- box-body -->
 			</div>
@@ -578,261 +573,30 @@
 				</div>
 
 				<div class="box-body table-responsive">
-					<table id="example1" class="table no-margin table-bordered table-hover">
+					<table id="tool1" class="table no-margin table-bordered table-hover">
 						<thead>
 							<tr>
-								<th>id</th>
-								<th>编号</th>
+								<th>id</th>								
 								<th>名称</th>
 								<th>品牌</th>
 								<th>型号</th>
+								<th>价格</th>
 								<th>单位</th>
+								<th>是否借出</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>lsd14479013901
-								</td>
-								<td>螺丝刀</td>
-								<td>能手</td>
-								<td>平口大</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>lsd14479013902
-								</td>
-								<td>螺丝刀</td>
-								<td>能手</td>
-								<td>平口小</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>lsd14479013903
-								</td>
-								<td>螺丝刀</td>
-								<td>能手</td>
-								<td>十字口大</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>lsd14479013904
-								</td>
-								<td>螺丝刀</td>
-								<td>能手</td>
-								<td>十字口小</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>cxy14479016231
-								</td>
-								<td>测线仪</td>
-								<td>劳动</td>
-								<td>小</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>cxy14479016232
-								</td>
-								<td>测线仪</td>
-								<td>劳动</td>
-								<td>中</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>cxy14479016233
-								</td>
-								<td>测线仪</td>
-								<td>劳动</td>
-								<td>大</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>8</td>
-								<td>cxy14479100711
-								</td>
-								<td>剪线钳</td>
-								<td>强力</td>
-								<td>小</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>9</td>
-								<td>cxy14479100712
-								</td>
-								<td>剪线钳</td>
-								<td>强力</td>
-								<td>中</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>10</td>
-								<td>cxy14479100713
-								</td>
-								<td>剪线钳</td>
-								<td>强力</td>
-								<td>大</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>11</td>
-								<td>Camino 1.0</td>
-								<td>OSX.2+</td>
-								<td>1.8</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>12</td>
-								<td>Camino 1.5</td>
-								<td>OSX.3+</td>
-								<td>1.8</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>13</td>
-								<td>Netscape 7.2</td>
-								<td>Win 95+ / Mac OS 8.6-9.2</td>
-								<td>1.7</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>14</td>
-								<td>Netscape Browser 8</td>
-								<td>Win 98SE+</td>
-								<td>1.7</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>15</td>
-								<td>Netscape Navigator 9</td>
-								<td>Win 98+ / OSX.2+</td>
-								<td>1.8</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>16</td>
-								<td>Mozilla 1.0</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td>1</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>17</td>
-								<td>Mozilla 1.1</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td>1.1</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>18</td>
-								<td>Mozilla 1.2</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td>1.2</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>19</td>
-								<td>Mozilla 1.3</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td>1.3</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>20</td>
-								<td>Mozilla 1.4</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td>1.4</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>21</td>
-								<td>Mozilla 1.5</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td>1.5</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>22</td>
-								<td>Mozilla 1.6</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td>1.6</td>
-								<td>A</td>
-								<td>把</td>
-							</tr>
-							<tr>
-								<td>23</td>
-								<td>Mozilla 1.7</td>
-								<td>Win 98+ / OSX.1+</td>
-								<td>1.7</td>
-								<td>A</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>24</td>
-								<td>Mozilla 1.8</td>
-								<td>Win 98+ / OSX.1+</td>
-								<td>1.8</td>
-								<td>A</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>25</td>
-								<td>Seamonkey 1.1</td>
-								<td>Win 98+ / OSX.2+</td>
-								<td>1.8</td>
-								<td>A</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>26</td>
-								<td>Epiphany 2.20</td>
-								<td>Gnome</td>
-								<td>1.8</td>
-								<td>A</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>27</td>
-								<td>Safari 1.2</td>
-								<td>OSX.3</td>
-								<td>125.5</td>
-								<td>A</td>
-								<td>个</td>
-							</tr>
-							<tr>
-								<td>28</td>
-								<td>Safari 1.3</td>
-								<td>OSX.3</td>
-								<td>312.8</td>
-								<td>A</td>
-								<td>个</td>
-							</tr>
+							
 						</tbody>
 						<tfoot>
 							<tr>
-								<th>id</th>
-								<th>编号</th>
+								<th>id</th>								
 								<th>名称</th>
 								<th>品牌</th>
 								<th>型号</th>
+								<th>价格</th>
 								<th>单位</th>
+								<th>是否借出</th>
 							</tr>
 						</tfoot>
 					</table>
@@ -847,6 +611,30 @@
 
 <block name="script">
 	<script type="text/javascript">
+	/*
+		 * 添加工具
+		 * */
+		$("#addbtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Boss/DoAsset/tooladd')</php>", {
+					name: $("#addname")[0].value,
+					brand: $("#addpwd")[0].value,
+					model: $("#repwd")[0].value,
+					price: $("#addname")[0].value,
+					unit: $("#addpwd")[0].value
+					
+				},
+				function(data) {
+					$btn.button('reset');
+					if (data == true) {
+						alert("工具添加成功");
+					} else {
+						alert(data);
+					}
+					location.reload();
+				});
+		});
+		
 		//Morris
 		var line_tools = new Morris.Line({
 			element: 'chart_tools',
@@ -899,21 +687,26 @@
 		//select2
 		$(".select2").select2();
 		//datatables
-		var table = $("#example1").DataTable({
+		var table = $("#tool1").DataTable({
+			"processing": true,
+            "serverSide": true,
+            "ajax": "<php>echo U('Boss/DoAsset/tooltable')</php>",
 			"language": {
+				"sProcessing":   "处理中...",
 				"lengthMenu": "每页 _MENU_ 条记录",
 				"zeroRecords": "没有找到记录",
 				"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
 				"infoEmpty": "无记录",
 				"infoFiltered": "(从 _MAX_ 条记录过滤)",
 				"search": "搜索",
+				"sLoadingRecords": "载入中...",
 				"paginate": {
 					"previous": "前页",
 					"next": "后页"
 				}
 			}
 		});
-		$('#example1 tbody').on('click', 'tr', function() {
+		$('#tool1 tbody').on('click', 'tr', function() {
 			var id = $(this).children().first().html();
 			location.href = "index.php?s=/Boss-DoAsset-toolcard-id-" + id;
 		});
