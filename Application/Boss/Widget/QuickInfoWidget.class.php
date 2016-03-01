@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Widget;
+namespace Boss\Widget;
 use Think\Controller;
 class QuickInfoWidget extends Controller {
     public function message(){

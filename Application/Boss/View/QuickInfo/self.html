@@ -8,19 +8,18 @@
 		<!-- User image -->
 		<li class="user-header">
 			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
-
 			<p>
 				{$user.uname} - 后台管理员
-				<small>注册于2015.11.08</small>
+				<small>注册于{$user.begintime}</small>
 			</p>
 		</li>
 		<!-- Menu Footer-->
 		<li class="user-footer">
 			<div class="pull-left">
-				<a href="<php>echo U('Admin/Self/index')</php>" class="btn btn-default btn-flat">个人设置</a>
+				<a href="<php>echo U('Boss/Self/index')</php>" class="btn btn-default btn-flat">个人设置</a>
 			</div>
 			<div class="pull-right">
-				<a href="<php>echo U('Admin/Login/logout')</php>" class="btn btn-default btn-flat">退出</a>
+				<a href="<php>echo U('Boss/Login/logout')</php>" class="btn btn-default btn-flat">退出</a>
 			</div>
 		</li>
 	</ul>

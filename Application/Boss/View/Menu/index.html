@@ -1,42 +1,43 @@
+<!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu">
-    <li class="active treeview">
-        <a href="#">
+    <li id="index" class="treeview">
+        <a href="<php>echo U('Boss/Index/index')</php>">
             <i class="fa fa-dashboard"></i> <span>首页</span>
         </a>
     </li>
     <li class="header">操作相关</li>
-    <li class="treeview">
+    <li id="doasset" class="treeview">
         <a href="#">
             <i class="fa fa-fw fa-truck"></i>
             <span>资产管理</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li>
+            <li id="dotool">
                 <a href="<php>echo U('Boss/DoAsset/tool')</php>">
                     <i class="fa fa-fw fa-wrench"></i>
                     <span>工具</span>
                 </a>
             </li>
-            <li>
+            <li id="doexhaust">
                 <a href="<php>echo U('Boss/DoAsset/exhaust')</php>">
                     <i class="fa fa-fw fa-recycle"></i>
                     <span>耗材</span>
                 </a>
             </li>
-            <li>
+            <li id="dodevice">
                 <a href="<php>echo U('Boss/DoAsset/device')</php>">
                     <span class="fa fa-fw fa-cubes"></span>
                     <span>设备</span>
                 </a>
             </li>
-            <li>
+            <li id="dopaper">
                 <a href="<php>echo U('Boss/DoAsset/paper')</php>">
                     <span class="fa fa-fw fa-image"></span>
                     <span>证照</span>
                 </a>
             </li>
-            <li>
+            <li id="dother">
                 <a href="<php>echo U('Boss/DoAsset/other')</php>">
                     <span class="fa fa-fw fa-arrows"></span>
                     <span>其他</span>
@@ -44,38 +45,38 @@
             </li>
         </ul>
     </li>
-    <li class="treeview">
+    <li id="dopeople" class="treeview">
         <a href="#">
             <i class="fa fa-fw fa-users"></i>
             <span>人事管理</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li>
+            <li id="doregister">
                 <a href="<php>echo U('Boss/DoPeople/register')</php>">
                     <i class="fa fa-fw fa-calendar-check-o"></i>
                     <span>考勤信息</span>
                 </a>
             </li>
-            <li>
+            <li id="doemploy">
                 <a href="<php>echo U('Boss/DoPeople/employ')</php>">
                     <i class="fa fa-fw fa-newspaper-o"></i>
                     <span>招聘信息</span>
                 </a>
             </li>
-            <li>
+            <li id="doevaluate">
                 <a href="<php>echo U('Boss/DoPeople/evaluate')</php>">
                     <i class="fa fa-fw fa-sort-numeric-asc"></i>
                     <span>绩效评分</span>
                 </a>
             </li>
-            <li>
+            <li id="dopeoplequery">
                 <a href="<php>echo U('Boss/DoPeople/query')</php>">
                     <i class="fa fa-fw fa-line-chart"></i>
                     <span>绩效查询</span>
                 </a>
             </li>
-            <li>
+            <li id="dostaff">
                 <a href="<php>echo U('Boss/DoPeople/staff')</php>">
                     <i class="fa fa-fw fa-user"></i>
                     <span>员工管理</span>
@@ -83,20 +84,20 @@
             </li>
         </ul>
     </li>
-    <li class="treeview">
+    <li id="doservice" class="treeview">
         <a href="#">
             <i class="fa fa-fw fa-hand-o-up"></i>
             <span>服务管理</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li>
+            <li id="dosend">
                 <a href="<php>echo U('Boss/DoService/send')</php>">
                     <i class="fa fa-fw fa-check-square-o"></i>
                     <span>服务派单</span>
                 </a>
             </li>
-            <li>
+            <li id="doservicequery">
                 <a href="<php>echo U('Boss/DoService/query')</php>">
                     <i class="fa fa-fw fa-list-ol"></i>
                     <span>服务查询</span>
@@ -105,65 +106,65 @@
         </ul>
     </li>
     <li class="header">数据相关</li>
-    <li>
-        <a href="#">
+    <li id="datasset">
+        <a href="<php>echo U('Boss/DataAsset/index')</php>">
             <i class="fa fa-fw fa-table"></i> <span>资产报表</span>
         </a>
     </li>
-    <li>
-        <a href="#">
+    <li id="dataservice">
+        <a href="<php>echo U('Boss/DataService/index')</php>">
             <i class="fa fa-fw fa-list-alt"></i> <span>服务报表</span>
         </a>
     </li>
-    <li>
-        <a href="#">
+    <li id="datapeople">
+        <a href="<php>echo U('Boss/DataPeople/index')</php>">
             <i class="fa fa-fw fa-user-plus"></i> <span>人事报表</span>
         </a>
     </li>
-    <li>
-        <a href="#">
+    <li id="datafeedback">
+        <a href="<php>echo U('Boss/DataFeedback/index')</php>">
             <i class="fa fa-fw fa-commenting"></i> <span>反馈报表</span>
         </a>
     </li>
     <li class="header">设置相关</li>
-    <li class="treeview">
+    <li id="setasset" class="treeview">
         <a href="#">
             <i class="fa fa-fw fa-truck"></i>
             <span>资产设置</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li>
+            <li id="settool">
                 <a href="<php>echo U('Boss/SetAsset/tool')</php>">
                     <i class="fa fa-fw fa-wrench"></i>
                     <span>工具</span>
                 </a>
             </li>
-            <li>
+            <li id="setexhaust">
                 <a href="<php>echo U('Boss/SetAsset/exhaust')</php>">
                     <i class="fa fa-fw fa-recycle"></i>
                     <span>耗材</span>
                 </a>
             </li>
-            <li>
+            <li id="setdevice">
                 <a href="<php>echo U('Boss/SetAsset/device')</php>">
                     <span class="fa fa-fw fa-cubes"></span>
                     <span>设备</span>
                 </a>
             </li>
-            <li>
+            <li id="setpaper">
                 <a href="<php>echo U('Boss/SetAsset/paper')</php>">
                     <span class="fa fa-fw fa-image"></span>
                     <span>证照</span>
                 </a>
             </li>
-            <li>
+            <li id="setother">
                 <a href="<php>echo U('Boss/SetAsset/other')</php>">
                     <span class="fa fa-fw fa-arrows"></span>
                     <span>其他</span>
                 </a>
             </li>
-            <li>
+            <li id="setoverall">
                 <a href="<php>echo U('Boss/SetAsset/overall')</php>">
                     <span class="fa fa-fw fa-circle-o"></span>
                     <span>全局字段</span>
@@ -171,60 +172,60 @@
             </li>
         </ul>
     </li>
-    <li class="treeview">
+    <li id="setpeople" class="treeview">
         <a href="#">
             <i class="fa fa-fw fa-users"></i>
             <span>人事设置</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li>
-                <a href="#">
+            <li id="setregister">
+                <a href="<php>echo U('Boss/SetPeople/register')</php>">
                     <i class="fa fa-fw fa-calendar-check-o"></i>
                     <span>考勤设置</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li id="setevaluation">
+                <a href="<php>echo U('Boss/SetPeople/evaluation')</php>">
                     <i class="fa fa-fw fa-sort-numeric-asc"></i>
                     <span>绩效设置</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li id="setstaff">
+                <a href="<php>echo U('Boss/SetPeople/staff')</php>">
                     <i class="fa fa-fw fa-user"></i>
                     <span>员工设置</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li id="setschedule">
+                <a href="<php>echo U('Boss/SetPeople/schedule')</php>">
                     <i class="fa fa-fw fa-calendar-plus-o"></i>
                     <span>排班设置</span>
                 </a>
             </li>
         </ul>
     </li>
-    <li class="treeview">
+    <li id="setreport" class="treeview">
         <a href="#">
             <i class="fa fa-fw fa-area-chart"></i>
             <span>报表设置</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li>
-                <a href="#">
+            <li id="setreportasset">
+                <a href="<php>echo U('Boss/SetReport/asset')</php>">
                     <i class="fa fa-fw fa-table"></i>
                     <span>资产</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li id="setreportservice">
+                <a href="<php>echo U('Boss/SetReport/service')</php>">
                     <i class="fa fa-fw fa-list-alt"></i>
                     <span>服务</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li id="setreportpeople">
+                <a href="<php>echo U('Boss/SetReport/people')</php>">
                     <span class="fa fa-fw fa-user-plus"></span>
                     <span>人事</span>
                 </a>
@@ -232,3 +233,9 @@
         </ul>
     </li>
 </ul>
+<!-- jQuery 2.1.4 -->
+<js href="__PUBLIC__/AdminLTE2/plugins/jQuery/jQuery-2.1.4.min.js" />
+<script type="text/javascript">
+    $("#{$id1}").addClass("active");
+    $("#{$id2}").addClass("active");
+</script>

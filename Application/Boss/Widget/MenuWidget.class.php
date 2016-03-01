@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Widget;
+namespace Boss\Widget;
 use Think\Controller;
 class MenuWidget extends Controller {
     public function index($id1,$id2=''){
