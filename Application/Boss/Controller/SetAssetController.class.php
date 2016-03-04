@@ -98,6 +98,9 @@ class SetAssetController extends BaseController {
         $other = $select->select();//获取数量
         $otherselect = $select->order('name')->limit(count($other))->select();
         $this->assign('otherselect',$otherselect);
+		$state = M('OtherState');
+        $otherstate = $state->select();
+        $this->assign('otherstate',$otherstate);
         $this->display();
         
     }
@@ -128,6 +131,46 @@ class SetAssetController extends BaseController {
             }
         }
 
+    }
+	// --------------------工具状态添加和修改---------------------
+    public function otherstate(){
+        if(I('post.name')==''||I('post.label')==''||I('post.icon')==''||I('post.status')==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $state = M('OtherState');
+        $state->create();
+        if($id==''){ //添加
+            if($state->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($state->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+    }
+    // --------------------其他状态添加和修改---------------------
+    public function otherstateflip(){
+        if(I('post.id')==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $state = M('OtherState');
+        $data = $state->where('id=%d',$id)->find();
+        $data['status'] = $data['status']==1?0:1;
+        if($state->save($data)){
+            $this->ajaxReturn(true);
+        }else{
+            $msg = '修改失败';
+            $this->ajaxReturn($msg);
+        }
     }
 	// --------------------全局字段---------------------
 	public function overall(){

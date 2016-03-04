@@ -46,18 +46,18 @@
 <block name="content">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <i class="fa fa-fw fa-users"></i>
-                    <h3 class="box-title">其他名称</h3>&ensp;
+                    <h3 class="box-title">其他选项设置</h3>&ensp;
                     <button class="btn btn-sm btn-default" id="openbtn" data-toggle="modal" data-target="#addmodal">
                         <i class="fa fa-plus">添加</i>
                     </button>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <div class="box-others pull-right">
+                        <button type="button" class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        <button type="button" class="btn btn-box-other" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
@@ -75,6 +75,53 @@
                                 <td>{$vo.name}</td>
                                 <td>{$vo.campus}</td>
                                 <td>{$vo.room}</td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- box-body -->
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-fw fa-users"></i>
+                    <h3 class="box-title">其他状态设置</h3>&ensp;
+                    <button class="btn btn-sm btn-default" id="openstate" data-toggle="modal" data-target="#statemodal">
+                        <i class="fa fa-plus">添加</i>
+                    </button>
+                    <div class="box-others pull-right">
+                        <button type="button" class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-other" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table id="otherstate" class="table table-hover">
+                        <thead>
+                        <th>ID</th>
+                        <th></th>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th class="sr-only"></th>
+                        <th>status</th>
+                        </thead>
+                        <tbody>
+                        <volist name="otherstate" id="vo">
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td><i class="fa fa-shopping-cart"></i></td>
+                                <td>{$vo.name}</td>
+                                <td>{$vo.label}</td>
+                                <td class="sr-only">{$vo.status}</td>
+                                <td>
+                                    <if condition="$vo['status'] eq 1">
+                                        <span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+                                        <else/> <span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span>
+                                    </if>
+                                </td>
                             </tr>
                         </volist>
                         </tbody>
@@ -123,6 +170,41 @@
             </div>
         </div>
     </div>
+    
+    <!-- state Modal -->
+    <div class="modal fade" id="statemodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">添加其他状态</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="stateform">
+                        <div class="form-group sr-only">
+                            <label for="sid" class="control-label">ID</label>
+                            <input type="text" class="form-control" id="sid" name="sid" />
+                        </div>
+                        <div class="form-group">
+                            <label for="sname" class="control-label">名称</label>
+                            <input type="text" class="form-control" id="sname" name="sname" />
+                        </div>
+                        <div class="form-group">
+                            <label for="slabel" class="control-label">Label</label>
+                            <input type="text" class="form-control" id="slabel" name="slabel" />
+                        </div>
+                    </form>
+                </div>
+                <div id="statefooter" class="modal-footer">
+                    <button id="stateflip" class="btn btn-danger">禁用</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="addstate" disabled="disabled" type="button" class="btn btn-primary">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script type="text/javascript">
         /**
@@ -145,8 +227,20 @@
                 $("#addbtn").removeAttr("disabled");
             }
         });
+        //其他状态名称、label是否为空
+        $("#sname,#slabel").keyup(function(){
+            if($(this).val()==''){
+                $(this).parent().addClass("has-error");
+                $("#addstate").attr("disabled","disabled");
+            }else{
+                $(this).parent().removeClass("has-error");
+            }
+            if($("#sname").val()!=''&&$("#slabel").val()!=''){
+                $("#addstate").removeAttr("disabled");
+            }
+        });
         /*
-         * 添加用户组
+         * 添加选项
          * */
         $("#addbtn").click(function() {
             var $btn = $(this).button('loading');
@@ -162,7 +256,7 @@
                     });
         });
         /**
-         * 修改名称品牌型号
+         * 修改名称校区房间
          * */
         $('#otherselect tbody').on('click', 'tr', function() {
             $("#id")[0].value = $(this).children().first().html();
@@ -170,6 +264,59 @@
             $("#campus")[0].value = $(this).children().eq(2).html();
             $("#room")[0].value = $(this).children().eq(3).html();
             $('#addmodal').modal('show');
+        });
+        /*
+         * 添加工具状态
+         * */
+        $("#addstate").click(function() {
+            var $btn = $(this).button('loading');
+            $.post("<php>echo U('Boss/SetAsset/otherstate')</php>",{
+                id:$("#sid").val(),
+                name : $("#sname").val(),
+                label : $("#slabel").val(),
+                icon : "fa-shopping-cart",
+                status : 1
+            }, function(data) {
+                $btn.button('reset');
+                if (data == true) {
+                    alert("添加成功");
+                } else {
+                    alert(data);
+                }
+                location.reload();
+            });
+        });
+        /**
+         * 修改状态信息
+         * */
+        $('#otherstate tbody').on('click', 'tr', function() {
+            $("#sid")[0].value = $(this).children().first().html();
+            $("#sname")[0].value = $(this).children().eq(2).html();
+            $("#slabel")[0].value = $(this).children().eq(3).html();
+            $("#stateflip").removeClass("sr-only");
+            if($(this).children().eq(4).html()=="1"){
+                $("#stateflip").empty().append("禁用");
+            }else{
+                $("#stateflip").empty().append("恢复");
+            }
+            $('#statemodal').modal('show');
+        });
+        /**
+         * 状态改变
+         * */
+        $("#stateflip").click(function () {
+            var $btn = $(this).button('loading');
+            $.post("<php>echo U('Boss/SetAsset/otherstateflip')</php>",{
+                id:$("#sid").val()
+            }, function(data) {
+                $btn.button('reset');
+                if (data == true) {
+                    alert("修改成功");
+                } else {
+                    alert(data);
+                }
+                location.reload();
+            });
         });
     </script>
 </block>
