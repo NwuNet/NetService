@@ -14,12 +14,9 @@ class DoAssetController extends BaseController {
 	    $draw = I('get.draw');//这个值作者会直接返回给前台
 	
 	    //排序
-	    $order_column = I('get.order')['0']['column'];//那一列排序，
+	    $order_column = I('get.order')['0']['column'];//那一列排序，从0开始
+	    $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降序
 
-从0开始
-	    $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降
-
-序
 	    //拼接排序sql
 	    $orderSql = "";
 	    if (isset($order_column)) {
@@ -46,26 +43,18 @@ $order_dir;break;
 	    //表的总记录数 必要
 	    $recordsTotal = $Tool->count();
 	
-	    $map['asset_id|name|brand|model|price|unit|ifborrow']=array
-
-('like',"%".$search."%");
+	    $map['asset_id|name|brand|model|price|unit|ifborrow']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($Tool->where($map)->select());
-	        $table = $Tool->where($map)->order($orderSql)->limit
-
-($start.','.$length)->select();
+	        $table = $Tool->where($map)->order($orderSql)->limit($start.','.$length)->select();
 	    }else{
 	        $recordsFiltered = $recordsTotal;
-	        $table = $Tool->order($orderSql)->limit($start.','.
-
-$length)->select();
+	        $table = $Tool->order($orderSql)->limit($start.','. $length)->select();
 	    }
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['asset_id'],$row['name'],$row
-
-['brand'],$row['model'],$row['price'],$row['unit'],$row['ifborrow']);
+	        $obj = array($row['asset_id'],$row['name'],$row['brand'],$row['model'],$row['price'],$row['unit'],$row['ifborrow']);
 	        array_push($infos,$obj);
 	    }
 	
