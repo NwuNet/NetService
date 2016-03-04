@@ -52,7 +52,40 @@ class SetAssetController extends BaseController {
     }
 	// --------------------其他---------------------
 	public function other(){
+		$select = M('OtherSelect');
+        $other = $select->select();//获取数量
+        $otherselect = $select->order('name')->limit(count($other))->select();
+        $this->assign('otherselect',$otherselect);
         $this->display();
+        
+    }
+	// --------------------其他select添加和修改---------------------
+    public function otheradd(){
+        $name = I('post.name');//名称
+        $campus = I('post.campus');//校区
+        $room = I('post.room');//房间
+        if($name==''||$campus==''||$room==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $select = M('OtherSelect');
+        $select->create();
+        if($id==''){ //添加
+            if($select->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($select->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+
     }
 	// --------------------全局字段---------------------
 	public function overall(){

@@ -14,12 +14,8 @@ class DoAssetController extends BaseController {
 	    $draw = I('get.draw');//这个值作者会直接返回给前台
 	
 	    //排序
-	    $order_column = I('get.order')['0']['column'];//那一列排序，
-
-从0开始
-	    $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降
-
-序
+	    $order_column = I('get.order')['0']['column'];//那一列排序，从0开始
+	    $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降序
 	    //拼接排序sql
 	    $orderSql = "";
 	    if (isset($order_column)) {
