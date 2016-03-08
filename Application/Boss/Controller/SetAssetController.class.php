@@ -160,7 +160,82 @@ class SetAssetController extends BaseController {
     }
 	// --------------------设备---------------------
 	public function device(){
+        $select = M('DeviceSelect');
+        $device = $select->select();//获取数量
+        $deviceselect = $select->order('name')->limit(count($device))->select();
+        $this->assign('deviceselect',$deviceselect);
+		$state = M('DeviceState');
+        $devicestate = $state->select();
+        $this->assign('devicestate',$devicestate);
         $this->display();
+    }
+	// --------------------设备select添加和修改---------------------
+    public function deviceadd(){
+        $name = I('post.name');//名称
+        $brand = I('post.brand');//品牌
+        $model = I('post.model');//型号
+        $series = I('post.series');//系列
+        if($name==''||$brand==''||$model==''||$series==''){
+            $this->ajaxReturn("每项数据不能为空！");
+        }
+        $id = I('post.id');
+        $select = M('DeviceSelect');
+        $select->create();
+        if($id==''){ //添加
+            if($select->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($select->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+    }
+    // --------------------设备状态添加和修改---------------------
+    public function devicestate(){
+        if(I('post.name')==''||I('post.label')==''||I('post.icon')==''||I('post.status')==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $state = M('DeviceState');
+        $state->create();
+        if($id==''){ //添加
+            if($state->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($state->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+    }
+    // --------------------设备状态添加和修改---------------------
+    public function devicestateflip(){
+        if(I('post.id')==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $state = M('DeviceState');
+        $data = $state->where('id=%d',$id)->find();
+        $data['status'] = $data['status']==1?0:1;
+        if($state->save($data)){
+            $this->ajaxReturn(true);
+        }else{
+            $msg = '修改失败';
+            $this->ajaxReturn($msg);
+        }
     }
 	// --------------------证照---------------------
 	public function paper(){

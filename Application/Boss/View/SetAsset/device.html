@@ -26,7 +26,7 @@
     <!-- search widget -->
 
     <!--menu widget-->
-    {:W('Menu/index',array('setasset','setexhaust'))}
+    {:W('Menu/index',array('setasset','setdevice'))}
     <!--menu widget-->
 
 </block>
@@ -34,12 +34,12 @@
 <block name="content-header">
     <h1>
         资产设置
-        <small><span class="fa fa-fw fa-wrench"></span>耗材</small>
+        <small><span class="fa fa-fw fa-wrench"></span>设备</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
         <li>资产设置</li>
-        <li class="active">耗材</li>
+        <li class="active">设备</li>
     </ol>
 </block>
 
@@ -50,31 +50,33 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <i class="fa fa-fw fa-wrench"></i>
-                    <h3 class="box-title">耗材选项设置</h3>&ensp;
+                    <h3 class="box-title">设备选项设置</h3>&ensp;
                     <button class="btn btn-sm btn-default" id="openset" data-toggle="modal" data-target="#setmodal">
                         <i class="fa fa-plus">添加</i>
                     </button>
-                    <div class="box-exhausts pull-right">
-                        <button type="button" class="btn btn-box-exhaust" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <div class="box-devices pull-right">
+                        <button type="button" class="btn btn-box-device" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-box-exhaust" data-widget="remove"><i class="fa fa-times"></i></button>
+                        <button type="button" class="btn btn-box-device" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
-                    <table id="exhaustselect" class="table table-hover">
+                    <table id="deviceselect" class="table table-hover">
                         <thead>
                         <th class="sr-only"></th>
                         <th>名称</th>
                         <th>品牌</th>
                         <th>型号</th>
+                        <th>系列</th>
                         </thead>
                         <tbody>
-                        <volist name="exhaustselect" id="vo">
+                        <volist name="deviceselect" id="vo">
                             <tr>
                                 <td class="sr-only">{$vo.id}</td>
                                 <td>{$vo.name}</td>
                                 <td>{$vo.brand}</td>
                                 <td>{$vo.model}</td>
+                                <td>{$vo.series}</td>
                             </tr>
                         </volist>
                         </tbody>
@@ -88,18 +90,18 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <i class="fa fa-fw fa-wrench"></i>
-                    <h3 class="box-title">耗材状态设置</h3>&ensp;
+                    <h3 class="box-title">设备状态设置</h3>&ensp;
                     <button class="btn btn-sm btn-default" id="openstate" data-toggle="modal" data-target="#statemodal">
                         <i class="fa fa-plus">添加</i>
                     </button>
-                    <div class="box-exhausts pull-right">
-                        <button type="button" class="btn btn-box-exhaust" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <div class="box-devices pull-right">
+                        <button type="button" class="btn btn-box-device" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-box-exhaust" data-widget="remove"><i class="fa fa-times"></i></button>
+                        <button type="button" class="btn btn-box-device" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
-                    <table id="exhauststate" class="table table-hover">
+                    <table id="devicestate" class="table table-hover">
                         <thead>
                         <th>ID</th>
                         <th></th>
@@ -109,7 +111,7 @@
                         <th>status</th>
                         </thead>
                         <tbody>
-                        <volist name="exhauststate" id="vo">
+                        <volist name="devicestate" id="vo">
                             <tr>
                                 <td>{$vo.id}</td>
                                 <td><i class="fa fa-shopping-cart"></i></td>
@@ -141,7 +143,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">添加耗材选项</h4>
+                    <h4 class="modal-title">添加设备选项</h4>
                 </div>
                 <div class="modal-body">
                     <form id="addform">
@@ -161,6 +163,10 @@
                             <label for="model" class="control-label">型号</label>
                             <input type="text" class="form-control" id="model" name="model" />
                         </div>
+                        <div class="form-group">
+                            <label for="series" class="control-label">系列</label>
+                            <input type="text" class="form-control" id="series" name="series" />
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -178,7 +184,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">添加耗材状态</h4>
+                    <h4 class="modal-title">添加设备状态</h4>
                 </div>
                 <div class="modal-body">
                     <form id="stateform">
@@ -210,7 +216,7 @@
          * 添加时清空数据
          * */
         $("#openset").click(function () {
-            $("#id,#name,#brand,#model").val('');
+            $("#id,#name,#brand,#model，#series").val('');
         });
         $("#openstate").click(function () {
             $("#sid,#sname,#slabel").val('');
@@ -219,14 +225,14 @@
         /*
          * 判断名称品牌型号是否为空
          * */
-        $("#name,#brand,#model").keyup(function(){
+        $("#name,#brand,#model,#series").keyup(function(){
             if($(this)[0].value == ''){
                 $(this).parent().addClass("has-error");
                 $("#addbtn").attr("disabled","disabled");
             }else{
                 $(this).parent().removeClass("has-error");
             }
-            if($("#name")[0].value!=''&&$("#brand")[0].value!=''&&$("#model")[0].value!=''){
+            if($("#name")[0].value!=''&&$("#brand")[0].value!=''&&$("#model")[0].value!=''&&$("#series")[0].value!=''){
                 $("#addbtn").removeAttr("disabled");
             }
         });
@@ -243,11 +249,11 @@
             }
         });
         /*
-         * 添加工具设置选项
+         * 添加设备设置选项
          * */
         $("#addbtn").click(function() {
             var $btn = $(this).button('loading');
-            $.post("<php>echo U('Boss/SetAsset/exhaustadd')</php>",
+            $.post("<php>echo U('Boss/SetAsset/deviceadd')</php>",
                     $("#addform").serialize(),
                     function(data) {
                         $btn.button('reset');
@@ -262,11 +268,12 @@
         /**
          * 修改名称品牌型号
          * */
-        $('#exhaustselect tbody').on('click', 'tr', function() {
+        $('#deviceselect tbody').on('click', 'tr', function() {
             $("#id")[0].value = $(this).children().first().html();
             $("#name")[0].value = $(this).children().eq(1).html();
             $("#brand")[0].value = $(this).children().eq(2).html();
             $("#model")[0].value = $(this).children().eq(3).html();
+            $("#series")[0].value = $(this).children().eq(4).html();
             $('#setmodal').modal('show');
         });
         /*
@@ -274,7 +281,7 @@
          * */
         $("#addstate").click(function() {
             var $btn = $(this).button('loading');
-            $.post("<php>echo U('Boss/SetAsset/exhauststate')</php>",{
+            $.post("<php>echo U('Boss/SetAsset/devicestate')</php>",{
                 id:$("#sid").val(),
                 name : $("#sname").val(),
                 label : $("#slabel").val(),
@@ -293,7 +300,7 @@
         /**
          * 修改名称品牌型号
          * */
-        $('#exhauststate tbody').on('click', 'tr', function() {
+        $('#devicestate tbody').on('click', 'tr', function() {
             $("#sid")[0].value = $(this).children().first().html();
             $("#sname")[0].value = $(this).children().eq(2).html();
             $("#slabel")[0].value = $(this).children().eq(3).html();
@@ -310,7 +317,7 @@
          * */
         $("#stateflip").click(function () {
             var $btn = $(this).button('loading');
-            $.post("<php>echo U('Boss/SetAsset/exhauststateflip')</php>",{
+            $.post("<php>echo U('Boss/SetAsset/devicestateflip')</php>",{
                 id:$("#sid").val()
             }, function(data) {
                 $btn.button('reset');
