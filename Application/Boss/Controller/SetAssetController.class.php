@@ -82,7 +82,81 @@ class SetAssetController extends BaseController {
     }
 	// --------------------耗材---------------------
 	public function exhaust(){
+        $select = M('ExhaustSelect');
+        $other = $select->select();//获取数量
+        $exhaustselect = $select->order('name')->limit(count($exhaust))->select();
+        $this->assign('exhaustselect',$exhaustselect);
+		$state = M('ExhaustState');
+        $exhauststate = $state->select();
+        $this->assign('exhauststate',$exhauststate);
         $this->display();
+    }
+	// --------------------耗材select添加和修改---------------------
+    public function exhaustadd(){
+        $name = I('post.name');//名称
+        $brand = I('post.brand');//品牌
+        $model = I('post.model');//型号
+        if($name==''||$brand==''||$model==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $select = M('ExhaustSelect');
+        $select->create();
+        if($id==''){ //添加
+            if($select->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($select->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+    }
+    // --------------------耗材状态添加和修改---------------------
+    public function exhauststate(){
+        if(I('post.name')==''||I('post.label')==''||I('post.icon')==''||I('post.status')==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $state = M('ExhaustState');
+        $state->create();
+        if($id==''){ //添加
+            if($state->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($state->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+    }
+    // --------------------耗材状态添加和修改---------------------
+    public function exhauststateflip(){
+        if(I('post.id')==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $state = M('ExhaustState');
+        $data = $state->where('id=%d',$id)->find();
+        $data['status'] = $data['status']==1?0:1;
+        if($state->save($data)){
+            $this->ajaxReturn(true);
+        }else{
+            $msg = '修改失败';
+            $this->ajaxReturn($msg);
+        }
     }
 	// --------------------设备---------------------
 	public function device(){
