@@ -164,7 +164,80 @@ class SetAssetController extends BaseController {
     }
 	// --------------------证照---------------------
 	public function paper(){
+        $select = M('PaperSelect');
+        $paper = $select->select();//获取数量
+        $paperselect = $select->order('class')->limit(count($paper))->select();
+        $this->assign('paperselect',$paperselect);
+        $state = M('PaperState');
+        $paperstate = $state->select();
+        $this->assign('paperstate',$paperstate);
         $this->display();
+    }
+    // --------------------证照select添加和修改---------------------
+    public function paperadd(){
+        $class = I('post.class');//类别
+        $name = I('post.name');//名称
+        if($class==''||$name==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $select = M('PaperSelect');
+        $select->create();
+        if($id==''){ //添加
+            if($select->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($select->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+    }
+    // --------------------证照状态添加和修改---------------------
+    public function paperstate(){
+        if(I('post.name')==''||I('post.label')==''||I('post.icon')==''||I('post.status')==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $state = M('PaperState');
+        $state->create();
+        if($id==''){ //添加
+            if($state->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($state->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+    }
+    // --------------------证照状态添加和修改---------------------
+    public function paperstateflip(){
+        if(I('post.id')==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $state = M('PaperState');
+        $data = $state->where('id=%d',$id)->find();
+        $data['status'] = $data['status']==1?0:1;
+        if($state->save($data)){
+            $this->ajaxReturn(true);
+        }else{
+            $msg = '修改失败';
+            $this->ajaxReturn($msg);
+        }
     }
 	// --------------------其他---------------------
 	public function other(){
@@ -206,7 +279,7 @@ class SetAssetController extends BaseController {
         }
 
     }
-	// --------------------工具状态添加和修改---------------------
+	// --------------------其他状态添加和修改---------------------
     public function otherstate(){
         if(I('post.name')==''||I('post.label')==''||I('post.icon')==''||I('post.status')==''){
             $this->ajaxReturn("数据为空");

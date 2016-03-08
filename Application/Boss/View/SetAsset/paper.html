@@ -26,7 +26,7 @@
     <!-- search widget -->
 
     <!--menu widget-->
-    {:W('Menu/index',array('setasset','settool'))}
+    {:W('Menu/index',array('setasset','setpaper'))}
     <!--menu widget-->
 
 </block>
@@ -34,12 +34,12 @@
 <block name="content-header">
     <h1>
         资产设置
-        <small><span class="fa fa-fw fa-wrench"></span>工具</small>
+        <small><span class="fa fa-fw fa-image"></span>证照</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
         <li>资产设置</li>
-        <li class="active">工具</li>
+        <li class="active">证照</li>
     </ol>
 </block>
 
@@ -49,32 +49,30 @@
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <i class="fa fa-fw fa-wrench"></i>
-                    <h3 class="box-title">工具选项设置</h3>&ensp;
-                    <button class="btn btn-sm btn-default" id="openset" data-toggle="modal" data-target="#setmodal">
+                    <i class="fa fa-fw fa-image"></i>
+                    <h3 class="box-title">证照选项设置</h3>&ensp;
+                    <button class="btn btn-sm btn-default" id="openbtn" data-toggle="modal" data-target="#addmodal">
                         <i class="fa fa-plus">添加</i>
                     </button>
-                    <div class="box-tools pull-right">
+                    <div class="box-others pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
-                    <table id="toolselect" class="table table-hover">
+                    <table id="paperselect" class="table table-hover">
                         <thead>
                         <th class="sr-only"></th>
+                        <th>类别</th>
                         <th>名称</th>
-                        <th>品牌</th>
-                        <th>型号</th>
                         </thead>
                         <tbody>
-                        <volist name="toolselect" id="vo">
+                        <volist name="paperselect" id="vo">
                             <tr>
                                 <td class="sr-only">{$vo.id}</td>
+                                <td>{$vo.class}</td>
                                 <td>{$vo.name}</td>
-                                <td>{$vo.brand}</td>
-                                <td>{$vo.model}</td>
                             </tr>
                         </volist>
                         </tbody>
@@ -83,23 +81,23 @@
                 <!-- box-body -->
             </div>
         </div>
-
+        
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <i class="fa fa-fw fa-wrench"></i>
-                    <h3 class="box-title">工具状态设置</h3>&ensp;
+                    <i class="fa fa-fw fa-image"></i>
+                    <h3 class="box-title">证照状态设置</h3>&ensp;
                     <button class="btn btn-sm btn-default" id="openstate" data-toggle="modal" data-target="#statemodal">
                         <i class="fa fa-plus">添加</i>
                     </button>
-                    <div class="box-tools pull-right">
+                    <div class="box-others pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
-                    <table id="toolstate" class="table table-hover">
+                    <table id="paperstate" class="table table-hover">
                         <thead>
                         <th>ID</th>
                         <th></th>
@@ -109,7 +107,7 @@
                         <th>status</th>
                         </thead>
                         <tbody>
-                        <volist name="toolstate" id="vo">
+                        <volist name="paperstate" id="vo">
                             <tr>
                                 <td>{$vo.id}</td>
                                 <td><i class="fa fa-shopping-cart"></i></td>
@@ -134,14 +132,14 @@
 </block>
 
 <block name="script">
-    <!-- set Modal -->
-    <div class="modal fade" id="setmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+    <!-- add Modal -->
+    <div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">添加工具选项</h4>
+                    <h4 class="modal-title">添加其他选项</h4>
                 </div>
                 <div class="modal-body">
                     <form id="addform">
@@ -150,16 +148,12 @@
                             <input type="text" class="form-control" id="id" name="id" />
                         </div>
                         <div class="form-group">
+                            <label for="class" class="control-label">类别</label>
+                            <input type="text" class="form-control" id="class" name="class" />
+                        </div>
+                        <div class="form-group">
                             <label for="name" class="control-label">名称</label>
                             <input type="text" class="form-control" id="name" name="name" />
-                        </div>
-                        <div class="form-group">
-                            <label for="brand" class="control-label">品牌</label>
-                            <input type="text" class="form-control" id="brand" name="brand" />
-                        </div>
-                        <div class="form-group">
-                            <label for="model" class="control-label">型号</label>
-                            <input type="text" class="form-control" id="model" name="model" />
                         </div>
                     </form>
                 </div>
@@ -170,7 +164,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- state Modal -->
     <div class="modal fade" id="statemodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
         <div class="modal-dialog" role="document">
@@ -178,7 +172,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">添加工具状态</h4>
+                    <h4 class="modal-title">添加其他状态</h4>
                 </div>
                 <div class="modal-body">
                     <form id="stateform">
@@ -205,32 +199,33 @@
         </div>
     </div>
 
+
     <script type="text/javascript">
         /**
          * 添加时清空数据
          * */
-        $("#openset").click(function () {
-            $("#id,#name,#brand,#model").val('');
+        $("#openbtn").click(function () {
+            $("#id,#class,#name").val('');
         });
         $("#openstate").click(function () {
             $("#sid,#sname,#slabel").val('');
             $("#stateflip").addClass("sr-only");
         });
         /*
-         * 判断名称品牌型号是否为空
+         * 判断名称校区房间是否为空
          * */
-        $("#name,#brand,#model").keyup(function(){
+        $("#class,#name").keyup(function(){
             if($(this)[0].value == ''){
                 $(this).parent().addClass("has-error");
                 $("#addbtn").attr("disabled","disabled");
             }else{
                 $(this).parent().removeClass("has-error");
             }
-            if($("#name")[0].value!=''&&$("#brand")[0].value!=''&&$("#model")[0].value!=''){
+            if($("#class")[0].value!=''&&$("#name")[0].value!=''){
                 $("#addbtn").removeAttr("disabled");
             }
         });
-        //资产状态名称、label是否为空
+        //其他状态名称、label是否为空
         $("#sname,#slabel").keyup(function(){
             if($(this).val()==''){
                 $(this).parent().addClass("has-error");
@@ -243,16 +238,15 @@
             }
         });
         /*
-         * 添加工具设置选项
+         * 添加选项
          * */
         $("#addbtn").click(function() {
             var $btn = $(this).button('loading');
-            $.post("<php>echo U('Boss/SetAsset/tooladd')</php>",
-                    $("#addform").serialize(),
+            $.post("<php>echo U('Boss/SetAsset/paperadd')</php>",$("#addform").serialize(),
                     function(data) {
                         $btn.button('reset');
                         if (data == true) {
-                            alert("添加成功");
+                            alert("保存成功！");
                         } else {
                             alert(data);
                         }
@@ -260,21 +254,20 @@
                     });
         });
         /**
-         * 修改名称品牌型号
+         * 修改类别名称
          * */
-        $('#toolselect tbody').on('click', 'tr', function() {
+        $('#paperselect tbody').on('click', 'tr', function() {
             $("#id")[0].value = $(this).children().first().html();
-            $("#name")[0].value = $(this).children().eq(1).html();
-            $("#brand")[0].value = $(this).children().eq(2).html();
-            $("#model")[0].value = $(this).children().eq(3).html();
-            $('#setmodal').modal('show');
+            $("#class")[0].value = $(this).children().eq(1).html();
+            $("#name")[0].value = $(this).children().eq(2).html();
+            $('#addmodal').modal('show');
         });
         /*
          * 添加工具状态
          * */
         $("#addstate").click(function() {
             var $btn = $(this).button('loading');
-            $.post("<php>echo U('Boss/SetAsset/toolstate')</php>",{
+            $.post("<php>echo U('Boss/SetAsset/paperstate')</php>",{
                 id:$("#sid").val(),
                 name : $("#sname").val(),
                 label : $("#slabel").val(),
@@ -291,9 +284,9 @@
             });
         });
         /**
-         * 修改名称品牌型号
+         * 修改状态信息
          * */
-        $('#toolstate tbody').on('click', 'tr', function() {
+        $('#paperstate tbody').on('click', 'tr', function() {
             $("#sid")[0].value = $(this).children().first().html();
             $("#sname")[0].value = $(this).children().eq(2).html();
             $("#slabel")[0].value = $(this).children().eq(3).html();
@@ -310,7 +303,7 @@
          * */
         $("#stateflip").click(function () {
             var $btn = $(this).button('loading');
-            $.post("<php>echo U('Boss/SetAsset/toolstateflip')</php>",{
+            $.post("<php>echo U('Boss/SetAsset/paperstateflip')</php>",{
                 id:$("#sid").val()
             }, function(data) {
                 $btn.button('reset');
