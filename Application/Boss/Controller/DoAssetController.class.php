@@ -6,8 +6,27 @@ class DoAssetController extends BaseController {
     public function tool(){
     	$Tool = D('ToolView');
 		$this -> assign('table', $Tool -> select());
+		$select = M('ToolSelect');
+		$toolname = $select->field('name,count(name)')->group('name')->select();
+		$this->assign('toolname',$toolname);
         $this->display();
     }
+	// --------------------工具选项---------------------
+	public function toolselect(){
+		$num = I('post.num');
+		$name = I('post.name');
+		$brand = I('post.brand');
+		$model = I('post.model');
+		if($num==1){
+			$select = M('ToolSelect');
+			$brand = $select -> where('name = "%s"',$name) ->field('brand,count(brand)')->group('brand')->select();
+			$this->ajaxReturn($brand);
+		}elseif($num==2){
+			$select = M('ToolSelect');
+			$model = $select -> where('name = "%s" and brand = "%s"',$name,$brand) ->field('model,count(model)')->group('model')->select();
+			$this->ajaxReturn($model);
+		}
+	}
 	public function tooltable() {
 	    $Tool = D('ToolView');
 	    //获取Datatables发送的参数 必要
