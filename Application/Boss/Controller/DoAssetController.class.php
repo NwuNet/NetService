@@ -4,7 +4,7 @@ use Think\Controller;
 class DoAssetController extends BaseController {
 	// --------------------工具---------------------
     public function tool(){
-    	$Tool = D('ToolView');
+    	$Tool = M('AssetTool');
 		$this -> assign('table', $Tool -> select());
 		$select = M('ToolSelect');
 		$toolname = $select->field('name,count(name)')->group('name')->select();
@@ -28,7 +28,7 @@ class DoAssetController extends BaseController {
 		}
 	}
 	public function tooltable() {
-	    $Tool = D('ToolView');
+	    $Tool = M('AssetTool');
 	    //获取Datatables发送的参数 必要
 	    $draw = I('get.draw');//这个值作者会直接返回给前台
 	
