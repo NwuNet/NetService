@@ -396,7 +396,37 @@ class SetAssetController extends BaseController {
     }
 	// --------------------全局字段---------------------
 	public function overall(){
+        $unit = M('AssetUnit');
+        $assetunit = $unit->select();
+        $this->assign('assetunit',$assetunit);
         $this->display();
+    }
+	// --------------------全局资产单位添加和修改---------------------
+    public function unitadd(){
+        $name = I('post.name');//名称
+  
+        if($name==''){
+            $this->ajaxReturn("数据为空");
+        }
+        $id = I('post.id');
+        $select = M('AssetUnit');
+        $select->create();
+        if($id==''){ //添加
+            if($select->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '添加失败';
+                $this->ajaxReturn($msg);
+            }
+        }else{  //修改
+            if($select->save()){
+                $this->ajaxReturn(true);
+            }else{
+                $msg = '修改失败';
+                $this->ajaxReturn($msg);
+            }
+        }
+
     }
 
 	// --------------------空操作---------------------
