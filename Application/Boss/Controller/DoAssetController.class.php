@@ -41,15 +41,13 @@ class DoAssetController extends BaseController {
 	    if (isset($order_column)) {
 	        $i = intval($order_column);
 	        switch($i) {
-	            case 0 :$orderSql = " asset_id " . $order_dir;break;
-	            case 1 :$orderSql = " name " . $order_dir;break;
-	            case 2 :$orderSql = " brand " . $order_dir;break;
-	            case 3 :$orderSql = " model " . $order_dir;break;
-				case 4 :$orderSql = " price " . 
-
-$order_dir;break;
+	            case 0 :$orderSql = " id " . $order_dir;break;
+	            case 1 :$orderSql = " seq " . $order_dir;break;
+	            case 2 :$orderSql = " names " . $order_dir;break;
+	            case 3 :$orderSql = " brand " . $order_dir;break;
+				case 4 :$orderSql = " model " . $order_dir;break;
 	            case 5 :$orderSql = " unit " . $order_dir;break;
-	            case 6 :$orderSql = " ifborrow " . $order_dir;break;
+				case 6 :$orderSql = " start " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -62,7 +60,7 @@ $order_dir;break;
 	    //表的总记录数 必要
 	    $recordsTotal = $Tool->count();
 	
-	    $map['asset_id|name|brand|model|price|unit|ifborrow']=array('like',"%".$search."%");
+	    $map['id|seq|names|brand|model|unit|start']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($Tool->where($map)->select());
 	        $table = $Tool->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -73,7 +71,7 @@ $order_dir;break;
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['asset_id'],$row['name'],$row['brand'],$row['model'],$row['price'],$row['unit'],$row['ifborrow']);
+	        $obj = array($row['id'],$row['seq'],$row['names'],$row['brand'],$row['model'],$row['unit'],$row['start']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -86,24 +84,40 @@ $order_dir;break;
 	}
     
 	public function tooladd() {
-	 /*   $Tool = M('Tool');	    
-	    $data = array();	    
-	    $data['img'] = '/Images/User/default.png';
-	    $data['name'] = I('post.name');
-	    $data['brand'] = I('post.brand');
-		$data['model'] = I('post.model');
-	    $data['price'] = I('post.price');
-	    $data['unit'] = I('post.unit');
-		$data['operator'] = '胡';
-	    $data['date'] = '';
-	    if ($Tool -> save($data)) {
-	        $this -> ajaxReturn(TRUE);
-	    } else {
-	        $msg = "保存失败";
-	        $this -> ajaxReturn(FALSE);
-	    }
-	  * 
-	  */
+		$names = I('post.names');
+		$brand = I('post.brand');
+		$model = I('post.model');
+		$number = I('post.number');
+		$unit = I('post.unit');
+		if($names==''||$brand==''||$model==''||$number==''||$unit==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($names=='请选择'||$brand=='请选择'||$model=='请选择'){
+			$this->ajaxReturn("请选择");
+		}elseif($number<=0){
+			$this->ajaxReturn("数量必须大于0");
+		}
+
+		preg_match_all("/./u", $names, $arr);//拆分汉字
+		$arrayName = $arr[0];//赋值名称字符串
+		$strname = getFirstChar($arrayName[0]);
+		if(count($arrayName,0)>1){
+			for($j=1;$j<count($arrayName,0);$j++){
+				$strname = $strname.getFirstChar($arrayName[$j]);
+			}
+		}
+
+		$Tool = M('AssetTool');
+		for($i=0;$i<$number;$i++){
+			$Tool->create();
+			$Tool->seq = $strname.'-'.NOW_TIME.'-'.$i;
+			$Tool->start = date("Y-m-d H:i:s",NOW_TIME);
+			$Tool->add();
+		}
+		if($Tool){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("添加失败");
+		}
 	}
 	// --------------------工具卡片---------------------
 	public function toolcard($id){

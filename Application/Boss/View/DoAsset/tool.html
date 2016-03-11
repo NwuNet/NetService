@@ -74,10 +74,8 @@
 						  </select>
 						  <label>入库数量</label>
 						  <div class="input-group">
-							  <div class="input-group-addon">
-								  Number
-							  </div>
-							  <input type="text" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
+							  <div class="input-group-addon">Number</div>
+							  <input type="number" id="number" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
 						  </div>
 						  <label>数量单位</label>
 						  <select id="unit" class="form-control select2" style="width: 100%;">
@@ -89,7 +87,7 @@
 						  </select>
 					</div>
 					</form>
-					<button type="submit" class="btn btn-primary btn-block">提交</button>
+					<button type="submit" id="addbtn" class="btn btn-primary btn-block">提交</button>
 				</div>
 				<!-- box-body -->
 			</div>
@@ -166,13 +164,13 @@
 					<table id="tool1" class="table no-margin table-bordered table-hover">
 						<thead>
 							<tr>
-								<th>id</th>								
+								<th class="sr-only">ID</th>
+								<th>编号</th>
 								<th>名称</th>
 								<th>品牌</th>
 								<th>型号</th>
-								<th>价格</th>
 								<th>单位</th>
-								<th>是否借出</th>
+								<th>Time</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -245,16 +243,16 @@
 		$("#addbtn").click(function() {
 			var $btn = $(this).button('loading');
 			$.post("<php>echo U('Boss/DoAsset/tooladd')</php>", {
-					name: $("#addname")[0].value,
-					brand: $("#addpwd")[0].value,
-					model: $("#repwd")[0].value,
-					price: $("#addname")[0].value,
-					unit: $("#addpwd")[0].value
+					names: $("#name")[0].value,
+					brand: $("#brand")[0].value,
+					model: $("#model")[0].value,
+					number: $("#number")[0].value,
+					unit: $("#unit")[0].value
 				},
 				function(data) {
 					$btn.button('reset');
 					if (data == true) {
-						alert("工具添加成功");
+						alert("添加成功");
 					} else {
 						alert(data);
 					}
