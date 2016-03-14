@@ -116,13 +116,15 @@ class DoAssetController extends BaseController {
 			$Tool->create();
 			$Tool->seq = $strname.'-'.NOW_TIME.'-'.$i;
 			$Tool->start = date("Y-m-d H:i:s",NOW_TIME);
-			$Tool->add();
+			$Tool->add();		
 		}
 		if($Tool){
-			$this->ajaxReturn(true);
+				$this->ajaxReturn(true);
 		}else{
-			$this->ajaxReturn("添加失败");
+			   $this->ajaxReturn("添加失败");
 		}
+		
+		
 	}
 	// --------------------工具卡片---------------------
 	public function toolcard($id){
@@ -232,21 +234,52 @@ class DoAssetController extends BaseController {
 
 		$Exhaust = M('AssetExhaust');		
 		$Exhaust->create();
-		$Exhaust->day = date("Y-m-d ",NOW_TIME);
+		$Exhaust->day = date("Y-m-d H:i:s",NOW_TIME);
 		$Exhaust->start = date("Y-m-d H:i:s",NOW_TIME);
 		$Exhaust->add();
 		
-		if($Exhaust){
-			$this->ajaxReturn(true);
-		}else{
-			$this->ajaxReturn("添加失败");
+/*		$assetcontent = M('AssetContent');
+		if($Exhaust->add()){
+		//	$tid = $Exhaust->where('day = "%s"',$data['day'])->field("day,id")->find();
+			$data = array();
+			$data['asset_id'] = $tid['id'];
+			$data['state_id'] = '1';
+			$data['num'] = $number;
+			$data['time'] = date("Y-m-d H:i:s",NOW_TIME);
+			$data['actor'] = 'kkk';  //$user.uname
+			//$assetcontent->add($data);			
+			if($assetcontent->add($data)){
+				$this->ajaxReturn(true);
+		    }else{
+			   $this->ajaxReturn("添加失败");
+		    }
 		}
+*/
+		if($Exhaust){
+				$this->ajaxReturn(true);
+		}else{
+			   $this->ajaxReturn("添加失败");
+		}
+		
 	}
 	// --------------------耗材卡片---------------------
 	public function exhaustcard($id){
-		$this->assign('id',$id);
-        $this->display();
+		if(!empty($id)){
+	        $exhaust = M('AssetExhaust');
+	        $table = $exhaust->where('id=%d',$id)->select();
+	        $this->assign('id',$id);	
+			$this->assign('day',$table[0]['day']);	       	
+	        $this->assign('names',$table[0]['names']);
+			$this->assign('brand',$table[0]['brand']);
+	        $this->assign('model',$table[0]['model']);
+	        $this->assign('number',$table[0]['number']);
+	        $this->assign('unit',$table[0]['unit']);
+	        $this->assign('start',$table[0]['start']);
+	        
+	        $this->display();
+	    }
     }
+	
 	// --------------------设备---------------------
 	public function device(){
         $this->display();
