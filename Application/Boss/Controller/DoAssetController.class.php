@@ -9,6 +9,11 @@ class DoAssetController extends BaseController {
 		$select = M('ToolSelect');
 		$toolname = $select->field('name,count(name)')->group('name')->select();
 		$this->assign('toolname',$toolname);
+				
+		$unit = M('AssetUnit');
+        $assetunit = $unit->select();
+        $this->assign('assetunit',$assetunit);
+		
         $this->display();
     }
 	// --------------------工具选项---------------------
@@ -126,8 +131,117 @@ class DoAssetController extends BaseController {
     }
 	// --------------------耗材---------------------
 	public function exhaust(){
+        $Exhaust = M('AssetExhaust');
+		$this -> assign('table', $Exhaust -> select());
+		$select = M('ExhaustSelect');
+		$exhaustname = $select->field('name,count(name)')->group('name')->select();
+		$this->assign('exhaustname',$exhaustname);
+				
+		$unit = M('AssetUnit');
+        $assetunit = $unit->select();
+        $this->assign('assetunit',$assetunit);
+		
         $this->display();
     }
+	// --------------------耗材选项---------------------
+	public function exhaustselect(){
+		$num = I('post.num');
+		$name = I('post.name');
+		$brand = I('post.brand');
+		$model = I('post.model');
+		if($num==1){
+			$select = M('ExhaustSelect');
+			$brand = $select -> where('name = "%s"',$name) ->field('brand,count(brand)')->group('brand')->select();
+			$this->ajaxReturn($brand);
+		}elseif($num==2){
+			$select = M('ExhaustSelect');
+			$model = $select -> where('name = "%s" and brand = "%s"',$name,$brand) ->field('model,count(model)')->group('model')->select();
+			$this->ajaxReturn($model);
+		}
+	}
+	public function exhausttable() {
+	    $Exhaust = M('AssetExhaust');
+	    //获取Datatables发送的参数 必要
+	    $draw = I('get.draw');//这个值作者会直接返回给前台
+	
+	    //排序
+	    $order_column = I('get.order')['0']['column'];//那一列排序，从0开始
+	    $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降序
+
+	    //拼接排序sql
+	    $orderSql = "";
+	    if (isset($order_column)) {
+	        $i = intval($order_column);
+	        switch($i) {
+	            case 0 :$orderSql = " id " . $order_dir;break;
+	            case 1 :$orderSql = " day " . $order_dir;break;
+	            case 2 :$orderSql = " names " . $order_dir;break;
+	            case 3 :$orderSql = " brand " . $order_dir;break;
+				case 4 :$orderSql = " model " . $order_dir;break;
+				case 5 :$orderSql = " number " . $order_dir;break;
+	            case 6 :$orderSql = " unit " . $order_dir;break;
+				case 7 :$orderSql = " start " . $order_dir;break;
+	            default :$orderSql = '';
+	        }
+	    }
+	
+	    //搜索
+	    $search = $_GET['search']['value'];//获取前台传过来的过滤条件
+	    //分页
+	    $start = $_GET['start'];//从多少开始
+	    $length = $_GET['length'];//数据长度
+	    //表的总记录数 必要
+	    $recordsTotal = $Exhaust->count();
+	
+	    $map['id|day|names|brand|model|number|unit|start']=array('like',"%".$search."%");
+	    if(strlen($search)>0){
+	        $recordsFiltered = count($Exhaust->where($map)->select());
+	        $table = $Exhaust->where($map)->order($orderSql)->limit($start.','.$length)->select();
+	    }else{
+	        $recordsFiltered = $recordsTotal;
+	        $table = $Exhaust->order($orderSql)->limit($start.','. $length)->select();
+	    }
+	
+	    $infos = array();
+	    foreach($table as $row){
+	        $obj = array($row['id'],$row['day'],$row['names'],$row['brand'],$row['model'],$row['number'],$row['unit'],$row['start']);
+	        array_push($infos,$obj);
+	    }
+	
+	    $this->ajaxReturn(array(
+	        "draw" => intval($draw),
+	        "recordsTotal" => intval($recordsTotal),
+	        "recordsFiltered" => intval($recordsFiltered),
+	        "data" => $infos
+	    ));
+	}
+    
+	public function exhaustadd() {
+		$names = I('post.names');
+		$brand = I('post.brand');
+		$model = I('post.model');
+		$number = I('post.number');
+		$unit = I('post.unit');
+		if($names==''||$brand==''||$model==''||$number==''||$unit==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($names=='请选择'||$brand=='请选择'||$model=='请选择'){
+			$this->ajaxReturn("请选择");
+		}elseif($number<=0){
+			$this->ajaxReturn("数量必须大于0");
+		}		
+
+		$Exhaust = M('AssetExhaust');		
+		$Exhaust->create();
+		$Exhaust->day = date("Y-m-d ",NOW_TIME);
+		$Exhaust->start = date("Y-m-d H:i:s",NOW_TIME);
+		$Exhaust->add();
+		
+		if($Exhaust){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("添加失败");
+		}
+	}
 	// --------------------耗材卡片---------------------
 	public function exhaustcard($id){
 		$this->assign('id',$id);

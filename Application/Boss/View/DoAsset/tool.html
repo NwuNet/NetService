@@ -77,14 +77,14 @@
 							  <div class="input-group-addon">Number</div>
 							  <input type="number" id="number" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
 						  </div>
-						  <label>数量单位</label>
-						  <select id="unit" class="form-control select2" style="width: 100%;">
-							  <option>个</option>
-							  <option>把</option>
-							  <option>袋</option>
-							  <option>盒</option>
-							  <option>米</option>
+						  <label>数量单位</label>						  
+                          <select id="unit" class="form-control select2" style="width: 100%;">
+							  <option selected="selected">请选择</option>
+							  <foreach name="assetunit" item="vo">
+								  <option>{$vo.name}</option>
+							  </foreach>
 						  </select>
+						  
 					</div>
 					</form>
 					<button type="submit" id="addbtn" class="btn btn-primary btn-block">提交</button>
@@ -178,13 +178,13 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<th>id</th>								
+								<th class="sr-only">ID</th>
+								<th>编号</th>
 								<th>名称</th>
 								<th>品牌</th>
 								<th>型号</th>
-								<th>价格</th>
 								<th>单位</th>
-								<th>是否借出</th>
+								<th>Time</th>
 							</tr>
 						</tfoot>
 					</table>
