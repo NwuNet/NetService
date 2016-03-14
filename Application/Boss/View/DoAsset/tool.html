@@ -12,14 +12,14 @@
 
 <block name="navigation">
 	<div class="user-panel">
-		<div class="pull-left image">
-			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
-		</div>
-		<div class="pull-left info">
-			<p>{$user.uname}</p>
-			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
-		</div>
+	<div class="pull-left image">
+		<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 	</div>
+	<div class="pull-left info">
+		<p>{$user.uname}</p>
+		<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+	</div>
+</div>
 
 	<!--search widget-->
 	{:W('Search/index')}
@@ -101,9 +101,9 @@
 					<i class="fa fa-wrench"></i>
 					<h3 class="box-title">工具库存数量</h3>
 					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+						<button type="button" class="btn btn-box-tool btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
-						<button type="button" class="btn btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						<button type="button" class="btn btn-box-tool btn-sm" data-widget="remove"><i class="fa fa-times"></i>
 						</button>
 					</div>
 				</div>
@@ -113,30 +113,14 @@
 				<!-- /.box-body -->
 				<div class="box-footer text-black">
 					<div class="row">
+						<foreach name="toolstate" item="vo">
 						<div class="col-md-6">
 							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">剪线钳</span>
-								<small class="pull-right">2 把</small>
+								<span class="pull-left">{$vo.names}</span>
+								<small class="pull-right">{$vo.number} {$vo.unit}</small>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">剥线刀</span>
-								<small class="pull-right">10 个</small>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">螺丝刀</span>
-								<small class="pull-right">3 把</small>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">测线仪</span>
-								<small class="pull-right">4 个</small>
-							</div>
-						</div>
+						</foreach>
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
@@ -188,6 +172,7 @@
 							</tr>
 						</tfoot>
 					</table>
+
 				</div>
 				<!-- box-body -->
 			</div>
@@ -264,37 +249,10 @@
 		var line_tools = new Morris.Line({
 			element: 'chart_tools',
 			resize: true,
-			data: [{
-				y: '2015-02',
-				item1: 88
-			}, {
-				y: '2015-03',
-				item1: 69
-			}, {
-				y: '2015-04',
-				item1: 67
-			}, {
-				y: '2015-05',
-				item1: 62
-			}, {
-				y: '2015-06',
-				item1: 54
-			}, {
-				y: '2015-07',
-				item1: 57
-			}, {
-				y: '2015-08',
-				item1: 42
-			}, {
-				y: '2015-09',
-				item1: 33
-			}, {
-				y: '2015-10',
-				item1: 28
-			}, {
-				y: '2015-11',
-				item1: 11
-			}],
+			data: [
+			<foreach name ="tooltime" item="vo">
+				{y: '{$vo.start}',item1: '{$vo.number}'},
+		    </foreach> ],
 			xkey: 'y',
 			ykeys: ['item1'],
 			labels: ['工具总数'],

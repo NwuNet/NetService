@@ -5,15 +5,31 @@ class DoAssetController extends BaseController {
 	// --------------------工具---------------------
     public function tool(){
     	$Tool = M('AssetTool');
-		$this -> assign('table', $Tool -> select());
+		$tooltable = $Tool -> select();
+		$this -> assign('table',$tooltable );//工具表
 		$select = M('ToolSelect');
 		$toolname = $select->field('name,count(name)')->group('name')->select();
-		$this->assign('toolname',$toolname);
+		$this->assign('toolname',$toolname);//选项名
 				
 		$unit = M('AssetUnit');
         $assetunit = $unit->select();
-        $this->assign('assetunit',$assetunit);
-		
+        $this->assign('assetunit',$assetunit);//资产单位
+
+		$toolstate = $Tool->field('names,unit,count(names) as number')->group('names,unit')->select();
+		$this->assign('toolstate',$toolstate);//现有工具的数量
+
+//		$nowtime = strtotime()
+//		$mintime = $Tool->field('start')->order('start')->find();
+		$maxtime = $Tool->field('start')->order('start desc')->find();
+		$m = month(strtotime($maxtime['start']));
+		$tooltime = array();
+		foreach ($m as $item) {
+			$map['start'] = array('like',$item.'%');
+			$toolshow = $Tool->where($map)->field('start,count(start) as number')->select();
+			$toolshow[0]['start'] =$item;
+			array_push($tooltime,$toolshow[0]);
+		}
+		$this->assign('tooltime',$tooltime);
         $this->display();
     }
 	// --------------------工具选项---------------------
@@ -123,13 +139,17 @@ class DoAssetController extends BaseController {
 		}else{
 			   $this->ajaxReturn("添加失败");
 		}
-		
-		
 	}
 	// --------------------工具卡片---------------------
 	public function toolcard($id){
-		$this->assign('id',$id);
-        $this->display();
+		if($id!=''){
+			$Tool = M('AssetTool');
+			$toolinfo = $Tool->where('id = %d',$id)->select();
+			trace($toolinfo);
+			$this->assign("toolinfo",$toolinfo);
+			$this->assign('id',$id);
+			$this->display();
+		}
     }
 	// --------------------耗材---------------------
 	public function exhaust(){

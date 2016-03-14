@@ -279,3 +279,69 @@ function getFirstChar($s0){
     if($asc>=-11055 and $asc<=-10247)return "Z";
     return null;
 }
+
+/**
+ * 时间格式化
+ * type = 1 返回时间戳
+ */
+function format_time($time, $type = 1 , $date = 'Y-m-d H:i:s') {
+    switch ($type) {
+        case 1:
+            return strtotime($time);
+            break;
+        case 2:
+            $d= NOW_TIME-strtotime($time);
+            if($d<0){
+                return strtotime($time);
+            }
+            if($d<60){
+                return $d.'秒前';
+            }else{
+                if($d<3600){
+                    return floor($d/60).'分钟前';
+                }else{
+                    if($d<86400){
+                        return floor($d/3600).'小时前';
+                    }else{
+                        if($d<259200){
+                            return floor($d/86400).'天前';
+                        }else{
+                            return strtotime($time);
+                        }
+                    }
+                }
+            }
+            break;
+    }
+}
+/**
+ * 时间格式化
+ * 将datetime表转为可以传送给前台的表
+ */
+function datetimetoshow($arr,$min_time,$max_time,$time_str,$num=8,$type = 1){
+    $min = strtotime($min_time);
+    $max = strtotime($max_time);
+    $delta = floor(($max - $min)/$num);
+    if($delta>0){
+
+    }
+    else return false;
+}
+/**
+ * 返回月份列表
+ * $time为时间戳
+ */
+function month($time,$num = 8){
+    $mon = array();
+    $year = date('Y',$time);
+    $m = date('m',$time);
+    for($i=0;$i<$num;$i++){
+        array_push($mon, date('Y-m',mktime(0,0,0,$m,1,$year)));
+        $m--;
+        if($m<=0){
+            $year--;
+            $m=12;
+        }
+    }
+    return $mon;
+}
