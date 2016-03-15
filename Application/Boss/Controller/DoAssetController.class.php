@@ -190,7 +190,7 @@ class DoAssetController extends BaseController {
         $assetunit = $unit->select();
         $this->assign('assetunit',$assetunit);//资产单位
 		
-		$exhauststate = $Exhaust ->field('names,unit,sum(number) as numberall ')->group('names,unit')->select();
+		$exhauststate = $Exhaust ->field('names,unit,sum(names) as numberall ')->group('names,unit')->select();
 		$this->assign('exhauststate',$exhauststate);//现有耗材的数量
 
 //		$nowtime = strtotime()
@@ -200,7 +200,7 @@ class DoAssetController extends BaseController {
 		$exhausttime = array();
 		foreach ($m as $item) {
 			$map['start'] = array('like',$item.'%');
-			$exhaustshow = $Exhaust->where($map)->field('start,count(number) as num')->select();
+			$exhaustshow = $Exhaust->where($map)->field('start,count(start) as num')->select();
 			$exhaustshow[0]['start'] =$item;
 			array_push($exhausttime,$exhaustshow[0]);
 		}
@@ -363,7 +363,7 @@ class DoAssetController extends BaseController {
         $assetunit = $unit->select();
         $this->assign('assetunit',$assetunit);//其他单位
 		
-		$otherstate = $Other ->field('names,unit,sum(number) as numberall ')->group('names,unit')->select();
+		$otherstate = $Other ->field('names,unit,sum(names) as numberall ')->group('names,unit')->select();
 		$this->assign('otherstate',$otherstate);//现有其他的数量
 
 //		$nowtime = strtotime()
