@@ -326,8 +326,180 @@ class DoAssetController extends BaseController {
     }
 	// --------------------其他---------------------
 	public function other(){
+        $Other = M('AssetOther');
+		$this -> assign('table', $Other -> select());//其他列表
+		$select = M('OtherSelect');
+		$othername = $select->field('name,count(name)')->group('name')->select();
+		$this->assign('othername',$othername);//其他名称
+				
+		$unit = M('AssetUnit');
+        $assetunit = $unit->select();
+        $this->assign('assetunit',$assetunit);//其他单位
+		
+		$otherstate = $Other ->field('names,unit,sum(number) as numberall ')->group('names,unit')->select();
+		$this->assign('otherstate',$otherstate);//现有其他的数量
+
+//		$nowtime = strtotime()
+//		$mintime = $Other->field('start')->order('start')->find();
+		$maxtime = $Other->field('start')->order('start desc')->find();
+		$m = month(strtotime($maxtime['start']));
+		$othertime = array();
+		foreach ($m as $item) {
+			$map['start'] = array('like',$item.'%');
+			$othershow = $Other->where($map)->field('start,count(number) as num')->select();
+			$othershow[0]['start'] =$item;
+			array_push($othertime,$othershow[0]);
+		}
+		$this->assign('othertime',$othertime);
+		
         $this->display();
     }
+// --------------------其他选项---------------------
+	public function otherselect(){
+		$num = I('post.num');
+		$name = I('post.name');
+		$campus = I('post.campus');
+		$room = I('post.room');
+		if($num==1){
+			$select = M('OtherSelect');
+			$campus = $select -> where('name = "%s"',$name) ->field('campus,count(campus)')->group('campus')->select();
+			$this->ajaxReturn($campus);
+		}elseif($num==2){
+			$select = M('OtherSelect');
+			$room = $select -> where('name = "%s" and campus = "%s"',$name,$campus) ->field('room,count(room)')->group('room')->select();
+			$this->ajaxReturn($room);
+		}
+	}
+	public function othertable() {
+	    $Other = M('AssetOther');
+	    //获取Datatables发送的参数 必要
+	    $draw = I('get.draw');//这个值作者会直接返回给前台
+	
+	    //排序
+	    $order_column = I('get.order')['0']['column'];//那一列排序，从0开始
+	    $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降序
+
+	    //拼接排序sql
+	    $orderSql = "";
+	    if (isset($order_column)) {
+	        $i = intval($order_column);
+	        switch($i) {
+	            case 0 :$orderSql = " id " . $order_dir;break;
+	            case 1 :$orderSql = " seq " . $order_dir;break;
+	            case 2 :$orderSql = " names " . $order_dir;break;
+	            case 3 :$orderSql = " campus " . $order_dir;break;
+				case 4 :$orderSql = " room " . $order_dir;break;
+	            case 5 :$orderSql = " unit " . $order_dir;break;
+				case 6 :$orderSql = " start " . $order_dir;break;
+	            default :$orderSql = '';
+	        }
+	    }
+	
+	    //搜索
+	    $search = $_GET['search']['value'];//获取前台传过来的过滤条件
+	    //分页
+	    $start = $_GET['start'];//从多少开始
+	    $length = $_GET['length'];//数据长度
+	    //表的总记录数 必要
+	    $recordsTotal = $Other->count();
+	
+	    $map['id|seq|names|campus|room|unit|start']=array('like',"%".$search."%");
+	    if(strlen($search)>0){
+	        $recordsFiltered = count($Other->where($map)->select());
+	        $table = $Other->where($map)->order($orderSql)->limit($start.','.$length)->select();
+	    }else{
+	        $recordsFiltered = $recordsTotal;
+	        $table = $Other->order($orderSql)->limit($start.','. $length)->select();
+	    }
+	
+	    $infos = array();
+	    foreach($table as $row){
+	        $obj = array($row['id'],$row['seq'],$row['names'],$row['campus'],$row['room'],$row['unit'],$row['start']);
+	        array_push($infos,$obj);
+	    }
+	
+	    $this->ajaxReturn(array(
+	        "draw" => intval($draw),
+	        "recordsTotal" => intval($recordsTotal),
+	        "recordsFiltered" => intval($recordsFiltered),
+	        "data" => $infos
+	    ));
+	}
+    
+	public function otheradd() {
+		$names = I('post.names');
+		$campus = I('post.campus');
+		$room = I('post.room');
+		$number = I('post.number');
+		$unit = I('post.unit');
+		if($names==''||$campus==''||$room==''||$number==''||$unit==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($names=='请选择'||$campus=='请选择'||$room=='请选择'){
+			$this->ajaxReturn("请选择");
+		}elseif($number<=0){
+			$this->ajaxReturn("数量必须大于0");
+		}		
+
+        preg_match_all("/./u", $names, $arr);//拆分汉字
+		$arrayName = $arr[0];//赋值名称字符串
+		$strname = getFirstChar($arrayName[0]);
+		if(count($arrayName,0)>1){
+			for($j=1;$j<count($arrayName,0);$j++){
+				$strname = $strname.getFirstChar($arrayName[$j]);
+			}
+		}
+
+		$Other = M('AssetOther');
+		for($i=0;$i<$number;$i++){
+			$Other->create();
+			$Other->seq = $strname.'-'.NOW_TIME.'-'.$i;
+			$Other->start = date("Y-m-d H:i:s",NOW_TIME);
+			$Other->number ='1';
+			$Other->add();		
+		}
+        				
+/*		$assetcontent = M('AssetContent');
+		if($Other->add()){
+		//	$tid = $Other->where('day = "%s"',$data['day'])->field("day,id")->find();
+			$data = array();
+			$data['asset_id'] = $tid['id'];
+			$data['state_id'] = '1';
+			$data['num'] = $number;
+			$data['time'] = date("Y-m-d H:i:s",NOW_TIME);
+			$data['actor'] = 'kkk';  //$user.uname
+			//$assetcontent->add($data);			
+			if($assetcontent->add($data)){
+				$this->ajaxReturn(true);
+		    }else{
+			   $this->ajaxReturn("添加失败");
+		    }
+		}
+*/
+		if($Other){
+				$this->ajaxReturn(true);
+		}else{
+			   $this->ajaxReturn("添加失败");
+		}
+		
+	}
+	// --------------------其他卡片---------------------
+	public function othercard($id){
+		if(!empty($id)){
+	        $Other = M('AssetOther');
+	        $table = $Other->where('id=%d',$id)->select();
+	        $this->assign('id',$id);	
+			$this->assign('seq',$table[0]['seq']);	       	
+	        $this->assign('names',$table[0]['names']);
+			$this->assign('campus',$table[0]['campus']);
+	        $this->assign('room',$table[0]['room']);
+	        $this->assign('number',$table[0]['number']);
+	        $this->assign('unit',$table[0]['unit']);
+	        $this->assign('start',$table[0]['start']);
+	        
+	        $this->display();
+	    }
+    }
+	
 	// --------------------空操作---------------------
 	public function _empty($name){
 		echo "Not Found!";
