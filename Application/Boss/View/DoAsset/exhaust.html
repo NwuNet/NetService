@@ -101,9 +101,9 @@
 					<i class="fa fa-recycle"></i>
 					<h3 class="box-title">耗材库存数量</h3>
 					<div class="box-exhausts pull-right">
-						<button type="button" class="btn btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+						<button type="button" class="btn btn-box-exhaust btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
-						<button type="button" class="btn btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						<button type="button" class="btn btn-box-exhaust btn-sm" data-widget="remove"><i class="fa fa-times"></i>
 						</button>
 					</div>
 				</div>
@@ -113,29 +113,15 @@
 				<!-- /.box-body -->
 				<div class="box-footer text-black">
 					<div class="row">
-						<div class="col-sm-6">
-							<!-- Progress bars -->
+						<foreach name="exhauststate" item="vo">
+						<div class="col-md-6">
 							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">垃圾袋</span>
-								<small class="pull-right">2 包</small>
-							</div>
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">水晶头</span>
-								<small class="pull-right">54 个</small>
+								<span class="pull-left">{$vo.names}</span>
+								<small class="pull-right">{$vo.numberall} {$vo.unit}</small>
 							</div>
 						</div>
-						<!-- /.col -->
-						<div class="col-sm-6">
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">双绞线</span>
-								<small class="pull-right">14 米</small>
-							</div>
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">标签纸</span>
-								<small class="pull-right">2 包</small>
-							</div>
-						</div>
-						<!-- /.col -->
+						</foreach>
+						<!-- /.col -->						
 					</div>
 					<!-- /.row -->
 				</div>					
@@ -262,37 +248,10 @@
 		var line_exhausts = new Morris.Line({
 			element: 'chart_exhausts',
 			resize: true,
-			data: [{
-				y: '2015-02',
-				item1: 88
-			}, {
-				y: '2015-03',
-				item1: 69
-			}, {
-				y: '2015-04',
-				item1: 67
-			}, {
-				y: '2015-05',
-				item1: 62
-			}, {
-				y: '2015-06',
-				item1: 54
-			}, {
-				y: '2015-07',
-				item1: 57
-			}, {
-				y: '2015-08',
-				item1: 42
-			}, {
-				y: '2015-09',
-				item1: 33
-			}, {
-				y: '2015-10',
-				item1: 28
-			}, {
-				y: '2015-11',
-				item1: 11
-			}],
+			data: [
+			<foreach name ="exhausttime" item="vo">
+				{y: '{$vo.start}',item1: '{$vo.num}'},
+		    </foreach> ],
 			xkey: 'y',
 			ykeys: ['item1'],
 			labels: ['耗材总数'],

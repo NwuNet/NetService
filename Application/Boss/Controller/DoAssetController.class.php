@@ -154,14 +154,30 @@ class DoAssetController extends BaseController {
 	// --------------------耗材---------------------
 	public function exhaust(){
         $Exhaust = M('AssetExhaust');
-		$this -> assign('table', $Exhaust -> select());
+		$this -> assign('table', $Exhaust -> select());//耗材列表
 		$select = M('ExhaustSelect');
 		$exhaustname = $select->field('name,count(name)')->group('name')->select();
-		$this->assign('exhaustname',$exhaustname);
+		$this->assign('exhaustname',$exhaustname);//耗材名
 				
 		$unit = M('AssetUnit');
         $assetunit = $unit->select();
-        $this->assign('assetunit',$assetunit);
+        $this->assign('assetunit',$assetunit);//资产单位
+		
+		$exhauststate = $Exhaust ->field('names,unit,sum(number) as numberall ')->group('names,unit')->select();
+		$this->assign('exhauststate',$exhauststate);//现有耗材的数量
+
+//		$nowtime = strtotime()
+//		$mintime = $Exhaust->field('start')->order('start')->find();
+		$maxtime = $Exhaust->field('start')->order('start desc')->find();
+		$m = month(strtotime($maxtime['start']));
+		$exhausttime = array();
+		foreach ($m as $item) {
+			$map['start'] = array('like',$item.'%');
+			$exhaustshow = $Exhaust->where($map)->field('start,count(number) as num')->select();
+			$exhaustshow[0]['start'] =$item;
+			array_push($exhausttime,$exhaustshow[0]);
+		}
+		$this->assign('exhausttime',$exhausttime);
 		
         $this->display();
     }
