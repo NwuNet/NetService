@@ -5,10 +5,10 @@ use Think\Model\ViewModel;
  * 后台用户查询视图
  */
 
-class ToolViewModel extends ViewModel {
+class AssetToolViewModel extends ViewModel {
 
 	public $viewFields = array(
-	'Tool' => array('asset_id', 'name','brand','model','price','unit','ifborrow')
+	'Assettool' => array('id', 'seq','names','brand','model','unit','start')
 	);
 
 }

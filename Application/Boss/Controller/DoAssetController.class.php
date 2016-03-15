@@ -5,8 +5,8 @@ class DoAssetController extends BaseController {
 	// --------------------工具---------------------
     public function tool(){
     	$Tool = M('AssetTool');
-		$tooltable = $Tool -> select();
-		$this -> assign('table',$tooltable );//工具表
+//		$tooltable = $Tool -> select();
+//		$this -> assign('table',$tooltable );//工具表
 		$select = M('ToolSelect');
 		$toolname = $select->field('name,count(name)')->group('name')->select();
 		$this->assign('toolname',$toolname);//选项名
@@ -18,8 +18,6 @@ class DoAssetController extends BaseController {
 		$toolstate = $Tool->field('names,unit,count(names) as number')->group('names,unit')->select();
 		$this->assign('toolstate',$toolstate);//现有工具的数量
 
-//		$nowtime = strtotime()
-//		$mintime = $Tool->field('start')->order('start')->find();
 		$maxtime = $Tool->field('start')->order('start desc')->find();
 		$m = month(strtotime($maxtime['start']));
 		$tooltime = array();
@@ -132,7 +130,7 @@ class DoAssetController extends BaseController {
 			$Tool->create();
 			$Tool->seq = $strname.'-'.NOW_TIME.'-'.$i;
 			$Tool->start = date("Y-m-d H:i:s",NOW_TIME);
-			$Tool->add();		
+			$Tool->add();
 		}
 		if($Tool){
 				$this->ajaxReturn(true);
@@ -144,13 +142,42 @@ class DoAssetController extends BaseController {
 	public function toolcard($id){
 		if($id!=''){
 			$Tool = M('AssetTool');
+			$state = M('ToolState');
+			$content = M('AssetContent');
 			$toolinfo = $Tool->where('id = %d',$id)->select();
-			trace($toolinfo);
+			$toolstate = $state ->where('status = 1')->select();
+			$toolcontent = $content->where('class = 1 and asset_id =%d',$id)->select();
 			$this->assign("toolinfo",$toolinfo);
+			$this->assign('toolstate',$toolstate);
+			$this->assign('toolcontent',$toolcontent);
+			trace($toolcontent);
 			$this->assign('id',$id);
 			$this->display();
 		}
     }
+	// --------------------工具卡片添加状态---------------------
+	public function toolcardadd(){
+		$asset_id = I('post.asset_id');
+		$state = I('post.state');
+		$class = I('post.class');
+		$user = I('post.user');
+		$actor = I('post.actor');
+		$label = I('post.label');
+		if($asset_id==''||$state==''||$class==''||$user==''||$actor==''||$label==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($user=='请选择'||$state=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		$content = M('AssetContent');
+		$content->create();
+		$content->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$content->add();
+		if($content){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("添加失败");
+		}
+	}
 	// --------------------耗材---------------------
 	public function exhaust(){
         $Exhaust = M('AssetExhaust');
