@@ -12,33 +12,33 @@
 
 <block name="navigation">
 	<div class="user-panel">
-		<div class="pull-left image">
-			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
-		</div>
-		<div class="pull-left info">
-			<p>{$user.uname}</p>
-			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
-		</div>
+	<div class="pull-left image">
+		<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 	</div>
+	<div class="pull-left info">
+		<p>{$user.uname}</p>
+		<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+	</div>
+</div>
 
 	<!--search widget-->
 	{:W('Search/index')}
 	<!-- search widget -->
 
 	<!--menu widget-->
-	{:W('Menu/index',array('doasset','doexhaust'))}
+	{:W('Menu/index',array('doasset','doother'))}
 	<!--menu widget-->
 </block>
 
 <block name="content-header">
 	<h1>
 	资产管理
-	<small><i class="fa fa-fw fa-recycle"></i>耗材</small>
+	<small><i class="fa fa-fw fa-arrows"></i>其他</small>
   </h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
 		<li>资产管理</li>
-		<li class="active">耗材</li>
+		<li class="active">其他</li>
 	</ol>
 </block>
 
@@ -48,12 +48,12 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-shopping-cart"></i>
-					<h3 class="box-title">耗材入库</h3>
+					<h3 class="box-title">其他入库</h3>
 
-					<div class="box-exhausts pull-right">
-						<button type="button" class="btn btn-box-exhaust" data-widget="collapse"><i class="fa fa-minus"></i>
+					<div class="box-others pull-right">
+						<button type="button" class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
-						<button type="button" class="btn btn-box-exhaust" data-widget="remove"><i class="fa fa-times"></i></button>
+						<button type="button" class="btn btn-box-other" data-widget="remove"><i class="fa fa-times"></i></button>
 					</div>
 				</div>
 				<div class="box-body">
@@ -62,20 +62,20 @@
 						  <label>名称</label>
 						  <select id="name" class="form-control select2" style="width: 100%;">
 							  <option selected="selected">请选择</option>
-							  <foreach name="exhaustname" item="vo">
+							  <foreach name="othername" item="vo">
 								  <option>{$vo.name}</option>
 							  </foreach>
 						  </select>
-						  <label>品牌</label>
-						  <select id="brand" class="form-control select2" style="width: 100%;">
+						  <label>校区</label>
+						  <select id="campus" class="form-control select2" style="width: 100%;">
 						  </select>
-						  <label>型号</label>
-						  <select id="model" class="form-control select2" style="width: 100%;">
+						  <label>房间</label>
+						  <select id="room" class="form-control select2" style="width: 100%;">
 						  </select>
 						  <label>入库数量</label>
 						  <div class="input-group">
 							  <div class="input-group-addon">Number</div>
-							  <input type="number" id="number" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
+							  <input type="number" id="number" class="form-control" data-toggle="othertip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
 						  </div>
 						  <label>数量单位</label>						  
                           <select id="unit" class="form-control select2" style="width: 100%;">
@@ -98,22 +98,22 @@
 		<div class="col-md-6">
 			<div class="box box-solid bg-yellow-gradient">
 				<div class="box-header">
-					<i class="fa fa-recycle"></i>
-					<h3 class="box-title">耗材库存数量</h3>
-					<div class="box-exhausts pull-right">
-						<button type="button" class="btn btn-box-exhaust btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+					<i class="fa fa-arrows"></i>
+					<h3 class="box-title">其他库存数量</h3>
+					<div class="box-others pull-right">
+						<button type="button" class="btn btn-box-other btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
-						<button type="button" class="btn btn-box-exhaust btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						<button type="button" class="btn btn-box-other btn-sm" data-widget="remove"><i class="fa fa-times"></i>
 						</button>
 					</div>
 				</div>
 				<div class="box-body border-radius-none">
-					<div class="chart" id="chart_exhausts" style="height: 250px;"></div>
+					<div class="chart" id="chart_others" style="height: 250px;"></div>
 				</div>
 				<!-- /.box-body -->
 				<div class="box-footer text-black">
 					<div class="row">
-						<foreach name="exhauststate" item="vo">
+						<foreach name="otherstate" item="vo">
 						<div class="col-md-6">
 							<div class="clearfix" style="border-bottom: 1px solid #eee">
 								<span class="pull-left">{$vo.names}</span>
@@ -121,10 +121,10 @@
 							</div>
 						</div>
 						</foreach>
-						<!-- /.col -->						
+						<!-- /.col -->
 					</div>
 					<!-- /.row -->
-				</div>					
+				</div>
 				<!-- /.box-footer -->
 			</div>
 			<!-- /.box -->
@@ -135,26 +135,26 @@
 			<div class="box box-warning">
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-table"></i>
-					<h3 class="box-title">耗材表</h3>
+					<h3 class="box-title">其他表</h3>
 
-					<div class="box-exhausts pull-right">
-						<button type="button" class="btn btn-box-exhaust" data-widget="collapse"><i class="fa fa-minus"></i>
+					<div class="box-others pull-right">
+						<button type="button" class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
-						<button type="button" class="btn btn-box-exhaust" data-widget="remove"><i class="fa fa-times"></i></button>
+						<button type="button" class="btn btn-box-other" data-widget="remove"><i class="fa fa-times"></i></button>
 					</div>
 				</div>
 
 				<div class="box-body table-responsive">
-					<table id="exhaust1" class="table no-margin table-bordered table-hover">
+					<table id="other1" class="table no-margin table-bordered table-hover">
 						<thead>
 							<tr>
 								<th class="sr-only">ID</th>
-								<th>批次</th>
+								<th>编号</th>
 								<th>名称</th>
-								<th>品牌</th>
-								<th>型号</th>
-								<th>数量</th>
-								<th>单位</th>						
+								<th>校区</th>
+								<th>区域</th>
+								<th>单位</th>
+								<th>Time</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -163,15 +163,16 @@
 						<tfoot>
 							<tr>
 								<th class="sr-only">ID</th>
-								<th>批次</th>
+								<th>编号</th>
 								<th>名称</th>
-								<th>品牌</th>
-								<th>型号</th>
-								<th>数量</th>
-								<th>单位</th>								
+								<th>校区</th>
+								<th>区域</th>
+								<th>单位</th>
+								<th>Time</th>
 							</tr>
 						</tfoot>
 					</table>
+
 				</div>
 				<!-- box-body -->
 			</div>
@@ -187,36 +188,36 @@
 		 * 名称选项联动
 		 * */
 		$("#name").change(function(){
-			$.post("<php>echo U('Boss/DoAsset/exhaustselect')</php>",{
+			$.post("<php>echo U('Boss/DoAsset/otherselect')</php>",{
 				num: 1,
 				name: $(this).val()
 			},function(data){
 				if(data){
 					var please = '<option class="selected">请选择</option>';
 					for(var key in data){
-						please+='<option>'+data[key]['brand']+'</option>';
+						please+='<option>'+data[key]['campus']+'</option>';
 					}
-					$("#brand").empty().append(please);
-					$("#model").empty();
+					$("#campus").empty().append(please);
+					$("#room").empty();
 					$(".select2").select2();
 				}
 			});
 		});
 		/**
-		 * 品牌选项联动
+		 * 校区选项联动
 		 * */
-		$("#brand").change(function(){
-			$.post("<php>echo U('Boss/DoAsset/exhaustselect')</php>",{
+		$("#campus").change(function(){
+			$.post("<php>echo U('Boss/DoAsset/otherselect')</php>",{
 				num: 2,
 				name: $("#name").val(),
-				brand: $("#brand").val()
+				campus: $("#campus").val()
 			},function(data){
 				if(data){
 					var please = '<option class="selected">请选择</option>';
 					for(var key in data){
-						please+='<option>'+data[key]['model']+'</option>';
+						please+='<option>'+data[key]['room']+'</option>';
 					}
-					$("#model").empty().append(please);
+					$("#room").empty().append(please);
 					$(".select2").select2();
 				}
 			});
@@ -226,10 +227,10 @@
 		 * */
 		$("#addbtn").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Boss/DoAsset/exhaustadd')</php>", {
+			$.post("<php>echo U('Boss/DoAsset/otheradd')</php>", {
 					names: $("#name")[0].value,
-					brand: $("#brand")[0].value,
-					model: $("#model")[0].value,
+					campus: $("#campus")[0].value,
+					room: $("#room")[0].value,
 					number: $("#number")[0].value,
 					unit: $("#unit")[0].value
 				},
@@ -245,16 +246,16 @@
 		});
 		
 		//Morris
-		var line_exhausts = new Morris.Line({
-			element: 'chart_exhausts',
+		var line_others = new Morris.Line({
+			element: 'chart_others',
 			resize: true,
 			data: [
-			<foreach name ="exhausttime" item="vo">
+			<foreach name ="othertime" item="vo">
 				{y: '{$vo.start}',item1: '{$vo.num}'},
 		    </foreach> ],
 			xkey: 'y',
 			ykeys: ['item1'],
-			labels: ['耗材总数'],
+			labels: ['其他总数'],
 			lineColors: ['#efefef'],
 			lineWidth: 2,
 			hideHover: 'auto',
@@ -269,10 +270,10 @@
 		//select2
 		$(".select2").select2();
 		//datatables
-		var table = $("#exhaust1").DataTable({
+		var table = $("#other1").DataTable({
 			"processing": true,
             "serverSide": true,
-            "ajax": "<php>echo U('Boss/DoAsset/exhausttable')</php>",
+            "ajax": "<php>echo U('Boss/DoAsset/othertable')</php>",
 			"language": {
 				"sProcessing":   "处理中...",
 				"lengthMenu": "每页 _MENU_ 条记录",
@@ -288,9 +289,9 @@
 				}
 			}
 		});
-		$('#exhaust1 tbody').on('click', 'tr', function() {
+		$('#other1 tbody').on('click', 'tr', function() {
 			var id = $(this).children().first().html();
-			location.href = "index.php?s=/Boss-DoAsset-exhaustcard-id-" + id;
+			location.href = "index.php?s=/Boss-DoAsset-othercard-id-" + id;
 		});
 	</script>
 </block>
