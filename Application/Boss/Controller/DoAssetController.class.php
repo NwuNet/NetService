@@ -389,12 +389,119 @@ class DoAssetController extends BaseController {
 	}
 	// --------------------设备---------------------
 	public function device(){
-        $this->display();
+		$Tool = M('AssetDevice');
+
+		$select = M('DeviceSelect');
+		$toolname = $select->field('name,count(name)')->group('name')->select();
+		$this->assign('toolname',$toolname);//选项名
+
+		$toolstate = $Tool->field('names,count(names) as number')->group('names')->select();
+		$this->assign('toolstate',$toolstate);//现有工具的数量
+
+		$maxtime = $Tool->field('start')->order('start desc')->find();
+		$m = month(strtotime($maxtime['start']));
+		$tooltime = array();
+		foreach ($m as $item) {
+			$map['start'] = array('like',$item.'%');
+			$toolshow = $Tool->where($map)->field('start,count(start) as number')->select();
+			$toolshow[0]['start'] =$item;
+			array_push($tooltime,$toolshow[0]);
+		}
+		$this->assign('tooltime',$tooltime);
+		$this->display();
     }
+	public function devicetable() {
+		$Device = M('AssetDevice');
+		//获取Datatables发送的参数 必要
+		$draw = I('get.draw');//这个值作者会直接返回给前台
+		//排序
+		$order_column = I('get.order')['0']['column'];//那一列排序，从0开始
+		$order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降序
+		//拼接排序sql
+		$orderSql = "";
+		if (isset($order_column)) {
+			$i = intval($order_column);
+			switch($i) {
+				case 0 :$orderSql = " id " . $order_dir;break;
+				case 1 :$orderSql = " names " . $order_dir;break;
+				case 2 :$orderSql = " brand " . $order_dir;break;
+				case 3 :$orderSql = " model " . $order_dir;break;
+				case 4 :$orderSql = " series " . $order_dir;break;
+				case 5 :$orderSql = " serial_number " . $order_dir;break;
+				case 6 :$orderSql = " start " . $order_dir;break;
+				default :$orderSql = '';
+			}
+		}
+		//搜索
+		$search = $_GET['search']['value'];//获取前台传过来的过滤条件
+		//分页
+		$start = $_GET['start'];//从多少开始
+		$length = $_GET['length'];//数据长度
+		//表的总记录数 必要
+		$recordsTotal = $Device->count();
+
+		$map['id|names|brand|model|series|serial_number|start']=array('like',"%".$search."%");
+		if(strlen($search)>0){
+			$recordsFiltered = count($Device->where($map)->select());
+			$table = $Device->where($map)->order($orderSql)->limit($start.','.$length)->select();
+		}else{
+			$recordsFiltered = $recordsTotal;
+			$table = $Device->order($orderSql)->limit($start.','. $length)->select();
+		}
+
+		$infos = array();
+		foreach($table as $row){
+			$obj = array($row['id'],$row['names'],$row['brand'],$row['model'],$row['series'],$row['serial_number'],$row['start']);
+			array_push($infos,$obj);
+		}
+
+		$this->ajaxReturn(array(
+			"draw" => intval($draw),
+			"recordsTotal" => intval($recordsTotal),
+			"recordsFiltered" => intval($recordsFiltered),
+			"data" => $infos
+		));
+	}
+	// --------------------设备添加---------------------
+	public function deviceadd() {
+		$names = I('post.names');
+		$brand = I('post.brand');
+		$model = I('post.model');
+		$series = I('post.series');
+		$serial_number = I('post.serial_number');
+		if($names==''||$brand==''||$model==''||$series==''||$serial_number==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($names=='请选择'||$brand=='请选择'||$model=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+
+		$Device = M('AssetDevice');
+		$Device->create();
+		$Device->start = date("Y-m-d H:i:s",NOW_TIME);
+		$Device->add();
+		if($Device){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("添加失败");
+		}
+	}
 	// --------------------证照---------------------
 	public function paper(){
+		$select = M('PaperSelect');
+		$paperclass = $select->field('class,count(class)')->group('class')->select();
+		$this->assign('paperclass',$paperclass);//选项名
         $this->display();
     }
+	// --------------------证照选项---------------------
+	public function paperselect(){
+		$num = I('post.num');
+		$class = I('post.class');
+		if($num==1){
+			$select = M('PaperSelect');
+			$name = $select -> where('class = "%s"',$class) ->field('name,count(name)')->group('name')->select();
+			$this->ajaxReturn($name);
+		}
+	}
 	// --------------------其他---------------------
 	public function other(){
         $Other = M('AssetOther');
@@ -425,7 +532,66 @@ class DoAssetController extends BaseController {
 		
         $this->display();
     }
-// --------------------其他选项---------------------
+	// --------------------工具选项---------------------
+	public function deviceselect(){
+		$num = I('post.num');
+		$name = I('post.name');
+		$brand = I('post.brand');
+		$model = I('post.model');
+		if($num==1){
+			$select = M('DeviceSelect');
+			$brand = $select -> where('name = "%s"',$name) ->field('brand,count(brand)')->group('brand')->select();
+			$this->ajaxReturn($brand);
+		}elseif($num==2){
+			$select = M('DeviceSelect');
+			$model = $select -> where('name = "%s" and brand = "%s"',$name,$brand) ->field('model,count(model)')->group('model')->select();
+			$this->ajaxReturn($model);
+		}elseif($num ==3){
+			$select = M('DeviceSelect');
+			$series = $select -> where('name = "%s" and brand = "%s" and model = "%s"',$name,$brand,$model) ->field('series,count(series)')->group('series')->select();
+			$this->ajaxReturn($series);
+		}
+	}
+	// --------------------设备卡片---------------------
+	public function devicecard($id){
+		if($id!=''){
+			$Deivce = M('AssetDevice');
+			$state = M('DeviceState');
+			$content = M('AssetContent');
+			$deviceinfo = $Deivce->where('id = %d',$id)->select();
+			$devicestate = $state ->where('status = 1')->select();
+			$devicecontent = $content->where('class = 3 and asset_id =%d',$id)->select();
+			$this->assign("deviceinfo",$deviceinfo);
+			$this->assign('devicestate',$devicestate);
+			$this->assign('devicecontent',$devicecontent);
+			$this->assign('id',$id);
+			$this->display();
+		}
+	}
+	// --------------------设备卡片添加状态---------------------
+	public function devicecardadd(){
+		$asset_id = I('post.asset_id');
+		$state = I('post.state');
+		$class = I('post.class');
+		$user = I('post.user');
+		$actor = I('post.actor');
+		$label = I('post.label');
+		if($asset_id==''||$state==''||$class==''||$user==''||$actor==''||$label==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($user=='请选择'||$state=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		$content = M('AssetContent');
+		$content->create();
+		$content->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$content->add();
+		if($content){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("添加失败");
+		}
+	}
+	// --------------------其他选项---------------------
 	public function otherselect(){
 		$num = I('post.num');
 		$name = I('post.name');
