@@ -695,23 +695,6 @@ class DoAssetController extends BaseController {
 			$Other->add();		
 		}
         				
-/*		$assetcontent = M('AssetContent');
-		if($Other->add()){
-		//	$tid = $Other->where('day = "%s"',$data['day'])->field("day,id")->find();
-			$data = array();
-			$data['asset_id'] = $tid['id'];
-			$data['state_id'] = '1';
-			$data['num'] = $number;
-			$data['time'] = date("Y-m-d H:i:s",NOW_TIME);
-			$data['actor'] = 'kkk';  //$user.uname
-			//$assetcontent->add($data);			
-			if($assetcontent->add($data)){
-				$this->ajaxReturn(true);
-		    }else{
-			   $this->ajaxReturn("添加失败");
-		    }
-		}
-*/
 		if($Other){
 				$this->ajaxReturn(true);
 		}else{
@@ -721,22 +704,44 @@ class DoAssetController extends BaseController {
 	}
 	// --------------------其他卡片---------------------
 	public function othercard($id){
-		if(!empty($id)){
-	        $Other = M('AssetOther');
-	        $table = $Other->where('id=%d',$id)->select();
-	        $this->assign('id',$id);	
-			$this->assign('seq',$table[0]['seq']);	       	
-	        $this->assign('names',$table[0]['names']);
-			$this->assign('campus',$table[0]['campus']);
-	        $this->assign('room',$table[0]['room']);
-	        $this->assign('number',$table[0]['number']);
-	        $this->assign('unit',$table[0]['unit']);
-	        $this->assign('start',$table[0]['start']);
-	        
-	        $this->display();
-	    }
+		if($id!=''){
+			$Other = M('AssetOther');
+			$state = M('OtherState');
+			$content = M('AssetContent');
+			$otherinfo = $Other->where('id = %d',$id)->select();
+			$otherstate = $state ->where('status = 1')->select();
+			$othercontent = $content->where('class = 4 and asset_id =%d',$id)->select();
+			$this->assign("otherinfo",$otherinfo);
+			$this->assign('otherstate',$otherstate);
+			$this->assign('othercontent',$othercontent);
+			trace($othercontent);
+			$this->assign('id',$id);
+			$this->display();
+		}
     }
-	
+	// --------------------其他卡片添加状态---------------------
+	public function othercardadd(){
+		$asset_id = I('post.asset_id');
+		$state = I('post.state');
+		$class = I('post.class');
+		$user = I('post.user');
+		$actor = I('post.actor');
+		$label = I('post.label');
+		if($asset_id==''||$state==''||$class==''||$user==''||$actor==''||$label==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($user=='请选择'||$state=='请选择'){
+			$this->ajaxReturn("请选择");
+		}		
+		$content = M('AssetContent');
+		$content->create();
+		$content->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$content->add();
+		if($content){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("此操作执行失败");
+		}
+	}
 	// --------------------空操作---------------------
 	public function _empty($name){
 		echo "Not Found!";
