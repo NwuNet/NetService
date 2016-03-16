@@ -373,7 +373,7 @@ class DoAssetController extends BaseController {
 		    $Exhaust->id = $data['id'];
 		    $Exhaust->renumber = $data['renumber']- $num ;
 		    $Exhaust ->save();
-		}else($content && $state=='归还'){
+		}else if($content && $state=='归还'){
 			$Exhaust = M('AssetExhaust');
 		    $data = $Exhaust->where('id = "%d"',$asset_id)->field("id,renumber")->find();
 		    $Exhaust->id = $data['id'];
