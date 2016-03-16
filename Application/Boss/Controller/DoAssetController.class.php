@@ -190,7 +190,7 @@ class DoAssetController extends BaseController {
         $assetunit = $unit->select();
         $this->assign('assetunit',$assetunit);//资产单位
 		
-		$exhauststate = $Exhaust ->field('names,unit,sum(names) as numberall ')->group('names,unit')->select();
+		$exhauststate = $Exhaust ->field('names,unit,sum(number) as numberall ')->group('names,unit')->select();
 		$this->assign('exhauststate',$exhauststate);//现有耗材的数量
 
 //		$nowtime = strtotime()
@@ -302,23 +302,6 @@ class DoAssetController extends BaseController {
 		$Exhaust->start = date("Y-m-d H:i:s",NOW_TIME);
 		$Exhaust->add();
 		
-/*		$assetcontent = M('AssetContent');
-		if($Exhaust->add()){
-		//	$tid = $Exhaust->where('day = "%s"',$data['day'])->field("day,id")->find();
-			$data = array();
-			$data['asset_id'] = $tid['id'];
-			$data['state_id'] = '1';
-			$data['num'] = $number;
-			$data['time'] = date("Y-m-d H:i:s",NOW_TIME);
-			$data['actor'] = 'kkk';  //$user.uname
-			//$assetcontent->add($data);			
-			if($assetcontent->add($data)){
-				$this->ajaxReturn(true);
-		    }else{
-			   $this->ajaxReturn("添加失败");
-		    }
-		}
-*/
 		if($Exhaust){
 				$this->ajaxReturn(true);
 		}else{
@@ -502,37 +485,7 @@ class DoAssetController extends BaseController {
 			$this->ajaxReturn($name);
 		}
 	}
-	// --------------------其他---------------------
-	public function other(){
-        $Other = M('AssetOther');
-		$this -> assign('table', $Other -> select());//其他列表
-		$select = M('OtherSelect');
-		$othername = $select->field('name,count(name)')->group('name')->select();
-		$this->assign('othername',$othername);//其他名称
-				
-		$unit = M('AssetUnit');
-        $assetunit = $unit->select();
-        $this->assign('assetunit',$assetunit);//其他单位
-		
-		$otherstate = $Other ->field('names,unit,sum(names) as numberall ')->group('names,unit')->select();
-		$this->assign('otherstate',$otherstate);//现有其他的数量
-
-//		$nowtime = strtotime()
-//		$mintime = $Other->field('start')->order('start')->find();
-		$maxtime = $Other->field('start')->order('start desc')->find();
-		$m = month(strtotime($maxtime['start']));
-		$othertime = array();
-		foreach ($m as $item) {
-			$map['start'] = array('like',$item.'%');
-			$othershow = $Other->where($map)->field('start,count(number) as num')->select();
-			$othershow[0]['start'] =$item;
-			array_push($othertime,$othershow[0]);
-		}
-		$this->assign('othertime',$othertime);
-		
-        $this->display();
-    }
-	// --------------------工具选项---------------------
+	// --------------------设备选项---------------------
 	public function deviceselect(){
 		$num = I('post.num');
 		$name = I('post.name');
@@ -591,6 +544,37 @@ class DoAssetController extends BaseController {
 			$this->ajaxReturn("添加失败");
 		}
 	}
+	// --------------------其他---------------------
+	public function other(){
+        $Other = M('AssetOther');
+		$this -> assign('table', $Other -> select());//其他列表
+		$select = M('OtherSelect');
+		$othername = $select->field('name,count(name)')->group('name')->select();
+		$this->assign('othername',$othername);//其他名称
+				
+		$unit = M('AssetUnit');
+        $assetunit = $unit->select();
+        $this->assign('assetunit',$assetunit);//其他单位
+		
+		$otherstate = $Other ->field('names,unit,count(names) as numberall ')->group('names,unit')->select();
+		$this->assign('otherstate',$otherstate);//现有其他的数量
+
+//		$nowtime = strtotime()
+//		$mintime = $Other->field('start')->order('start')->find();
+		$maxtime = $Other->field('start')->order('start desc')->find();
+		$m = month(strtotime($maxtime['start']));
+		$othertime = array();
+		foreach ($m as $item) {
+			$map['start'] = array('like',$item.'%');
+			$othershow = $Other->where($map)->field('start,count(number) as num')->select();
+			$othershow[0]['start'] =$item;
+			array_push($othertime,$othershow[0]);
+		}
+		$this->assign('othertime',$othertime);
+		
+        $this->display();
+    }
+	
 	// --------------------其他选项---------------------
 	public function otherselect(){
 		$num = I('post.num');
