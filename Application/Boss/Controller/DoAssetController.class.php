@@ -349,8 +349,21 @@ class DoAssetController extends BaseController {
     }
 	// --------------------证照---------------------
 	public function paper(){
+		$select = M('PaperSelect');
+		$paperclass = $select->field('class,count(class)')->group('class')->select();
+		$this->assign('paperclass',$paperclass);//选项名
         $this->display();
     }
+	// --------------------证照选项---------------------
+	public function paperselect(){
+		$num = I('post.num');
+		$class = I('post.class');
+		if($num==1){
+			$select = M('PaperSelect');
+			$name = $select -> where('class = "%s"',$class) ->field('name,count(name)')->group('name')->select();
+			$this->ajaxReturn($name);
+		}
+	}
 	// --------------------其他---------------------
 	public function other(){
         $Other = M('AssetOther');
