@@ -243,7 +243,7 @@ class DoAssetController extends BaseController {
 	            case 2 :$orderSql = " names " . $order_dir;break;
 	            case 3 :$orderSql = " brand " . $order_dir;break;
 				case 4 :$orderSql = " model " . $order_dir;break;
-				case 5 :$orderSql = " number " . $order_dir;break;
+				case 5 :$orderSql = " renumber " . $order_dir;break;
 	            case 6 :$orderSql = " unit " . $order_dir;break;
 				case 7 :$orderSql = " start " . $order_dir;break;
 	            default :$orderSql = '';
@@ -258,7 +258,7 @@ class DoAssetController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $Exhaust->count();
 	
-	    $map['id|day|names|brand|model|number|unit|start']=array('like',"%".$search."%");
+	    $map['id|day|names|brand|model|renumber|unit|start']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($Exhaust->where($map)->select());
 	        $table = $Exhaust->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -269,7 +269,7 @@ class DoAssetController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['day'],$row['names'],$row['brand'],$row['model'],$row['number'],$row['unit'],$row['start']);
+	        $obj = array($row['id'],$row['day'],$row['names'],$row['brand'],$row['model'],$row['renumber'],$row['unit'],$row['start']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -297,6 +297,7 @@ class DoAssetController extends BaseController {
 
 		$Exhaust = M('AssetExhaust');		
 		$Exhaust->create();
+		$Exhaust->renumber = $number;
 		$Exhaust->day = date("Y-m-d H:i:s",NOW_TIME);
 		$Exhaust->start = date("Y-m-d H:i:s",NOW_TIME);
 		$Exhaust->add();
@@ -327,22 +328,65 @@ class DoAssetController extends BaseController {
 	}
 	// --------------------耗材卡片---------------------
 	public function exhaustcard($id){
-		if(!empty($id)){
-	        $exhaust = M('AssetExhaust');
-	        $table = $exhaust->where('id=%d',$id)->select();
-	        $this->assign('id',$id);	
-			$this->assign('day',$table[0]['day']);	       	
-	        $this->assign('names',$table[0]['names']);
-			$this->assign('brand',$table[0]['brand']);
-	        $this->assign('model',$table[0]['model']);
-	        $this->assign('number',$table[0]['number']);
-	        $this->assign('unit',$table[0]['unit']);
-	        $this->assign('start',$table[0]['start']);
-	        
-	        $this->display();
-	    }
+		if($id!=''){
+			$Exhaust = M('AssetExhaust');
+			$state = M('ExhaustState');
+			$content = M('AssetContent');
+			$exhaustinfo = $Exhaust->where('id = %d',$id)->select();
+			$exhauststate = $state ->where('status = 1')->select();
+			$exhaustcontent = $content->where('class = 2 and asset_id =%d',$id)->select();
+			$this->assign("exhaustinfo",$exhaustinfo);
+			$this->assign('exhauststate',$exhauststate);
+			$this->assign('exhaustcontent',$exhaustcontent);
+			trace($exhaustcontent);
+			$this->assign('id',$id);
+			$this->display();
+		}
     }
-	
+	// --------------------耗材卡片添加状态---------------------
+	public function exhaustcardadd(){
+		$asset_id = I('post.asset_id');
+		$state = I('post.state');
+		$class = I('post.class');
+		$renumber = I('post.renumber');
+		$num = I('post.num');
+		$user = I('post.user');
+		$actor = I('post.actor');
+		$label = I('post.label');
+		if($asset_id==''||$state==''||$class==''||$num==''||$user==''||$actor==''||$label==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($user=='请选择'||$state=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		if($num>$renumber && $state=='领用'){
+			$this->ajaxReturn("领用数量不得大于剩余数量！");
+		}
+		
+		$content = M('AssetContent');
+		$content->create();
+		$content->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$content->add();
+		
+		if($content && $state=='领用'){
+			$Exhaust = M('AssetExhaust');
+		    $data = $Exhaust->where('id = "%d"',$asset_id)->field("id,renumber")->find();
+		    $Exhaust->id = $data['id'];
+		    $Exhaust->renumber = $data['renumber']- $num ;
+		    $Exhaust ->save();
+		}else($content && $state=='归还'){
+			$Exhaust = M('AssetExhaust');
+		    $data = $Exhaust->where('id = "%d"',$asset_id)->field("id,renumber")->find();
+		    $Exhaust->id = $data['id'];
+		    $Exhaust->renumber = $data['renumber']+ $num ;
+		    $Exhaust ->save();
+		}
+		
+		if($Exhaust){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("操作失败");
+		}
+	}
 	// --------------------设备---------------------
 	public function device(){
         $this->display();
