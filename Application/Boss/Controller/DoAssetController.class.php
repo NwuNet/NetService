@@ -694,7 +694,7 @@ class DoAssetController extends BaseController {
 			$content = M('AssetContent');
 			$otherinfo = $Other->where('id = %d',$id)->select();
 			$otherstate = $state ->where('status = 1')->select();
-			$othercontent = $content->where('class = 4 and asset_id =%d',$id)->select();
+			$othercontent = $content->where('class = 5 and asset_id =%d',$id)->select();
 			$this->assign("otherinfo",$otherinfo);
 			$this->assign('otherstate',$otherstate);
 			$this->assign('othercontent',$othercontent);
