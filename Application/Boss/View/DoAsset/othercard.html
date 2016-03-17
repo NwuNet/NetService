@@ -1,0 +1,237 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('doasset','doother'))}
+	<!--menu widget-->
+</block>
+
+<block name="content-header">
+	<h1>
+    <a href="<php>echo U('Boss/DoAsset/other')</php>" class="">
+	  <i class="ion ion-backspace" data-toggle="othertip" data-placement="top" title="返回"></i>
+	</a>
+	<i class="fa fa-fw fa-arrows"></i>其他详细信息
+  </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li>资产管理</li>
+		<li>工具</li>
+		<li class="active">其他详细信息</li>
+	</ol>
+</block>
+
+<block name="content">
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="box box-widget widget-user-2">
+				<!-- Add the bg color to the header using any of the bg-* classes -->
+				<div class="widget-user-header bg-green">
+					<div class="widget-user-image">
+						<img class="img-circle" src="__PUBLIC__/Images/Asset/other_lsd.jpg" alt="User Avatar">
+					</div>
+					<!-- /.widget-user-image -->
+					<h3 class="widget-user-username">其他信息</h3>
+					<h5 class="widget-user-desc">{$otherinfo.0.names}</h5>
+				</div>
+				<div class="box-footer no-padding">
+					<ul class="nav nav-stacked">
+						<li><a href="#">id <span class="pull-right badge bg-yellow">{$id}</span></a></li>
+						<li><a href="#">编号 <span class="pull-right  ">{$otherinfo.0.seq}</span></a></li>
+						<li><a href="#">名称 <span class="pull-right  ">{$otherinfo.0.names}</span></a></li>
+						<li><a href="#">校区 <span class="pull-right  ">{$otherinfo.0.campus}</span></a></li>
+						<li><a href="#">房间 <span class="pull-right  ">{$otherinfo.0.room}</span></a></li>
+						<li><a href="#">单位 <span class="pull-right  ">{$otherinfo.0.unit}</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="box">
+				<div class="box-body">
+					<!-- The timeline -->
+					<ul class="timeline timeline-inverse">
+						<!-- timeline time label -->
+						<li class="time-label"><span class="bg-blue">{$otherinfo.0.start}</span></li>
+						<li>
+							<i class="fa fa-shopping-cart bg-blue"></i>
+							<div class="timeline-item">
+								<span class="time"><i class="fa fa-clock-o"></i> {$otherinfo.0.start|substr=11,18}</span>
+								<h3 class="timeline-header"><a href="#">已入库</a> {$otherinfo.0.start|substr=0,10}</h3>
+
+							</div>
+						</li>
+						<foreach name="othercontent" item="vo">
+							<li class="time-label"><span class="bg-blue">{$vo.time}</span></li>
+								<li>
+									<i class="fa fa-user bg-blue"></i>
+									<div class="timeline-item">
+										<span class="time"><i class="fa fa-clock-o"></i> {$vo.time|substr=11,18}</span>
+										<h3 class="timeline-header"><a href="#">{$vo.state}</a> {$vo.time|substr=0,10}</h3>
+										<div class="timeline-body">
+											<p class="text-primary">操作者：{$vo.actor} &nbsp; 使用者：{$vo.user}</p>
+											<p>描述: &nbsp;  &nbsp; {$vo.label}</p>
+										</div>
+									</div>
+								</li>
+							</li>
+						</foreach>
+						<li>
+							<i class="fa fa-clock-o bg-gray"></i>
+							<div class="timeline-item">
+								<div class="timeline-body">
+									<form id="stateform">
+										请选择<label>下一步状态</label>
+										<select id="state" name = "state" class="form-control" style="width: 100%;">
+											<option selected="selected">请选择</option>
+											<foreach name="otherstate" item="vo">
+												<option>{$vo.name}</option>
+											</foreach>
+										</select>
+										请选择<label>使用者</label>
+										<select id="user" name = "user" class="form-control" style="width: 100%;">
+											<option selected="selected">请选择</option>
+											<option>胡洋</option>
+											<option>亢喜年</option>
+										</select>
+										<label>描述</label>
+										<input type="label" id="label" autocomplete="on" class="form-control" data-toggle="othertip" data-placement="top" title="请输入该操作的描述" placeholder="请输入该操作的描述" />
+									</form>
+								</div>
+								<div class="timeline-footer">
+									<a id="stateadd" class="btn btn-primary">提交</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- box -->
+		</div>
+		<!-- col -->
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-warning">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-table"></i>
+					<h3 class="box-title">其他表</h3>
+
+					<div class="box-others pull-right">
+						<button type="button" class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-other" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+
+				<div class="box-body table-responsive">
+					<table id="other1" class="table no-margin table-bordered table-hover">
+						<thead>
+						<tr>
+							<th class="sr-only">ID</th>
+							<th>编号</th>
+							<th>名称</th>
+							<th>校区</th>
+							<th>房间</th>
+							<th>单位</th>
+							<th>Time</th>
+						</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+						<tfoot>
+						<tr>
+							<th class="sr-only">ID</th>
+							<th>编号</th>
+							<th>名称</th>
+							<th>校区</th>
+							<th>房间</th>
+							<th>单位</th>
+							<th>Time</th>
+						</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+			<!-- box -->
+		</div>
+		<!-- col-md-12 -->
+	</div>
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		var table = $("#other1").DataTable({
+			"processing": true,
+			"serverSide": true,
+			"ajax": "<php>echo U('Boss/DoAsset/othertable')</php>",
+			"language": {
+				"sProcessing":   "处理中...",
+				"lengthMenu": "每页 _MENU_ 条记录",
+				"zeroRecords": "没有找到记录",
+				"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty": "无记录",
+				"infoFiltered": "(从 _MAX_ 条记录过滤)",
+				"search": "搜索",
+				"sLoadingRecords": "载入中...",
+				"paginate": {
+					"previous": "前页",
+					"next": "后页"
+				}
+			}
+		});
+		$('#other1 tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Boss-DoAsset-othercard-id-" + id;
+		});		
+		/*
+		 * 添加其他状态
+		 * */
+		$("#stateadd").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Boss/DoAsset/othercardadd')</php>",{
+				asset_id : {$id},
+				state : $("#state").val(),
+				class : 5,
+				user : $("#user").val(),
+				label : $("#label").val(),
+				actor : '{$user.uname}'
+			}, function(data) {
+				$btn.button('reset');
+				if (data == true) {
+					alert("添加成功");
+				} else {
+					alert(data);
+				}
+				location.reload();
+			});
+		});
+	</script>
+</block>
