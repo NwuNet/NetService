@@ -37,7 +37,7 @@
                 	}else{
                 		rdobox.removeClass("checked").addClass("unchecked");
                 	}
-                    rdobox.find("#chkbox-img").removeClass("check-image").addClass("uncheck-image");
+                    rdobox.find(".chkbox-img").removeClass("check-image").addClass("uncheck-image");
                 }
                 else {
                 	if(rdobox.hasClass("chkwarning")){
@@ -47,7 +47,7 @@
                 	}else{
                 		rdobox.removeClass("unchecked").addClass("checked");
                 	}
-                    rdobox.find("#chkbox-img").removeClass("uncheck-image").addClass("check-image");
+                    rdobox.find(".chkbox-img").removeClass("uncheck-image").addClass("check-image");
                 }
             });
         }
