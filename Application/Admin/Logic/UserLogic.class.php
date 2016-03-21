@@ -50,4 +50,33 @@ class UserLogic extends Model {
 		}
 		return false;
 	}
+
+	/**
+	 * Staff用户添加
+	 */
+	public function staffadd($data){
+		$user = D('Admin/User');
+		$staffuser = D('Admin/StaffUser');
+		if($user->plus($data)){
+			$tid = $user->where('uname = "%s"',$data['uname'])->field("uname,user_id")->find();
+			$data['user_id'] = $tid['user_id'];
+			$staffuser->plus($data);
+			return TRUE;
+		}
+		return false;
+	}
+	/**
+	 * Staff用户修改
+	 * */
+	public function staffedit($data){
+		$user = D('Admin/User');
+		$staffuser = D('Admin/StaffUser');
+		if($user -> edit($data) ){
+			$tid = $user->where('uname = "%s"',$data['uname'])->field("uname,user_id")->find();
+			$data['user_id'] = $tid['user_id'];
+			$staffuser->edit($data);
+			return TRUE;
+		}
+		return FALSE;
+	}
 }

@@ -41,7 +41,5 @@ class StaffUserModel extends Model{
 	         if($this -> save()) return TRUE;
 	         return FALSE;
 	     }
-	 
-	 
 	 }
 }
