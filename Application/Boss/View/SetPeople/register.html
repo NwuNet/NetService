@@ -44,7 +44,7 @@
 <block name="content">
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-user"></i>
@@ -58,20 +58,23 @@
 						<button type="button" class="btn btn-box-register" data-widget="remove"><i class="fa fa-times"></i></button>
 					</div>
 				</div>
-				<div class="box-body table-responsive">
-					<table id="register" class="table table-bordered table-hover">
+				<div class="box-body table-responsive no-padding">
+					<table id="registerselect" class="table  table-hover">
 						<thead>
 						<th>ID</th>
-						<th>考勤类别</th>
-						
+						<th>考勤类别</th>						
 						</thead>
 						<tbody>
-
+							<volist name="registerselect" id="vo">
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.name}</td>                                                                
+                            </tr>
+                        </volist>
 						</tbody>
 						<tfoot>
 						<th>ID</th>
-						<th>考勤类别</th>
-						
+						<th>考勤类别</th>						
 						</tfoot>
 					</table>
 				</div>
@@ -90,7 +93,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span></button>
-					<h4 class="modal-title">添加类别</h4>
+					<h4 class="modal-title">编辑类别</h4>
 				</div>
 				<div class="modal-body">
 					<form id="addform">
@@ -111,9 +114,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-   
+	</div>  
 	<script type="text/javascript">
 		/**
          * 添加时清空数据
@@ -158,32 +159,11 @@
 		/**
          * 修改类别名称
          * */
-        $('#register tbody').on('click', 'tr', function() {
+        $('#registerselect tbody').on('click', 'tr', function() {
         	$("#id")[0].value = $(this).children().first().html();
             $("#name")[0].value = $(this).children().eq(1).html();           
             $('#addmodal').modal('show');
         });
-		/*
-		 * datatables
-		 * */
-		var table = $("#register").DataTable({
-			"processing": true,
-			"serverSide": true,
-			"ajax": "<php>echo U('Boss/SetPeople/registertable')</php>",
-			"language": {
-				"sProcessing":   "处理中...",
-				"lengthMenu": "每页 _MENU_ 条记录",
-				"zeroRecords": "没有找到记录",
-				"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-				"infoEmpty": "无记录",
-				"infoFiltered": "(从 _MAX_ 条记录过滤)",
-				"search": "搜索",
-				"sLoadingRecords": "载入中...",
-				"paginate": {
-					"previous": "前页",
-					"next": "后页"
-				}
-			}
-		});
+		
 	</script>
 </block>

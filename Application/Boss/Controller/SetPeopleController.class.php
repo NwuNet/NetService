@@ -4,6 +4,9 @@ use Think\Controller;
 class SetPeopleController extends BaseController {
     // --------------------考勤设置---------------------
     public function register(){
+    	$register = M('RegisterSelect');
+        $registerselect = $register->select();
+        $this->assign('registerselect',$registerselect);
         $this->display();
     }
 	public function registeradd() {
@@ -28,58 +31,7 @@ class SetPeopleController extends BaseController {
             }
         }
      
-    }
-	public function registertable() {
-        $register = D('RegisterSelect');
-        //获取Datatables发送的参数 必要
-        $draw = I('get.draw');//这个值作者会直接返回给前台
-
-        //排序
-        $order_column = I('get.order')['0']['column'];//那一列排序，从0开始
-        $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降序
-        //拼接排序sql
-        $orderSql = "";
-        if (isset($order_column)) {
-            $i = intval($order_column);
-            switch($i) {
-                case 0 :$orderSql = " id " . $order_dir;break;
-                case 1 :$orderSql = " name " . $order_dir;break;
-                
-                default :$orderSql = '';
-            }
-        }
-
-        //搜索
-        $search = $_GET['search']['value'];//获取前台传过来的过滤条件
-        //分页
-        $start = $_GET['start'];//从多少开始
-        $length = $_GET['length'];//数据长度
-        //表的总记录数 必要
-        $recordsTotal = $register->count();
-
-        $map['id|name']=array('like',"%".$search."%");
-        if(strlen($search)>0){
-            $recordsFiltered = count($register->where($map)->select());
-            $table = $register->where($map)->order($orderSql)->limit($start.','.$length)->select();
-        }else{
-            $recordsFiltered = $recordsTotal;
-            $table = $register->order($orderSql)->limit($start.','.$length)->select();
-        }
-
-        $infos = array();
-        foreach($table as $row){
-            $obj = array($row['id'],$row['name']);
-            array_push($infos,$obj);
-        }
-
-        $this->ajaxReturn(array(
-            "draw" => intval($draw),
-            "recordsTotal" => intval($recordsTotal),
-            "recordsFiltered" => intval($recordsFiltered),
-            "data" => $infos
-        ));
-    }
-	
+    }	
 	// --------------------绩效设置---------------------
     public function evaluation(){
         $this->display();
