@@ -1,0 +1,189 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('setpeople','setregister'))}
+	<!--menu widget-->
+</block>
+
+<block name="content-header">
+	<h1>
+		人事设置
+		<small><span class="fa fa-fw fa-calendar-plus-o"></span>考勤设置</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">首页</li>
+	</ol>
+</block>
+
+<block name="content">
+	<!-- Small boxes (Stat box) -->
+	<div class="row">
+		<div class="col-md-6">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-user"></i>
+					<h3 class="box-title">考勤类别管理</h3>&ensp;
+					<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal">
+						<i class="fa fa-plus">添加</i>
+					</button>
+					<div class="box-registers pull-right">
+						<button type="button" class="btn btn-box-register" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-register" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<table id="register" class="table table-bordered table-hover">
+						<thead>
+						<th>ID</th>
+						<th>考勤类别</th>
+						
+						</thead>
+						<tbody>
+
+						</tbody>
+						<tfoot>
+						<th>ID</th>
+						<th>考勤类别</th>
+						
+						</tfoot>
+					</table>
+				</div>
+				<!-- box-body -->
+			</div>
+		</div>
+	</div>
+
+</block>
+
+<block name="script">
+	<!-- add Modal -->
+	<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">添加类别</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addform">
+						<div class="form-group sr-only">
+                            <label for="id" class="control-label">ID</label>
+                            <input type="text" class="form-control" id="id" name="id" />
+                        </div>
+						<div class="form-group">
+							<label for="name" class="control-label">类别名称</label>
+							<input type="text" class="form-control" id="name" />
+						</div>
+						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="addbtn" type="button" class="btn btn-primary">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+   
+	<script type="text/javascript">
+		/**
+         * 添加时清空数据
+         * */
+        $("#openbtn").click(function () {
+            $("#id,#name").val('');
+        });
+		/*
+		 * 添加类别名称
+		 * */
+		$("#addbtn").click(function() {
+			var $btn = $(this).button('adding');
+			$.post("<php>echo U('Boss/SetPeople/registeradd')</php>", {
+						id:$("#id").val(),
+						name: $("#name")[0].value
+						
+					},
+					function(data) {
+						$btn.button('reset');
+						if (data == true) {
+							alert("添加成功");
+						} else {
+							alert(data);
+						}
+						location.reload();
+					});
+		});
+		/*
+         * 判断名称是否为空
+         * */
+        $("#name").keyup(function(){
+            if($(this)[0].value == ''){
+                $(this).parent().addClass("has-error");
+                $("#addbtn").attr("disabled","disabled");
+            }else{
+                $(this).parent().removeClass("has-error");
+            }
+            if($("#name")[0].value!=''){
+                $("#addbtn").removeAttr("disabled");
+            }
+        });
+		/**
+         * 修改类别名称
+         * */
+        $('#register tbody').on('click', 'tr', function() {
+        	$("#id")[0].value = $(this).children().first().html();
+            $("#name")[0].value = $(this).children().eq(1).html();           
+            $('#addmodal').modal('show');
+        });
+		/*
+		 * datatables
+		 * */
+		var table = $("#register").DataTable({
+			"processing": true,
+			"serverSide": true,
+			"ajax": "<php>echo U('Boss/SetPeople/registertable')</php>",
+			"language": {
+				"sProcessing":   "处理中...",
+				"lengthMenu": "每页 _MENU_ 条记录",
+				"zeroRecords": "没有找到记录",
+				"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty": "无记录",
+				"infoFiltered": "(从 _MAX_ 条记录过滤)",
+				"search": "搜索",
+				"sLoadingRecords": "载入中...",
+				"paginate": {
+					"previous": "前页",
+					"next": "后页"
+				}
+			}
+		});
+	</script>
+</block>
