@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="box-body table-responsive">
-					<table id="card2" class="table table-bordered table-hover">
+					<table id="servicecardinfo" class="table table-bordered table-hover">
 						<thead>
 							<th>id</th>
 							<th>姓名</th>
@@ -67,7 +67,17 @@
 							<th>现象描述</th>
 						</thead>
 						<tbody>
-							
+							<volist name="servicecardinfo" id="vo">
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.name}</td> 
+                                <td>{$vo.student_no}</td>
+                                <td>{$vo.dormitory}</td>
+                                <td>{$vo.phone}</td>
+                                <td>{$vo.question}</td>
+                                <td>{$vo.description}</td>
+                            </tr>
+                           </volist>
 						</tbody>
 						<tfoot>
 							<th>编号</th>
@@ -170,7 +180,7 @@
 		<div class="col-md-6">
 			<div class="box box-solid bg-yellow-gradient">
 				<div class="box-header">
-					<i class="fa fa-wrench"></i>
+					<i class="fa fa-hand-o-up"></i>
 					<h3 class="box-title">现有服务单数</h3>
 					<div class="box-cards pull-right">
 						<button type="button" class="btn btn-box-card btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -228,8 +238,8 @@
 			gridTextFamily: "Open Sans",
 			gridTextSize: 10
 		});
-		//datatables
-		var table = $("#card2").DataTable({
+		/*//datatables
+		var table = $("#servicecardinfo").DataTable({
 			"processing": true,
             "serverSide": true,
             "ajax": "<php>echo U('Boss/DoService/cardtable')</php>",
@@ -247,8 +257,8 @@
 					"next": "后页"
 				}
 			}
-		});
-		$('#card2 tbody').on('click', 'tr', function() {
+		});*/
+		$('#servicecardinfo tbody').on('click', 'tr', function() {
 			var id = $(this).children().first().html();
 			location.href = "index.php?s=/Boss-DoService-servicecard-id-" + id;
 		});

@@ -21,6 +21,10 @@ class DoServiceController extends BaseController {
 			array_push($cardtime,$cardshow[0]);
 		}
 		$this->assign('cardtime',$cardtime);
+		
+		
+		$servicecardinfo = $Card->where('status = 0')->select();
+		$this -> assign('servicecardinfo',$servicecardinfo );//服务单表
         $this->display();
     }
 	// --------------------显示服务单---------------------
@@ -110,7 +114,18 @@ class DoServiceController extends BaseController {
 		$repair->create();
 		$repair->time  = date("Y-m-d H:i:s",NOW_TIME);
 		$repair->add();
-		if($repair){
+		if($state=='完成' && $repair){						
+				$Card = M('ServiceCard');
+				$data = $Card->where('id = "%d"',$servicecard_id)->field("id")->find();
+		        $Card->id = $data['id'];
+		        $Card->status = '1' ;
+		        $Card ->save();
+				if($Card){
+			        $this->ajaxReturn(true);
+		        }else{
+			        $this->ajaxReturn("添加失败");
+		
+		}else if($repair){
 			$this->ajaxReturn(true);
 		}else{
 			$this->ajaxReturn("添加失败");
@@ -118,6 +133,39 @@ class DoServiceController extends BaseController {
 	}
 	// --------------------服务查询---------------------
     public function query(){
+        $Card = M('ServiceCard');
+		$cardtable = $Card -> select();
+		$this -> assign('table',$cardtable );//服务单表
+		
+		/*未完成服务单数量*/
+		$maxtime = $Card->field('start')->order('start desc')->find();
+		
+		$m = month(strtotime($maxtime['start']));
+		$cardtime1 = array();
+		foreach ($m as $item) {
+		//	$Card1 = $Card-> where('status = 0')->select(); 
+			$map['start'] = array('like',$item.'%');
+			$cardshow = $Card->where($map)->field('start,count(start) as num')->select();
+			$cardshow[0]['start'] =$item;
+			array_push($cardtime1,$cardshow[0]);
+		}
+		$this->assign('cardtime1',$cardtime1);
+		
+		/*已完成服务单数量*/
+		$cardstate2 = $Card -> where('status = 1') ->field('name,count(id) as number ')->group('id')->select();
+		$this->assign('cardstate1',$cardstate1);//现有服务单的数量
+
+		$maxtime = $Card->field('start')->order('start desc')->find();
+		$m = month(strtotime($maxtime['start']));
+		$cardtime2 = array();
+		foreach ($m as $item) {
+			$map['start'] = array('like',$item.'%');
+			$cardshow = $Card->where($map)->field('start,count(start) as num')->select();
+			$cardshow[0]['start'] =$item;
+			array_push($cardtime2,$cardshow[0]);
+		}
+		$this->assign('cardtime2',$cardtime2);
+		
         $this->display();
     }
 	// --------------------空操作---------------------
