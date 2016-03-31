@@ -13,9 +13,9 @@ class DoPeopleController extends BaseController {
 		$registername = $select->field('name')->group('name')->select();
 		$this->assign('registername',$registername);//考勤类别
 		
-		$Register = M('StaffRegister');
+		/*$Register = M('StaffRegister');
 		$registertable = $Register -> select();
-		$this -> assign('register1',$registertable );//服务单表
+		$this -> assign('register1',$registertable );//服务单表*/
 		
         $this->display();
     }
@@ -109,6 +109,7 @@ class DoPeopleController extends BaseController {
     public function staff(){
         $this->display();
     }
+		
 	// --------------------空操作---------------------
 	public function _empty($name){
 		echo "Not Found!";
