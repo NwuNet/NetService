@@ -107,9 +107,64 @@ class DoPeopleController extends BaseController {
     }
 	// --------------------员工管理---------------------
     public function staff(){
+    	
+		$Staff = M('StaffVacation');
+		$vacation = $Staff->select();
+		$this->assign('vacation',$vacation);//
         $this->display();
     }
+	// --------------------添加员工请假条信息---------------------
+	public function vacationadd(){
+		$uname = I('post.uname');
+		$start_time = I('post.start_time');
+		$end_time = I('post.end_time');
+		$reason = I('post.reason');
 		
+		if($reason==''||$start_time==''||$end_time==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($uname=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		$Vacation = M('StaffVacation');
+		$Vacation->create();
+		$Vacation->status = 1;
+		$Vacation->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Vacation->add();
+		if($Vacation){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("添加失败");
+		}
+	}	
+	// --------------------员工请假条审批---------------------
+	public function vacationstatus(){
+		$id = I('post.id');
+		$operator = I('post.operator');
+		$status = I('post.status');
+				
+		if($id==''||$status==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$Vacation = M('StaffVacation');
+		$Vacation->create();
+		if($status=="批准"){
+			$status = 1;
+		}else{
+			$status = 0;
+		} 
+		
+		$Vacation->approve_time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Vacation->save();
+		if($Vacation){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("审批失败");
+		}
+	}	
+	// --------------------员工请假---------------------
+    public function vacation(){
+        $this->display();
+    }
 	// --------------------空操作---------------------
 	public function _empty($name){
 		echo "Not Found!";

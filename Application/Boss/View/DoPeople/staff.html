@@ -1,0 +1,164 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('index'))}
+	<!--menu widget-->
+
+</block>
+
+<block name="content-header">
+	<h1>
+		人事设置
+		<small><span class="fa fa-fw fa-calendar-plus-o"></span>员工管理</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">首页</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-shopping-cart"></i>
+					<h3 class="box-title">请假审批</h3>
+
+					<div class="box-notes pull-right">
+						<button type="button" class="btn btn-box-note" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-note" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<table id="vacation" class="table no-margin table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>姓名</th>
+								<th>开始时间</th>
+								<th>结束时间</th>
+								<th>理由</th>
+								<th>申请时间</th>
+								<th>是否批准</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name="vacation" id="vo">
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.uname}</td>
+                                <td>{$vo.start_time}</td>
+                                <td>{$vo.end_time}</td>
+                                <td>{$vo.reason}</td>
+                                <td>{$vo.time}</td>
+                                <td>
+                                    <if condition="$vo['status'] eq 1">
+                                        <span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+                                        <else/> <span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span>
+                                    </if>
+                                </td>
+                                <td>
+									<select id="status" class="form-control">
+										<option selected>请选择</option>
+										<option>批准</option>
+										<option>不批准</option>
+										
+									</select>
+								</td>                                                            
+                            </tr>
+                            </volist>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>ID</th>
+								<th>姓名</th>
+								<th>开始时间</th>
+								<th>结束时间</th>
+								<th>理由</th>
+								<th>申请时间</th>
+								<th>是否批准</th>
+							</tr>
+						</tfoot>
+					</table>
+
+				</div>
+				<!-- box-body -->
+			</div>
+			<!-- box -->
+		</div>
+		<!-- col -->
+	</div>
+	
+</block>
+
+<block name="script">	
+	<script type="text/javascript">		     
+		/*
+		 * 添加
+		 * */
+		$("#addbtn").click(function() {
+			var $btn = $(this).button('adding');
+			$.post("<php>echo U('Boss/DoPeople/vacationadd')</php>", {
+						uname: "{$user.uname}",
+						start_time: $("#addpwd")[0].value,
+						end_time: $("#repwd")[0].value,
+						reason: $("#addnumber")[0].value						
+					},
+					function(data) {
+						$btn.button('reset');
+						if (data == true) {
+							alert("保存成功");
+						} else {
+							alert(data);
+						}
+						location.reload();
+					});
+		});
+		/**
+         * 审批请假
+         * */   
+        $('#status').change(function() { 
+        	$.post("<php>echo U('Boss/DoPeople/vacationstatus')</php>",{
+                id: $(this).children().first().html(),
+                operator: "{$user.uname}",
+                status: $(this).val()
+            }, function(data) {                
+                if (data == true) {
+                    alert("修改成功");
+                } else {
+                    alert(data);
+                }
+                location.reload();
+            });
+           
+        });
+     
+	</script>
+</block>
