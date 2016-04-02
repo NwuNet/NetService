@@ -124,12 +124,13 @@ class DoServiceController extends BaseController {
 			        $this->ajaxReturn(true);
 		        }else{
 			        $this->ajaxReturn("添加失败");
+				}
 		
 		}else if($repair){
-			$this->ajaxReturn(true);
-		}else{
-			$this->ajaxReturn("添加失败");
-		}
+			        $this->ajaxReturn(true);
+		        } else{
+			        $this->ajaxReturn("添加失败");
+		        }
 	}
 	// --------------------服务查询---------------------
     public function query(){
@@ -138,12 +139,12 @@ class DoServiceController extends BaseController {
 		$this -> assign('table',$cardtable );//服务单表
 		
 		/*未完成服务单数量*/
-		$maxtime = $Card->field('start')->order('start desc')->find();
 		
+		$maxtime = $Card->field('start')->order('start desc')->find();	
 		$m = month(strtotime($maxtime['start']));
 		$cardtime1 = array();
 		foreach ($m as $item) {
-		//	$Card1 = $Card-> where('status = 0')->select(); 
+			 
 			$map['start'] = array('like',$item.'%');
 			$cardshow = $Card->where($map)->field('start,count(start) as num')->select();
 			$cardshow[0]['start'] =$item;
