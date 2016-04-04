@@ -60,20 +60,20 @@
 					<form id="addform">
 					  <div class="form-group">
 						  <label>姓名</label>
-						  <select id="name" class="form-control select2" style="width: 100%;">
+						  <select id="name" class="form-control" style="width: 100%;">
 							  <option selected="selected">请选择</option>
 							  <foreach name="staffname" item="vo">
 								  <option>{$vo.uname}</option>
 							  </foreach>
 						  </select>
 						  <label>考勤日期</label>
-						  <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+						  <div class="input-group date form_date col-md-8" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                              <input id = "time" class="form-control" size="16" type="text" value="" readonly>
                              <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                           </div>						  
 						  <label>考勤类别</label>
-						  <select id="state" class="form-control select2" style="width: 100%;">
+						  <select id="state" class="form-control" style="width: 100%;">
 							  <option selected="selected">请选择</option>
 							  <foreach name="registername" item="vo">
 								  <option>{$vo.name}</option>
@@ -138,10 +138,12 @@
 </block>
 
 <block name="script">
-	<script type="text/javascript">
-	    
+	<script type="text/javascript">	    
+	    /*
+		 * 考勤时间
+		 * */
 	    $('.form_date').datetimepicker({
-        language:  'fr',
+        language:  'zh-CN',
         weekStart: 1,
         todayBtn:  1,
 		autoclose: 1,
@@ -149,15 +151,16 @@
 		startView: 2,
 		minView: 2,
 		forceParse: 0,
+		showMeridian: 1,		
 		pickerPosition: "bottom-left"
-        });	    		
+        });	 	    		
 		/*
 		 * 添加考勤
 		 * */
 		$("#addbtn").click(function() {
 			var $btn = $(this).button('loading');
 			$.post("<php>echo U('Boss/DoPeople/registeradd')</php>", {
-					name: $("#uname")[0].value,					
+					uname: $("#uname")[0].value,					
 					time: $("#time")[0].value,
 					state: $("#state")[0].value
 				},
@@ -170,7 +173,7 @@
 					}
 					location.reload();
 				});
-		});						
+		});			
 		//datatables
 		var table = $("#register1").DataTable({
 			"processing": true,
@@ -191,9 +194,9 @@
 				}
 			}
 		});
-		$('#register1 tbody').on('click', 'tr', function() {
+	/*	$('#register1 tbody').on('click', 'tr', function() {
 			var id = $(this).children().first().html();
 			location.href = "index.php?s=/Boss-DoPeople-registercard-id-" + id;
-		});
+		});*/
 	</script>
 </block>

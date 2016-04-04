@@ -21,13 +21,13 @@ class DoPeopleController extends BaseController {
     }
 	// --------------------添加员工考勤信息---------------------
 	public function registeradd(){
-		$name = I('post.name');
+		$uname = I('post.uname');
 		$time = I('post.time');
 		$state = I('post.state');
 		
-		if($name==''||$time==''||$state==''){
+		if($uname==''||$time==''||$state==''){
 			$this->ajaxReturn("数据为空");
-		}elseif($name=='请选择'||$state=='请选择'){
+		}elseif($uname=='请选择'||$state=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
 		$register = M('StaffRegister');
