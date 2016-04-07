@@ -1,0 +1,105 @@
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li class="treeview">
+			<a href="<php>echo U('Staff/Index/index')</php>">
+				<i class="fa fa-dashboard"></i><span>员工首页</span>
+			</a>
+	</li> 
+    <li id="doasset" class="treeview">
+        <a href="#">
+            <i class="fa fa-fw fa-truck"></i>
+			<span>资产申请</span>
+			<i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li id="dotool">
+                <a href="<php>echo U('Staff/DoAsset/tool')</php>">
+                    <i class="fa fa-fw fa-wrench"></i>
+                    <span>工具</span>
+                </a>
+            </li>
+            <li id="doexhaust">
+                <a href="<php>echo U('Staff/DoAsset/exhaust')</php>">
+                    <i class="fa fa-fw fa-recycle"></i>
+                    <span>耗材</span>
+                </a>
+            </li>
+            <li id="dodevice">
+                <a href="<php>echo U('Staff/DoAsset/device')</php>">
+                    <span class="fa fa-fw fa-cubes"></span>
+                    <span>设备</span>
+                </a>
+            </li>
+            <li id="dopaper">
+                <a href="<php>echo U('Staff/DoAsset/paper')</php>">
+                    <span class="fa fa-fw fa-image"></span>
+                    <span>证照</span>
+                </a>
+            </li>
+            <li id="dother">
+                <a href="<php>echo U('Staff/DoAsset/other')</php>">
+                    <span class="fa fa-fw fa-arrows"></span>
+                    <span>其他</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li id="dopeople" class="treeview">
+        <a href="#">
+            <i class="fa fa-fw fa-users"></i>
+			<span>人事相关</span>
+			<i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+        	<li id="dovacation">
+                <a href="<php>echo U('Staff/DoPeople/vacation')</php>">
+                    <i class="fa fa-fw fa-calendar-times-o"></i>
+                    <span>请假申请</span>
+                </a>
+            </li>
+            <li id="doregister">
+                <a href="<php>echo U('Staff/DoPeople/register')</php>">
+                    <i class="fa fa-fw fa-calendar-check-o"></i>
+                    <span>考勤查询</span>
+                </a>
+            </li>
+            <li id="doevaluate">
+                <a href="<php>echo U('Staff/DoPeople/evaluate')</php>">
+                    <i class="fa fa-fw fa-calendar-minus-o"></i>
+                    <span>离职申请</span>
+                </a>
+            </li>                                 
+        </ul>
+    </li>
+    <li id="dopeoplequery">
+                <a href="<php>echo U('Staff/DoPeople/query')</php>">
+                    <i class="fa fa-fw fa-line-chart"></i>
+                    <span>绩效查询</span>
+                </a>
+            </li> 
+    
+   <li id="doservicequery">
+	<a href="<php>echo U('Staff/DoService/query')</php>">
+		<i class="fa fa-fw fa-list-alt"></i>
+		<span>服务查询</span>
+	</a>
+    </li>
+    <li id="doservicequery">
+	   <a href="<php>echo U('Staff/DoInformation/feedback')</php>">
+		<i class="fa fa-fw fa-commenting"></i>
+		<span>信息反馈</span>
+	   </a>
+    </li>
+    <li id="doservicequery">
+	  <a href="<php>echo U('Staff/DoContracts/phone')</php>">
+		<i class="fa fa-fw fa-phone-square"></i>
+		<span>通讯录</span>
+	  </a>
+    </li>
+</ul>
+<!-- jQuery 2.1.4 -->
+<js href="__PUBLIC__/AdminLTE2/plugins/jQuery/jQuery-2.1.4.min.js" />
+<script type="text/javascript">
+    $("#{$id1}").addClass("active");
+    $("#{$id2}").addClass("active");
+</script>
