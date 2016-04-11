@@ -51,7 +51,7 @@
 					<button class="btn btn-sm btn-primary" id="addsch" data-toggle="modal" data-target="#addmodel">
 						<i class="fa fa-plus">添加</i>
 					</button>
-					<button class="btn btn-sm btn-danger" id="remove" data-toggle="modal" data-target="#addmodel">
+					<button class="btn btn-sm btn-danger" id="removesch" data-toggle="modal" data-target="#addmodel">
 						<i class="fa fa-remove">移除</i>
 					</button>
 					<div class="box-tools pull-right">
@@ -64,44 +64,46 @@
 				<div class="box-body no-padding">
 					<table class="table table-striped">
 						<tbody>
-							<tr>
-								<td><b>喻利君</b></td>
-								<td>
-									<input type="checkbox" name="status" class="chklist" />
-									<label class="chkbox">
-										<span class="chkbox-img"></span>
-										<span class="radiobox-content">周一</span>
-									</label>
-								</td>
-								<td>
-									<input type="checkbox" name="status" class="chklist" />
-									<label class="chkbox">
-										<span class="chkbox-img"></span>
-										<span class="radiobox-content">周二</span>
-									</label>
-								</td>
-								<td>
-									<input type="checkbox" name="status" class="chklist" />
-									<label class="chkbox">
-										<span class="chkbox-img"></span>
-										<span class="radiobox-content">周三</span>
-									</label>
-								</td>
-								<td>
-									<input type="checkbox" name="status" class="chklist" />
-									<label class="chkbox">
-										<span class="chkbox-img"></span>
-										<span class="radiobox-content">周四</span>
-									</label>
-								</td>
-								<td>
-									<input type="checkbox" name="status" class="chklist" />
-									<label class="chkbox">
-										<span class="chkbox-img"></span>
-										<span class="radiobox-content">周五</span>
-									</label>
-								</td>
-							</tr>
+						    <foreach name="schedule" item="vo">
+								<tr>
+									<td><b>{$vo.uname}</b></td>
+									<td>
+										<input type="checkbox" name="status" class="chklist checked" />
+										<label class="chkbox">
+											<span class="chkbox-img"></span>
+											<span class="radiobox-content">周一</span>
+										</label>
+									</td>
+									<td>
+										<input type="checkbox" name="status" class="chklist" />
+										<label class="chkbox">
+											<span class="chkbox-img"></span>
+											<span class="radiobox-content">周二</span>
+										</label>
+									</td>
+									<td>
+										<input type="checkbox" name="status" class="chklist" />
+										<label class="chkbox">
+											<span class="chkbox-img"></span>
+											<span class="radiobox-content">周三</span>
+										</label>
+									</td>
+									<td>
+										<input type="checkbox" name="status" class="chklist" />
+										<label class="chkbox">
+											<span class="chkbox-img"></span>
+											<span class="radiobox-content">周四</span>
+										</label>
+									</td>
+									<td>
+										<input type="checkbox" name="status" class="chklist" />
+										<label class="chkbox">
+											<span class="chkbox-img"></span>
+											<span class="radiobox-content">周五</span>
+										</label>
+									</td>
+								</tr>
+							</foreach>
 						</tbody>
 					</table>
 
@@ -128,16 +130,12 @@
 				<div class="modal-body">
 					<form id="addform">
 						<div class="form-group sr-only">
-							<label for="id" class="control-label">ID</label>
-							<input type="text" class="form-control" id="id" name="id" />
+							<label for="type" class="control-label">ID</label>
+							<input type="text" class="form-control" id="type" name="type" />
 						</div>
 						<div class="form-group">
-							<label for="name" class="control-label">姓名</label>
-							<select id="name" class="form-control select2" style="width: 100%;">
-								<option selected="selected">请选择</option>
-								<foreach name="staffname" item="vo">
-									<option>{$vo.name}</option>
-								</foreach>
+							<label for="uname" class="control-label">姓名</label>
+							<select id="uname" name="uname" class="form-control select2" style="width: 100%;">
 							</select>
 						</div>
 					</form>
@@ -152,5 +150,37 @@
 	<script type="text/javascript">
 		/*checkbox*/
 		$(".chklist").labelauty("chklist", "check");
+		var addname=[<foreach name="staffuser" item="vo">"{$vo.uname}",</foreach>null];
+		var removename = [];
+		$("#addsch").click(function(){
+			$("#type").empty().val("add");
+			var html = '<option selected="selected">请选择</option>';
+			addname.forEach(function(name){
+				if(name!==null){
+					html+='<option>'+name+'</option>'
+				}
+			});
+			$("#uname").empty().append(html);
+		});
+		$("#uname").change(function(){
+			if($("#uname").val()!=='请选择'){
+				$("#addbtn").removeAttr("disabled");
+			}else{
+				$("#addbtn").attr("disabled","disabled");
+			}
+		});
+		$("#addbtn").click(function() {
+			var $btn = $(this).button('adding');
+			$.post("<php>echo U('Boss/SetPeople/scheduleuser')</php>",$("#addform").serialize(),
+					function(data) {
+						$btn.button('reset');
+						if (data == true) {
+							alert("添加成功");
+						} else {
+							alert(data);
+						}
+						location.reload();
+					});
+		});
 	</script>
 </block>

@@ -132,7 +132,30 @@ class SetPeopleController extends BaseController {
 
 	// --------------------排班设置---------------------
     public function schedule(){
+        $staffUser = D('Admin/StaffUserView');
+        $this->assign('staffuser',$staffUser->where('status = 1')->select());
+        $schStaff = M('ScheduleStaff');
+        $this->assign('schedule',$schStaff->where('status =1')->select());
         $this->display();
+    }
+    public function scheduleuser(){
+        $type = I('post.type');
+        if($type == ''||I('post.uname')==''){
+            $this->ajaxReturn('数据为空');
+        }
+        if($type == 'add'){
+            $schStaff = M('ScheduleStaff');
+            $schStaff->create();
+            $schStaff->status = 1;
+            if($schStaff->add()){
+                $this->ajaxReturn(true);
+            }else{
+                $this->ajaxReturn('添加失败');
+            }
+        }elseif($type == 'remove'){
+
+        }
+        $this->ajaxReturn(false);
     }
 	// --------------------空操作---------------------
 	public function _empty($name){
