@@ -62,41 +62,56 @@
 				</div>
 
 				<div class="box-body no-padding">
-					<table class="table table-striped">
+					<table class="table table-striped" id="schtable">
 						<tbody>
-						    <foreach name="schedule" item="vo">
+						    <foreach name="removestaff" item="vo">
 								<tr>
-									<td><b>{$vo.uname}</b></td>
+									<td>{$vo.uname}</td>
 									<td>
-										<input type="checkbox" name="status" class="chklist checked" />
+										<if condition="($vo['mon'] eq 1)">
+											<input type="checkbox" name="status" class="chklist" checked="checked"/>
+											<else /> <input type="checkbox" name="status" class="chklist"/>
+										</if>
 										<label class="chkbox">
 											<span class="chkbox-img"></span>
 											<span class="radiobox-content">周一</span>
 										</label>
 									</td>
 									<td>
-										<input type="checkbox" name="status" class="chklist" />
+										<if condition="($vo['tues'] eq 1)">
+											<input type="checkbox" name="status" class="chklist" checked="checked"/>
+											<else /> <input type="checkbox" name="status" class="chklist"/>
+										</if>
 										<label class="chkbox">
 											<span class="chkbox-img"></span>
 											<span class="radiobox-content">周二</span>
 										</label>
 									</td>
 									<td>
-										<input type="checkbox" name="status" class="chklist" />
+										<if condition="($vo['wed'] eq 1)">
+											<input type="checkbox" name="status" class="chklist" checked="checked"/>
+											<else /> <input type="checkbox" name="status" class="chklist"/>
+										</if>
 										<label class="chkbox">
 											<span class="chkbox-img"></span>
 											<span class="radiobox-content">周三</span>
 										</label>
 									</td>
 									<td>
-										<input type="checkbox" name="status" class="chklist" />
+										<if condition="($vo['thurs'] eq 1)">
+											<input type="checkbox" name="status" class="chklist" checked="checked"/>
+											<else /> <input type="checkbox" name="status" class="chklist"/>
+										</if>
 										<label class="chkbox">
 											<span class="chkbox-img"></span>
 											<span class="radiobox-content">周四</span>
 										</label>
 									</td>
 									<td>
-										<input type="checkbox" name="status" class="chklist" />
+										<if condition="($vo['fri'] eq 1)">
+											<input type="checkbox" name="status" class="chklist" checked="checked"/>
+											<else /> <input type="checkbox" name="status" class="chklist"/>
+										</if>
 										<label class="chkbox">
 											<span class="chkbox-img"></span>
 											<span class="radiobox-content">周五</span>
@@ -150,12 +165,22 @@
 	<script type="text/javascript">
 		/*checkbox*/
 		$(".chklist").labelauty("chklist", "check");
-		var addname=[<foreach name="staffuser" item="vo">"{$vo.uname}",</foreach>null];
-		var removename = [];
+		var addname=[<foreach name="addstaff" item="vo">"{$vo.uname}",</foreach>null];
+		var removename = [<foreach name="removestaff" item="vo">"{$vo.uname}",</foreach>null];
 		$("#addsch").click(function(){
 			$("#type").empty().val("add");
 			var html = '<option selected="selected">请选择</option>';
 			addname.forEach(function(name){
+				if(name!==null){
+					html+='<option>'+name+'</option>'
+				}
+			});
+			$("#uname").empty().append(html);
+		});
+		$("#removesch").click(function(){
+			$("#type").empty().val("remove");
+			var html = '<option selected="selected">请选择</option>';
+			removename.forEach(function(name){
 				if(name!==null){
 					html+='<option>'+name+'</option>'
 				}
@@ -182,5 +207,32 @@
 						location.reload();
 					});
 		});
+		var tbl = document.getElementById("schtable");
+		var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+		for(var i=0;i<tbl.rows.length;i++){
+			for(var j=0;j<tbl.rows[i].cells.length;j++){
+				tbl.rows[i].cells[j].onclick = (function(x, y){
+					var ix = i;
+					var iy = j;
+					return function(){
+						$(".box").append(loading);
+						$.post("<php>echo U('Boss/SetPeople/schedulechange')</php>",
+								{
+									uname: tbl.rows[ix].cells[0].innerHTML,
+									type: iy
+								},
+								function(data) {
+									$("div").remove(".overlay");
+									if (data == true) {
+//										alert("添加成功");
+									} else {
+										alert(data);
+										location.reload();
+									}
+								});
+					};
+				})(i, j);
+			}
+		}
 	</script>
 </block>

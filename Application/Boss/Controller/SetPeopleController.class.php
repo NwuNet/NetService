@@ -132,30 +132,87 @@ class SetPeopleController extends BaseController {
 
 	// --------------------排班设置---------------------
     public function schedule(){
-        $staffUser = D('Admin/StaffUserView');
-        $this->assign('staffuser',$staffUser->where('status = 1')->select());
         $schStaff = M('ScheduleStaff');
-        $this->assign('schedule',$schStaff->where('status =1')->select());
+        $removestaff = $schStaff->where('status =1')->select();
+        $staffUser = D('Admin/StaffUserView');
+        $staff =$staffUser->where('status = 1')->field('uname')->select();
+        $index = 0;$addstaff=[];
+        foreach($staff as $user => $value){
+            $state = 0;
+            for($i=0;$i<count($removestaff);$i++){
+                if($staff[$user]['uname'] == $removestaff[$i]['uname']){
+                    $state = 1;break;
+                }
+            }
+            if($state == 0){
+                $addstaff[$index++] = $staff[$user];
+            }
+        }
+        $this->assign('addstaff',$addstaff);
+        $this->assign('removestaff',$removestaff);
         $this->display();
     }
     public function scheduleuser(){
         $type = I('post.type');
-        if($type == ''||I('post.uname')==''){
+        $uname = I('post.uname');
+        if($type == ''||$uname==''){
             $this->ajaxReturn('数据为空');
         }
         if($type == 'add'){
             $schStaff = M('ScheduleStaff');
-            $schStaff->create();
-            $schStaff->status = 1;
-            if($schStaff->add()){
-                $this->ajaxReturn(true);
+            if(count($schStaff->where('uname = "%s"',$uname)->find())>0){
+                $schStaff->status = 1;
+                if($schStaff->save()){
+                    $this->ajaxReturn(true);
+                }else{
+                    $this->ajaxReturn('添加失败');
+                }
             }else{
-                $this->ajaxReturn('添加失败');
+                $schStaff->create();
+                $schStaff->status = 1;
+                if($schStaff->add()){
+                    $this->ajaxReturn(true);
+                }else{
+                    $this->ajaxReturn('添加失败');
+                }
             }
         }elseif($type == 'remove'){
-
+            $schStaff = M('ScheduleStaff');
+            $data = $schStaff->where('uname = "%s"',$uname)->find();
+            if(count($data)==0){
+                $this->ajaxReturn('移除失败');
+            }else{
+                $data['status'] = 0;
+                if($schStaff->save($data)){
+                    $this->ajaxReturn(true);
+                }else{
+                    $this->ajaxReturn('移除失败');
+                }
+            }
         }
         $this->ajaxReturn(false);
+    }
+    public function schedulechange(){
+        if(I('post.uname')==''||I('post.type')==''){
+            $this->ajaxReturn('数据为空');
+        }
+        $schStaff = M('ScheduleStaff');
+        $staff = $schStaff ->where('uname = "%s"',I('post.uname'))->find();
+        $str='';
+        switch(I('post.type')){
+            case 1: $str = 'mon';break;
+            case 2: $str = 'tues';break;
+            case 3: $str = 'wed';break;
+            case 4: $str = 'thurs';break;
+            case 5: $str = 'fri';break;
+            case 6: $str = 'sat';break;
+        }
+        $staff[$str] = $staff[$str]==1?0:1;
+        if($schStaff->save($staff)){
+            $this->ajaxReturn(true);
+        }else{
+            $this->ajaxReturn('更改失败');
+        }
     }
 	// --------------------空操作---------------------
 	public function _empty($name){
