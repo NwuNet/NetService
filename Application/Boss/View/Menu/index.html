@@ -2,13 +2,13 @@
 <ul class="sidebar-menu">
     <li id="index" class="treeview">
         <a href="<php>echo U('Boss/Index/index')</php>">
-            <i class="fa fa-fw fa-dashboard"></i> <span>首页</span>
+            <i class="fa fa-dashboard"></i> <span>首页</span>
         </a>
     </li>
     <li class="header">操作相关</li>
     <li id="doasset" class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-truck"></i>
+            <i class="fa fa-truck"></i>
             <span>资产管理</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
@@ -47,7 +47,7 @@
     </li>
     <li id="dopeople" class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-users"></i>
+            <i class="fa fa-users"></i>
             <span>人事管理</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
@@ -86,7 +86,7 @@
     </li>
     <li id="doservice" class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-hand-o-up"></i>
+            <i class="fa fa-hand-o-up"></i>
             <span>服务管理</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
@@ -106,30 +106,39 @@
         </ul>
     </li>
     <li class="header">数据相关</li>
-    <li id="datasset">
-        <a href="<php>echo U('Boss/DataAsset/index')</php>">
-            <i class="fa fa-fw fa-table"></i> <span>资产报表</span>
+    <li id="setdata" class="treeview">
+        <a href="#">
+            <i class="fa fa-table"></i>
+            <span>数据报表</span>
+            <i class="fa fa-angle-left pull-right"></i>
         </a>
-    </li>
-    <li id="dataservice">
-        <a href="<php>echo U('Boss/DataService/index')</php>">
-            <i class="fa fa-fw fa-list-alt"></i> <span>服务报表</span>
-        </a>
-    </li>
-    <li id="datapeople">
-        <a href="<php>echo U('Boss/DataPeople/index')</php>">
-            <i class="fa fa-fw fa-user-plus"></i> <span>人事报表</span>
-        </a>
-    </li>
-    <li id="datafeedback">
-        <a href="<php>echo U('Boss/DataFeedback/index')</php>">
-            <i class="fa fa-fw fa-commenting"></i> <span>反馈报表</span>
-        </a>
+        <ul class="treeview-menu">
+            <li id="datasset">
+                <a href="<php>echo U('Boss/DataAsset/index')</php>">
+                    <i class="fa fa-fw fa-table"></i> <span>资产报表</span>
+                </a>
+            </li>
+            <li id="dataservice">
+                <a href="<php>echo U('Boss/DataService/index')</php>">
+                    <i class="fa fa-fw fa-list-alt"></i> <span>服务报表</span>
+                </a>
+            </li>
+            <li id="datapeople">
+                <a href="<php>echo U('Boss/DataPeople/index')</php>">
+                    <i class="fa fa-fw fa-user-plus"></i> <span>人事报表</span>
+                </a>
+            </li>
+            <li id="datafeedback">
+                <a href="<php>echo U('Boss/DataFeedback/index')</php>">
+                    <i class="fa fa-fw fa-commenting"></i> <span>反馈报表</span>
+                </a>
+            </li>
+        </ul>
     </li>
     <li class="header">设置相关</li>
     <li id="setasset" class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-truck"></i>
+            <i class="fa fa-truck"></i>
             <span>资产设置</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
@@ -174,7 +183,7 @@
     </li>
     <li id="setpeople" class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-users"></i>
+            <i class="fa fa-users"></i>
             <span>人事设置</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
@@ -207,7 +216,7 @@
     </li>
     <li id="setreport" class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-area-chart"></i>
+            <i class="fa fa-area-chart"></i>
             <span>报表设置</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
