@@ -61,17 +61,15 @@
 							<form id="addform">
 								<div class="form-group">
 									<label>姓名</label>
-									<select id="name" class="form-control" style="width: 100%;">
+									<select id="uname" class="form-control" style="width: 100%;">
 										<option selected="selected">请选择</option>
 										<foreach name="staffname" item="vo">
 											<option>{$vo.uname}</option>
 										</foreach>
 									</select>
-									<label>考勤日期</label>
-									<div class="input-group date form_date col-md-8" data-date="" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-										<input id = "time" class="form-control" size="16" type="text" value="" readonly>
-										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									<label>考勤日期</label><br/>
+									<div class="input-group" style="width: 100%;">
+										<input type="date" id="time" class="form-control" >
 									</div>
 									<label>考勤类别</label>
 									<select id="state" class="form-control" style="width: 100%;">
@@ -100,70 +98,7 @@
 								<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
 							</div>
 						</div>
-
-						<div class="box-body no-padding">
-							<table class="table table-striped">
-								<thead>
-								<th>姓名</th>
-								<th>周一</th>
-								<th>周二</th>
-								<th>周三</th>
-								<th>周四</th>
-								<th>周五</th>
-								</thead>
-								<tbody>
-								<tr>
-									<td>喻利君</td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-								</tr>
-								<tr>
-									<td>杨康</td>
-									<td></td>
-									<td></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green">双</span></td>
-								</tr>
-								<tr>
-									<td>朱文鹏</td>
-									<td></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>李鹏程</td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-								</tr>
-								<tr>
-									<td>蒋维</td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td></td>
-									<td></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-								</tr>
-								<tr>
-									<td>成晓奇</td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td><span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span></td>
-									<td></td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-						<!-- box-body -->
+						{:W('Static/schedule')}
 					</div>
 					<!-- box -->
 				</div>
@@ -189,18 +124,19 @@
 	<js href="__PUBLIC__/AdminLTE2/plugins/fullcalendar/fullcalendar.min.js" />
 	<js href="__PUBLIC__/AdminLTE2/plugins/fullcalendar/lang-all.js" />
 	<script>
+		var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 		/*
 		 * 添加考勤
 		 * */
 		$("#addbtn").click(function() {
-			var $btn = $(this).button('loading');
+			$(".box").append(loading);
 			$.post("<php>echo U('Boss/DoPeople/registeradd')</php>", {
 						uname: $("#uname")[0].value,
 						time: $("#time")[0].value,
 						state: $("#state")[0].value
 					},
 					function(data) {
-						$btn.button('reset');
+						$("div").remove(".overlay");
 						if (data == true) {
 							alert("添加成功");
 						} else {
@@ -237,95 +173,24 @@
 				center: 'title',
 				right: 'month,agendaWeek'
 			},
+			weekends:false,
+			weekNumbers:true,
 			lang: 'zh-cn',
 			editable: true,
 			droppable: true,
-			events: [{
-				title: '陈登州',
-				start: '2015-11-23',
-				backgroundColor: "#00a65a", //red
-				borderColor: "#00a65a" //red
-			}, {
-				title: '李鹏程',
-				start: '2015-11-23',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '姜维',
-				start: '2015-11-23',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '成晓奇',
-				start: '2015-11-23',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '李鹏程',
-				start: '2015-11-20',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '姜维',
-				start: '2015-11-20',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '杨康',
-				start: '2015-11-19',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '成晓奇',
-				start: '2015-11-19',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '杨康',
-				start: '2015-11-18',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '朱文鹏',
-				start: '2015-11-18',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '李鹏程',
-				start: '2015-11-18',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '成晓奇',
-				start: '2015-11-18',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '朱文鹏',
-				start: '2015-11-17',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '姜维',
-				start: '2015-11-17',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '李鹏程',
-				start: '2015-11-16',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '姜维',
-				start: '2015-11-16',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, {
-				title: '成晓奇',
-				start: '2015-11-16',
-				backgroundColor: "#3a87ad", //red
-				borderColor: "#3a87ad" //red
-			}, ]
+			eventSources:[{
+				url: '<php>echo U("Boss/DoPeople/registertable")</php>',
+				type:'post',
+				success: function(doc) {
+					$("div").remove(".overlay");
+				},
+				error: function(){
+					$("div").remove(".overlay");
+					alert("未获取到数据");
+				},
+				color: 'yellow',   // a non-ajax option
+				textColor: 'black' // a non-ajax optio
+			}]
 		});
 	</script>
 </block>
