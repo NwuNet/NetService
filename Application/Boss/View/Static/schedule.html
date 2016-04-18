@@ -1,0 +1,45 @@
+<div class="box-body no-padding">
+    <table class="table table-striped">
+        <thead>
+        <th>姓名</th>
+        <th>周一</th>
+        <th>周二</th>
+        <th>周三</th>
+        <th>周四</th>
+        <th>周五</th>
+        </thead>
+        <tbody>
+        <foreach name="removestaff" item="vo">
+            <tr>
+                <td>{$vo.uname}</td>
+                <td>
+                    <if condition="($vo['mon'] eq 1)">
+                        <span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+                    </if>
+                </td>
+                <td>
+                    <if condition="($vo['tues'] eq 1)">
+                        <span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+                    </if>
+                </td>
+                <td>
+                    <if condition="($vo['wed'] eq 1)">
+                        <span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+                    </if>
+                </td>
+                <td>
+                    <if condition="($vo['thurs'] eq 1)">
+                        <span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+                    </if>
+                </td>
+                <td>
+                    <if condition="($vo['fri'] eq 1)">
+                        <span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+                    </if>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+</div>
+<!-- box-body -->
