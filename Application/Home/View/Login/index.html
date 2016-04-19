@@ -1,1 +1,25 @@
 <extend name="base" />
+<block name="docs">
+    <div class="page-content">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="box-body">
+                <form id="loginform">
+                    <label>姓名</label>
+                    <div class="form-group">
+                        <input class="form-control" id="name" placeholder="输入姓名" />
+                    </div>
+                    <label>学号</label>
+                    <div class="form-group">
+                        <input class="form-control" id="student_no" type="number" min="201000000" placeholder="输入学号" />
+                    </div>
+                    <label>手机号</label>
+                    <div class="form-group">
+                        <input class="form-control" id="phone" type="number" min="13000000000" placeholder="输入手机号" />
+                    </div>
+                    <a href="#login" class="btn btn-outline-inverse btn-lg">登录</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>
