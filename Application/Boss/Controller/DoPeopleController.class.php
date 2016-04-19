@@ -24,22 +24,47 @@ class DoPeopleController extends BaseController {
 		$uname = I('post.uname');
 		$time = I('post.time');
 		$state = I('post.state');
-		
 		if($uname==''||$time==''||$state==''){
 			$this->ajaxReturn("数据为空");
 		}elseif($uname=='请选择'||$state=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
 		$register = M('StaffRegister');
-		$register->create();
-		$register->recordtime  = date("Y-m-d H:i:s",NOW_TIME);
-		$register->add();
-		if($register){
-			$this->ajaxReturn(true);
+		if(count($register->where('uname = "%s" and time ="%s"',$uname,$time)->find())>0){
+			$this->ajaxReturn("该员工当天考勤已存在");
 		}else{
-			$this->ajaxReturn("添加失败");
+			$register->create();
+			$register->recordtime  = date("Y-m-d H:i:s",NOW_TIME);
+			$register->add();
+			if($register){
+				$this->ajaxReturn(true);
+			}else{
+				$this->ajaxReturn("添加失败");
+			}
 		}
 	}
+	// --------------------添加员工考勤信息---------------------
+	public function registerdel(){
+		$str = I('post.uname');
+		$arr = explode(':',$str);
+		$uname = $arr[0];
+		$time = I('post.time');
+		$state = $arr[1];
+		if($uname==''||$time==''||$state==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($uname=='请选择'||$state=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		$register = M('StaffRegister');
+		$deldata = $register->where('uname = "%s" and time ="%s" and state ="%s"',$uname,$time)->find();
+		if(count($deldata)>0){
+			$register->where($deldata)->delete();
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("删除失败");
+		}
+	}
+	// --------------------员工考勤表---------------------
 	public function registertable(){
 		$start = I('post.start');
 		$end = I('post.end');
@@ -50,7 +75,7 @@ class DoPeopleController extends BaseController {
 			$map['time']=array('between',array($start,$end));
 			$data =$Register->where($map)->select();
 			foreach($data as $key => $value){
-				$returndata[$key]['title'] =$data[$key]['uname'];
+				$returndata[$key]['title'] =$data[$key]['uname'].':'.$data[$key]['state'];
 				$returndata[$key]['start'] =$data[$key]['time'];
 				$returndata[$key]['textColor'] ='#FFFFFF';
 				switch ($data[$key]['state']) {
@@ -58,13 +83,13 @@ class DoPeopleController extends BaseController {
 						$returndata[$key]['backgroundColor'] = '#00a65a';
 						break;
 					case '请假'  :
-						$returndata[$key]['backgroundColor'] = '#00a65a';
+						$returndata[$key]['backgroundColor'] = '#f39c12';
 						break;
-					case '矿工'  :
-						$returndata[$key]['backgroundColor'] = '#00a65a';
+					case '旷工'  :
+						$returndata[$key]['backgroundColor'] = '#f56954';
 						break;
 					default:
-						$returndata[$key]['backgroundColor'] = '#00a65a';
+						$returndata[$key]['backgroundColor'] = '#605ca8';
 				}
 			}
 			$this->ajaxReturn($returndata);

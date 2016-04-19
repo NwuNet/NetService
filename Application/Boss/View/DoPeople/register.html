@@ -106,7 +106,7 @@
 		</div>
 		<!-- /.col -->
 		<div class="col-md-8">
-			<div class="box box-primary">
+			<div class="box box-primary" style="cursor:pointer">
 				<div class="box-body no-padding">
 					<!-- THE CALENDAR -->
 					<div id="calendar"></div>
@@ -120,12 +120,40 @@
 </block>
 
 <block name="script">
+	<!-- add Modal -->
+	<div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">删除考勤</h4>
+				</div>
+				<div class="modal-body">
+					<form id="delform">
+						<div class="form-group">
+							<label for="dname" class="control-label">姓名</label>
+							<input type="text" class="form-control" id="dname" name="dname"  disabled="disabled"/>
+						</div>
+						<div class="form-group">
+							<label for="time" class="control-label">时间</label>
+							<input type="text" class="form-control" id="dtime" name="dtime" disabled="disabled"/>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="delbtn" type="button" class="btn btn-primary">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- fullCalendar 2.4.0 -->
 	<js href="__PUBLIC__/AdminLTE2/plugins/fullcalendar/fullcalendar.min.js" />
 	<js href="__PUBLIC__/AdminLTE2/plugins/fullcalendar/lang-all.js" />
 	<script>
 		var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
-		/*
+		/**
 		 * 添加考勤
 		 * */
 		$("#addbtn").click(function() {
@@ -145,8 +173,25 @@
 						location.reload();
 					});
 		});
-		/* initialize the external events
-		-----------------------------------------------------------------*/
+		/**
+		 * 删除考勤
+		 * */
+		$("#delbtn").click(function() {
+			$(".box").append(loading);
+			$.post("<php>echo U('Boss/DoPeople/registerdel')</php>", {
+						uname: $("#dname")[0].value,
+						time: $("#dtime")[0].value
+					},
+					function(data) {
+						$("div").remove(".overlay");
+						if (data == true) {
+							alert("删除成功");
+						} else {
+							alert(data);
+						}
+						location.reload();
+					});
+		});
 		$('#external-events .external-event').each(function() {
 			// store data so the calendar knows to render an event upon drop
 			var eventObject = $(this).data('event', {
@@ -176,8 +221,6 @@
 			weekends:false,
 			weekNumbers:true,
 			lang: 'zh-cn',
-			editable: true,
-			droppable: true,
 			eventSources:[{
 				url: '<php>echo U("Boss/DoPeople/registertable")</php>',
 				type:'post',
@@ -190,7 +233,12 @@
 				},
 				color: 'yellow',   // a non-ajax option
 				textColor: 'black' // a non-ajax optio
-			}]
+			}],
+			eventClick: function(calEvent, jsEvent, view) {
+				$("#dname").val(calEvent.title);
+				$("#dtime").val(calEvent.start._i);
+				$('#delmodal').modal('show');
+			}
 		});
 	</script>
 </block>
