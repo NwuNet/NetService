@@ -19,7 +19,7 @@ class IndexController extends Controller {
 		if($name==''||$student_no==''||$phone==''||$building==''||$room==''||$question==''||$description==''||$appointment_time==''){
 			$this->ajaxReturn("数据为空");
 		}
-		$card = M('ServiceCard');		
+		$card = M('ServiceCard');
 		$card->dormitory = $building.'-'.$room ;
 		$card->start  = date("Y-m-d H:i:s",NOW_TIME);
 		$card->create();
