@@ -26,19 +26,19 @@
 	<!-- search widget -->
 
 	<!--menu widget-->
-	{:W('Menu/index',array('dopeople','dovacation'))}
+	{:W('Menu/index',array('dopeople','dodimission'))}
 	<!--menu widget-->
 </block>
 
 <block name="content-header">
 	<h1>
 	人事相关
-	<small><i class="fa fa-fw fa-calendar-check-o"></i>请假信息</small>
+	<small><i class="fa fa-fw fa-calendar-check-o"></i>离职信息</small>
   </h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
 		<li>人事相关</li>
-		<li class="active">请假信息</li>
+		<li class="active">离职信息</li>
 	</ol>
 </block>
 
@@ -50,28 +50,29 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<i class="fa fa-fw fa-calendar-check-o"></i>
-							<h3 class="box-title">请假申请</h3>
+							<h3 class="box-title">离职申请</h3>
 
-							<div class="box-vacations pull-right">
-								<button type="button" class="btn btn-box-vacation" data-widget="collapse"><i class="fa fa-minus"></i></button>
-								<button type="button" class="btn btn-box-vacation" data-widget="remove"><i class="fa fa-times"></i></button>
+							<div class="box-dimissions pull-right">
+								<button type="button" class="btn btn-box-dimission" data-widget="collapse"><i class="fa fa-minus"></i></button>
+								<button type="button" class="btn btn-box-dimission" data-widget="remove"><i class="fa fa-times"></i></button>
 							</div>
 						</div>
 						<div class="box-body">
 							<form id="addform">
 								<div class="form-group">
-									<div class="form-group">									
-									<label>请假时间</label>
+									<div class="form-group">
+									<label>岗位</label>
+									<label>入职时间</label>
 									<br/>
-									<label>从</label>
 									<div class="input-group" style="width: 100%;">
 										<input type="date" id="time1" class="form-control">
 									</div>
-									<label>到</label>									
+									<label>离职时间</label>
+									<br/>
 									<div class="input-group" style="width: 100%;">
 										<input type="date" id="time2" class="form-control">
 									</div>
-									<label>请假原因</label>
+									<label>离职原因</label>
 									<div class="input-group" style="width: 100%;">
 										<input type="text" class="form-control" id="reason" name="reason" />
 									</div>
@@ -86,8 +87,10 @@
 				</div>
 				
 			</div>
+			
 		</div>
-		<!-- /.col -->		
+		<!-- /.col -->
+		
 	</div>
 	<div class="col-md-8">
             <div class="box box-primary">
@@ -104,19 +107,18 @@
                 <div class="box-body table-responsive no-padding">
                     <table id="state" class="table table-hover">
                         <thead>
-                        <th>ID</th>
-                        <th>请假时间从</th>
-                        <th>到</th>
-                        <th>请假原因</th>
+                        <th class="sr-only"></th>
+                        <th>申请离职时间</th>
+                        <th>离职原因</th>
                         <th>申请时间</th>
                         <th>审批意见</th>
+                        <th>批准离职时间</th>
                         <th>审批时间</th>
                         </thead>
                         <tbody>
                         <volist name="state" id="vo">
                             <tr>
-                                <td>{$vo.id}</td>
-                                <td>{$vo.start_time}</td>
+                                <td class="sr-only">{$vo.id}</td>
                                 <td>{$vo.end_time}</td>
                                 <td>{$vo.reason}</td>
                                 <td>{$vo.time}</td>
@@ -140,7 +142,7 @@
 		 * */
 		$("#addbtn").click(function() {
 			$(".box").append(loading);
-			$.post("<php>echo U('Staff/DoPeople/vacationadd')</php>", {
+			$.post("<php>echo U('Staff/DoPeople/dimissionadd')</php>", {
 						uname: '{$user.uname}',
 						start_time: $("#time1")[0].value,
 						end_time: $("#time2")[0].value,

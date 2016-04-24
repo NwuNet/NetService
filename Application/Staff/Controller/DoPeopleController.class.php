@@ -126,8 +126,44 @@ class DoPeopleController extends BaseController {
 	
 	// --------------------员工请假---------------------
     public function vacation(){
+    	$Vacation = M('StaffVacation');
+		$state = $Vacation->where('uname=%s',$user.uname)->select();
+		$this->assign('state',$state);
         $this->display();
     }
+	
+	// --------------------员工离职申请---------------------
+    public function dimission(){
+    	$Dimission = M('Dimission');
+		$state = $Dimission->where('uname=%s',$user.uname)->select();
+    //	$Dstate = M('DimissionState');
+     //   $state = $Dstate->where('uname=%s',$user.uname)->select();
+        $this->assign('state',$state);
+        $this->display();
+    }
+	// --------------------添加员工离职申请信息---------------------
+	public function dimissionadd(){
+		$uname = I('post.uname');
+		$start_time = I('post.start_time');
+		$end_time = I('post.end_time');
+		$reason = I('post.reason');
+		
+		if($reason==''||$start_time==''||$end_time==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($uname=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		$Dimission = M('Dimission');
+		$Dimission->create();
+		$Dimission->status = 0;
+		$Dimission->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Dimission->add();
+		if($Dimission){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("添加失败");
+		}
+	}	
 	// --------------------空操作---------------------
 	public function _empty($name){
 		echo "Not Found!";
