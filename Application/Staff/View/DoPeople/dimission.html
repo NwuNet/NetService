@@ -62,6 +62,14 @@
 								<div class="form-group">
 									<div class="form-group">
 									<label>岗位</label>
+									<div class="input-group" style="width: 100%;">
+									    <select id="position" class="form-control">
+												<option selected>请选择</option>
+												<option>维护岗位</option>
+												<option>技术岗位</option>
+												<option>管理岗位</option>
+										</select>		
+									</div>
 									<label>入职时间</label>
 									<br/>
 									<div class="input-group" style="width: 100%;">
@@ -144,6 +152,7 @@
 			$(".box").append(loading);
 			$.post("<php>echo U('Staff/DoPeople/dimissionadd')</php>", {
 						uname: '{$user.uname}',
+						position: $("#position")[0].value,
 						start_time: $("#time1")[0].value,
 						end_time: $("#time2")[0].value,
 						reason: $("#reason")[0].value	
