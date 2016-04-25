@@ -19,82 +19,38 @@ class DoPeopleController extends BaseController {
 		
         $this->display();
     }
-	// --------------------添加员工考勤信息---------------------
-	public function registeradd(){
-		$uname = I('post.uname');
-		$time = I('post.time');
-		$state = I('post.state');
-		
-		if($uname==''||$time==''||$state==''){
-			$this->ajaxReturn("数据为空");
-		}elseif($uname=='请选择'||$state=='请选择'){
-			$this->ajaxReturn("请选择");
-		}
-		$register = M('StaffRegister');
-		$register->create();
-		$register->recordtime  = date("Y-m-d H:i:s",NOW_TIME);
-		$register->add();
-		if($register){
-			$this->ajaxReturn(true);
-		}else{
-			$this->ajaxReturn("添加失败");
-		}
-	}
+	// --------------------员工考勤表---------------------
 	public function registertable(){
-	    $Register = M('StaffRegister');
-	    //获取Datatables发送的参数 必要
-	    $draw = I('get.draw');//这个值作者会直接返回给前台
-	
-	    //排序
-	    $order_column = I('get.order')['0']['column'];//那一列排序，从0开始
-	    $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降序
-
-	    //拼接排序sql
-	    $orderSql = "";
-	    if (isset($order_column)) {
-	        $i = intval($order_column);
-	        switch($i) {
-	            case 0 :$orderSql = " id " . $order_dir;break;
-	            case 1 :$orderSql = " name " . $order_dir;break;
-	            case 2 :$orderSql = " time " . $order_dir;break;
-	            case 3 :$orderSql = " state " . $order_dir;break;				
-	            default :$orderSql = '';
-	        }
-	    }
-	
-	    //搜索
-	    $search = $_GET['search']['value'];//获取前台传过来的过滤条件
-	    //分页
-	    $start = $_GET['start'];//从多少开始
-	    $length = $_GET['length'];//数据长度
-	    //表的总记录数 必要
-	    $recordsTotal = $Register->count();
-	
-	    $map['id|name|time|state']=array('like',"%".$search."%");
-	    if(strlen($search)>0){
-	        $recordsFiltered = count($Register->where($map)->select());
-	        $table = $Register->where($map)->order($orderSql)->limit($start.','.$length)->select();
-	    }else{
-	        $recordsFiltered = $recordsTotal;
-	        $table = $Register->order($orderSql)->limit($start.','. $length)->select();
-	    }
-	
-	    $infos = array();
-	    foreach($table as $row){
-	        $obj = array($row['id'],$row['name'],$row['time'],$row['state']);
-	        array_push($infos,$obj);
-	    }
-	
-	    $this->ajaxReturn(array(
-	        "draw" => intval($draw),
-	        "recordsTotal" => intval($recordsTotal),
-	        "recordsFiltered" => intval($recordsFiltered),
-	        "data" => $infos
-	    ));
+		$start = I('post.start');
+		$end = I('post.end');
+		if($start==''||$end==''){
+			$this->ajaxReturn("数据为空");
+		}else{
+			$Register = M('StaffRegister');
+			$map['time']=array('between',array($start,$end));
+			$data =$Register->where($map)->select();
+			foreach($data as $key => $value){
+				$returndata[$key]['title'] =$data[$key]['uname'].':'.$data[$key]['state'];
+				$returndata[$key]['start'] =$data[$key]['time'];
+				$returndata[$key]['textColor'] ='#FFFFFF';
+				switch ($data[$key]['state']) {
+					case '正常'  :
+						$returndata[$key]['backgroundColor'] = '#00a65a';
+						break;
+					case '请假'  :
+						$returndata[$key]['backgroundColor'] = '#f39c12';
+						break;
+					case '旷工'  :
+						$returndata[$key]['backgroundColor'] = '#f56954';
+						break;
+					default:
+						$returndata[$key]['backgroundColor'] = '#605ca8';
+				}
+			}
+			$this->ajaxReturn($returndata);
+		}
 	}
-    
-	
-
+  	
 	// --------------------绩效查询---------------------
     public function query(){
         $this->display();
@@ -126,8 +82,45 @@ class DoPeopleController extends BaseController {
 	
 	// --------------------员工请假---------------------
     public function vacation(){
+    	$Vacation = M('StaffVacation');
+		$state = $Vacation->where('uname=%s',$user.uname)->select();
+		$this->assign('state',$state);
         $this->display();
     }
+	
+	// --------------------员工离职申请---------------------
+    public function dimission(){
+    	$Dimission = M('Dimission');
+		$state = $Dimission->where('uname=%s',$user.uname)->select();
+    //	$Dstate = M('DimissionState');
+     //   $state = $Dstate->where('uname=%s',$user.uname)->select();
+        $this->assign('state',$state);
+        $this->display();
+    }
+	// --------------------添加员工离职申请信息---------------------
+	public function dimissionadd(){
+		$uname = I('post.uname');
+		$position = I('post.position');
+		$start_time = I('post.start_time');
+		$end_time = I('post.end_time');
+		$reason = I('post.reason');
+		
+		if($reason==''||$start_time==''||$end_time==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($uname=='请选择'||$position=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		$Dimission = M('Dimission');
+		$Dimission->create();
+		$Dimission->status = 0;
+		$Dimission->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Dimission->add();
+		if($Dimission){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("添加失败");
+		}
+	}	
 	// --------------------空操作---------------------
 	public function _empty($name){
 		echo "Not Found!";
