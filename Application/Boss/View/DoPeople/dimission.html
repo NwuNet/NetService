@@ -26,7 +26,7 @@
 	<!-- search widget -->
 
 	<!--menu widget-->
-	{:W('Menu/index',array('dopeople','dostaff'))}
+	{:W('Menu/index',array('dopeople','dodimission'))}
 	<!--menu widget-->
 
 </block>
@@ -49,9 +49,8 @@
 				<div class="col-md-12">
 					<div class="box box-primary">
 						<div class="box-header with-border">
-							<i class="fa fa-fw fa-user-md"></i>
-							<h3 class="box-title">请假审批</h3>
-
+							<i class="fa fa-fw fa-user-times"></i>
+							<h3 class="box-title">离职审批</h3>
 							<div class="box-notes pull-right">
 								<button type="button" class="btn btn-box-note" data-widget="collapse"><i class="fa fa-minus"></i>
 								</button>
@@ -59,26 +58,42 @@
 							</div>
 						</div>
 						<div class="box-body table-responsive">
-							<table id="vacation" class="table no-margin table-bordered table-hover">
+							<table id="dimission" class="table no-margin table-bordered table-hover">
 								<thead>
 									<tr>
 										<th>ID</th>
 										<th>姓名</th>
-										<th>请假时间从</th>
-										<th>到</th>
-										<th>理由</th>
+										<th>职位</th>
+										<th>入职时间</th>
+										<th>申请离职时间</th>
+										<th>离职原因</th>
 										<th>申请时间</th>
 									</tr>
 								</thead>
 								<tbody>
-									<volist name="vacation" id="vo">
+									<volist name="dimission" id="vo">
 										<tr>
 											<td>{$vo.id}</td>
 											<td>{$vo.uname}</td>
+											<td>{$vo.position}</td>
 											<td>{$vo.start_time}</td>
 											<td>{$vo.end_time}</td>
 											<td>{$vo.reason}</td>
 											<td>{$vo.time}</td>
+											<!--<td>
+											<if condition="$vo['status'] eq 1">
+												<span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+												<else/> <span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span>
+											</if>
+										</td>
+										<td>
+											<select id="status" class="form-control">
+												<option selected>请选择</option>
+												<option>批准</option>
+												<option>不批准</option>
+
+											</select>
+										</td>-->
 										</tr>
 									</volist>
 								</tbody>
@@ -86,14 +101,14 @@
 									<tr>
 										<th>ID</th>
 										<th>姓名</th>
-										<th>请假时间从</th>
-										<th>到</th>
-										<th>理由</th>
+										<th>职位</th>
+										<th>入职时间</th>
+										<th>申请离职时间</th>
+										<th>离职原因</th>
 										<th>申请时间</th>
 									</tr>
 								</tfoot>
 							</table>
-
 						</div>
 						<!-- box-body -->
 					</div>
@@ -108,7 +123,7 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<i class="fa fa-fw fa-table"></i>
-							<h3 class="box-title">请假申批记录</h3>&ensp;
+							<h3 class="box-title">离职审批记录</h3>&ensp;
 							<div class="box-states pull-right">
 								<button type="button" class="btn btn-box-state" data-widget="collapse"><i class="fa fa-minus"></i>
 								</button>
@@ -116,16 +131,17 @@
 							</div>
 						</div>
 						<div class="box-body table-responsive">
-							<table id="vacationstate" class="table table-bordered table-hover">
+							<table id="dimissionstate" class="table table-bordered table-hover">
 								<thead>
 									<th>ID</th>
 									<th>姓名</th>
-									<th>请假时间从</th>
-									<th>到</th>
-									<th>理由</th>
+									<th>职位</th>
+									<th>入职时间</th>
+									<th>申请离职时间</th>
+									<th>离职原因</th>
 									<th>申请时间</th>
 									<th>审批意见</th>
-									<th>审批时间</th>
+									<th>批准离职时间</th>
 								</thead>
 								<tbody>
 
@@ -133,12 +149,13 @@
 								<tfoot>
 									<th>ID</th>
 									<th>姓名</th>
-									<th>请假时间从</th>
-									<th>到</th>
-									<th>理由</th>
+									<th>职位</th>
+									<th>入职时间</th>
+									<th>申请离职时间</th>
+									<th>离职原因</th>
 									<th>申请时间</th>
 									<th>审批意见</th>
-									<th>审批时间</th>
+									<th>批准离职时间</th>
 								</tfoot>
 							</table>
 						</div>
@@ -148,8 +165,9 @@
 				<!-- col -->
 			</div>
 		</div>
-	</div>	
+	</div>
 </block>
+
 <block name="script">	
 	<!-- set Modal -->
     <div class="modal fade" id="setmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
@@ -158,7 +176,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">审批请假条</h4>
+                    <h4 class="modal-title">审批离职单</h4>
                 </div>
                 <div class="modal-body">
                     <form id="addform">
@@ -170,6 +188,10 @@
                             <label for="approve" class="control-label">审批意见</label>
                             <input type="text" class="form-control" id="approve" name="approve" />
                         </div>
+                        <div class="input-group">
+                            <label for="dimission_time" class="control-label">批准离职时间</label>
+                            <input type="date" class="form-control" id="dimission_time" name="dimission_time" />
+                        </div>
                         
                     </form>
                 </div>
@@ -180,12 +202,15 @@
             </div>
         </div>
     </div>
+    <!-- fullCalendar 2.4.0 -->
+	<js href="__PUBLIC__/AdminLTE2/plugins/fullcalendar/fullcalendar.min.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/fullcalendar/lang-all.js" />
 	<script type="text/javascript">		     
 		
 		/**
-         * 选定审批项
+         * 
          * */
-        $('#vacation tbody').on('click', 'tr', function() {
+        $('#dimission tbody').on('click', 'tr', function() {
             $("#id")[0].value = $(this).children().first().html();
             
             $('#setmodal').modal('show');
@@ -194,13 +219,14 @@
          * 审批请假
          * */   
         $('#addbtn').click(function() { 
-        	$.post("<php>echo U('Boss/DoPeople/vacationstatus')</php>",{
-                vacation_id: $("#id")[0].value,
+        	$.post("<php>echo U('Boss/DoPeople/dimissionstatus')</php>",{
+                dimission_id: $("#id")[0].value,
                 operator: '{$user.uname}',
-				approve: $("#approve")[0].value
+				approve: $("#approve")[0].value,
+				dimission_time: $("#dimission_time")[0].value
             }, function(data) {                
                 if (data == true) {
-                    alert("修改成功");
+                    alert("审批成功");
                 } else {
                     alert(data);
                 }
@@ -211,10 +237,10 @@
         /*
 		 * datatables
 		 * */
-		var table = $("#vacationstate").DataTable({
+		var table = $("#dimissionstate").DataTable({
 			"processing": true,
 			"serverSide": true,
-			"ajax": "<php>echo U('Boss/DoPeople/vacationstatetable')</php>",
+			"ajax": "<php>echo U('Boss/DoPeople/dimissionstatetable')</php>",
 			"language": {
 				"sProcessing":   "处理中...",
 				"lengthMenu": "每页 _MENU_ 条记录",
