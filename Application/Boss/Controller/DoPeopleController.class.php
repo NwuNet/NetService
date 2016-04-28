@@ -149,7 +149,6 @@ class DoPeopleController extends BaseController {
 	}	
 	public function vacationstatetable() {
 	    $vacationState = D('StaffVacationView');
-	//	$vacationState = M('StaffVacation');
 	    //获取Datatables发送的参数 必要
 	    $draw = I('get.draw');//这个值作者会直接返回给前台
 	
@@ -166,9 +165,9 @@ class DoPeopleController extends BaseController {
 	            case 2 :$orderSql = " start_time " . $order_dir;break;
 				case 3 :$orderSql = " end_time " . $order_dir;break;
 				case 4 :$orderSql = " reason " . $order_dir;break;
-				case 5 :$orderSql = " time " . $order_dir;break;
+				case 5 :$orderSql = " apply_time " . $order_dir;break;
 				case 6 :$orderSql = " approve " . $order_dir;break;
-	            case 7 :$orderSql = " approve_time " . $order_dir;break;
+	            case 7 :$orderSql = " time " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -181,7 +180,7 @@ class DoPeopleController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $vacationState->count();
 	
-	    $map['id|uname|start_time|end_time|reason|time|approve|approve_time']=array('like',"%".$search."%");
+	    $map['id|uname|start_time|end_time|reason|apply_time|approve|time']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($vacationState->where($map)->select());
 	        $table = $vacationState->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -192,7 +191,7 @@ class DoPeopleController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['start_time'],$row['end_time'],$row['reason'],$row['time'],$row['approve'],$row['approve_time']);
+	        $obj = array($row['id'],$row['uname'],$row['start_time'],$row['end_time'],$row['reason'],$row['apply_time'],$row['approve'],$row['time']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -212,7 +211,7 @@ class DoPeopleController extends BaseController {
         $this->display();
     }
 	
-	// --------------------员工请假条审批---------------------
+	// --------------------员工离职审批---------------------
 	public function dimissionstatus(){
 		$dimission_id = I('post.dimission_id');
 		$operator = I('post.operator');
@@ -240,9 +239,8 @@ class DoPeopleController extends BaseController {
 			$this->ajaxReturn("审批失败");
 		}
 	}	
-	public function dimissiontatetable() {
-	    $dimissionState = D('DimissionView');
-	
+	public function dimissionstatetable() {
+	    $dimissionState = D('DimissionView');	
 	    //获取Datatables发送的参数 必要
 	    $draw = I('get.draw');//这个值作者会直接返回给前台
 	
@@ -260,9 +258,9 @@ class DoPeopleController extends BaseController {
 	            case 3 :$orderSql = " start_time " . $order_dir;break;
 				case 4 :$orderSql = " end_time " . $order_dir;break;
 				case 5 :$orderSql = " reason " . $order_dir;break;
-				case 6 :$orderSql = " approve_time " . $order_dir;break;
+				case 6 :$orderSql = " apply_time " . $order_dir;break;
 				case 7 :$orderSql = " approve " . $order_dir;break;
-	            case 8 :$orderSql = " time " . $order_dir;break;
+	            case 8 :$orderSql = " dimission_time " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -275,7 +273,7 @@ class DoPeopleController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $dimissionState->count();
 	
-	    $map['id|uname|position|start_time|end_time|reason|approve_time|approve|time']=array('like',"%".$search."%");
+	    $map['id|uname|position|start_time|end_time|reason|apply_time|approve|dimission_time']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($dimissionState->where($map)->select());
 	        $table = $dimissionState->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -286,7 +284,7 @@ class DoPeopleController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['position'],$row['start_time'],$row['end_time'],$row['reason'],$row['approve_time'],$row['approve'],$row['time']);
+	        $obj = array($row['id'],$row['uname'],$row['position'],$row['start_time'],$row['end_time'],$row['reason'],$row['apply_time'],$row['approve'],$row['dimission_time']);
 	        array_push($infos,$obj);
 	    }
 	
