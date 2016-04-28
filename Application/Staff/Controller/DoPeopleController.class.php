@@ -70,7 +70,7 @@ class DoPeopleController extends BaseController {
 		}
 		$Vacation = M('StaffVacation');
 		$Vacation->create();
-		$Vacation->status = 1;
+		$Vacation->status = 0;
 		$Vacation->time  = date("Y-m-d H:i:s",NOW_TIME);
 		$Vacation->add();
 		if($Vacation){
@@ -82,7 +82,7 @@ class DoPeopleController extends BaseController {
 	
 	// --------------------员工请假---------------------
     public function vacation(){
-    	$Vacation = M('StaffVacation');
+    	$Vacation = D('Boss/StaffVacationView');
 		$state = $Vacation->where('uname=%s',$user.uname)->select();
 		$this->assign('state',$state);
         $this->display();
@@ -90,7 +90,7 @@ class DoPeopleController extends BaseController {
 	
 	// --------------------员工离职申请---------------------
     public function dimission(){
-    	$Dimission = M('Dimission');
+    	$Dimission = D('Boss/DimissionView');
 		$state = $Dimission->where('uname=%s',$user.uname)->select();
     //	$Dstate = M('DimissionState');
      //   $state = $Dstate->where('uname=%s',$user.uname)->select();

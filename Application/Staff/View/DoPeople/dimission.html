@@ -103,19 +103,18 @@
 	<div class="col-md-8">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <i class="fa fa-fw fa-wrench"></i>
-                    <h3 class="box-title">审批信息</h3>&ensp;
-                    
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <i class="fa fa-fw fa-table"></i>
+                    <h3 class="box-title">审批信息</h3>&ensp;                    
+                    <div class="box-notes pull-right">
+                        <button type="button" class="btn btn-box-note" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        <button type="button" class="btn btn-box-note" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
                 <div class="box-body table-responsive no-padding">
                     <table id="state" class="table table-hover">
                         <thead>
-                        <th class="sr-only"></th>
+                        <th>ID</th>
                         <th>申请离职时间</th>
                         <th>离职原因</th>
                         <th>申请时间</th>
@@ -126,9 +125,12 @@
                         <tbody>
                         <volist name="state" id="vo">
                             <tr>
-                                <td class="sr-only">{$vo.id}</td>
+                                <td>{$vo.id}</td>
                                 <td>{$vo.end_time}</td>
                                 <td>{$vo.reason}</td>
+                                <td>{$vo.apply_time}</td>
+                                <td>{$vo.approve}</td>
+                                <td>{$vo.dimission_time}</td>
                                 <td>{$vo.time}</td>
                             </tr>
                         </volist>
