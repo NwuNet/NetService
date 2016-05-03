@@ -345,3 +345,61 @@ function month($time,$num = 8){
     }
     return $mon;
 }
+
+/**
+ *
+ * */
+function getWeek($day){
+    $week = date("w",$day);
+    switch($week){
+        case 1:
+            return "星期一";
+            break;
+        case 2:
+            return "星期二";
+            break;
+        case 3:
+            return "星期三";
+            break;
+        case 4:
+            return "星期四";
+            break;
+        case 5:
+            return "星期五";
+            break;
+        case 6:
+            return "星期六";
+            break;
+        case 0:
+            return "星期日";
+            break;
+    }
+}
+
+function getdayofweek($str){
+    switch($str){
+        case 'Monday': return date("Y-m-d",strtotime('Monday'));break;
+        case '周一':return date("Y-m-d",strtotime('Monday'));break;
+        case '星期一':return date("Y-m-d",strtotime('Monday'));break;
+        case 'Tuesday': return date("Y-m-d",strtotime('Tuesday'));break;
+        case '周二':return date("Y-m-d",strtotime('Tuesday'));break;
+        case '星期二':return date("Y-m-d",strtotime('Tuesday'));break;
+        case 'Wednesday': return date("Y-m-d",strtotime('Wednesday'));break;
+        case '周三':return date("Y-m-d",strtotime('Wednesday'));break;
+        case '星期三':return date("Y-m-d",strtotime('Wednesday'));break;
+        case 'Thursday': return date("Y-m-d",strtotime('Thursday'));break;
+        case '周四':return date("Y-m-d",strtotime('Thursday'));break;
+        case '星期四':return date("Y-m-d",strtotime('Thursday'));break;
+        case 'Friday': return date("Y-m-d",strtotime('Friday'));break;
+        case '周五':return date("Y-m-d",strtotime('Friday'));break;
+        case '星期五':return date("Y-m-d",strtotime('Friday'));break;
+        case 'Saturday': return date("Y-m-d",strtotime('Saturday'));break;
+        case '周六':return date("Y-m-d",strtotime('Saturday'));break;
+        case '星期六':return date("Y-m-d",strtotime('Saturday'));break;
+        case 'Sunday': return date("Y-m-d",strtotime('Sunday'));break;
+        case '周日':return date("Y-m-d",strtotime('Sunday'));break;
+        case '周天':return date("Y-m-d",strtotime('Sunday'));break;
+        case '星期日':return date("Y-m-d",strtotime('Sunday'));break;
+        case '星期天':return date("Y-m-d",strtotime('Sunday'));break;
+    }
+}

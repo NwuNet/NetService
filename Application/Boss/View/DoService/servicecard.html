@@ -31,7 +31,9 @@
 
 <block name="content-header">
 	<h1>
-    服务管理
+		<a href="<php>echo U('Boss/DoService/send')</php>" class="">
+			<i class="ion ion-backspace" data-toggle="tooltip" data-placement="top" title="返回"></i>
+		</a>
 	<i class="fa fa-fw fa-check-square-o"></i>服务单详细信息
   </h1>
 	<ol class="breadcrumb">
@@ -47,12 +49,9 @@
 			<div class="box box-widget widget-user-2">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header bg-green">
-					<div class="widget-user-image">
-						<img class="img-circle" src="__PUBLIC__/Images/Asset/card_lsd.jpg" alt="User Avatar">
-					</div>
 					<!-- /.widget-user-image -->
 					<h3 class="widget-user-username">服务单信息</h3>
-					<h5 class="widget-user-desc">{$cardinfo.0.names}</h5>
+					<h5 class="widget-user-desc">{$cardinfo.0.name}</h5>
 				</div>
 				<div class="box-footer no-padding">
 					<ul class="nav nav-stacked">
@@ -151,6 +150,7 @@
 									</div>
 									<button class="btn btn-primary" type="submit">确认</button>
 								</div>
+							</div>
 						</li>
 					</ul>
 					
@@ -165,25 +165,6 @@
 	<script type="text/javascript">
 			//select2
 			$(".select2").select2();
-			//datatables
-			var table = $("#example1").DataTable({
-				"language": {
-					"lengthMenu": "每页 _MENU_ 条记录",
-					"zeroRecords": "没有找到记录",
-					"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-					"infoEmpty": "无记录",
-					"infoFiltered": "(从 _MAX_ 条记录过滤)",
-					"search": "搜索",
-					"paginate": {
-						"previous": "前页",
-						"next": "后页"
-					}
-				}
-			});
-			$('#example1 tbody').on('click', 'tr', function() {
-				var id = $(this).children().first().html();
-				location.href = "index.php?s=/Boss-DoService-sendcard-id-" + id;
-			});
 			/*
 		 * 添加维修状态
 		 * */

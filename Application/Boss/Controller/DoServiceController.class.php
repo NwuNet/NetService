@@ -25,6 +25,10 @@ class DoServiceController extends BaseController {
 		
 		$servicecardinfo = $Card->where('status = 0')->select();
 		$this -> assign('servicecardinfo',$servicecardinfo );//服务单表
+
+		$staff =D('Admin/StaffUserView')->where('status = 1')->field('uname')->select();
+		$this->assign('staff',$staff);
+
         $this->display();
     }
 	// --------------------显示服务单---------------------
