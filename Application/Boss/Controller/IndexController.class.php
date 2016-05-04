@@ -4,6 +4,13 @@ use Think\Controller;
 class IndexController extends BaseController{
 
     public function index(){
+        $Card = M('ServiceCard');
+        $servicecardinfo = $Card->where('status = 0')->select();
+        $this -> assign('servicecardinfo',$servicecardinfo );//服务单表
+
+        $staff =D('Admin/StaffUserView')->where('status = 1')->field('uname')->select();
+        $this->assign('staff',$staff);
+
         $this->display();
     }
 

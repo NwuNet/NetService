@@ -58,125 +58,34 @@
 				<div class="box-body no-padding table-responsive">
 					<table class="table table-hover">
 						<thead>
-							<th>姓名</th>
-							<th>预约时间</th>
-							<th>宿舍号</th>
-							<th>电话</th>
-							<th>派单</th>
+						<th class="sr-only">id</th>
+						<th>姓名</th>
+						<th>学号</th>
+						<th>宿舍号</th>
+						<th>电话</th>
+						<th>预约时间</th>
+						<th>派单</th>
 						</thead>
 						<tbody>
+						<volist name="servicecardinfo" id="vo">
 							<tr>
-								<td>胡洋</td>
-								<td>周一</td>
-								<td>11-603</td>
-								<td>134 7413 6962</td>
+								<td class="sr-only">{$vo.id}</td>
+								<td>{$vo.name}</td>
+								<td>{$vo.student_no}</td>
+								<td>{$vo.dormitory}</td>
+								<td>{$vo.phone}</td>
+								<td>{$vo.appointment_time} {$vo.appointment_time|strtotime|getweek}</td>
 								<td>
-									<select class="form-control" style="min-width: 80px;">
-										<option selected>请选择</option>
-										<option>陈登州</option>
-										<option>胡洋</option>
-										<option>马燕</option>
-										<option>喻利君</option>
-										<option>亢喜年</option>
+									<select name="sendstaff" id="sendstaff">
+										<foreach name="staff" item="vo">
+											<option>
+												{$vo.uname}
+											</option>
+										</foreach>
 									</select>
 								</td>
 							</tr>
-							<tr>
-								<td>张三</td>
-								<td>周一</td>
-								<td>1-633</td>
-								<td>155 9187 2575</td>
-								<td>
-									<select class="form-control">
-										<option selected>请选择</option>
-										<option>陈登州</option>
-										<option>胡洋</option>
-										<option>马燕</option>
-										<option>喻利君</option>
-										<option>亢喜年</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>唐嫣</td>
-								<td>周一</td>
-								<td>5-536</td>
-								<td>138 9185 2245</td>
-								<td>
-									<select class="form-control">
-										<option selected>请选择</option>
-										<option>陈登州</option>
-										<option>胡洋</option>
-										<option>马燕</option>
-										<option>喻利君</option>
-										<option>亢喜年</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>周杰伦</td>
-								<td><span class="badge bg-yellow">周二</span></td>
-								<td>11-409</td>
-								<td>158 9204 8295</td>
-								<td>
-									<select class="form-control">
-										<option selected>请选择</option>
-										<option>陈登州</option>
-										<option>胡洋</option>
-										<option>马燕</option>
-										<option>喻利君</option>
-										<option>亢喜年</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>胡歌</td>
-								<td><span class="badge bg-yellow">周二</span></td>
-								<td>3-106</td>
-								<td>138 9385 6325</td>
-								<td>
-									<select class="form-control">
-										<option selected>请选择</option>
-										<option>陈登州</option>
-										<option>胡洋</option>
-										<option>马燕</option>
-										<option>喻利君</option>
-										<option>亢喜年</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>李四</td>
-								<td>周一</td>
-								<td>1-602</td>
-								<td>139 9144 1561</td>
-								<td>
-									<select class="form-control">
-										<option selected>请选择</option>
-										<option>陈登州</option>
-										<option>胡洋</option>
-										<option>马燕</option>
-										<option>喻利君</option>
-										<option>亢喜年</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>王五</td>
-								<td>周一</td>
-								<td>9-231</td>
-								<td>134 9571 7821</td>
-								<td>
-									<select class="form-control">
-										<option selected>请选择</option>
-										<option>陈登州</option>
-										<option>胡洋</option>
-										<option>马燕</option>
-										<option>喻利君</option>
-										<option>亢喜年</option>
-									</select>
-								</td>
-							</tr>
+						</volist>
 						</tbody>
 					</table>
 				</div>
