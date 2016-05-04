@@ -51,8 +51,10 @@ class DoServiceController extends BaseController {
 	            case 2 :$orderSql = " student_no " . $order_dir;break;
 	            case 3 :$orderSql = " dormitory " . $order_dir;break;
 				case 4 :$orderSql = " phone " . $order_dir;break;
-	            case 5 :$orderSql = " question " . $order_dir;break;
-				case 6 :$orderSql = " description " . $order_dir;break;
+	            case 5 :$orderSql = " description " . $order_dir;break;
+				case 6 :$orderSql = " start " . $order_dir;break;
+				case 7 :$orderSql = " appointment_time " . $order_dir;break;
+				case 8 :$orderSql = " status " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -65,7 +67,7 @@ class DoServiceController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $Card->count();
 	
-	    $map['id|name|student_no|dormitory|phone|question|description']=array('like',"%".$search."%");
+	    $map['id|name|student_no|dormitory|phone|description|start|appointment_time|status']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($Card->where($map)->select());
 	        $table = $Card->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -76,7 +78,7 @@ class DoServiceController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['name'],$row['student_no'],$row['dormitory'],$row['phone'],$row['question'],$row['description']);
+	        $obj = array($row['id'],$row['name'],$row['student_no'],$row['dormitory'],$row['phone'],$row['description'],$row['start'],$row['appointment_time'],$row['status']);
 	        array_push($infos,$obj);
 	    }
 	
