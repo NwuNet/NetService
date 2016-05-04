@@ -56,7 +56,8 @@ class DoPeopleController extends BaseController {
 			$this->ajaxReturn("请选择");
 		}
 		$register = M('StaffRegister');
-		$deldata = $register->where('uname = "%s" and time ="%s" and state ="%s"',$uname,$time)->find();
+		$deldata = $register->where('uname = "%s" and time ="%s" and state ="%s"',$uname,$time,$state)->find();
+		trace($deldata);
 		if(count($deldata)>0){
 			$register->where($deldata)->delete();
 			$this->ajaxReturn(true);
