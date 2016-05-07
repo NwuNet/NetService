@@ -4,7 +4,7 @@ use Think\Controller;
 class DoContactsController extends BaseController {
 	// --------------------通讯录信息---------------------
     public function phone(){
-    	
+
 		$this->display();
     }
 	public function phonetable() {
