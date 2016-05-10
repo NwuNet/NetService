@@ -42,7 +42,7 @@ class DoServiceController extends BaseController {
 		//表的总记录数 必要
 		$recordsTotal = $Card->count();
 
-		$map['id|name|student_no|dormitory|phone|description|start|appointment_time|status']=array('like',"%".$search."%");
+		$map['id|name|student_no|dormitory|phone|description|start|appointment_time|status']=array('like',"%".$search."%");		
 		if(strlen($search)>0){
 			$recordsFiltered = count($Card->where($map)->select());
 			$table = $Card->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -68,16 +68,17 @@ class DoServiceController extends BaseController {
 	public function servicecard($id){
 		if($id!=''){
 			$Card = M('ServiceCard');
-//			$state = M('ServiceCard');
 			$repair = M('ServiceRepair');
-			$cardinfo = $Card->where('id = %d',$id)->select();
-//			$cardstate = $state ->where('status = 1')->select();
+			$cardinfo = $Card->where('id = %d',$id)->select();		
 			$servicerepair = $repair->where('servicecard_id =%d',$id)->select();
 			$this->assign("cardinfo",$cardinfo);
-//			$this->assign('cardstate',$cardstate);
 			$this->assign("servicerepair",$servicerepair);
 			trace($servicerepair);
 			$this->assign('id',$id);
+			
+			$staffUser = D('Admin/StaffUserView');
+            $staffname = $staffUser->field('uname')->select();
+            $this->assign('staffname',$staffname);//员工名称
 			$this->display();
 		}
 	}
@@ -95,19 +96,7 @@ class DoServiceController extends BaseController {
 		$repair->create();
 		$repair->time  = date("Y-m-d H:i:s",NOW_TIME);
 		$repair->add();
-		if($state=='完成' && $repair){
-			$Card = M('ServiceCard');
-			$data = $Card->where('id = "%d"',$servicecard_id)->field("id")->find();
-			$Card->id = $data['id'];
-			$Card->status = '1' ;
-			$Card ->save();
-			if($Card){
-				$this->ajaxReturn(true);
-			}else{
-				$this->ajaxReturn("添加失败");
-			}
-
-		}else if($repair){
+		if($repair){
 			$this->ajaxReturn(true);
 		} else{
 			$this->ajaxReturn("添加失败");
