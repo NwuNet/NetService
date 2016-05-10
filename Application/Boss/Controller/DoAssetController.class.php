@@ -21,13 +21,27 @@ class DoAssetController extends BaseController {
 		$maxtime = $Tool->field('start')->order('start desc')->find();
 		$m = month(strtotime($maxtime['start']));
 		$tooltime = array();
+		$timenum = 0;
 		foreach ($m as $item) {
 			$map['start'] = array('like',$item.'%');
 			$toolshow = $Tool->where($map)->field('start,count(start) as number')->select();
 			$toolshow[0]['start'] =$item;
 			array_push($tooltime,$toolshow[0]);
+			$timenum ++;
 		}
 		$this->assign('tooltime',$tooltime);
+
+		if($tooltime[0]['number'] == 0){
+			$this->assign('color','bg-red-gradient');
+		}else{
+			$subnum = $tooltime[0]['number'] - $tooltime[$timenum]['number'];
+			if($subnum>0){
+				$this->assign('color','bg-green-gradient');
+			}else{
+				$this->assign('color','bg-yellow-gradient');
+			}
+		}
+
         $this->display();
     }
 	// --------------------工具选项---------------------
@@ -198,13 +212,27 @@ class DoAssetController extends BaseController {
 		$maxtime = $Exhaust->field('start')->order('start desc')->find();
 		$m = month(strtotime($maxtime['start']));
 		$exhausttime = array();
+		$timenum = 0;
 		foreach ($m as $item) {
 			$map['start'] = array('like',$item.'%');
 			$exhaustshow = $Exhaust->where($map)->field('start,count(start) as num')->select();
 			$exhaustshow[0]['start'] =$item;
 			array_push($exhausttime,$exhaustshow[0]);
+			$timenum++;
 		}
 		$this->assign('exhausttime',$exhausttime);
+		trace($exhausttime);
+
+		if($exhausttime[0]['num'] == 0){
+			$this->assign('color','bg-red-gradient');
+		}else{
+			$subnum = $exhausttime[0]['num'] - $exhausttime[$timenum]['num'];
+			if($subnum>0){
+				$this->assign('color','bg-green-gradient');
+			}else{
+				$this->assign('color','bg-yellow-gradient');
+			}
+		}
 		
         $this->display();
     }
@@ -384,13 +412,26 @@ class DoAssetController extends BaseController {
 		$maxtime = $Tool->field('start')->order('start desc')->find();
 		$m = month(strtotime($maxtime['start']));
 		$tooltime = array();
+		$timenum = 0;
 		foreach ($m as $item) {
 			$map['start'] = array('like',$item.'%');
 			$toolshow = $Tool->where($map)->field('start,count(start) as number')->select();
 			$toolshow[0]['start'] =$item;
 			array_push($tooltime,$toolshow[0]);
+			$timenum++;
 		}
 		$this->assign('tooltime',$tooltime);
+
+		if($tooltime[0]['number'] == 0){
+			$this->assign('color','bg-red-gradient');
+		}else{
+			$subnum = $tooltime[0]['number'] - $tooltime[$timenum]['number'];
+			if($subnum>0){
+				$this->assign('color','bg-green-gradient');
+			}else{
+				$this->assign('color','bg-yellow-gradient');
+			}
+		}
 		$this->display();
     }
 	public function devicetable() {
@@ -564,14 +605,27 @@ class DoAssetController extends BaseController {
 		$maxtime = $Other->field('start')->order('start desc')->find();
 		$m = month(strtotime($maxtime['start']));
 		$othertime = array();
+		$timenum = 0;
 		foreach ($m as $item) {
 			$map['start'] = array('like',$item.'%');
 			$othershow = $Other->where($map)->field('start,count(number) as num')->select();
 			$othershow[0]['start'] =$item;
 			array_push($othertime,$othershow[0]);
+			$timenum++;
 		}
 		$this->assign('othertime',$othertime);
-		
+
+		if($othertime[0]['num'] == 0){
+			$this->assign('color','bg-red-gradient');
+		}else{
+			$subnum = $othertime[0]['num'] - $othertime[$timenum]['num'];
+			if($subnum>0){
+				$this->assign('color','bg-green-gradient');
+			}else{
+				$this->assign('color','bg-yellow-gradient');
+			}
+		}
+
         $this->display();
     }
 	
