@@ -4,30 +4,19 @@ use Think\Controller;
 class DoPeopleController extends BaseController {
 	// --------------------考勤信息---------------------
     public function register(){
-    	
-		$staffUser = D('Admin/StaffUserView');
-        $staffname = $staffUser->field('uname')->select();
-        $this->assign('staffname',$staffname);//员工名称
-        
-    	$select = M('RegisterSelect');
-		$registername = $select->field('name')->group('name')->select();
-		$this->assign('registername',$registername);//考勤类别
-		
-		/*$Register = M('StaffRegister');
-		$registertable = $Register -> select();
-		$this -> assign('register1',$registertable );//服务单表*/
-		
+    								
         $this->display();
     }
 	// --------------------员工考勤表---------------------
 	public function registertable(){
 		$start = I('post.start');
-		$end = I('post.end');
+		$end = I('post.end');		
 		if($start==''||$end==''){
 			$this->ajaxReturn("数据为空");
 		}else{
-			$Register = M('StaffRegister');
+			$Register = M('StaffRegister');	
 			$map['time']=array('between',array($start,$end));
+			$map['uname']=$user.uname;//筛选当前员工'{$user.uname}'
 			$data =$Register->where($map)->select();
 			foreach($data as $key => $value){
 				$returndata[$key]['title'] =$data[$key]['uname'].':'.$data[$key]['state'];

@@ -59,12 +59,12 @@
 									<th>ID</th>
 									<th>姓名</th>
 									<th>学号</th>
-									<th>宿舍</th>
-									<th>客户端提示</th>
+									<th>宿舍</th>									
+									<th>电话</th>
 									<th>现象描述</th>
-									<th>预约时间</th>
-									<th>完成维修人</th>
-									<th>完成时间</th>
+									<th>登记时间</th>
+									<th>预约时间</th>									
+									<th>是否完成</th>
 								</thead>
 								<tbody>
 
@@ -73,12 +73,12 @@
 									<th>ID</th>
 									<th>姓名</th>
 									<th>学号</th>
-									<th>宿舍</th>
-									<th>客户端提示</th>
+									<th>宿舍</th>								
+									<th>电话</th>
 									<th>现象描述</th>
-									<th>预约时间</th>
-									<th>完成维修人</th>
-									<th>完成时间</th>
+									<th>登记时间</th>
+									<th>预约时间</th>									
+									<th>是否完成</th>
 								</tfoot>
 							</table>
 						</div>
@@ -118,6 +118,9 @@
 				}
 			}
 		});
-			
+		$('#serviceinfo tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Staff-DoService-servicecard-id-" + id;
+		});	
 	</script>
 </block>

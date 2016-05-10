@@ -69,6 +69,7 @@
 			<div class="box">
 				<div class="box-body">
 					<!-- The timeline -->
+
 					<ul class="timeline timeline-inverse">
 						<!-- timeline time label -->
 						<li class="time-label"><span class="bg-blue">{$cardinfo.0.start}</span></li>
@@ -95,6 +96,8 @@
 								</li>
 							</li>
 						</foreach>
+
+						<if condition="$cardinfo['status'] eq 0">
 						<li>
 							<i class="fa fa-clock-o bg-gray"></i>
 							<div class="timeline-item">
@@ -102,17 +105,15 @@
 									<form id="stateform">
 										请选择<label>下一步状态</label>
 										<select id="state" name = "state" class="form-control" style="width: 100%;">
-											<option selected="selected">请选择</option>
-											
-												<option>维修</option>
-												<option>完成</option>
-											
+											<option selected="selected">请选择</option>										
+												<option>维修</option>																							
 										</select>
-										请选择<label>操作者</label>
+										请选择<label>维修者</label>
 										<select id="operator" name = "operator" class="form-control" style="width: 100%;">
 											<option selected="selected">请选择</option>
-											<option>胡洋</option>
-											<option>亢喜年</option>
+											<foreach name="staffname" item="vo">
+											<option>{$vo.uname}</option>
+										</foreach>
 										</select>
 									</form>
 								</div>
@@ -120,13 +121,15 @@
 									<a id="stateadd" class="btn btn-primary">提交</a>
 								</div>
 							</div>
-						</li>
+						</li>						
+						</if>
+						<if condition="$cardinfo['status'] eq 1">
 						<li>
 							<i class="fa fa-user bg-green"></i>
 							<div class="timeline-item">
 								<span class="time"><i class="fa fa-clock-o"></i> 18:21</span>
-								<h3 class="timeline-header no-border"><a href="#">维修完成</a> 维修人：陈登州
-				  </h3>
+								<h3 class="timeline-header no-border"><a href="#">维修完成</a> 
+								</h3>
 								<div class="timeline-body">
 									<div class="form-group">
 										<label>问题第一次确认</label>
@@ -151,6 +154,7 @@
 								</div>
 							</div>
 						</li>
+						</if>
 					</ul>
 					
 					</div>
@@ -162,22 +166,20 @@
 
 <block name="script">
 	<script type="text/javascript">
-			//select2
-			$(".select2").select2();
-			/*
+		/*
 		 * 添加维修状态
 		 * */
 		$("#stateadd").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Boss/DoService/servicerepairadd')</php>",{
+			$.post("<php>echo U('Staff/DoService/servicerepairadd')</php>",{
 				servicecard_id : {$id},
 				state : $("#state").val(),
-				operator : $("#operator").val(),				
+				operator : $("#operator").val()
 //				actor : '{$user.uname}'
 			}, function(data) {
 				$btn.button('reset');
 				if (data == true) {
-					alert("添加成功");
+					alert("操作成功");
 				} else {
 					alert(data);
 				}
