@@ -118,14 +118,14 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4">
-			<div class="box box-solid bg-yellow-gradient">
+			<div class="box box-solid <php>echo $toolcolor</php>">
 				<div class="box-header">
 					<i class="fa fa-wrench"></i>
-					<h3 class="box-title">工具</h3>
+					<h3 class="box-title">工具入库数量</h3>
 					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+						<button type="button" class="btn btn-box-tool btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
-						<button type="button" class="btn btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						<button type="button" class="btn btn-box-tool btn-sm" data-widget="remove"><i class="fa fa-times"></i>
 						</button>
 					</div>
 				</div>
@@ -135,31 +135,17 @@
 				<!-- /.box-body -->
 				<div class="box-footer text-black">
 					<div class="row">
-						<div class="col-sm-6">
-							<!-- Progress bars -->
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">剪线钳</span>
-								<small class="pull-right">2 把</small>
+						<foreach name="toolstate" item="vo">
+							<div class="col-md-6">
+								<div class="clearfix" style="border-bottom: 1px solid #eee">
+									<span class="pull-left">{$vo.names}</span>
+									<small class="pull-right">{$vo.number} {$vo.unit}</small>
+								</div>
 							</div>
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">剥线刀</span>
-								<small class="pull-right">10 把</small>
-							</div>
-						</div>
-						<!-- /.col -->
-						<div class="col-sm-6">
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">螺丝刀</span>
-								<small class="pull-right">3 把</small>
-							</div>
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">测线仪</span>
-								<small class="pull-right">4 个</small>
-							</div>
-						</div>
+						</foreach>
 						<!-- /.col -->
 						<div class="col-md-12 text-center">
-							<a href="#" class="btn-block">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="<php>echo U('Boss/DoAsset/tool')</php>" class="btn-block">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<!-- /.row -->
@@ -170,98 +156,77 @@
 		</div>
 
 		<div class="col-md-4">
-			<div class="box box-solid bg-green-gradient">
+			<div class="box box-solid <php>echo $exhaustcolor</php>">
 				<div class="box-header">
 					<i class="fa fa-recycle"></i>
-					<h3 class="box-title">耗材</h3>
-					<!-- tools box -->
-					<div class="pull-right box-tools">
-						<button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+					<h3 class="box-title">耗材入库数量</h3>
+					<div class="box-exhausts pull-right">
+						<button type="button" class="btn btn-box-exhaust btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
-						<button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						<button type="button" class="btn btn-box-exhaust btn-sm" data-widget="remove"><i class="fa fa-times"></i>
 						</button>
 					</div>
-					<!-- /. tools -->
 				</div>
-				<!-- /.box-header -->
 				<div class="box-body border-radius-none">
-					<div class="chart" id="chart_exhaust" style="height: 250px;"></div>
+					<div class="chart" id="chart_exhausts" style="height: 250px;"></div>
 				</div>
 				<!-- /.box-body -->
 				<div class="box-footer text-black">
 					<div class="row">
-						<div class="col-sm-6">
-							<!-- Progress bars -->
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">垃圾袋</span>
-								<small class="pull-right">2 包</small>
+						<foreach name="exhauststate" item="vo">
+							<div class="col-md-6">
+								<div class="clearfix" style="border-bottom: 1px solid #eee">
+									<span class="pull-left">{$vo.names}</span>
+									<small class="pull-right">{$vo.numberall} {$vo.unit}</small>
+								</div>
 							</div>
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">水晶头</span>
-								<small class="pull-right">54 个</small>
-							</div>
-						</div>
-						<!-- /.col -->
-						<div class="col-sm-6">
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">双绞线</span>
-								<small class="pull-right">14 米</small>
-							</div>
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">标签纸</span>
-								<small class="pull-right">6.23 米</small>
-							</div>
-						</div>
-						<!-- /.col -->
+						</foreach>
 						<div class="col-md-12 text-center">
-							<a href="#" class="btn-block">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="<php>echo U('Boss/DoAsset/exhaust')</php>" class="btn-block">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
+						<!-- /.col -->
 					</div>
 					<!-- /.row -->
 				</div>
+				<!-- /.box-footer -->
 			</div>
 			<!-- /.box -->
 		</div>
 
 		<div class="col-md-4">
-			<div class="box box-solid bg-red-gradient">
+			<div class="box box-solid <php>echo $devicecolor</php>">
 				<div class="box-header">
 					<i class="fa fa-cubes"></i>
-					<h3 class="box-title">设备</h3>
-					<!-- tools box -->
-					<div class="pull-right box-tools">
-						<button type="button" class="btn btn-danger btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+					<h3 class="box-title">设备入库数量</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
 						</button>
-						<button type="button" class="btn btn-danger btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+						<button type="button" class="btn btn-box-tool btn-sm" data-widget="remove"><i class="fa fa-times"></i>
 						</button>
 					</div>
-					<!-- /. tools -->
 				</div>
-				<!-- /.box-header -->
 				<div class="box-body border-radius-none">
 					<div class="chart" id="chart_device" style="height: 250px;"></div>
 				</div>
 				<!-- /.box-body -->
 				<div class="box-footer text-black">
 					<div class="row">
-						<div class="col-sm-12">
-							<!-- Progress bars -->
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">交换机</span>
-								<small class="pull-right">0 台</small>
+						<foreach name="toolstate" item="vo">
+							<div class="col-md-6">
+								<div class="clearfix" style="border-bottom: 1px solid #eee">
+									<span class="pull-left">{$vo.names}</span>
+									<small class="pull-right">{$vo.number} {$vo.unit}</small>
+								</div>
 							</div>
-							<div class="clearfix" style="border-bottom: 1px solid #eee">
-								<span class="pull-left">路由器</span>
-								<small class="pull-right">0 台</small>
-							</div>
+						</foreach>
+						<div class="col-md-12 text-center">
+							<a href="<php>echo U('Boss/DoAsset/device')</php>" class="btn-block">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 						<!-- /.col -->
-						<div class="col-md-12 text-center">
-							<a href="#" class="btn-block">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
-						</div>
 					</div>
 					<!-- /.row -->
 				</div>
+				<!-- /.box-footer -->
 			</div>
 			<!-- /.box -->
 		</div>
@@ -270,149 +235,69 @@
 
 <block name="script">
 	<script type="text/javascript">
-		var line_exhaust = new Morris.Line({
-			element: 'chart_exhaust',
-			resize: true,
-			data: [{
-				y: '2015-02',
-				item1: 23
-			}, {
-				y: '2015-03',
-				item1: 35
-			}, {
-				y: '2015-04',
-				item1: 35
-			}, {
-				y: '2015-05',
-				item1: 29
-			}, {
-				y: '2015-06',
-				item1: 36
-			}, {
-				y: '2015-07',
-				item1: 19
-			}, {
-				y: '2015-08',
-				item1: 45
-			}, {
-				y: '2015-09',
-				item1: 43
-			}, {
-				y: '2015-10',
-				item1: 52
-			}, {
-				y: '2015-11',
-				item1: 56
-			}],
-			xkey: 'y',
-			ykeys: ['item1'],
-			labels: ['耗材总数'],
-			lineColors: ['#efefef'],
-			lineWidth: 2,
-			hideHover: 'auto',
-			gridTextColor: "#fff",
-			gridStrokeWidth: 0.4,
-			pointSize: 4,
-			pointStrokeColors: ["#efefef"],
-			gridLineColor: "#efefef",
-			gridTextFamily: "Open Sans",
-			gridTextSize: 10
-		});
+		//Morris
 		var line_tools = new Morris.Line({
 			element: 'chart_tools',
 			resize: true,
-			data: [{
-				y: '2015-02',
-				item1: 88
-			}, {
-				y: '2015-03',
-				item1: 69
-			}, {
-				y: '2015-04',
-				item1: 67
-			}, {
-				y: '2015-05',
-				item1: 62
-			}, {
-				y: '2015-06',
-				item1: 54
-			}, {
-				y: '2015-07',
-				item1: 57
-			}, {
-				y: '2015-08',
-				item1: 42
-			}, {
-				y: '2015-09',
-				item1: 33
-			}, {
-				y: '2015-10',
-				item1: 28
-			}, {
-				y: '2015-11',
-				item1: 11
-			}],
-			xkey: 'y',
-			ykeys: ['item1'],
-			labels: ['工具总数'],
-			lineColors: ['#efefef'],
-			lineWidth: 2,
-			hideHover: 'auto',
-			gridTextColor: "#fff",
-			gridStrokeWidth: 0.4,
-			pointSize: 4,
-			pointStrokeColors: ["#efefef"],
-			gridLineColor: "#efefef",
-			gridTextFamily: "Open Sans",
-			gridTextSize: 10
+			data: [
+			<foreach name ="tooltime" item="vo">
+				{y: '{$vo.start}',item1: '{$vo.number}'},
+		</foreach> ],
+		xkey: 'y',
+				ykeys: ['item1'],
+				labels: ['工具总数'],
+				lineColors: ['#efefef'],
+				lineWidth: 2,
+				hideHover: 'auto',
+				gridTextColor: "#fff",
+				gridStrokeWidth: 0.4,
+				pointSize: 4,
+				pointStrokeColors: ["#efefef"],
+				gridLineColor: "#efefef",
+				gridTextFamily: "Open Sans",
+				gridTextSize: 10
 		});
+		//Morris
+		var line_exhausts = new Morris.Line({
+			element: 'chart_exhausts',
+			resize: true,
+			data: [
+			<foreach name ="exhausttime" item="vo">
+				{y: '{$vo.start}',item1: '{$vo.num}'},
+		</foreach> ],
+		xkey: 'y',
+				ykeys: ['item1'],
+				labels: ['耗材总数'],
+				lineColors: ['#efefef'],
+				lineWidth: 2,
+				hideHover: 'auto',
+				gridTextColor: "#fff",
+				gridStrokeWidth: 0.4,
+				pointSize: 4,
+				pointStrokeColors: ["#efefef"],
+				gridLineColor: "#efefef",
+				gridTextFamily: "Open Sans",
+				gridTextSize: 10
+		});
+		//Morris
 		var line_device = new Morris.Line({
 			element: 'chart_device',
 			resize: true,
-			data: [{
-				y: '2015-02',
-				item1: 14
-			}, {
-				y: '2015-03',
-				item1: 15
-			}, {
-				y: '2015-04',
-				item1: 18
-			}, {
-				y: '2015-05',
-				item1: 18
-			}, {
-				y: '2015-06',
-				item1: 14
-			}, {
-				y: '2015-07',
-				item1: 13
-			}, {
-				y: '2015-08',
-				item1: 5
-			}, {
-				y: '2015-09',
-				item1: 0
-			}, {
-				y: '2015-10',
-				item1: 0
-			}, {
-				y: '2015-11',
-				item1: 0
-			}],
-			xkey: 'y',
-			ykeys: ['item1'],
-			labels: ['设备总数'],
-			lineColors: ['#efefef'],
-			lineWidth: 2,
-			hideHover: 'auto',
-			gridTextColor: "#fff",
-			gridStrokeWidth: 0.4,
-			pointSize: 4,
-			pointStrokeColors: ["#efefef"],
-			gridLineColor: "#efefef",
-			gridTextFamily: "Open Sans",
-			gridTextSize: 10
+			data: [<foreach name ="devicetime" item="vo">
+				{y: '{$vo.start}',item1: '{$vo.number}'},</foreach> ],
+		xkey: 'y',
+				ykeys: ['item1'],
+				labels: ['设备总数'],
+				lineColors: ['#efefef'],
+				lineWidth: 2,
+				hideHover: 'auto',
+				gridTextColor: "#fff",
+				gridStrokeWidth: 0.4,
+				pointSize: 4,
+				pointStrokeColors: ["#efefef"],
+				gridLineColor: "#efefef",
+				gridTextFamily: "Open Sans",
+				gridTextSize: 10
 		});
 	</script>
 </block>

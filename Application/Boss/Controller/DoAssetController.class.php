@@ -400,22 +400,22 @@ class DoAssetController extends BaseController {
 	}
 	// --------------------设备---------------------
 	public function device(){
-		$Tool = M('AssetDevice');
+		$Device = M('AssetDevice');
 
 		$select = M('DeviceSelect');
 		$toolname = $select->field('name,count(name)')->group('name')->select();
 		$this->assign('toolname',$toolname);//选项名
 
-		$toolstate = $Tool->field('names,count(names) as number')->group('names')->select();
+		$toolstate = $Device->field('names,count(names) as number')->group('names')->select();
 		$this->assign('toolstate',$toolstate);//现有工具的数量
 
-		$maxtime = $Tool->field('start')->order('start desc')->find();
+		$maxtime = $Device->field('start')->order('start desc')->find();
 		$m = month(strtotime($maxtime['start']));
 		$tooltime = array();
 		$timenum = 0;
 		foreach ($m as $item) {
 			$map['start'] = array('like',$item.'%');
-			$toolshow = $Tool->where($map)->field('start,count(start) as number')->select();
+			$toolshow = $Device->where($map)->field('start,count(start) as number')->select();
 			$toolshow[0]['start'] =$item;
 			array_push($tooltime,$toolshow[0]);
 			$timenum++;
