@@ -26,10 +26,40 @@ class IndexController extends Controller {
 		$card->appointment_time = date("Y-m-d",strtotime(getdayofweek($appointment_time)));
 		$card->add();
 		if($card){
+						
+			$User = D('Admin/User', 'Logic');	      
+	            $data = array();       
+	            $data['uname'] = $name;
+	            $data['password'] = $student_no;
+	            $data['number'] = $student_no;
+		        $data['phone'] = $phone;
+	            $data['address'] = $building.'-'.$room ;
+				$data['img'] = '/Images/User/default.png';
+				$User -> homeadd($data);
+	            				
 			$this->ajaxReturn(true);
+			
 		}else{
 			$this->ajaxReturn("添加失败");
 		}
+	}
+	public function homeadd() {
+	    $User = D('Admin/User', 'Logic');
+	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
+	    $data = array();
+	    $data['ip'] = get_client_ip();
+		$data['img'] = '/Images/User/default.png';
+	    $data['uname'] = I('post.uname');
+	    $data['password'] = I('post.password');
+	    $data['number'] = I('post.number');
+		$data['phone'] = I('post.phone');
+	    $data['address'] = I('post.address');
+	    if ($User -> homeadd($data)) {
+	        $this -> ajaxReturn(TRUE);
+	    } else {
+	        $msg = "用户名已存在或认证失败";
+	        $this -> ajaxReturn($msg);
+	    }
 	}
 	public function download(){
         $this->display();
