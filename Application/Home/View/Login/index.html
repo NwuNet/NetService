@@ -4,22 +4,64 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="box-body">
-                <form id="loginform">
+                <form action="" name="login_form" id="login_form" method="post">
                     <label>姓名</label>
                     <div class="form-group">
-                        <input class="form-control" id="name" placeholder="输入姓名" />
+                        <input class="form-control" id="uname" placeholder="输入姓名" />
                     </div>
                     <label>学号</label>
                     <div class="form-group">
-                        <input class="form-control" id="student_no" type="number" min="201000000" placeholder="输入学号" />
+                        <input class="form-control" id="password" type="password" min="201000000" placeholder="输入学号" />
                     </div>
-                    <label>手机号</label>
+                   <!-- <label>手机号</label>
                     <div class="form-group">
                         <input class="form-control" id="phone" type="number" min="13000000000" placeholder="输入手机号" />
-                    </div>
-                    <a href="<php>echo U('Home/User/index')</php>" class="btn btn-outline-inverse btn-lg">登录</a>
+                    </div>-->
+                    <div class="form-group">
+						<img id="verify_img" alt="验证码" src="<php>echo U('Home/Login/verify_c')</php>" title="点击刷新" />
+					</div>
+                    <div class="form-group">
+						<input class="form-control" name="verify" id="verify" type="text"  placeholder="验证码" />
+					</div>
+					<a id="submit" class="btn btn-outline-inverse btn-lg">登录</a>
+                   <!-- <a href="<php>echo U('Home/User/index')</php>" class="btn btn-outline-inverse btn-lg">登录</a>-->
                 </form>
             </div>
         </div>
     </div>
+</block>
+<block name="script">
+	<script type="text/javascript">
+			$("#uname").focus();
+			/*验证码刷新*/
+			$("#verify_img").click(function() {
+				var verify_link = "<php>echo U('Home/Login/verify_c','','')</php>-" + Math.random() + ".html";
+				$(this).attr("src", verify_link);
+			});
+			/*表单验证*/
+			$("#submit").click(function() {
+				if ($("#uname").val() == '') {
+					alert("请输入用户名");
+					$("#uname").focus();
+				} else if ($("#password").val() == '') {
+					alert("请输入密码");
+					$("#password").focus();
+				} else if ($("#verify").val() == '') {
+					alert("请输入验证码");
+					$("#verify").focus();
+				} else {
+					$.post("<php>echo U('Home/Login/verify')</php>",$("#login_form").serialize(), 	
+					function(data) {
+						if (data) {
+							location.href = "index.php?s=/Home-Index-index.html";
+						} else {
+							alert("登录失败");
+							$("#password,#verify").val('');
+							$("#uname").val('').focus();
+							$("#verify_img").click();
+						}
+					});
+				}
+			});
+		</script>		
 </block>

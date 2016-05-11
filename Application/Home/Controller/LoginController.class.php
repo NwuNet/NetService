@@ -15,8 +15,8 @@ class LoginController extends Controller {
 		if(empty($uname) || empty($password) || empty($verify)){
 			$this->ajaxReturn(FALSE);
 		}
-		$BossUser = D('Admin/BossUserView');
-		$user = $BossUser ->where('uname = "%s" and status =1',$uname)->find();
+		$HomeUser = D('Admin/HomeUserView');
+		$user = $HomeUser ->where('uname = "%s" and status =1',$uname)->find();
 		if(empty($user)){
 			$this->ajaxReturn(FALSE);
 		}
