@@ -4,17 +4,20 @@
 </block>
 
 <block name="quick-information">
-	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+	{:W('QuickInfo/message')} 
+	{:W('QuickInfo/notice')} 
+	{:W('QuickInfo/task')} 
+	{:W('QuickInfo/self')}
 </block>
 
 <block name="navigation">
 	<!-- Sidebar user panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
-			<p>胡洋</p>
+			<p>{$user.uname}</p>
 			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 		</div>
 	</div>
@@ -61,6 +64,7 @@
 							<th>ID</th>
 							<th>用户名</th>
 							<th>学号</th>
+							<th>电话</th>
 							<th>地址</th>
 							<th>注册时间</th>
 						</thead>
@@ -71,6 +75,7 @@
 							<th>ID</th>
 							<th>用户名</th>
 							<th>学号</th>
+							<th>电话</th>
 							<th>地址</th>
 							<th>注册时间</th>
 						</tfoot>
@@ -112,6 +117,10 @@
 							<input type="text" class="form-control" id="addnumber" />
 						</div>
 						<div class="form-group">
+							<label for="addphone" class="control-label">电话</label>
+							<input type="text" class="form-control" id="addphone" />
+						</div>
+						<div class="form-group">
 							<label for="addaddress" class="control-label">地址</label>
 							<input type="text" class="form-control" id="addaddress" />
 						</div>
@@ -148,6 +157,7 @@
 					password: $("#addpwd")[0].value,
 					repassword: $("#repwd")[0].value,
 					number: $("#addnumber")[0].value,
+					phone: $("#addphone")[0].value,
 					address: $("#addaddress")[0].value
 				},
 				function(data) {

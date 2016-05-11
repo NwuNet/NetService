@@ -35,7 +35,6 @@ class UserLogic extends Model {
 		}
 		return FALSE;
 	}
-
 	/**
 	 * Boss用户添加
 	 */
@@ -50,7 +49,20 @@ class UserLogic extends Model {
 		}
 		return false;
 	}
-
+    /**
+	 * Boss用户修改
+	 * */
+	public function bossedit($data){
+		$user = D('User');
+		$bossuser = D('BossUser');
+		if($user -> edit($data) ){
+			$tid = $user->where('uname = "%s"',$data['uname'])->field("uname,user_id")->find();
+			$data['user_id'] = $tid['user_id'];
+//			$bossuser->edit($data);
+			return TRUE;
+		}
+		return FALSE;
+	}
 	/**
 	 * Staff用户添加
 	 */
@@ -75,6 +87,34 @@ class UserLogic extends Model {
 			$tid = $user->where('uname = "%s"',$data['uname'])->field("uname,user_id")->find();
 			$data['user_id'] = $tid['user_id'];
 			$staffuser->edit($data);
+			return TRUE;
+		}
+		return FALSE;
+	}
+	/**
+	 * Home用户添加
+	 */
+	public function homeadd($data){
+		$user = D('Admin/User');
+		$homeuser = D('Admin/HomeUser');
+		if($user->plus($data)){
+			$tid = $user->where('uname = "%s"',$data['uname'])->field("uname,user_id")->find();
+			$data['user_id'] = $tid['user_id'];
+			$homeuser->plus($data);
+			return TRUE;
+		}
+		return false;
+	}
+	/**
+	 * Home用户修改
+	 * */
+	public function homeedit($data){
+		$user = D('Admin/User');
+		$homeuser = D('Admin/HomeUser');
+		if($user -> edit($data) ){
+			$tid = $user->where('uname = "%s"',$data['uname'])->field("uname,user_id")->find();
+			$data['user_id'] = $tid['user_id'];
+			$homeuser->edit($data);
 			return TRUE;
 		}
 		return FALSE;

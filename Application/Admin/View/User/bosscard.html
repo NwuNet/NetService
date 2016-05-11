@@ -134,7 +134,7 @@
 	 * */
 	$("#updatebtn").click(function() {
 		var $btn = $(this).button('loading');
-		$.post("<php>echo U('Admin/User/adminedit')</php>", {
+		$.post("<php>echo U('Admin/User/bossedit')</php>", {
 			id: $("#id")[0].value,
 			user_id:{$user_id},
 			uname: $("#uname")[0].value,

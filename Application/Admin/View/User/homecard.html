@@ -4,17 +4,20 @@
 </block>
 
 <block name="quick-information">
-	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+	{:W('QuickInfo/message')} 
+	{:W('QuickInfo/notice')} 
+	{:W('QuickInfo/task')}
+    {:W('QuickInfo/self')}
 </block>
 
 <block name="navigation">
 	<!-- Sidebar user panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
-			<p>胡洋</p>
+			<p>{$user.uname}</p>
 			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 		</div>
 	</div>
@@ -77,6 +80,10 @@
 							<input type="text"  class="form-control" id="number" value="{$number}">
 						</div>
 						<div class="form-group margin">
+							<label for="">电话</label>
+							<input type="text"  class="form-control" id="phone" value="{$phone}">
+						</div>	
+						<div class="form-group margin">
 							<label for="">地址</label>
 							<input type="text"  class="form-control" id="address" value="{$address}">
 						</div>						
@@ -131,8 +138,10 @@
 		var $btn = $(this).button('loading');
 		$.post("<php>echo U('Admin/User/homeedit')</php>", {
 			    id: $("#id")[0].value,
+			    user_id:{$user_id},
 				uname: $("#uname")[0].value,
 				number: $("#number")[0].value,
+				phone: $("#phone")[0].value,
 				address: $("#address")[0].value,
 				password: $("#password")[0].value,
 				repassword: $("#repassword")[0].value

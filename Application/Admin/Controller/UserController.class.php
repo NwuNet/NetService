@@ -48,6 +48,7 @@ class UserController extends BaseController {
 	        $this->assign('img',$table[0]['img']);
 	        $this->assign('uname',$table[0]['uname']);
 	        $this->assign('number',$table[0]['number']);
+			$this->assign('phone',$table[0]['phone']);
 	        $this->assign('address',$table[0]['address']);
 	        $this->assign('begintime',$table[0]['begintime']);
 	        $this->assign('ip',$table[0]['ip']);
@@ -193,8 +194,9 @@ class UserController extends BaseController {
 	            case 0 :$orderSql = " id " . $order_dir;break;
 	            case 1 :$orderSql = " uname " . $order_dir;break;
 	            case 2 :$orderSql = " number " . $order_dir;break;
-	            case 3 :$orderSql = " address " . $order_dir;break;
-	            case 4 :$orderSql = " begintime " . $order_dir;break;	            
+				case 3 :$orderSql = " phone " . $order_dir;break;
+				case 4 :$orderSql = " address " . $order_dir;break;
+	            case 5 :$orderSql = " begintime " . $order_dir;break;	            
 	            default :$orderSql = '';
 	        }
 	    }
@@ -207,7 +209,7 @@ class UserController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $homeUser->count();
 	
-	    $map['id|uname|number|address|begintime']=array('like',"%".$search."%");
+	    $map['id|uname|number|phone|address|begintime']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($homeUser->where($map)->select());
 	        $table = $homeUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -218,7 +220,7 @@ class UserController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['number'],$row['address'],$row['begintime']);
+	        $obj = array($row['id'],$row['uname'],$row['number'],$row['phone'],$row['address'],$row['begintime']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -325,9 +327,11 @@ class UserController extends BaseController {
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
 	    $data['ip'] = get_client_ip();
+		$data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    $data['number'] = I('post.number');
+		$data['phone'] = I('post.phone');
 	    $data['address'] = I('post.address');
 	    if ($User -> homeadd($data)) {
 	        $this -> ajaxReturn(TRUE);
@@ -341,6 +345,7 @@ class UserController extends BaseController {
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
 	    $data['ip'] = get_client_ip();
+		$data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    $data['number'] = I('post.number');
@@ -395,11 +400,13 @@ class UserController extends BaseController {
 	    $User = D('User', 'Logic');
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
-	    $data['id'] = I('post.id');	   
+	    $data['id'] = I('post.id');	
+		$data['user_id'] = I('post.user_id');   
 //	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    $data['number'] = I('post.number');
+		$data['phone'] = I('post.phone');
 	    $data['address'] = I('post.address');
 	    if ($User -> homeedit($data)) {
 	        $msg = "修改成功！";
@@ -414,6 +421,7 @@ class UserController extends BaseController {
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
 	    $data['id'] = I('post.id');
+		$data['user_id'] = I('post.user_id');
 //	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');

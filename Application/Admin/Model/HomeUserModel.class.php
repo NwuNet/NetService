@@ -21,6 +21,7 @@ class HomeUserModel extends Model{
 	 	if($this->where('user_id = %d ',$data['user_id'])->find()) return FALSE;
 	 	$this -> user_id = $data['user_id'];
 	 	$this -> number = $data['number'];
+		$this -> phone = $data['phone'];
 	 	$this -> address = $data['address'];
 //		$this -> ip = get_client_ip();
 		
@@ -31,9 +32,10 @@ class HomeUserModel extends Model{
 	  * 修改
 	  * */
 	 public function edit($data){
-	     if($this->where('id = %d ',$data['id'])->find()) {
-	         $this -> id = $data['id'];
+	     if($this->where('user_id = %d ',$data['user_id'])->find()) {
+	         $this -> user_id = $data['user_id'];
 	         $this -> number = $data['number'];
+			 $this -> phone = $data['phone'];
 	         $this -> address = $data['address'];
 	   
 	         if($this -> save()) return TRUE;

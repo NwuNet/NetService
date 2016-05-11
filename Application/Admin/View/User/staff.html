@@ -4,17 +4,20 @@
 </block>
 
 <block name="quick-information">
-	{:W('QuickInfo/message')} {:W('QuickInfo/notice')} {:W('QuickInfo/task')} {:W('QuickInfo/self')}
+	{:W('QuickInfo/message')} 
+	{:W('QuickInfo/notice')} 
+	{:W('QuickInfo/task')} 
+	{:W('QuickInfo/self')}
 </block>
 
 <block name="navigation">
 	<!-- Sidebar user panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="__PUBLIC__/AdminLTE2/dist/img/my.png" class="img-circle" alt="User Image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
-			<p>胡洋</p>
+			<p>{$user.uname}</p>
 			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 		</div>
 	</div>

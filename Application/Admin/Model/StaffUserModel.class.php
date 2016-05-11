@@ -32,8 +32,8 @@ class StaffUserModel extends Model{
 	  * 修改
 	  * */
 	 public function edit($data){
-	     if($this->where('id = %d ',$data['id'])->find()) {
-	         $this -> id = $data['id'];
+	     if($this->where('user_id = %d ',$data['user_id'])->find()) {
+	         $this -> user_id = $data['user_id'];
 	         $this -> number = $data['number'];
 	         $this -> address = $data['address'];
 	         $this -> phone = $data['phone'];
