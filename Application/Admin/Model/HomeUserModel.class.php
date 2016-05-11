@@ -23,7 +23,7 @@ class HomeUserModel extends Model{
 	 	$this -> number = $data['number'];
 		$this -> phone = $data['phone'];
 	 	$this -> address = $data['address'];
-//		$this -> ip = get_client_ip();
+        $this -> img = $data['img'];
 		
 		if($this -> add()) return TRUE;
 		return FALSE;
@@ -36,7 +36,7 @@ class HomeUserModel extends Model{
 	         $this -> user_id = $data['user_id'];
 	         $this -> number = $data['number'];
 			 $this -> phone = $data['phone'];
-	         $this -> address = $data['address'];
+	         $this -> address = $data['address'];			 
 	   
 	         if($this -> save()) return TRUE;
 	         return FALSE;

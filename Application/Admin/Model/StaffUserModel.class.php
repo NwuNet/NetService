@@ -23,6 +23,7 @@ class StaffUserModel extends Model{
 	 	$this -> number = $data['number'];
 	 	$this -> address = $data['address'];
 	 	$this -> phone = $data['phone'];
+		$this -> img = $data['img'];
 //		$this -> ip = get_client_ip();
 		
 		if($this -> add()) return TRUE;

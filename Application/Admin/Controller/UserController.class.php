@@ -325,8 +325,7 @@ class UserController extends BaseController {
 	public function homeadd() {
 	    $User = D('User', 'Logic');
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
-	    $data = array();
-	    $data['ip'] = get_client_ip();
+	    $data = array();	
 		$data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
@@ -368,7 +367,6 @@ class UserController extends BaseController {
 	    $data['id'] = I('post.id');
 		$data['user_id'] = I('post.user_id');
 //	    $data['ip'] = get_client_ip();
-//	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    if ($User -> adminedit($data)) {
@@ -385,7 +383,6 @@ class UserController extends BaseController {
 	    $data = array();
 	    $data['id'] = I('post.id');
 		$data['user_id'] = I('post.user_id');
-//	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    if ($User -> bossedit($data)) {
@@ -402,7 +399,6 @@ class UserController extends BaseController {
 	    $data = array();
 	    $data['id'] = I('post.id');	
 		$data['user_id'] = I('post.user_id');   
-//	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    $data['number'] = I('post.number');
@@ -422,7 +418,6 @@ class UserController extends BaseController {
 	    $data = array();
 	    $data['id'] = I('post.id');
 		$data['user_id'] = I('post.user_id');
-//	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    $data['number'] = I('post.number');
