@@ -7,7 +7,7 @@ class IndexController extends Controller {
     }
 	// --------------------添加服务单---------------------
 	public function servicecardadd(){
-		$name = I('post.name');
+		$uname = I('post.name');
 		$student_no = I('post.student_no');
 		$phone = I('post.phone');
 		$building = I('post.building');
@@ -15,7 +15,7 @@ class IndexController extends Controller {
 		$description = I('post.description');
 		$appointment_time = I('post.appointment_time');
 
-		if($name==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''){
+		if($uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''){
 			$this->ajaxReturn("数据为空");
 		}
 		$card = M('ServiceCard');
@@ -29,7 +29,7 @@ class IndexController extends Controller {
 						
 			$User = D('Admin/User', 'Logic');	      
 	            $data = array();       
-	            $data['uname'] = $name;
+	            $data['uname'] = $uname;
 	            $data['password'] = $student_no;
 	            $data['number'] = $student_no;
 		        $data['phone'] = $phone;
@@ -43,21 +43,21 @@ class IndexController extends Controller {
 			$this->ajaxReturn("添加失败");
 		}
 	}
-	public function homeadd() {
-	    $User = D('Admin/User', 'Logic');
-	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
-	    $data = array();
-	    $data['ip'] = get_client_ip();
-		$data['img'] = '/Images/User/default.png';
-	    $data['uname'] = I('post.uname');
-	    $data['password'] = I('post.password');
-	    $data['number'] = I('post.number');
-		$data['phone'] = I('post.phone');
-	    $data['address'] = I('post.address');
-	    if ($User -> homeadd($data)) {
+	public function feedbackadd() {
+	    $uname = I('post.uname');
+		$student_no = I('post.student_no');
+		$feedback = I('post.feedback');
+		
+		if($uname==''||$student_no==''||$feedback==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$Feedback = M('Feedback');
+		$Feedback->create();
+		$Feedback->time  = date("Y-m-d H:i:s",NOW_TIME);
+	    if ($Feedback ->add()) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
-	        $msg = "用户名已存在或认证失败";
+	        $msg = "反馈提交失败！";
 	        $this -> ajaxReturn($msg);
 	    }
 	}
