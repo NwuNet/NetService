@@ -54,6 +54,7 @@
 </block>
 
 <block name="script">
+
     <script type="text/javascript">
         /*
          * 添加服务单
@@ -99,7 +100,7 @@
                             message: '姓名必不可少'
                         },
                         regexp: {
-                            regexp: /[\u4E00-\u9FA5]{2,5}/,
+                            regexp: /[\u4E00-\u9FA5]{2,8}/,
                             message: '姓名必须是中文，长度大于2，且不包含数字和特殊字符'
                         }
                     }
@@ -115,7 +116,7 @@
                             message: '用户名必须在9-10个字符之间'
                         },
                         regexp: {
-                            regexp: /201\d[1-2]\d[0-9]{3}\d/,
+                            regexp: /^201\d[1-2]\d[0-9]{3,4}$/,
                             message: '学号必须是201xxxxxx，如201420666，或2010114127'
                         }
                     }
@@ -147,6 +148,10 @@
                             min: 1,
                             max: 2,
                             message: '楼号必须为1-2位'
+                        },
+                        regexp: {
+                            regexp: /^([1-9])|(1[01234])$/,
+                            message: '楼号必须合法'
                         }
                     }
                 },
@@ -161,7 +166,7 @@
                             message: '宿舍号必须为3位'
                         },
                         regexp: {
-                            regexp: /[1-9][0-9]{2}/,
+                            regexp: /^[1-9][0-9]{2}$/,
                             message: '宿舍号必须合法'
                         }
                     }
