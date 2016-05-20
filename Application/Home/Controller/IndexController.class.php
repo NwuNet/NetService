@@ -12,18 +12,20 @@ class IndexController extends Controller {
 		$phone = I('post.phone');
 		$building = I('post.building');
 		$room = I('post.room');
-		$description = I('post.description');
+//		$description = I('post.description');
+		$description = "null";
 		$appointment_time = I('post.appointment_time');
+		$area = I('post.area');
 
-		if($uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''){
+		if($uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}
 		$card = M('ServiceCard');
 		$card->create();
 		$card->dormitory = $building.'-'.$room ;
 		$card->start  = date("Y-m-d H:i:s",NOW_TIME);
-		trace(getdayofweek($appointment_time));
-		$card->appointment_time = date("Y-m-d",strtotime(getdayofweek($appointment_time)));
+//		trace(getdayofweek($appointment_time));
+		$card->appointment_time = date("Y-m-d",strtotime($appointment_time));
 		$card->add();
 		if($card){
 						

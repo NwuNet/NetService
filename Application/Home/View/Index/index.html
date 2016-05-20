@@ -12,11 +12,11 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">学号</label>
-                        <input class="form-control" id="student_no" name="student_no"  type="number" placeholder="输入学号" />
+                        <input class="form-control" id="student_no" name="student_no"  type="number" placeholder="输入学号" autocomplete="on" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">手机号</label>
-                        <input class="form-control" name="phone" id="phone" type="number" placeholder="输入手机号" />
+                        <input class="form-control" name="phone" id="phone" type="number" placeholder="输入手机号" autocomplete="on" />
                     </div>
                     <div class="form-group ">
                         <label class="control-label">校区</label>
@@ -28,24 +28,24 @@
                     </div>
                     <div class="form-group ">
                         <label class="control-label">楼号</label>
-                        <input class="form-control" id="building" name="building" type="number" placeholder="输入楼号" />
+                        <input class="form-control" id="building" name="building" type="number" placeholder="输入楼号" autocomplete="on" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">宿舍号</label>
-                        <input class="form-control" id='room' name="room" type="number" placeholder="输入宿舍号" />
+                        <input class="form-control" id='room' name="room" type="number" placeholder="输入宿舍号" autocomplete="on" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">预约时间--周内16:00-18:00</label>
-                        <input type="date" class="form-control" id="appointment_time" name="appointment_time" placeholder="输入姓名" autocomplete="on" />
+                        <input type="date" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="on" data-provide="datepicker"  />
                     </div>
                     <div class="form-group">
                         <label class="control-label" id="captchaOperation"></label>
                         <input type="text" class="form-control" name="captcha" />
                     </div>
+                    <div class="form-group">
+                        <button type="submit" id="addbtn" class="btn btn-outline btn-lg center-block">提交预约</button>
+                    </div>
                 </form>
-                <div class="form-group">
-                    <button type="submit" id="addbtn" class="btn btn-outline btn-lg center-block">提交预约</button>
-                </div>
             </div>
             <!-- box-body -->
         </div>
@@ -54,32 +54,10 @@
 </block>
 
 <block name="script">
+    <js href="__PUBLIC__/AdminLTE2/plugins/datepicker/bootstrap-datepicker.js" />
+    <js href="__PUBLIC__/AdminLTE2/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" />
 
     <script type="text/javascript">
-        /*
-         * 添加服务单
-         * */
-        $("#addbtn").click(function() {
-            var $btn = $(this).button('loading');
-            $.post("<php>echo U('Home/Index/servicecardadd')</php>", {
-                        name: $("#uname")[0].value,
-                        student_no: $("#student_no")[0].value,
-                        phone: $("#phone")[0].value,
-                        building: $("#building")[0].value,
-                        room: $("#room")[0].value,
-                        description: $("#description")[0].value,
-                        appointment_time: $("#appointment_time")[0].value
-                    },
-                    function(data) {
-                        $btn.button('reset');
-                        if (data == true) {
-                            alert("添加成功");
-                        } else {
-                            alert(data);
-                        }
-                        location.reload();
-                    });
-        });
 
         function randomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
@@ -193,6 +171,38 @@
                     }
                 }
             }
+        }).on('success.form.fv', function(e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the FormValidation instance
+            var bv = $form.data('formValidation');
+
+            // Use Ajax to submit form data
+            $.post("<php>echo U('Home/Index/servicecardadd')</php>", {
+                        name: $("#uname")[0].value,
+                        student_no: $("#student_no")[0].value,
+                        phone: $("#phone")[0].value,
+                        building: $("#building")[0].value,
+                        room: $("#room")[0].value,
+                        area: $("#area")[0].value,
+//                        description: $("#description")[0].value,
+                        appointment_time: $("#appointment_time")[0].value
+                    },
+                    function(data) {
+//                        $btn.button('reset');
+                        if (data == true) {
+                            alert("添加成功");
+                        } else {
+                            alert(data);
+                        }
+                        location.reload();
+                    });
         });
+
+
     </script>
 </block>
