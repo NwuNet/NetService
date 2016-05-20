@@ -8,7 +8,7 @@ use Think\Model\ViewModel;
 class HomeUserViewModel extends ViewModel {
 
 	public $viewFields = array(
-	'HomeUser' => array('id','user_id','number','phone','address','img'),
+	'HomeUser' => array('id','user_id','number','phone','address','img','area'),
 	'User' => array(
 		'uname' => 'uname', 
 		'password' => 'password',

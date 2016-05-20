@@ -24,7 +24,7 @@ class HomeUserModel extends Model{
 		$this -> phone = $data['phone'];
 	 	$this -> address = $data['address'];
         $this -> img = $data['img'];
-		
+		$this -> area= $data['area'];
 		if($this -> add()) return TRUE;
 		return FALSE;
 	 }

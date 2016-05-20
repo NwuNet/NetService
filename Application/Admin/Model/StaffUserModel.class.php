@@ -24,6 +24,7 @@ class StaffUserModel extends Model{
 	 	$this -> address = $data['address'];
 	 	$this -> phone = $data['phone'];
 		$this -> img = $data['img'];
+		 $this -> area = $data['area'];
 //		$this -> ip = get_client_ip();
 		
 		if($this -> add()) return TRUE;

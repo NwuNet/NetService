@@ -67,6 +67,7 @@
 							<th>地址</th>
 							<th>电话</th>							
 							<th>注册时间</th>
+							<th>所属校区</th>
 						</thead>
 						<tbody>
 							
@@ -78,6 +79,7 @@
 							<th>地址</th>
 							<th>电话</th>
 							<th>注册时间</th>
+							<th>所属校区</th>
 						</tfoot>
 					</table>
 				</div>
@@ -124,6 +126,14 @@
 							<label for="addphone" class="control-label">电话</label>
 							<input type="text" class="form-control" id="addphone" />
 						</div>
+						<div class="form-group">
+							<label for="area" class="control-label">所属校区</label>
+							<select class="form-control" name="area" id="area">
+								<volist name="userarea" id="vo">
+									<option>{$vo.area}</option>
+								</volist>
+							</select>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -158,7 +168,8 @@
 					repassword: $("#repwd")[0].value,
 					number: $("#addnumber")[0].value,
 					address: $("#addaddress")[0].value,
-					phone: $("#addphone")[0].value
+					phone: $("#addphone")[0].value,
+					area: $("#area")[0].value
 				},
 				function(data) {
 					$btn.button('reset');

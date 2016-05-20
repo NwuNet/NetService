@@ -47,7 +47,7 @@
 <block name="content">
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-widget widget-user">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header bg-primary">
@@ -87,10 +87,14 @@
 							<label for="phone">电话</label>
 							<input type="phone" class="form-control" id="phone" value="{$phone}">
 						</div>
-						<div class="form-group margin">
-							<label for="">注册时间</label>
-							<input type="text" disabled="true" class="form-control" value="{$begintime}">
-						</div>
+							<div class="form-group margin">
+								<label for="time">注册时间</label>
+								<input type="text" id="time" name="time" disabled="true" class="form-control" value="{$begintime}">
+							</div>
+							<div class="form-group margin">
+								<label for="area">所属校区</label>
+								<input type="text" id="area" name="area" disabled="true" class="form-control" value="{$area}">
+							</div>
 						<button id="updatebtn" type="button" class="btn btn-primary margin">修改</button>
 					</div>
 					<!-- /.row -->
@@ -99,7 +103,7 @@
 		</div>
 
 		
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-solid bg-green-gradient">
 				<div class="box-header">
 					<i class="fa fa-industry"></i>

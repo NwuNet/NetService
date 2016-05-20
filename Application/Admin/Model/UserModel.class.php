@@ -36,6 +36,7 @@ class UserModel extends Model {
 		$this -> password = md5($data['password']);
 		$this -> begintime = date("Y-m-d H:i:s",NOW_TIME);
 		$this -> status = 1;
+		 $this -> level = $data['level'];
 		if( $this -> add()) return TRUE;
 		return FALSE;
 	 }
@@ -46,6 +47,7 @@ class UserModel extends Model {
 		$this -> user_id = $data['user_id'];
 		$this -> uname = $data['uname'];
 		$this -> password = md5($data['password']);
+		$this -> level = $data['level'];
 		if($this -> save()) return true;
 		return false;
 	}

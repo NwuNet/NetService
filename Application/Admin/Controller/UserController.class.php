@@ -16,6 +16,18 @@ class UserController extends BaseController {
 		$this->assign('userarea',$userarea);
 		$this -> display();
 	}
+	public function staff() {
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
+		$this -> display();
+	}
+	public function home() {
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
+		$this -> display();
+	}
 	/*
 	 * 后台用户详细信息
 	 * */
@@ -59,6 +71,7 @@ class UserController extends BaseController {
 	        $this->assign('address',$table[0]['address']);
 	        $this->assign('begintime',$table[0]['begintime']);
 	        $this->assign('ip',$table[0]['ip']);
+			$this->assign('area',$table[0]['area']);
 	        $this->display();
 	    }
 	}
@@ -75,6 +88,7 @@ class UserController extends BaseController {
 	        $this->assign('phone',$table[0]['phone']);
 	        $this->assign('begintime',$table[0]['begintime']);
 	        $this->assign('ip',$table[0]['ip']);
+			$this->assign('area',$table[0]['area']);
 	        $this->display();
 	    }
 	}
@@ -204,7 +218,8 @@ class UserController extends BaseController {
 	            case 2 :$orderSql = " number " . $order_dir;break;
 				case 3 :$orderSql = " phone " . $order_dir;break;
 				case 4 :$orderSql = " address " . $order_dir;break;
-	            case 5 :$orderSql = " begintime " . $order_dir;break;	            
+	            case 5 :$orderSql = " begintime " . $order_dir;break;
+				case 6 :$orderSql = " area " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -217,7 +232,7 @@ class UserController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $homeUser->count();
 	
-	    $map['id|uname|number|phone|address|begintime']=array('like',"%".$search."%");
+	    $map['id|uname|number|phone|address|begintime|area']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($homeUser->where($map)->select());
 	        $table = $homeUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -228,7 +243,7 @@ class UserController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['number'],$row['phone'],$row['address'],$row['begintime']);
+	        $obj = array($row['id'],$row['uname'],$row['number'],$row['phone'],$row['address'],$row['begintime'],$row['area']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -258,6 +273,7 @@ class UserController extends BaseController {
 	            case 3 :$orderSql = " address " . $order_dir;break;
 	            case 4 :$orderSql = " phone " . $order_dir;break;
 	            case 5 :$orderSql = " begintime " . $order_dir;break;
+				case 6 :$orderSql = " area " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -270,7 +286,7 @@ class UserController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $staffUser->count();
 	
-	    $map['id|uname|number|address|phone|begintime']=array('like',"%".$search."%");
+	    $map['id|uname|number|address|phone|begintime|area']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($staffUser->where($map)->select());
 	        $table = $staffUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -281,7 +297,7 @@ class UserController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['number'],$row['address'],$row['phone'],$row['begintime']);
+	        $obj = array($row['id'],$row['uname'],$row['number'],$row['address'],$row['phone'],$row['begintime'],$row['area']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -341,6 +357,7 @@ class UserController extends BaseController {
 	    $data['number'] = I('post.number');
 		$data['phone'] = I('post.phone');
 	    $data['address'] = I('post.address');
+		$data['area'] = I('post.area');
 	    if ($User -> homeadd($data)) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
@@ -359,6 +376,7 @@ class UserController extends BaseController {
 	    $data['number'] = I('post.number');
 	    $data['phone'] = I('post.phone');
 	    $data['address'] = I('post.address');
+		$data['area'] = I('post.area');
 	    if ($User -> staffadd($data)) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
