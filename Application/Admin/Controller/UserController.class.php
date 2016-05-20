@@ -432,4 +432,36 @@ class UserController extends BaseController {
 	    }
 	}
 
+	public function area(){
+		$area = M('UserArea');
+		$areaselect = $area->select();
+		$this->assign('areaselect',$areaselect);
+		$this->display();
+	}
+	public function areaadd() {
+		$Area = M('UserArea');
+		$area = I('post.area');
+		if($area=''){
+			$this->ajaxReturn('数据为空');
+		}
+		$id = I('post.id');
+
+		$Area->create();
+		if($id==''){ //添加
+			if($Area->add()){
+				$this->ajaxReturn(true);
+			}else{
+				$msg = '添加失败';
+				$this->ajaxReturn($msg);
+			}
+		}else{  //修改
+			if($Area->save()){
+				$this->ajaxReturn(true);
+			}else{
+				$msg = '修改失败';
+				$this->ajaxReturn($msg);
+			}
+		}
+	}
+
 }

@@ -30,8 +30,7 @@ class SetPeopleController extends BaseController {
                 $this->ajaxReturn($msg);
             }
         }
-     
-    }	
+    }
 	// --------------------绩效设置---------------------
     public function evaluation(){
         $this->display();
