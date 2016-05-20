@@ -65,6 +65,7 @@
 							<th>用户名</th>
 							<th>注册时间</th>
 							<th>最近登录ip</th>
+							<th>所属校区</th>
 						</thead>
 						<tbody>
 							
@@ -74,6 +75,7 @@
 							<th>用户名</th>
 							<th>注册时间</th>
 							<th>最近登录ip</th>
+							<th>所属校区</th>
 						</tfoot>
 					</table>
 				</div>
@@ -108,6 +110,14 @@
 							<label for="repwd" class="control-label">确认密码</label>
 							<input type="password" class="form-control" id="repwd" />
 						</div>
+						<div class="form-group">
+							<label for="area" class="control-label">所属校区</label>
+							<select class="form-control" name="area" id="area">
+								<volist name="userarea" id="vo">
+									<option>{$vo.area}</option>
+								</volist>
+							</select>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -139,7 +149,8 @@
 			$.post("<php>echo U('Admin/User/bossadd')</php>", {
 					uname: $("#addname")[0].value,
 					password: $("#addpwd")[0].value,
-					repassword: $("#repwd")[0].value
+					repassword: $("#repwd")[0].value,
+					area: $("#area")[0].value
 				},
 				function(data) {
 					$btn.button('reset');

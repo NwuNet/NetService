@@ -76,8 +76,12 @@
 							<input type="password" class="form-control" id="repassword" placeholder="确认新密码">
 						</div>
 						<div class="form-group margin">
-							<label for="">注册时间</label>
-							<input type="text" disabled="true" class="form-control" value="{$begintime}">
+							<label for="time">注册时间</label>
+							<input type="text" id="time" name="time" disabled="true" class="form-control" value="{$begintime}">
+						</div>
+						<div class="form-group margin">
+							<label for="area">所属校区</label>
+							<input type="text" id="area" name="area" disabled="true" class="form-control" value="{$area}">
 						</div>
 						<button id="updatebtn" type="button" class="btn btn-primary margin">修改</button>
 					</div>

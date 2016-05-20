@@ -22,6 +22,7 @@ class BossUserModel extends Model{
 		$this -> user_id = $data['user_id'];
 		$this -> ip = get_client_ip();
 		$this -> img  = $data['img'];
+		 $this -> area  = $data['area'];
 		if($this -> add()) return TRUE;
 		return FALSE;
 	 }

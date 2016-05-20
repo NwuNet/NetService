@@ -6,8 +6,14 @@ class UserController extends BaseController {
 	 * 后台用户
 	 * */
 	public function admin() {
-		$adminUser = D('AdminUserView');
-		$this -> assign('table', $adminUser -> select());
+//		$adminUser = D('AdminUserView');
+//		$this -> assign('table', $adminUser -> select());
+		$this -> display();
+	}
+	public function boss() {
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
 		$this -> display();
 	}
 	/*
@@ -36,6 +42,7 @@ class UserController extends BaseController {
 	        $this->assign('uname',$table[0]['uname']);
 	        $this->assign('begintime',$table[0]['begintime']);
 	        $this->assign('ip',$table[0]['ip']);
+			$this->assign('area',$table[0]['area']);
 	        $this->display();
 	    }
 	}
@@ -144,6 +151,7 @@ class UserController extends BaseController {
 	            case 1 :$orderSql = " uname " . $order_dir;break;
 	            case 2 :$orderSql = " begintime " . $order_dir;break;
 	            case 3 :$orderSql = " ip " . $order_dir;break;
+				case 4 :$orderSql = " area " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -156,7 +164,7 @@ class UserController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $bossUser->count();
 	
-	    $map['id|uname|begintime|ip']=array('like',"%".$search."%");
+	    $map['id|uname|begintime|ip|area']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($bossUser->where($map)->select());
 	        $table = $bossUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -167,7 +175,7 @@ class UserController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['begintime'],$row['ip']);
+	        $obj = array($row['id'],$row['uname'],$row['begintime'],$row['ip'],$row['area']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -315,6 +323,7 @@ class UserController extends BaseController {
 	    $data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
+		$data['area'] = I('post.area');
 	    if ($User -> bossadd($data)) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
@@ -441,9 +450,7 @@ class UserController extends BaseController {
 	public function areaadd() {
 		$Area = M('UserArea');
 		$area = I('post.area');
-		if($area=''){
-			$this->ajaxReturn('数据为空');
-		}
+		if($area)
 		$id = I('post.id');
 
 		$Area->create();
