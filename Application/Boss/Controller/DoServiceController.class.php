@@ -175,6 +175,38 @@ class DoServiceController extends BaseController {
 		
         $this->display();
     }
+	// --------------------故障类别与描述---------------------
+	public function breakinfo(){
+		$breakinfo = M('BreakInfo');
+		$rootbreak = $breakinfo->where('level = 1 and parent = 0')->select();
+		$this->assign('rootbreak',$rootbreak);
+		$this->display();
+	}
+	public function breakadd(){
+		$id = I('post.id');
+		$name = I('post.name');
+		$level = I('post.level');
+		$parent = I('post.parent');
+		$description = I('post.description');
+
+		if($name == ''||$level ==''||$parent == ''||$description == ''){
+			$this->ajaxReturn('数据为空');
+		}
+		$breakinfo = M('BreakInfo');
+		if($id=''||empty($id)){
+			$breakinfo->create();
+//			$breakinfo->name = $name;
+//			$breakinfo->level = $level;
+//			$breakinfo->parent = $parent;
+//			$breakinfo->description = $description;
+			$breakinfo->add();
+			$this->ajaxReturn(true);
+		}else{
+			$breakinfo->create();
+			$breakinfo->save();
+			$this->ajaxReturn(true);
+		}
+	}
 	// --------------------空操作---------------------
 	public function _empty($name){
 		echo "Not Found!";
