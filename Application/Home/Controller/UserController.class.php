@@ -3,17 +3,14 @@ namespace Home\Controller;
 use Think\Controller;
 class UserController extends BaseController {
 	public function index() {
-		
-		    $Card = M('ServiceCard');			
-			$cardinfo = $Card->where('status=0 and uname = %s ',$user.uname)->select();
-			$data = $Card->where('status=0 and uname = %s ',$user.uname)->field('id')->select();
-			$this->assign("cardinfo",$cardinfo);
-			$id=$data['id'];//未能过去目标ID
-			$repair = M('ServiceRepair');	//		
-//			$servicerepair = $repair->where('servicecard_id = %d',$id)->select();			
-			$this->assign("servicerepair",$servicerepair);
-//			trace($servicerepair);
-//			$this->assign('id',$id);			
+		$homeuser = D('Login','Service')->getuserInfo();
+		$Card = M('ServiceCard');
+		$cardinfo = $Card->where('status=0 and name = "%s" ',$homeuser['uname'])->select();
+		$this->assign("cardinfo",$cardinfo);
+
+		$repair = M('ServiceRepair');
+		$servicerepair = $repair->where('servicecard_id = %d',$cardinfo[0]['id'])->select();
+		$this->assign("servicerepair",$servicerepair);
 			
 		$this -> display();
 	}

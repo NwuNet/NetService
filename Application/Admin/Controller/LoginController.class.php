@@ -3,6 +3,9 @@ namespace Admin\Controller;
 use Think\Controller;
 class LoginController extends Controller {
 	public function index() {
+		if(D('Login','Service')->islogin()){
+			$this->redirect('Admin/Index/index');
+		}
 		$this->display();
 	}
 

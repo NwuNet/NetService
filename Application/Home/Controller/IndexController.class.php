@@ -29,14 +29,15 @@ class IndexController extends Controller {
 		$card->add();
 		if($card){
 						
-			$User = D('Admin/User', 'Logic');	      
-	            $data = array();       
+			$User = D('Admin/User', 'Logic');      
+	            $data = array();
 	            $data['uname'] = $uname;
 	            $data['password'] = $student_no;
 	            $data['number'] = $student_no;
 		        $data['phone'] = $phone;
 	            $data['address'] = $building.'-'.$room ;
 				$data['img'] = '/Images/User/default.png';
+				$data['area'] = $area;
 				$User -> homeadd($data);
 	            				
 			$this->ajaxReturn(true);

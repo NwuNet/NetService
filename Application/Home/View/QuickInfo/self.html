@@ -1,0 +1,27 @@
+<!-- User Account: style can be found in dropdown.less -->
+<li class="dropdown user user-menu">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		<img src="__PUBLIC__{$user.img}" class="user-image" alt="User Image">
+		<span class="hidden-xs">{$user.uname}</span>
+	</a>
+	<ul class="dropdown-menu">
+		<!-- User image -->
+		<li class="user-header">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+
+			<p>
+				{$user.uname} - 学生
+				<small>{$user.begintime}</small>
+			</p>
+		</li>
+		<!-- Menu Footer-->
+		<li class="user-footer">
+			<div class="pull-left">
+				<a href="<php>echo U('Home/Self/index')</php>" class="btn btn-default btn-flat">个人设置</a>
+			</div>
+			<div class="pull-right">
+				<a href="<php>echo U('Home/Login/logout')</php>" class="btn btn-default btn-flat">退出</a>
+			</div>
+		</li>
+	</ul>
+</li>

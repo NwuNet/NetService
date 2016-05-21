@@ -3,6 +3,9 @@ namespace Home\Controller;
 use Think\Controller;
 class LoginController extends Controller {
 	public function index() {
+		if(D('Login','Service')->islogin()){
+			$this->redirect('Home/User/index');
+		}
 		$this -> display();
 	}
 	/*
@@ -11,12 +14,13 @@ class LoginController extends Controller {
 	public function verify() {
 		$uname = I('post.uname');
 		$password = I('post.password');
+		$phone = I('post.phone');
 		$verify = I('post.verify');
-		if(empty($uname) || empty($password) || empty($verify)){
-			$this->ajaxReturn(FALSE);
+		if($uname==''|| $password==''|| $verify==''||$phone==''){
+			$this->ajaxReturn('数据为空');
 		}
-		$HomeUser = D('Admin/HomeUserView');
-		$user = $HomeUser ->where('uname = "%s" and status =1',$uname)->find();
+		$HomeUser = D('HomeUser');
+		$user = $HomeUser ->where('uname = "%s" and phone = "%s" and status =1',$uname,$phone)->find();
 		if(empty($user)){
 			$this->ajaxReturn(FALSE);
 		}

@@ -13,7 +13,7 @@ class BaseController extends Controller {
 		if( !AUTHOR && MODULE_NAME <> 'Home' ){
 			$this->redirect('Login/index');
 		}
-		$staffUser = D('Admin/HomeUserView');
-		$this -> assign('user', $staffUser->where('id = %d',AUTHOR)->find());
+		$homeUser = M('HomeUser');
+		$this -> assign('user', $homeUser->where('id = %d',AUTHOR)->find());
     }
 }

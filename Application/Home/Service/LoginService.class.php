@@ -41,4 +41,19 @@ class LoginService{
 		session('[destroy]');
 		return TRUE;
     }
+	/*
+	 * 获取用户id
+	 * */
+	public function getuserId(){
+		$user  = session('home_user');
+		return $user['home_user_id'];
+	}
+	/*
+	 * 获取用户信息
+	 * */
+	public function getuserInfo(){
+		$userid = $this.$this->getuserId();
+		$homeuser = M('HomeUser');
+		return $homeuser->where('id = %d',$userid)->find();
+	}
 }

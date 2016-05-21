@@ -12,9 +12,9 @@
 					<div class="form-group">
 						<input class="form-control" id="uname" name="uname" placeholder="输入姓名" />
 					</div>
-					<label>学号</label>
+					<label>密码（默认为学号）</label>
 					<div class="form-group">
-						<input class="form-control" id="password" name="student_no" type="number" placeholder="输入学号" />
+						<input class="form-control" id="password" name="student_no" type="number" placeholder="输入密码" />
 					</div>
 					<label>手机号</label>
 					<div class="form-group">
@@ -52,34 +52,38 @@
 				$(this).attr("src", verify_link);
 			});
 			/*表单验证*/
-			$("#submit").click(function() {
-				if ($("#uname").val() == '') {
-					alert("请输入用户名");
-					$("#uname").focus();
-				} else if ($("#password").val() == '') {
-					alert("请输入密码");
-					$("#password").focus();
-				} else if ($("#verify").val() == '') {
-					alert("请输入验证码");
-					$("#verify").focus();
-				} else {
-					$.post("<php>echo U('Home/Login/verify')</php>",{
-						uname: $("#uname")[0].value,
-                        password: $("#password")[0].value,
-				        verify: $("#verify")[0].value
-					},//$("#login_form").serialize(),
-					function(data) {
-						if (data) {
-							location.href = "index.php?s=/Home-User-index.html";
-						} else {
-							alert("登录失败");
-							$("#password,#verify").val('');
-							$("#uname").val('').focus();
-							$("#verify_img").click();
-						}
-					});
-				}
-			});
+//			$("#submit").click(function() {
+//				if ($("#uname").val() == '') {
+//					alert("请输入用户名");
+//					$("#uname").focus();
+//				} else if ($("#password").val() == '') {
+//					alert("请输入学号");
+//					$("#password").focus();
+//				} else if($("#phone").val() == '') {
+//					alert("请输入手机号");
+//					$("#phone").focus();
+//				} else if ($("#verify").val() == '') {
+//					alert("请输入验证码");
+//					$("#verify").focus();
+//				} else {
+//					$.post("<php>echo U('Home/Login/verify')</php>",{
+//						uname: $("#uname")[0].value,
+//                        password: $("#password")[0].value,
+//						phone: $("#phone")[0].value,
+//				        verify: $("#verify")[0].value
+//					},//$("#login_form").serialize(),
+//					function(data) {
+//						if (data) {
+//							location.href = "index.php?s=/Home-User-index.html";
+//						} else {
+//							alert("登录失败");
+//							$("#password,#verify").val('');
+//							$("#uname").val('').focus();
+//							$("#verify_img").click();
+//						}
+//					});
+//				}
+//			});
 
 //			function randomNumber(min, max) {
 //				return Math.floor(Math.random() * (max - min + 1) + min);
@@ -139,6 +143,34 @@
 						}
 					}
 				}
+			}).on('success.form.fv', function(e) {
+				// Prevent form submission
+				e.preventDefault();
+
+				// Get the form instance
+				var $form = $(e.target);
+
+				// Get the FormValidation instance
+				var bv = $form.data('formValidation');
+
+				// Use Ajax to submit form data
+				$.post("<php>echo U('Home/Login/verify')</php>",{
+							uname: $("#uname")[0].value,
+							password: $("#password")[0].value,
+							phone: $("#phone")[0].value,
+							verify: $("#verify")[0].value
+						},//$("#login_form").serialize(),
+						function(data) {
+							if (data) {
+								location.href = "index.php?s=/Home-User-index.html";
+							} else {
+								alert("登录失败");
+//							$("#password,#verify").val('');
+//							$("#uname").val('').focus();
+								$("#verify_img").click();
+								$("#verify").val('');
+							}
+						});
 			});
 		</script>		
 </block>
