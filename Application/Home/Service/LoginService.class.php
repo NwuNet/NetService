@@ -12,6 +12,7 @@ class LoginService{
 	 * */
     public function setlogin($userId)
     {
+		if($userId<=0) return false;
         //设置session sha1加密
         $auth = array(
             'home_user_id' => $userId
@@ -52,7 +53,7 @@ class LoginService{
 	 * 获取用户信息
 	 * */
 	public function getuserInfo(){
-		$userid = $this.$this->getuserId();
+		$userid = $this->getuserId();
 		$homeuser = M('HomeUser');
 		return $homeuser->where('id = %d',$userid)->find();
 	}

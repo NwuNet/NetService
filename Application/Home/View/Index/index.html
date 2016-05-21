@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">预约时间--周内16:00-18:00</label>
-                        <input type="date" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="on" data-provide="datepicker"  />
+                        <input type="text" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="on" data-provide="datepicker"  />
                     </div>
                     <div class="form-group">
                         <label class="control-label" id="captchaOperation"></label>
@@ -155,7 +155,7 @@
                             message: '必须填写预约时间'
                         },
                         date: {
-                            format: 'YYYY/DD/MM'
+                            format: 'YYYY-DD-MM'
                         }
                     }
                 },
@@ -195,11 +195,10 @@
                     function(data) {
 //                        $btn.button('reset');
                         if (data == true) {
-                            alert("添加成功");
+                            location.href = "index.php?s=/Home-User-index.html";
                         } else {
                             alert(data);
                         }
-                        location.reload();
                     });
         });
 

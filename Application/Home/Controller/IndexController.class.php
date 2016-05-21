@@ -20,28 +20,37 @@ class IndexController extends Controller {
 		if($uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}
+		//-------------------------------------添加学生到学生表--------------------------------------
+		$homeuser = M('HomeUser');
+		$user = $homeuser->where('uname="%s" and number="%s"',$uname,$student_no)->find();
+		if(count($user)==0){
+			$UserLogic = D('Admin/User', 'Logic');
+			$data = array();
+			$data['uname'] = $uname;
+			$data['password'] = $student_no;
+			$data['number'] = $student_no;
+			$data['phone'] = $phone;
+			$data['address'] = $building.'-'.$room ;
+			$data['img'] = '/Images/User/default.png';
+			$data['area'] = $area;
+			$UserLogic -> homeadd($data);
+			$user = $homeuser->where('uname="%s" and number="%s"',$uname,$student_no)->find();
+		}
+		//---------------------------------------------------------------------------------------------
 		$card = M('ServiceCard');
+		if(count($card->where('name="%s" and student_no="%s" and status =0',$uname,$student_no)->find())>0){
+			trace($user);
+			$setlogin = D('Login','Service')->setlogin($user['id']);
+			$this->ajaxReturn($setlogin);
+		}
 		$card->create();
 		$card->dormitory = $building.'-'.$room ;
 		$card->start  = date("Y-m-d H:i:s",NOW_TIME);
 //		trace(getdayofweek($appointment_time));
 		$card->appointment_time = date("Y-m-d",strtotime($appointment_time));
-		$card->add();
-		if($card){
-						
-			$User = D('Admin/User', 'Logic');      
-	            $data = array();
-	            $data['uname'] = $uname;
-	            $data['password'] = $student_no;
-	            $data['number'] = $student_no;
-		        $data['phone'] = $phone;
-	            $data['address'] = $building.'-'.$room ;
-				$data['img'] = '/Images/User/default.png';
-				$data['area'] = $area;
-				$User -> homeadd($data);
-	            				
-			$this->ajaxReturn(true);
-			
+		if($card->add()){
+			$setlogin = D('Login','Service')->setlogin($user[0]['id']);
+			$this->ajaxReturn($setlogin);
 		}else{
 			$this->ajaxReturn("添加失败");
 		}
