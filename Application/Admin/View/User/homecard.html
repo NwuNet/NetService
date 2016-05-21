@@ -47,7 +47,7 @@
 <block name="content">
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-widget widget-user">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header bg-primary">
@@ -76,20 +76,24 @@
 							<input type="password" class="form-control" id="repassword" placeholder="确认新密码">
 						</div>
 						<div class="form-group margin">
-							<label for="">学号</label>
+							<label for="number">学号</label>
 							<input type="text"  class="form-control" id="number" value="{$number}">
 						</div>
 						<div class="form-group margin">
-							<label for="">电话</label>
+							<label for="phone">电话</label>
 							<input type="text"  class="form-control" id="phone" value="{$phone}">
 						</div>	
 						<div class="form-group margin">
-							<label for="">地址</label>
+							<label for="address">住址</label>
 							<input type="text"  class="form-control" id="address" value="{$address}">
 						</div>						
 						<div class="form-group margin">
-							<label for="">注册时间</label>
-							<input type="text" disabled="true" class="form-control" value="{$begintime}">
+							<label for="time">注册时间</label>
+							<input type="text" disabled="true" id="time" class="form-control" value="{$begintime}">
+						</div>
+						<div class="form-group margin">
+							<label for="area">所属校区</label>
+							<input type="text" id="area" name="area" disabled="true" class="form-control" value="{$area}">
 						</div>
 						<button id="updatebtn" type="button" class="btn btn-primary margin">修改</button>
 					</div>
@@ -100,7 +104,7 @@
 
 		
 
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-solid bg-green-gradient">
 				<div class="box-header">
 					<i class="fa fa-industry"></i>

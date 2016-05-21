@@ -60,10 +60,10 @@ class UserController extends BaseController {
 	}
 	public function homecard($id=''){
 	    if(!empty($id)){
-	        $homeUser = D('HomeUserView');
+	        $homeUser = M('HomeUser');
 	        $table = $homeUser->where('id=%d',$id)->select();
 	        $this->assign('id',$id);
-			$this->assign('user_id',$table[0]['user_id']);
+//			$this->assign('user_id',$table[0]['user_id']);
 	        $this->assign('img',$table[0]['img']);
 	        $this->assign('uname',$table[0]['uname']);
 	        $this->assign('number',$table[0]['number']);
@@ -201,7 +201,7 @@ class UserController extends BaseController {
 	    ));
 	}
 	public function hometable() {
-	    $homeUser = D('HomeUserView');
+	    $homeUser = M('HomeUser');
 	    //获取Datatables发送的参数 必要
 	    $draw = I('get.draw');//这个值作者会直接返回给前台
 	
@@ -350,7 +350,7 @@ class UserController extends BaseController {
 	public function homeadd() {
 	    $User = D('User', 'Logic');
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
-	    $data = array();	
+	    $data = array();
 		$data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
@@ -425,7 +425,7 @@ class UserController extends BaseController {
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
 	    $data['id'] = I('post.id');	
-		$data['user_id'] = I('post.user_id');   
+//		$data['user_id'] = I('post.user_id');
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 	    $data['number'] = I('post.number');

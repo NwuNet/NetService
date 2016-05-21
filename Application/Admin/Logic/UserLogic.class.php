@@ -101,13 +101,13 @@ class UserLogic extends Model {
 	 * Home用户添加
 	 */
 	public function homeadd($data){
-		$data['level'] = 4;
-		$user = D('Admin/User');
+//		$data['level'] = 4;
+//		$user = D('Admin/User');
 		$homeuser = D('Admin/HomeUser');
-		if($user->plus($data)){
-			$tid = $user->where('uname = "%s" and level = 4',$data['uname'])->field("uname,user_id")->find();
-			$data['user_id'] = $tid['user_id'];
-			$homeuser->plus($data);
+		if($homeuser->plus($data)){
+//			$tid = $user->where('uname = "%s" and level = 4',$data['uname'])->field("uname,user_id")->find();
+//			$data['user_id'] = $tid['user_id'];
+//			$homeuser->plus($data);
 			return TRUE;
 		}
 		return false;
@@ -116,13 +116,13 @@ class UserLogic extends Model {
 	 * Home用户修改
 	 * */
 	public function homeedit($data){
-		$data['level'] = 4;
-		$user = D('Admin/User');
+//		$data['level'] = 4;
+//		$user = D('Admin/User');
 		$homeuser = D('Admin/HomeUser');
-		if($user -> edit($data) ){
-			$tid = $user->where('uname = "%s"  and level = 4',$data['uname'])->field("uname,user_id")->find();
-			$data['user_id'] = $tid['user_id'];
-			$homeuser->edit($data);
+		if($homeuser -> edit($data) ){
+//			$tid = $user->where('uname = "%s"  and level = 4',$data['uname'])->field("uname,user_id")->find();
+//			$data['user_id'] = $tid['user_id'];
+//			$homeuser->edit($data);
 			return TRUE;
 		}
 		return FALSE;
