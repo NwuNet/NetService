@@ -45,6 +45,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<ul class="timeline timeline-inverse">
+				<if condition="$cardinfo neq null">
 						<!-- timeline time label -->
 						<li class="time-label"><span class="bg-blue">{$cardinfo.0.start}</span></li>
 						<li>
@@ -99,8 +100,10 @@
 								</div>
 							</div>
 						</li>
-						
-					</ul>
+					</li>
+				<else/><h3>您目前没有未完成的个人预约服务...</h3>
+				</if>	
+			</ul>
 		</div>
 	</div>
 </block>
@@ -112,8 +115,7 @@
 		 * */
 		$("#stateadd").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Home/User/servicerepairadd')</php>",{
-				servicecard_id : '{$cardinfo.id}',
+			$.post("<php>echo U('Home/User/servicerepairadd')</php>",{				
 				evaluation : $("#evaluation").val()							
 			}, function(data) {
 				$btn.button('reset');
