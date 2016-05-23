@@ -1,0 +1,139 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('doservice'))}
+	<!--menu widget-->
+
+</block>
+
+<block name="content-header">
+	<h1><i class="fa fa-fw fa-list-alt"></i>个人历史服务单查询</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>	
+		<li class="active">个人历史服务单查询</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">		
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<i class="fa fa-fw fa-list-alt"></i>
+							<h3 class="box-title">个人历史服务单查询</h3>&ensp;
+							<div class="box-states pull-right">
+								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+								</button>
+								<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+							</div>
+						</div>
+						<div class="box-body table-responsive">
+							<table id="servicecardinfo" class="table table-bordered table-hover">
+								<thead>
+									<th>ID</th>
+									<th>姓名</th>
+									<th>学号</th>
+									<th>宿舍</th>									
+									<th>电话</th>
+									<th>现象描述</th>
+									<th>登记时间</th>
+									<th>预约时间</th>									
+									<th>完成时间</th>
+								</thead>
+								<tbody>
+									<volist name="servicecardinfo" id="vo">
+							    <tr>
+								<td>{$vo.id}</td>
+								<td>{$vo.name}</td>
+								<td>{$vo.student_no}</td>
+								<td>{$vo.dormitory}</td>
+								<td>{$vo.phone}</td>
+								<td>{$vo.description}</td>
+								<td>{$vo.start}</td>
+								<td>{$vo.appointment_time} {$vo.appointment_time|strtotime|getweek}</td>								
+								<td>{$vo.status}</td>
+								
+							</tr>
+						</volist>
+
+								</tbody>
+								<tfoot>
+									<th>ID</th>
+									<th>姓名</th>
+									<th>学号</th>
+									<th>宿舍</th>								
+									<th>电话</th>
+									<th>现象描述</th>
+									<th>登记时间</th>
+									<th>预约时间</th>									
+									<th>完成时间</th>
+								</tfoot>
+							</table>
+						</div>
+						<!-- box-body -->
+					</div>
+				</div>
+				<!-- col -->
+			</div>
+		</div>
+	</div>	
+	
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+       	/*
+		 * datatables
+		 * */
+		var table = $("#serviceinfo").DataTable({
+			"processing": true,
+			"serverSide": true,
+			"ajax": "<php>echo U('Home/User/servicetable')</php>",
+			"language": {
+				"sProcessing":   "处理中...",
+				"lengthMenu": "每页 _MENU_ 条记录",
+				"zeroRecords": "没有找到记录",
+				"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+				"infoEmpty": "无记录",
+				"infoFiltered": "(从 _MAX_ 条记录过滤)",
+				"search": "搜索",
+				"sLoadingRecords": "载入中...",
+				"paginate": {
+					"previous": "前页",
+					"next": "后页"
+				}
+			}
+		});
+		$('#serviceinfo tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Home-User-servicecard-id-" + id;
+		});	
+	</script>
+</block>
