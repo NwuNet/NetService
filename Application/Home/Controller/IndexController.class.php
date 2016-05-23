@@ -36,12 +36,14 @@ class IndexController extends Controller {
 			$UserLogic -> homeadd($data);
 			$user = $homeuser->where('uname="%s" and number="%s"',$uname,$student_no)->find();
 		}
-		//---------------------------------------------------------------------------------------------
+		//------------------------------------添加服务单到服务单表------------------------------------------
 		$card = M('ServiceCard');
-		if(count($card->where('name="%s" and student_no="%s" and status =0',$uname,$student_no)->find())>0){
-			trace($user);
-			$setlogin = D('Login','Service')->setlogin($user['id']);
-			$this->ajaxReturn($setlogin);
+		$onecard = $card->where('name="%s" and student_no="%s" and status =0',$uname,$student_no)->find();
+		if(count($onecard)>0){
+			$info['msg'] = '您的上一个服务单还未处理完成，请处理';
+			$info['status'] = true;
+			D('Login','Service')->setlogin($user['id']);
+			$this->ajaxReturn($info);
 		}
 		$card->create();
 		$card->dormitory = $building.'-'.$room ;
@@ -49,12 +51,14 @@ class IndexController extends Controller {
 //		trace(getdayofweek($appointment_time));
 		$card->appointment_time = date("Y-m-d",strtotime($appointment_time));
 		if($card->add()){
-			$setlogin = D('Login','Service')->setlogin($user[0]['id']);
+			$setlogin = D('Login','Service')->setlogin($user['id']);
 			$this->ajaxReturn($setlogin);
 		}else{
-			$this->ajaxReturn("添加失败");
+			$info['msg'] = '您的上一个服务单还未处理完成，请处理';
+			$this->ajaxReturn($info);
 		}
 	}
+
 	public function feedbackadd() {
 	    $uname = I('post.uname');
 		$student_no = I('post.student_no');

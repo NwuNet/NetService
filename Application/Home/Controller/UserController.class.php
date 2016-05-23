@@ -5,7 +5,7 @@ class UserController extends BaseController {
 	public function index() {
 		$homeuser = D('Login','Service')->getuserInfo();
 		$Card = M('ServiceCard');
-		$cardinfo = $Card->where('status=0 and name = "%s" ',$homeuser['uname'])->select();
+		$cardinfo = $Card->where('status=0 and name = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->select();
 		$this->assign("cardinfo",$cardinfo);
 
 		$repair = M('ServiceRepair');

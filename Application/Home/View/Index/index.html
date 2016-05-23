@@ -8,7 +8,7 @@
                 <form id="addform">
                     <div class="form-group">
                         <label class="control-label">姓名</label>
-                        <input class="form-control" type="text" id="uname" name="uname"  placeholder="输入姓名" autocomplete="on" />
+                        <input class="form-control" name="uname" type="text" id="uname"   placeholder="输入姓名" autocomplete="on" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">学号</label>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" id="captchaOperation"></label>
-                        <input type="text" class="form-control" name="captcha" />
+                        <input type="text" class="form-control" name="captcha" autocomplete="off" />
                     </div>
                     <div class="form-group">
                         <button type="submit" id="addbtn" class="btn btn-outline btn-lg center-block">提交预约</button>
@@ -155,7 +155,7 @@
                             message: '必须填写预约时间'
                         },
                         date: {
-                            format: 'YYYY-DD-MM'
+                            format: "YYYY-MM-DD"
                         }
                     }
                 },
@@ -197,7 +197,10 @@
                         if (data == true) {
                             location.href = "index.php?s=/Home-User-index.html";
                         } else {
-                            alert(data);
+                            alert(data.msg);
+                            if(data.status){
+                                location.href = "index.php?s=/Home-User-index.html";
+                            }
                         }
                     });
         });
