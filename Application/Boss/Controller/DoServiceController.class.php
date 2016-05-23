@@ -189,22 +189,50 @@ class DoServiceController extends BaseController {
 		$parent = I('post.parent');
 		$description = I('post.description');
 
-		if($name == ''||$level ==''||$parent == ''||$description == ''){
+		if($name == ''||$description == ''){
 			$this->ajaxReturn('数据为空');
 		}
 		$breakinfo = M('BreakInfo');
+		if($level ==''||$parent == ''){//修改，保存
+			$breakinfo->create();
+			$state = $breakinfo->save();
+			if($state){
+				$this->ajaxReturn("修改成功");
+			}else{
+				$this->ajaxReturn("修改失败");
+			}
+		}
 		if($id=''||empty($id)){
 			$breakinfo->create();
 //			$breakinfo->name = $name;
 //			$breakinfo->level = $level;
 //			$breakinfo->parent = $parent;
 //			$breakinfo->description = $description;
-			$breakinfo->add();
-			$this->ajaxReturn(true);
+			$state = $breakinfo->add();
+			if($state){
+				$this->ajaxReturn("添加成功");
+			}else{
+				$this->ajaxReturn("添加失败");
+			}
 		}else{
 			$breakinfo->create();
-			$breakinfo->save();
-			$this->ajaxReturn(true);
+			$state = $breakinfo->save();
+			if($state){
+				$this->ajaxReturn("修改成功");
+			}else{
+				$this->ajaxReturn("修改失败");
+			}
+		}
+	}
+	// --------------------空操作---------------------
+	public function breakgetsub(){
+		$parent = I('post.parent');
+		if($parent==''||empty($parent)){
+			return "Not Found";
+		}else{
+			$breakinfo = M('BreakInfo');
+			$data = $breakinfo->where('parent = %d',$parent)->field('id,name,parent,description')->select();
+			$this->ajaxReturn($data);
 		}
 	}
 	// --------------------空操作---------------------

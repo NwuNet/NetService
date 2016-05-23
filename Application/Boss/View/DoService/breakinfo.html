@@ -64,24 +64,20 @@
 						</div>
 					</div>
 					<div class="box-body table-responsive no-padding">
-						<table id="areaselect" class="table  table-hover">
+						<table class="table table-hover ">
 							<thead>
 							<th>ID</th>
-							<th>故障类别</th>
+							<th>故障名称</th>
+							<th>故障描述</th>
 							</thead>
-							<tbody>
-							<volist name="areaselect" id="vo">
-								<tr>
-									<td>{$vo.id}</td>
-									<td>{$vo.area}</td>
-								</tr>
-							</volist>
+							<tbody class="table-data">
+
 							</tbody>
 						</table>
 					</div>
 					<!-- box-body -->
 					<div class="box-footer">
-						<p >描述：{$vo.description}</p>
+						<p >{$vo.description}</p>
 					</div>
 				</div>
 			</div>
@@ -136,19 +132,18 @@
 		/**
 		 * 添加时清空数据
 		 * */
-		$("#openbtn").click(function () {
-			$("#id,#name").val('');
+		$(".openbtn").click(function () {
+			$("#id,#name,#description").val('');$("#level").val('2');
+			$("#parent").val($(this).parent().children().eq(0)[0].firstChild.textContent);
 		});
 		$("#openparent").click(function () {
-			$("#level").val('1');
-			$("#parent").val("0");
+			$("#level").val('1');$("#parent").val("0");
 		});
 		$(".editbtn").click(function () {
 			$("#id").val($(this).parent().children().eq(0)[0].firstChild.textContent);
 			$("#name").val($(this).parent().children().eq(2)[0].firstChild.textContent);
 			$("#description").val($(this).parent().siblings().eq(1).children().eq(0)[0].innerHTML);
-			$("#level").val('1');
-			$("#parent").val("0");
+			$("#level").val('1');$("#parent").val("0");
 		});
 		/*
 		 * 添加类别名称
@@ -187,11 +182,35 @@
 			}
 		});
 		/**
+		 * 异步加载数据
+		 * */
+		(function($) {
+			var biglength = $(".table-data").length;
+			for (var i=0;i<biglength;i++){
+				var bid = $(".table-data").eq(i).parent().parent().siblings().eq(0).children().eq(0)[0].textContent;
+				$.post("<php>echo U('Boss/DoService/breakgetsub')</php>", {
+					parent : bid
+				},function(data) {
+					if(data.length>0){
+						var list = '';
+						data.forEach(function (item) {
+							list += '<tr><td>'+item.id+'</td>' +'<td>'+item.name+'</td>' +'<td>'+item.description+'</td></tr>'
+						});
+						$(".table-data")[data[0].parent-1].innerHTML = list;
+					}
+				});
+			}
+		}(jQuery));
+
+		/**
 		 * 修改类别名称
 		 * */
-		$('#areaselect tbody').on('click', 'tr', function() {
+		$('table tbody').on('click', 'tr', function() {
 			$("#id")[0].value = $(this).children().first().html();
 			$("#name")[0].value = $(this).children().eq(1).html();
+			$("#description")[0].value = $(this).children().eq(2).html();
+			$("#level").val("2");
+			$("#parent").val($(this).parent().parent().parent().siblings().eq(0).children().eq(0)[0].textContent);
 			$('#addmodal').modal('show');
 		});
 	</script>
