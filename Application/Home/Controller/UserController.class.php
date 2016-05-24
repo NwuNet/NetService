@@ -13,7 +13,7 @@ class UserController extends BaseController {
 		$servicerepair = $repair->where('state="维修" and servicecard_id = %d',$cardinfo[0]['id'])->select();
 		$this->assign("servicerepair",$servicerepair);
 		}
-					
+		
 		$this -> display();
 	}
     // --------------------维修单添加完成状态---------------------
@@ -120,6 +120,10 @@ class UserController extends BaseController {
 			"recordsFiltered" => intval($recordsFiltered),
 			"data" => $infos
 		));
+	}
+	// --------------------申请兼职---------------------
+	public function apply(){
+		$this->display();
 	}
 	public function _empty($name) {
 		echo "Not Found!";

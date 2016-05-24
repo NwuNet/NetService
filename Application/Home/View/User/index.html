@@ -44,25 +44,33 @@
 <block name="content">
 	<div class="row">
 		<div class="col-md-12">
-			<ul class="timeline timeline-inverse">
+			<ul class="timeline">
 				<if condition="$cardinfo neq null">
 						<!-- timeline time label -->
 						<li class="time-label"><span class="bg-blue">{$cardinfo.0.start}</span></li>
 						<li>
-							<i class="fa fa-shopping-cart bg-blue"></i>
+							<i class="fa fa-clock-o bg-blue"></i>
 							<div class="timeline-item">
 								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.start|substr=11,18}</span>
 								<h3 class="timeline-header"><a href="#">已登记维修,时间</a> {$cardinfo.0.start|substr=0,10}</h3>
-                                <h3 class="timeline-header">
-                                	<a href="#">学号：</a> {$cardinfo.0.student_no|substr=0,15}&nbsp;&nbsp;&nbsp;
-                                	<a href="#">宿舍：</a> {$cardinfo.0.dormitory|substr=0,10}&nbsp;&nbsp;&nbsp;
-                                	<a href="#">电话：</a> {$cardinfo.0.phone|substr=0,15}&nbsp;&nbsp;&nbsp;                             	
-                                	<a href="#">预约时间：</a> {$cardinfo.0.appointment_time}&nbsp;&nbsp;&nbsp;
-                                </h3>
-                                <h3 class="timeline-header">
-                                	<a href="#">问题描述：</a> {$cardinfo.0.description}&nbsp;&nbsp;&nbsp;
-                                </h3>
+                                <div class="timeline-header">
+									<p><a href="#">服务单ID：</a> {$cardinfo.0.id} </p>
+									<p><a href="#">姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> {$cardinfo.0.name} </p>
+									<p><a href="#">学号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> {$cardinfo.0.student_no} </p>
+									<p><a href="#">宿舍：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> {$cardinfo.0.dormitory} </p>
+									<p><a href="#">电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> {$cardinfo.0.phone} </p>
+									<p><a href="#">预约时间：</a>{$cardinfo.0.appointment_time} </p>
+									<p><a href="#">所属校区：</a>{$cardinfo.0.area} </p>
+                                </div>
+                                <!--<h3 class="timeline-header">-->
+                                	<!--<a href="#">问题描述：</a> {$cardinfo.0.description}&nbsp;&nbsp;&nbsp;-->
+                                <!--</h3>-->
+								<div class="timeline-footer">
+									<a class="btn btn-warning " data-toggle="modal" data-target="#addmodal">修改服务单</a>
+									<a class="btn btn-danger " data-toggle="modal" data-target="#delmodal">删除服务单</a>
+								</div>
 							</div>
+
 						</li>												    
 						    
 						<foreach name="servicerepair" item="vo">
@@ -109,6 +117,94 @@
 </block>
 
 <block name="script">
+	<!-- add Modal -->
+	<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">修改服务单</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addform" class="form-horizontal">
+						<div class="form-group">
+							<label for="id" class="control-label col-sm-2">ID</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="id" name="id" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="uname" class="control-label col-sm-2">姓名</label>
+							<div class="col-sm-10">
+								<input class="form-control" name="uname" type="text" id="uname"   placeholder="输入姓名" autocomplete="on" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="student_no" class="control-label col-sm-2">学号</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="student_no" name="student_no"  type="number" placeholder="输入学号" autocomplete="on" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">电话</label>
+							<div class="col-sm-10">
+								<input class="form-control" name="phone" id="phone" type="number" placeholder="输入手机号" autocomplete="on" />
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-sm-2">校区</label>
+							<div class="col-sm-10">
+								<select class="form-control" id="area" name="area">
+									<option>长安校区</option>
+									<option>太白校区</option>
+									<option>桃园校区</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-sm-2">楼号</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="building" name="building" type="number" placeholder="输入楼号" autocomplete="on" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">宿舍号</label>
+							<div class="col-sm-10">
+								<input class="form-control" id='room' name="room" type="number" placeholder="输入宿舍号" autocomplete="on" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">预约时间</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="on" data-provide="datepicker"  />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="addbtn" type="button" class="btn btn-primary">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- add Modal -->
+	<div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="dellabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">确认删除服务单？</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="delbtn" type="button" class="btn btn-danger">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
        	/*
 		 * 添加完成状态
