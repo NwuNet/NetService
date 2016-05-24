@@ -30,7 +30,7 @@
 
 <block name="content-header">
 	<h1>故障分类设置
-		<small><i class="fa fa-fw fa-users"></i></small>
+		<small><i class="fa fa-fw fa-bug"></i></small>
 		<button id="openparent" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addmodal">
 			<i class="fa fa-plus">添加大类</i>
 		</button>
@@ -43,13 +43,13 @@
 
 <block name="content">
 	<!-- Small boxes (Stat box) -->
-	<div class="row">
-		<volist name="rootbreak" id="vo">
-			<div class="col-md-6">
+	<volist name="rootbreak" id="vo">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
 				<div class="box box-primary">
 					<div class="box-header with-border">
 						<h3 class="box-title">{$vo.id}</h3>
-						<i class="fa fa-fw fa-user"></i>
+						<i class="fa fa-fw fa-bug"></i>
 						<h3 class="box-title">{$vo.name}</h3>&ensp;
 						<button  class="btn btn-sm btn-primary editbtn" data-toggle="modal" data-target="#addmodal">
 							<i class="fa fa-plus">修改</i>
@@ -66,7 +66,7 @@
 					<div class="box-body table-responsive no-padding">
 						<table class="table table-hover ">
 							<thead>
-							<th>ID</th>
+							<th class="sr-only">ID</th>
 							<th>故障名称</th>
 							<th>故障描述</th>
 							</thead>
@@ -77,13 +77,12 @@
 					</div>
 					<!-- box-body -->
 					<div class="box-footer">
-						<p >{$vo.description}</p>
+						<a >{$vo.description}</a>
 					</div>
 				</div>
-			</div>
-		</volist>
-	</div>
-	<!-- row -->
+			</div><!--col-->
+		</div><!-- row -->
+	</volist>
 </block>
 
 <block name="script">
@@ -98,25 +97,25 @@
 				</div>
 				<div class="modal-body">
 					<form id="addform">
-						<div class="form-group">
+						<div class="form-group sr-only">
 							<label for="id" class="control-label">ID</label>
 							<input type="text" class="form-control" id="id" name="id" />
 						</div>
 						<div class="form-group">
 							<label for="name" class="control-label">类别名称</label>
-							<input type="text" class="form-control" id="name" autofocus/>
+							<input type="text" class="form-control" id="name"/>
 						</div>
-						<div class="form-group ">
+						<div class="form-group sr-only ">
 							<label for="level" class="control-label">level</label>
 							<input type="text" class="form-control" id="level" />
 						</div>
-						<div class="form-group ">
+						<div class="form-group sr-only ">
 							<label for="parent" class="control-label">parent</label>
 							<input type="text" class="form-control" id="parent" />
 						</div>
 						<div class="form-group">
 							<label for="description" class="control-label">描述</label>
-							<input type="text" class="form-control" id="description" />
+							<textarea type="text" class="form-control" id="description" rows="3" ></textarea>
 						</div>
 					</form>
 				</div>
@@ -194,7 +193,7 @@
 					if(data.length>0){
 						var list = '';
 						data.forEach(function (item) {
-							list += '<tr><td>'+item.id+'</td>' +'<td>'+item.name+'</td>' +'<td>'+item.description+'</td></tr>'
+							list += '<tr><td class="sr-only">'+item.id+'</td>' +'<td>'+item.name+'</td>' +'<td>'+item.description+'</td></tr>'
 						});
 						$(".table-data")[data[0].parent-1].innerHTML = list;
 					}
