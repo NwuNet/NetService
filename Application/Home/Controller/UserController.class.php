@@ -120,6 +120,24 @@ class UserController extends BaseController {
 			"recordsFiltered" => intval($recordsFiltered),
 			"data" => $infos
 		));
+	}    
+	// --------------------服务单信息---------------------
+	public function servicecard($id){
+		if($id!=''){
+			$Card = M('ServiceCard');
+			$repair = M('ServiceRepair');
+			$cardinfo = $Card->where('id = %d',$id)->select();		
+			$servicerepair = $repair->where('servicecard_id =%d',$id)->select();
+			$this->assign("cardinfo",$cardinfo);
+			$this->assign("servicerepair",$servicerepair);
+			trace($servicerepair);
+			$this->assign('id',$id);
+			
+			$staffUser = D('Admin/StaffUserView');
+            $staffname = $staffUser->field('uname')->select();
+            $this->assign('staffname',$staffname);//员工名称
+			$this->display();
+		}
 	}
 	public function _empty($name) {
 		echo "Not Found!";
