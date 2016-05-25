@@ -47,31 +47,30 @@
 			<ul class="timeline">
 				<if condition="$cardinfo neq null">
 						<!-- timeline time label -->
-						<li class="time-label"><span class="bg-blue">{$cardinfo.0.start}</span></li>
+						<li class="time-label"><span class="bg-blue">{$cardinfo.start}</span></li>
 						<li>
 							<i class="fa fa-clock-o bg-blue"></i>
 							<div class="timeline-item">
-								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.start|substr=11,18}</span>
-								<h3 class="timeline-header"><a href="#">已登记维修,时间</a> {$cardinfo.0.start|substr=0,10}</h3>
-                                <div class="timeline-header">
-									<p><a href="#">服务单ID：</a> {$cardinfo.0.id} </p>
-									<p><a href="#">姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> {$cardinfo.0.name} </p>
-									<p><a href="#">学号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> {$cardinfo.0.student_no} </p>
-									<p><a href="#">宿舍：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> {$cardinfo.0.dormitory} </p>
-									<p><a href="#">电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> {$cardinfo.0.phone} </p>
-									<p><a href="#">预约时间：</a>{$cardinfo.0.appointment_time} </p>
-									<p><a href="#">所属校区：</a>{$cardinfo.0.area} </p>
+								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.start|substr=11,18}</span>
+								<h3 class="timeline-header"><a href="#">已登记维修，时间</a> {$cardinfo.start|substr=0,10}</h3>
+                                <div class="timeline-header" id="serviceinfo">
+									<p><a href="#">服务单ID：</a> <span>{$cardinfo.id}</span> </p>
+									<p><a href="#">姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.name}</span> </p>
+									<p><a href="#">学号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.student_no}</span> </p>
+									<p><a href="#">宿舍：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.dormitory}</span> </p>
+									<p><a href="#">电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.phone}</span> </p>
+									<p><a href="#">预约时间：</a> <span>{$cardinfo.appointment_time}</span> </p>
+									<p><a href="#">所属校区：</a> <span>{$cardinfo.area}</span> </p>
                                 </div>
                                 <!--<h3 class="timeline-header">-->
-                                	<!--<a href="#">问题描述：</a> {$cardinfo.0.description}&nbsp;&nbsp;&nbsp;-->
+                                	<!--<a href="#">问题描述：</a> {$cardinfo.description}&nbsp;&nbsp;&nbsp;-->
                                 <!--</h3>-->
 								<div class="timeline-footer">
-									<a class="btn btn-warning " data-toggle="modal" data-target="#addmodal">修改服务单</a>
-									<a class="btn btn-danger " data-toggle="modal" data-target="#delmodal">删除服务单</a>
+									<a class="btn btn-warning " id="editservice" data-toggle="modal" data-target="#addmodal">修改服务单</a>
+									<a class="btn btn-danger " id="delservice" data-toggle="modal" data-target="#delmodal">删除服务单</a>
 								</div>
 							</div>
-
-						</li>												    
+						</li>
 						    
 						<foreach name="servicerepair" item="vo">
 							<li>
@@ -129,27 +128,27 @@
 				<div class="modal-body">
 					<form id="addform" class="form-horizontal">
 						<div class="form-group">
-							<label for="id" class="control-label col-sm-2">ID</label>
+							<label for="id" class="control-label col-sm-2">服务单ID</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="id" name="id" />
+								<input value="{$cardinfo.id}" disabled="disabled" type="text" class="form-control" id="id" name="id" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="uname" class="control-label col-sm-2">姓名</label>
 							<div class="col-sm-10">
-								<input class="form-control" name="uname" type="text" id="uname"   placeholder="输入姓名" autocomplete="on" />
+								<input value="{$cardinfo.name}" disabled="disabled" class="form-control" name="uname" type="text" id="uname"   placeholder="输入姓名" autocomplete="on" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="student_no" class="control-label col-sm-2">学号</label>
 							<div class="col-sm-10">
-								<input class="form-control" id="student_no" name="student_no"  type="number" placeholder="输入学号" autocomplete="on" />
+								<input value="{$cardinfo.student_no}" disabled="disabled" class="form-control" id="student_no" name="student_no"  type="number" placeholder="输入学号" autocomplete="on" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label col-sm-2">电话</label>
 							<div class="col-sm-10">
-								<input class="form-control" name="phone" id="phone" type="number" placeholder="输入手机号" autocomplete="on" />
+								<input value="{$cardinfo.phone}" class="form-control" name="phone" id="phone" type="number" placeholder="输入手机号" autocomplete="on" />
 							</div>
 						</div>
 						<div class="form-group ">
@@ -165,26 +164,26 @@
 						<div class="form-group ">
 							<label class="control-label col-sm-2">楼号</label>
 							<div class="col-sm-10">
-								<input class="form-control" id="building" name="building" type="number" placeholder="输入楼号" autocomplete="on" />
+								<input value="{$cardinfo.building}" class="form-control" id="building" name="building" type="number" placeholder="输入楼号" autocomplete="on" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label col-sm-2">宿舍号</label>
 							<div class="col-sm-10">
-								<input class="form-control" id='room' name="room" type="number" placeholder="输入宿舍号" autocomplete="on" />
+								<input value="{$cardinfo.room}" class="form-control" id='room' name="room" type="number" placeholder="输入宿舍号" autocomplete="on" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label col-sm-2">预约时间</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="on" data-provide="datepicker"  />
+								<input value="{$cardinfo.appointment_time}" type="text" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker"  />
 							</div>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button id="addbtn" type="button" class="btn btn-primary">确认</button>
+					<button id="addbtn" type="button" class="btn btn-warning">确认</button>
 				</div>
 			</div>
 		</div>
@@ -205,13 +204,26 @@
 			</div>
 		</div>
 	</div>
+	<!--form validation-->
+	<js href="__PUBLIC__/formvalidation/js/formValidation.min.js" />
+	<js href="__PUBLIC__/formvalidation/js/framework/bootstrap.js" />
+	<js href="__PUBLIC__/formvalidation/js/language/zh_CN.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/bootstrap-datepicker.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" />
 	<script type="text/javascript">
+		$("#editservice").click(function () {
+			$("#area").val("{$cardinfo.area}");
+			$("#appointment_time").val("{$cardinfo.appointment_time}");
+		});
+		$("#addbtn").click(function () {
+			$("#addform").submit();
+		});
        	/*
 		 * 添加完成状态
 		 * */
 		$("#stateadd").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Home/User/servicerepairadd')</php>",{				
+			$.post("<php>echo U('Home/User/servicerepairadd')</php>",{
 				evaluation : $("#evaluation").val()							
 			}, function(data) {
 				$btn.button('reset');
@@ -223,5 +235,148 @@
 				location.reload();
 			});
 		});
+		$('#addform').formValidation({
+			message: '数据非法',
+			icon: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				uname: {
+					validators: {
+						notEmpty: {
+							message: '姓名必不可少'
+						},
+						regexp: {
+							regexp: /[\u4E00-\u9FA5]{2,8}/,
+							message: '姓名必须是中文，长度大于2，且不包含数字和特殊字符'
+						}
+					}
+				},
+				student_no: {
+					validators: {
+						notEmpty: {
+							message: '学号必不可少'
+						},
+						stringLength: {
+							min: 9,
+							max: 10,
+							message: '用户名必须在9-10个字符之间'
+						},
+						regexp: {
+							regexp: /^201\d[1-2]\d[0-9]{3,4}$/,
+							message: '学号必须是201xxxxxx，如201420666，或2010114127'
+						}
+					}
+				},
+				phone: {
+					message: '手机号码非法',
+					validators: {
+						notEmpty: {
+							message: '手机号必须设置'
+						},
+						stringLength: {
+							min: 11,
+							max: 11,
+							message: '手机号必须为11位'
+						},
+						regexp: {
+							regexp: /0?(13|14|15|18)[0-9]{9}/,
+							message: '手机号必须合法'
+						}
+					}
+				},
+				building: {
+					message: '楼号非法',
+					validators: {
+						notEmpty: {
+							message: '楼号不能为空'
+						},
+						stringLength: {
+							min: 1,
+							max: 2,
+							message: '楼号必须为1-2位'
+						},
+						regexp: {
+							regexp: /^([1-9])|(1[01234])$/,
+							message: '楼号必须合法'
+						}
+					}
+				},
+				room: {
+					validators: {
+						notEmpty: {
+							message: '宿舍号不能为空'
+						},
+						stringLength: {
+							min: 3,
+							max: 3,
+							message: '宿舍号必须为3位'
+						},
+						regexp: {
+							regexp: /^[1-9][0-9]{2}$/,
+							message: '宿舍号必须合法'
+						}
+					}
+				},
+				appointment_time: {
+					validators: {
+						notEmpty: {
+							message: '必须填写预约时间'
+						},
+						date: {
+							format: "YYYY-MM-DD"
+						}
+					}
+				},
+				captcha: {
+					validators: {
+						callback: {
+							message: '答案错误',
+							callback: function(value, validator, $field) {
+								var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+								return value == sum;
+							}
+						}
+					}
+				}
+			}
+		}).on('success.form.fv', function(e) {
+			// Prevent form submission
+			e.preventDefault();
+
+			// Get the form instance
+			var $form = $(e.target);
+
+			// Get the FormValidation instance
+			var bv = $form.data('formValidation');
+
+			// Use Ajax to submit form data
+			$.post("<php>echo U('Home/User/servicecardedit')</php>", {
+						id: $("#id")[0].value,
+						name: $("#uname")[0].value,
+						student_no: $("#student_no")[0].value,
+						phone: $("#phone")[0].value,
+						building: $("#building")[0].value,
+						room: $("#room")[0].value,
+						area: $("#area")[0].value,
+//                        description: $("#description")[0].value,
+						appointment_time: $("#appointment_time")[0].value
+					},
+					function(data) {
+//                        $btn.button('reset');
+						if (data == true) {
+							alert("修改成功");
+							location.href = "index.php?s=/Home-User-index.html";
+						} else {
+							alert(data.msg);
+							if(data.status){
+								location.href = "index.php?s=/Home-User-index.html";
+							}
+						}
+					});
+		});
+
 	</script>
 </block>

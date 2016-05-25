@@ -5,16 +5,45 @@ class UserController extends BaseController {
 	public function index() {
 		$homeuser = D('Login','Service')->getuserInfo();
 		$Card = M('ServiceCard');
-		$cardinfo = $Card->where('status=0 and name = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->select();
+		$cardinfo = $Card->where('status=0 and name = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->find();
+		$dormitory = explode('-',$cardinfo['dormitory'] );
+		$cardinfo['building'] = $dormitory[0];
+		$cardinfo['room'] = $dormitory[1];
 		$this->assign("cardinfo",$cardinfo);
 		
 		if($cardinfo){
 			$repair = M('ServiceRepair');
-		$servicerepair = $repair->where('state="维修" and servicecard_id = %d',$cardinfo[0]['id'])->select();
-		$this->assign("servicerepair",$servicerepair);
+			$servicerepair = $repair->where('state="维修" and servicecard_id = %d',$cardinfo['id'])->select();
+			$this->assign("servicerepair",$servicerepair);
 		}
 		
 		$this -> display();
+	}
+	// --------------------维修单信息变更---------------------
+	public function servicecardedit(){
+		$id = I('post.id');
+		$uname = I('post.name');
+		$student_no = I('post.student_no');
+		$phone = I('post.phone');
+		$building = I('post.building');
+		$room = I('post.room');
+//		$description = I('post.description');
+		$description = "null";
+		$appointment_time = I('post.appointment_time');
+		$area = I('post.area');
+		if($id=''||$uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''||$area==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$card = M('ServiceCard');
+		$card->create();
+		$card->dormitory = $building.'-'.$room ;
+		$card->appointment_time = date("Y-m-d",strtotime($appointment_time));
+		if($card->save()){
+			$this->ajaxReturn(true);
+		}else{
+			$info['msg'] = '修改失败';
+			$this->ajaxReturn($info);
+		}
 	}
     // --------------------维修单添加完成状态---------------------
 	public function servicerepairadd(){
