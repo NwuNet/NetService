@@ -26,18 +26,18 @@
 	<!-- search widget -->
 
 	<!--menu widget-->
-	{:W('Menu/index',array('doindex'))}
+	{:W('Menu/index',array('dosuggest'))}
 	<!--menu widget-->
 
 </block>
 
 <block name="content-header">
 	<h1>
-	个人服务单
+	个人建议反馈
   </h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-fw fa-dashboard"></i> Network Service</a></li>
-		<li class="active">个人服务单</li>
+		<li class="active">个人建议反馈</li>
 	</ol>
 </block>
 
@@ -45,33 +45,29 @@
 	<div class="row">
 		<div class="col-md-12">
 			<ul class="timeline">
-				<if condition="$cardinfo.id neq null">
+				<if condition="$suginfo.id neq null">				
 						<!-- timeline time label -->
-						<li class="time-label"><span class="bg-blue">{$cardinfo.start}</span></li>
+						<li class="time-label"><span class="bg-blue">{$suginfo.time}</span></li>
 						<li>
+							
 							<i class="fa fa-clock-o bg-blue"></i>
 							<div class="timeline-item">
-								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.start|substr=11,18}</span>
-								<h3 class="timeline-header"><a href="#">已登记维修，时间</a> {$cardinfo.start|substr=0,10}</h3>
+								<span class="time"><i class="fa fa-clock-o"></i> {$suginfo.time|substr=11,18}</span>
+								<h3 class="timeline-header"><a href="#">已提交建议，时间</a> {$suginfo.time|substr=0,10}</h3>
                                 <div class="timeline-header" id="serviceinfo">
-									<p><a href="#">服务单ID：</a> <span>{$cardinfo.id}</span> </p>
-									<p><a href="#">姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.name}</span> </p>
-									<p><a href="#">学号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.student_no}</span> </p>
-									<p><a href="#">宿舍：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.dormitory}</span> </p>
-									<p><a href="#">电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.phone}</span> </p>
-									<p><a href="#">预约时间：</a> <span>{$cardinfo.appointment_time}</span> </p>
-									<p><a href="#">所属校区：</a> <span>{$cardinfo.area}</span> </p>
-                                </div>
-                                <!--<h3 class="timeline-header">-->
-                                	<!--<a href="#">问题描述：</a> {$cardinfo.description}&nbsp;&nbsp;&nbsp;-->
-                                <!--</h3>-->
+									<p><a href="#">建议ID：</a> <span>{$suginfo.id}</span> </p>
+									<p><a href="#">姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$suginfo.uname}</span> </p>
+									<p><a href="#">学号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$suginfo.student_no}</span> </p>
+									<p><a href="#">建议：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$suginfo.suggest}</span> </p>
+									
+                                </div>                               
 								<div class="timeline-footer">
-									<a class="btn btn-warning " id="editservice" data-toggle="modal" data-target="#addmodal">修改服务单</a>
-									<a class="btn btn-danger " id="delservice" data-toggle="modal" data-target="#delmodal">删除服务单</a>
+									<a class="btn btn-warning " id="editservice" data-toggle="modal" data-target="#addmodal">修改建议</a>
+									<a class="btn btn-danger " id="delservice" data-toggle="modal" data-target="#delmodal">删除建议</a>
 								</div>
 							</div>
 						</li>
-						    
+						   
 						<foreach name="servicerepair" item="vo">
 							<li>
 								<li>
@@ -87,28 +83,28 @@
 								</li>
 							</li>
 						</foreach>
+						<else/><h3>您目前没有提交过个人建议...</h3>
+				</if>	
 						<li>
 							<i class="fa fa-user bg-green"></i>
 							<div class="timeline-item">
 								<div class="timeline-body">
-									<form id="stateform">
-										<label>维修完成，可以正常使用网络</label>									
-									    <label>本次服务评价</label>
+									<form id="suggestform">																			
+									    <label>请提交建议</label>
 										<div class="input-group">
 											<div class="input-group-addon">
-												评价
+												建议
 											</div>
-											<input type="text" id='evaluation' placeholder="请添加评价" class="form-control" />
+											<input type="text" id='suggest' placeholder="请添加意见" class="form-control" />
 										</div>
 									</form>
 								</div>
 								<div class="timeline-footer">
-									<a id="stateadd" class="btn btn-primary">提交</a>
+									<a id="suggestadd" class="btn btn-primary">提交</a>
 								</div>
 							</div>
 						</li>
-				<else/><h3>您目前没有未完成的个人预约服务...</h3>
-				</if>	
+				
 			</ul>
 		</div>
 	</div>
@@ -122,62 +118,36 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span></button>
-					<h4 class="modal-title">修改服务单</h4>
+					<h4 class="modal-title">修改建议</h4>
 				</div>
 				<div class="modal-body">
 					<form id="addform" class="form-horizontal">
 						<div class="form-group">
-							<label for="id" class="control-label col-sm-2">服务单ID</label>
+							<label for="id" class="control-label col-sm-2">建议ID</label>
 							<div class="col-sm-10">
-								<input value="{$cardinfo.id}" disabled="disabled" type="text" class="form-control" id="id" name="id" />
+								<input value="{$suginfo.id}" disabled="disabled" type="text" class="form-control" id="id" name="id" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="uname" class="control-label col-sm-2">姓名</label>
 							<div class="col-sm-10">
-								<input value="{$cardinfo.name}" disabled="disabled" class="form-control" name="uname" type="text" id="uname"   placeholder="输入姓名" autocomplete="on" />
+								<input value="{$suginfo.uname}" disabled="disabled" class="form-control" name="uname" type="text" id="uname"   placeholder="输入姓名" autocomplete="on" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="student_no" class="control-label col-sm-2">学号</label>
 							<div class="col-sm-10">
-								<input value="{$cardinfo.student_no}" disabled="disabled" class="form-control" id="student_no" name="student_no"  type="number" placeholder="输入学号" autocomplete="on" />
+								<input value="{$suginfo.student_no}" disabled="disabled" class="form-control" id="student_no" name="student_no"  type="number" placeholder="输入学号" autocomplete="on" />
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-sm-2">电话</label>
+							<label class="control-label col-sm-2">建议</label>
 							<div class="col-sm-10">
-								<input value="{$cardinfo.phone}" class="form-control" name="phone" id="phone" type="number" placeholder="输入手机号" autocomplete="on" />
+								<input value="{$suginfo.suggest}" class="form-control" name="suggest" id="suggest" type="text" placeholder="输入建议" autocomplete="on" />
 							</div>
 						</div>
-						<div class="form-group ">
-							<label class="control-label col-sm-2">校区</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="area" name="area">
-									<option>长安校区</option>
-									<option>太白校区</option>
-									<option>桃园校区</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-group ">
-							<label class="control-label col-sm-2">楼号</label>
-							<div class="col-sm-10">
-								<input value="{$cardinfo.building}" class="form-control" id="building" name="building" type="number" placeholder="输入楼号" autocomplete="on" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2">宿舍号</label>
-							<div class="col-sm-10">
-								<input value="{$cardinfo.room}" class="form-control" id='room' name="room" type="number" placeholder="输入宿舍号" autocomplete="on" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2">预约时间</label>
-							<div class="col-sm-10">
-								<input value="{$cardinfo.appointment_time}" type="text" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker"  />
-							</div>
-						</div>
+						
+						
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -194,7 +164,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span></button>
-					<h4 class="modal-title">确认删除服务单？</h4>
+					<h4 class="modal-title">确认删除本条建议？</h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -218,12 +188,14 @@
 			$("#addform").submit();
 		});
        	/*
-		 * 添加完成状态
+		 * 添加建议
 		 * */
-		$("#stateadd").click(function() {
+		$("#suggestadd").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Home/User/servicerepairadd')</php>",{
-				evaluation : $("#evaluation").val()							
+			$.post("<php>echo U('Home/User/suggestadd')</php>",{
+				uname: '{$user.uname}',
+				student_no: '{$user.number}',
+				suggest : $("#suggest").val()							
 			}, function(data) {
 				$btn.button('reset');
 				if (data == true) {
@@ -269,66 +241,7 @@
 						}
 					}
 				},
-				phone: {
-					message: '手机号码非法',
-					validators: {
-						notEmpty: {
-							message: '手机号必须设置'
-						},
-						stringLength: {
-							min: 11,
-							max: 11,
-							message: '手机号必须为11位'
-						},
-						regexp: {
-							regexp: /0?(13|14|15|18)[0-9]{9}/,
-							message: '手机号必须合法'
-						}
-					}
-				},
-				building: {
-					message: '楼号非法',
-					validators: {
-						notEmpty: {
-							message: '楼号不能为空'
-						},
-						stringLength: {
-							min: 1,
-							max: 2,
-							message: '楼号必须为1-2位'
-						},
-						regexp: {
-							regexp: /^([1-9])|(1[01234])$/,
-							message: '楼号必须合法'
-						}
-					}
-				},
-				room: {
-					validators: {
-						notEmpty: {
-							message: '宿舍号不能为空'
-						},
-						stringLength: {
-							min: 3,
-							max: 3,
-							message: '宿舍号必须为3位'
-						},
-						regexp: {
-							regexp: /^[1-9][0-9]{2}$/,
-							message: '宿舍号必须合法'
-						}
-					}
-				},
-				appointment_time: {
-					validators: {
-						notEmpty: {
-							message: '必须填写预约时间'
-						},
-						date: {
-							format: "YYYY-MM-DD"
-						}
-					}
-				},
+				
 				captcha: {
 					validators: {
 						callback: {
@@ -352,26 +265,21 @@
 			var bv = $form.data('formValidation');
 
 			// Use Ajax to submit form data
-			$.post("<php>echo U('Home/User/servicecardedit')</php>", {
+			$.post("<php>echo U('Home/User/suggestedit')</php>", {
 						id: $("#id")[0].value,
-						name: $("#uname")[0].value,
+						uname: $("#uname")[0].value,
 						student_no: $("#student_no")[0].value,
-						phone: $("#phone")[0].value,
-						building: $("#building")[0].value,
-						room: $("#room")[0].value,
-						area: $("#area")[0].value,
-//                        description: $("#description")[0].value,
-						appointment_time: $("#appointment_time")[0].value
+						suggest: $("#suggest")[0].value						
 					},
 					function(data) {
 //                        $btn.button('reset');
 						if (data == true) {
 							alert("修改成功");
-							location.href = "index.php?s=/Home-User-index.html";
+							location.href = "index.php?s=/Home-User-suggest.html";
 						} else {
 							alert(data.msg);
 							if(data.status){
-								location.href = "index.php?s=/Home-User-index.html";
+								location.href = "index.php?s=/Home-User-suggest.html";
 							}
 						}
 					});

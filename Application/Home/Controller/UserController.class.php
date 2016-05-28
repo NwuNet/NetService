@@ -8,12 +8,12 @@ class UserController extends BaseController {
 		$cardinfo = $Card->where('status=0 and name = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->find();
 		$dormitory = explode('-',$cardinfo['dormitory'] );
 		$cardinfo['building'] = $dormitory[0];
-		$cardinfo['room'] = $dormitory[1];
+		$cardinfo['room'] = $dormitory[1];		
 		$this->assign("cardinfo",$cardinfo);
 		
 		if($cardinfo){
 			$repair = M('ServiceRepair');
-			$servicerepair = $repair->where('state="维修" and servicecard_id = %d',$cardinfo['id'])->select();
+			$servicerepair = $repair->where('state="维修" and servicecard_id = "%d"',$cardinfo['id'])->select();
 			$this->assign("servicerepair",$servicerepair);
 		}
 		
@@ -171,6 +171,60 @@ class UserController extends BaseController {
 	// --------------------申请兼职---------------------
 	public function apply(){
 		$this->display();
+	}
+	// --------------------建议反馈---------------------
+	public function suggest(){
+		$homeuser = D('Login','Service')->getuserInfo();
+		$Suggest = M('Suggest');
+		$suginfo = $Suggest->where('status=0 and uname = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->find();
+			
+		$this->assign("suginfo",$suginfo);
+		
+		if($suginfo){
+			$feedback = M('SuggestFeedback');
+			$suggestfeedback = $feedback->where(' suggest_id = %d',$suginfo['id'])->select();
+			$this->assign("suggestfeedback",$suggestfeedback);
+		}
+		
+		$this->display();
+	}
+    // --------------------维修单信息变更---------------------
+	public function suggestedit(){
+		$id = I('post.id');
+		$uname = I('post.uname');
+		$student_no = I('post.student_no');
+		$suggest = I('post.suggest');
+		
+		if($id=''||$uname==''||$student_no==''||$suggest==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$suggest = M('Suggest');
+		$suggest->create();
+		if($suggest->save()){
+			$this->ajaxReturn(true);
+		}else{
+			$info['msg'] = '修改失败';
+			$this->ajaxReturn($info);
+		}
+	}
+	// --------------------维修单添加完成状态---------------------
+	public function suggestadd(){
+		$uname = I('post.uname');
+		$student_no = I('post.student_no');
+		$suggest = I('post.suggest');
+		if($suggest==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$Suggest = M('Suggest');
+		$Suggest->create();
+		$Suggest->status=0;
+		$Suggest->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Suggest->add();
+		if($Suggest){
+			$this->ajaxReturn(true);
+		} else{
+			$this->ajaxReturn("提交失败");
+		}
 	}
 	public function _empty($name) {
 		echo "Not Found!";

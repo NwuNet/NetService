@@ -38,9 +38,9 @@ class SelfController extends BaseController {
 		$data['img'] = '/Images/User/'.$fname.'/'.$info['photo']['savename'];
 		$status = $user -> save($data);
 		if ($info && $status) {// 上传成功
-			$this->redirect('Staff/Self/index');
+			$this->redirect('Home/Self/index');
 		} else {// 上传错误提示错误信息
-			$this->redirect('Staff/Self/index');
+			$this->redirect('Home/Self/index');
 		}
 	}
 	/**
