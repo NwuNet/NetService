@@ -45,6 +45,35 @@ class UserController extends BaseController {
 			$this->ajaxReturn($info);
 		}
 	}
+	// --------------------维修单信息删除---------------------
+	public function servicecarddelete(){
+		$id = I('post.id');
+		$uname = I('post.name');
+		$student_no = I('post.student_no');
+		$phone = I('post.phone');
+		$building = I('post.building');
+		$room = I('post.room');
+//		$description = I('post.description');
+		$description = "null";
+		$appointment_time = I('post.appointment_time');
+		$area = I('post.area');
+		if($id=''||$uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''||$area==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$card = M('ServiceCard');
+		$card->create();
+		$card->dormitory = $building.'-'.$room ;
+		$card->appointment_time = date("Y-m-d",strtotime($appointment_time));
+		$card->description = '删除服务单';
+		$card->end = date("Y-m-d H:i:s",NOW_TIME);
+		$card->status = 1;
+		if($card->save()){
+			$this->ajaxReturn(true);
+		}else{
+			$info['msg'] = '删除失败';
+			$this->ajaxReturn($info);
+		}
+	}
     // --------------------维修单添加完成状态---------------------
 	public function servicerepairadd(){
 		$homeuser = D('Login','Service')->getuserInfo();

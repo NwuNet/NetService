@@ -234,6 +234,33 @@
 				location.reload();
 			});
 		});
+		/*
+		 * 删除状态
+		 * */
+		$("#delbtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Home/User/servicecarddelete')</php>",{
+				id: $("#id")[0].value,
+				name: $("#uname")[0].value,
+				student_no: $("#student_no")[0].value,
+				phone: $("#phone")[0].value,
+				building: $("#building")[0].value,
+				room: $("#room")[0].value,
+				area: $("#area")[0].value,
+				appointment_time: $("#appointment_time")[0].value
+			}, function(data) {
+				$btn.button('reset');
+				if (data == true) {
+					alert("提交成功");
+				} else {
+					alert(data);
+				}
+				location.reload();
+			});
+		});
+		/**
+		 * 表单验证
+		 */
 		$('#addform').formValidation({
 			message: '数据非法',
 			icon: {

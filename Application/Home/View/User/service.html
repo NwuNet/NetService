@@ -62,10 +62,10 @@
 									<th>学号</th>
 									<th>宿舍</th>									
 									<th>电话</th>
-									<th>现象描述</th>
+									<th>服务描述</th>
 									<th>登记时间</th>
 									<th>预约时间</th>									
-									<th>完成时间</th>
+									<!--<th>完成时间</th>-->
 								</thead>
 								<tbody>
 									<volist name="servicecardinfo" id="vo">
@@ -78,7 +78,7 @@
 								<td>{$vo.description}</td>
 								<td>{$vo.start}</td>
 								<td>{$vo.appointment_time} {$vo.appointment_time|strtotime|getweek}</td>								
-								<td>{$vo.status}</td>
+								<!--<td>{$vo.status}</td>-->
 								
 							</tr>
 						</volist>
@@ -90,10 +90,10 @@
 									<th>学号</th>
 									<th>宿舍</th>								
 									<th>电话</th>
-									<th>现象描述</th>
+									<th>服务描述</th>
 									<th>登记时间</th>
 									<th>预约时间</th>									
-									<th>完成时间</th>
+									<!--<th>完成时间</th>-->
 								</tfoot>
 							</table>
 						</div>

@@ -47,7 +47,7 @@
 		<div class="col-md-4">
 			<div class="box box-widget widget-user-2">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
-				<div class="widget-user-header bg-green">
+				<div class="widget-user-header bg-blue">
 					<!-- /.widget-user-image -->
 					<h3 class="widget-user-username">服务单信息</h3>
 					<h5 class="widget-user-desc">{$cardinfo.0.name}</h5>
@@ -74,11 +74,10 @@
 						<!-- timeline time label -->
 						<li class="time-label"><span class="bg-blue">{$cardinfo.0.start}</span></li>
 						<li>
-							<i class="fa fa-shopping-cart bg-blue"></i>
+							<i class="fa fa-clock-o bg-blue"></i>
 							<div class="timeline-item">
 								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.start|substr=11,18}</span>
 								<h3 class="timeline-header"><a href="#">已登记维修</a> {$cardinfo.0.start|substr=0,10}</h3>
-
 							</div>
 						</li>
 						<foreach name="servicerepair" item="vo">
@@ -98,7 +97,15 @@
 							</li>
 							</li>
 						</foreach>
-										
+						<!-- timeline time label -->
+						<li class="time-label"><span class="bg-red">{$cardinfo.0.end}</span></li>
+						<li>
+							<i class="fa fa-clock-o bg-red"></i>
+							<div class="timeline-item">
+								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.end|substr=11,18}</span>
+								<h3 class="timeline-header"><a href="#">{$cardinfo.0.description}</a> {$cardinfo.0.end|substr=0,10}</h3>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</div>
