@@ -41,4 +41,19 @@ class LoginService{
 		session('[destroy]');
 		return TRUE;
     }
+	/*
+	 * 获取用户id
+	 * */
+	public function getuserId(){
+		$user  = session('staff_user');
+		return $user['staff_user_id'];
+	}
+	/*
+	 * 获取用户信息
+	 * */
+	public function getuserInfo(){
+		$userid = $this->getuserId();
+		$staffuser = D('Admin/StaffUserView');
+		return $staffuser->where('id = %d',$userid)->find();
+	}
 }

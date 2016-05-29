@@ -55,12 +55,13 @@
 				<div class="box-footer no-padding">
 					<ul class="nav nav-stacked">
 						<li><a href="#">id <span class="pull-right badge bg-yellow">{$id}</span></a></li>
+						<li><a href="#">宿舍号 <span class="pull-right  ">{$cardinfo.0.dormitory}</span></a></li>
+						<li><a href="#">预约时间 <span class="pull-right  ">{$cardinfo.0.appointment_time}</span></a></li>
 						<li><a href="#">姓名 <span class="pull-right  ">{$cardinfo.0.name}</span></a></li>
 						<li><a href="#">学号 <span class="pull-right  ">{$cardinfo.0.student_no}</span></a></li>
-						<li><a href="#">宿舍号 <span class="pull-right  ">{$cardinfo.0.dormitory}</span></a></li>
 						<li><a href="#">电话 <span class="pull-right  ">{$cardinfo.0.phone}</span></a></li>
-						<li><a href="#">问题 <span class="pull-right  ">{$cardinfo.0.question}</span></a></li>
-						<li><a href="#">描述 <span class="pull-right  ">{$cardinfo.0.description}</span></a></li>
+						<li><a href="#">提交时间 <span class="pull-right  ">{$cardinfo.0.start}</span></a></li>
+						<li><a href="#">所属校区 <span class="pull-right  ">{$cardinfo.0.area}</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -74,7 +75,7 @@
 						<!-- timeline time label -->
 						<li class="time-label"><span class="bg-blue">{$cardinfo.0.start}</span></li>
 						<li>
-							<i class="fa fa-shopping-cart bg-blue"></i>
+							<i class="fa fa-clock-o bg-blue"></i>
 							<div class="timeline-item">
 								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.start|substr=11,18}</span>
 								<h3 class="timeline-header"><a href="#">已登记维修</a> {$cardinfo.0.start|substr=0,10}</h3>
@@ -90,30 +91,37 @@
 										<h3 class="timeline-header"><a href="#">{$vo.state}</a> {$vo.time|substr=0,10}</h3>
 										<div class="timeline-body">
 											<p class="text-primary">操作者：{$vo.operator} </p>
-											
 										</div>
 									</div>
 								</li>
 							</li>
 						</foreach>
 
-						<if condition="$cardinfo['status'] eq 0">
+						<if condition="$cardinfo[0]['status'] eq 0">
 						<li>
 							<i class="fa fa-clock-o bg-gray"></i>
 							<div class="timeline-item">
+								<div class="timeline-header">
+									<a>维修</a>
+								</div>
 								<div class="timeline-body">
 									<form id="stateform">
-										请选择<label>下一步状态</label>
-										<select id="state" name = "state" class="form-control" style="width: 100%;">
-											<option selected="selected">请选择</option>										
-												<option>维修</option>																							
-										</select>
-										请选择<label>维修者</label>
-										<select id="operator" name = "operator" class="form-control" style="width: 100%;">
+										<select id="state" name = "state" class="form-control sr-only" style="width: 100%;">
 											<option selected="selected">请选择</option>
-											<foreach name="staffname" item="vo">
-											<option>{$vo.uname}</option>
-										</foreach>
+												<option>维修</option>
+										</select>
+										<label>维修者</label>
+										<input disabled="disabled" type="text" class="form-control" id="uname" value="{$user.uname}">
+										请选择<label>故障大类</label>
+										<select id="breakinfo" name = "breakinfo" class="form-control" style="width: 100%;">
+											<option selected="selected">请选择</option>
+											<volist name="breakinfo" id="vo">
+												<option>{$vo.name}</option>
+											</volist>
+										</select>
+										请选择<label>故障小类</label>
+										<select id="breaksubinfo" name = "breaksubinfo" class="form-control" style="width: 100%;">
+											<option selected="selected">请选择</option>
 										</select>
 									</form>
 								</div>
@@ -123,7 +131,7 @@
 							</div>
 						</li>						
 						</if>
-						<if condition="$cardinfo['status'] eq 1">
+						<if condition="$cardinfo[0]['status'] eq 1">
 						<li>
 							<i class="fa fa-user bg-green"></i>
 							<div class="timeline-item">
@@ -184,6 +192,22 @@
 					alert(data);
 				}
 				location.reload();
+			});
+		});
+		/**
+		 * 故障选项联动
+		 * */
+		$("#breakinfo").change(function(){
+			$.post("<php>echo U('Staff/DoService/servicebreak')</php>",{
+				bname: $(this).val()
+			},function(data){
+				if(data){
+					var please = '<option class="selected">请选择</option>';
+					for(var key in data){
+						please+='<option>'+data[key]['name']+'</option>';
+					}
+					$("#breaksubinfo").empty().append(please);
+				}
 			});
 		});
 		</script>

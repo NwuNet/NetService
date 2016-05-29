@@ -73,14 +73,30 @@ class DoServiceController extends BaseController {
 			$servicerepair = $repair->where('servicecard_id =%d',$id)->select();
 			$this->assign("cardinfo",$cardinfo);
 			$this->assign("servicerepair",$servicerepair);
-			trace($servicerepair);
+//			trace($servicerepair);
 			$this->assign('id',$id);
+
+			$BreakInfo = M('BreakInfo');
+			$breakinfo = $BreakInfo->where('level = 1')->select();
+			$this->assign('breakinfo',$breakinfo);
 			
-			$staffUser = D('Admin/StaffUserView');
-            $staffname = $staffUser->field('uname')->select();
-            $this->assign('staffname',$staffname);//员工名称
+//			$staffUser = D('Admin/StaffUserView');
+//            $staffname = $staffUser->field('uname')->select();
+//            $this->assign('staffname',$staffname);//员工名称
 			$this->display();
 		}
+	}
+	// --------------------服务单信息---------------------
+	public function servicebreak(){
+//		$this->ajaxReturn('error');
+		$bname = I("post.bname");
+		if($bname==''||empty($bname)){
+			$this->ajaxReturn('数据为空');
+		}
+		$BreakInfo = M('BreakInfo');
+		$parentid = $BreakInfo->where('name = "%s"',$bname)->find();
+		$breaksubinfo = $BreakInfo->where('parent = %d',$parentid['id'])->select();
+		$this->ajaxReturn($breaksubinfo);
 	}
 	// --------------------维修单添加状态---------------------
 	public function servicerepairadd(){

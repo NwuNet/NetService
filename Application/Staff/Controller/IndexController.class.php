@@ -4,7 +4,9 @@ use Think\Controller;
 class IndexController extends BaseController {
     public function index(){
         $Card = M('ServiceCard');
-        $servicecardinfo = $Card->where('status = 0')->order('dormitory')->select();
+        $staffUser = D('Login','Service')->getuserInfo();
+
+        $servicecardinfo = $Card->where('status = 0 AND area = "%s"',$staffUser['area'])->order('dormitory')->select();
         $this -> assign('servicecardinfo',$servicecardinfo );//服务单表
 
         $staff =D('Admin/StaffUserView')->where('status = 1')->field('uname')->select();
