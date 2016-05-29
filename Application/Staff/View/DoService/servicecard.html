@@ -116,7 +116,7 @@
 										<select id="breakinfo" name = "breakinfo" class="form-control" style="width: 100%;">
 											<option selected="selected">请选择</option>
 											<volist name="breakinfo" id="vo">
-												<option>{$vo.name}</option>
+												<option>{$vo.label}.{$vo.name}</option>
 											</volist>
 										</select>
 										请选择<label>故障小类</label>
@@ -132,34 +132,37 @@
 						</li>						
 						</if>
 						<if condition="$cardinfo[0]['status'] eq 1">
+
 						<li>
-							<i class="fa fa-user bg-green"></i>
+							<i class="fa fa-user bg-yellow"></i>
 							<div class="timeline-item">
-								<span class="time"><i class="fa fa-clock-o"></i> 18:21</span>
-								<h3 class="timeline-header no-border"><a href="#">维修完成</a> 
+								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.end|substr=11,18}</span>
+								<h3 class="timeline-header no-border">
+									<a href="#">{$cardinfo.0.description}</a> {$cardinfo.0.end|substr=0,10}
 								</h3>
-								<div class="timeline-body">
-									<div class="form-group">
-										<label>问题第一次确认</label>
-										<select class="form-control select2" style="width: 100%;">
-											<option selected="selected">请选择</option>
-											<option selected="selected">认证问题</option>
-											<option>无客户端</option>
-											<option>网卡故障</option>
-											<option>接入方式错误</option>
-											<option>接入交换机故障</option>
-											<option>供电故障</option>
-										</select>
-										<label>备注</label>
-										<div class="input-group">
-											<div class="input-group-addon">
-												备注
-											</div>
-											<input type="text" placeholder="请添加备注" class="form-control" />
-										</div>
-									</div>
-									<button class="btn btn-primary" type="submit">确认</button>
-								</div>
+
+								<!--<div class="timeline-body">-->
+									<!--<div class="form-group">-->
+										<!--<label>问题第一次确认</label>-->
+										<!--<select class="form-control select2" style="width: 100%;">-->
+											<!--<option selected="selected">请选择</option>-->
+											<!--<option selected="selected">认证问题</option>-->
+											<!--<option>无客户端</option>-->
+											<!--<option>网卡故障</option>-->
+											<!--<option>接入方式错误</option>-->
+											<!--<option>接入交换机故障</option>-->
+											<!--<option>供电故障</option>-->
+										<!--</select>-->
+										<!--<label>备注</label>-->
+										<!--<div class="input-group">-->
+											<!--<div class="input-group-addon">-->
+												<!--备注-->
+											<!--</div>-->
+											<!--<input type="text" placeholder="请添加备注" class="form-control" />-->
+										<!--</div>-->
+									<!--</div>-->
+									<!--<button class="btn btn-primary" type="submit">确认</button>-->
+								<!--</div>-->
 							</div>
 						</li>
 						</if>
@@ -204,7 +207,7 @@
 				if(data){
 					var please = '<option class="selected">请选择</option>';
 					for(var key in data){
-						please+='<option>'+data[key]['name']+'</option>';
+						please+='<option>'+data[key]['parentlabel']+'.'+data[key]['label']+data[key]['name']+'</option>';
 					}
 					$("#breaksubinfo").empty().append(please);
 				}

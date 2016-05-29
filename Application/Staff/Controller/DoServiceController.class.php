@@ -1,6 +1,8 @@
 <?php
 namespace Staff\Controller;
 use Think\Controller;
+use Think\Page;
+
 class DoServiceController extends BaseController {
 	// --------------------通讯录信息---------------------
     public function servicequery(){
@@ -93,9 +95,14 @@ class DoServiceController extends BaseController {
 		if($bname==''||empty($bname)){
 			$this->ajaxReturn('数据为空');
 		}
+		$name = explode('.',$bname);
 		$BreakInfo = M('BreakInfo');
-		$parentid = $BreakInfo->where('name = "%s"',$bname)->find();
+		$parentid = $BreakInfo->where('name = "%s"',$name[1])->find();
 		$breaksubinfo = $BreakInfo->where('parent = %d',$parentid['id'])->select();
+		foreach ($breaksubinfo as $key =>$value){
+			$breaksubinfo[$key]['parentlabel'] = $parentid['id'];
+		}
+//		trace($breaksubinfo);
 		$this->ajaxReturn($breaksubinfo);
 	}
 	// --------------------维修单添加状态---------------------

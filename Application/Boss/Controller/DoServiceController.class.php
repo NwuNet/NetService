@@ -178,7 +178,7 @@ class DoServiceController extends BaseController {
 	// --------------------故障类别与描述---------------------
 	public function breakinfo(){
 		$breakinfo = M('BreakInfo');
-		$rootbreak = $breakinfo->where('level = 1 and parent = 0')->select();
+		$rootbreak = $breakinfo->where('level = 1 and parent = 0')->order('label')->select();
 		$this->assign('rootbreak',$rootbreak);
 		$this->display();
 	}
@@ -231,7 +231,7 @@ class DoServiceController extends BaseController {
 			return "Not Found";
 		}else{
 			$breakinfo = M('BreakInfo');
-			$data = $breakinfo->where('parent = %d',$parent)->field('id,name,parent,description')->select();
+			$data = $breakinfo->where('parent = %d',$parent)->field('id,name,parent,description,label')->select();
 			$this->ajaxReturn($data);
 		}
 	}
