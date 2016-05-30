@@ -254,7 +254,7 @@ class UserController extends BaseController {
 		} else{
 			$this->ajaxReturn("提交失败");
 		}
-	}
+	}	
 	public function _empty($name) {
 		echo "Not Found!";
 	}
