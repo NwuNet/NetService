@@ -23,7 +23,8 @@ class DoContactsController extends BaseController {
 	            case 0 :$orderSql = " id " . $order_dir;break;
 	            case 1 :$orderSql = " uname " . $order_dir;break;
 	            case 2 :$orderSql = " number " . $order_dir;break;
-				case 3 :$orderSql = " phone " . $order_dir;break;				
+				case 3 :$orderSql = " phone " . $order_dir;break;
+				case 4 :$orderSql = " area " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -36,7 +37,7 @@ class DoContactsController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $staffPhone->count();
 	
-	    $map['id|uname|number|phone']=array('like',"%".$search."%");
+	    $map['id|uname|number|phone|area']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($staffPhone->where($map)->select());
 	        $table = $staffPhone->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -47,7 +48,7 @@ class DoContactsController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['number'],$row['phone']);
+	        $obj = array($row['id'],$row['uname'],$row['number'],$row['phone'],$row['area']);
 	        array_push($infos,$obj);
 	    }
 	
