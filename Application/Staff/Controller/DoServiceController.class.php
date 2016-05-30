@@ -108,16 +108,18 @@ class DoServiceController extends BaseController {
 	// --------------------维修单添加状态---------------------
 	public function servicerepairadd(){
 		$servicecard_id = I('post.servicecard_id');
-		$state = I('post.state');
+		$breakinfo = I('post.breakinfo');
+		$breaksubinfo = I('post.breaksubinfo');
 		$operator = I('post.operator');
-		if($servicecard_id==''||$state==''||$operator==''){
+		if($servicecard_id==''||$breakinfo==''||$breaksubinfo==''||$operator==''){
 			$this->ajaxReturn("数据为空");
-		}elseif($operator=='请选择'||$state=='请选择'){
+		}elseif($breakinfo=='请选择'||$breaksubinfo=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
 		$repair = M('ServiceRepair');
 		$repair->create();
 		$repair->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$repair->state = '维修';
 		$repair->add();
 		if($repair){
 			$this->ajaxReturn(true);

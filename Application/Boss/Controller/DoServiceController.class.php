@@ -231,7 +231,11 @@ class DoServiceController extends BaseController {
 			return "Not Found";
 		}else{
 			$breakinfo = M('BreakInfo');
-			$data = $breakinfo->where('parent = %d',$parent)->field('id,name,parent,description,label')->select();
+			$p = $breakinfo->where('id = %d',$parent)->find();
+			$data = $breakinfo->where('parent = %d',$parent)->field('id,name,parent,description,label')->order('label')->select();
+			foreach ($data as $key => $val){
+				$data[$key]['seq'] = $p['label']-1;
+			}
 			$this->ajaxReturn($data);
 		}
 	}

@@ -138,7 +138,7 @@
 		 * 添加时清空数据
 		 * */
 		$(".openbtn").click(function () {
-			$("#id,#name,#description").val('');$("#level").val('2');
+			$("#id,#name,#description,#label").val('');$("#level").val('2');
 			$("#parent").val($(this).parent().children().eq(0)[0].firstChild.textContent);
 		});
 		$("#openparent").click(function () {
@@ -198,12 +198,13 @@
 				$.post("<php>echo U('Boss/DoService/breakgetsub')</php>", {
 					parent : bid
 				},function(data) {
+					var index = 0;
 					if(data.length>0){
-						var list = '';
+						list = '';
 						data.forEach(function (item) {
 							list += '<tr><td class="sr-only">'+item.id+'</td>' +'<td>'+item.label+'</td>' + '<td>'+item.name+'</td>' +'<td>'+item.description+'</td></tr>'
 						});
-						$(".table-data")[data[0].parent-1].innerHTML = list;
+						$(".table-data")[data[0]['seq']].innerHTML = list;
 					}
 				});
 			}
