@@ -27,7 +27,7 @@ class SelfController extends BaseController {
 		// 设置附件上传（子）目录
 		$upload -> subName = $fname;
 		// 设置子目录名
-		$upload -> saveName = $fname;
+//		$upload -> saveName = $fname;
 		// 上传文件
 		$upload -> replace = TRUE;
 		// 允许覆盖上传
@@ -35,6 +35,7 @@ class SelfController extends BaseController {
 		//trace($info);
 		$adminUser = M('AdminUser');
 		$data = $adminUser -> where('id = %d',$id)->find();
+		unlink('Public/'.$data['img']);
 		$data['img'] = '/Images/User/'.$fname.'/'.$info['photo']['savename'];
 		$status = $adminUser -> save($data);
 		if ($info && $status) {// 上传成功

@@ -91,7 +91,7 @@
 					<label class="btn btn-primary btn-sm btn-upload" for="inputImage" title="Upload image file">
 						<form id="imageform" action="__URL__-upload" enctype="multipart/form-data" method="post">
 							<input type="file" class="sr-only" id="inputImage" name="photo" accept="image/*" />
-							<input type="text" class="sr-only" id="fname" name="fname" value="{$user.uname}" />
+							<input type="text" class="sr-only" id="fname" name="fname" value="staff{$user.id}" />
 							<input type="text" class="sr-only" id="user_id" name="user_id" value="{$user.id}" />
 						</form>
 						<span class="fa fa-upload"> 上传</span>
