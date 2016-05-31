@@ -20,11 +20,14 @@ class StaffUserModel extends Model{
 	 public function plus($data){
 	 	if($this->where('user_id = %d ',$data['user_id'])->find()) return FALSE;
 	 	$this -> user_id = $data['user_id'];
+		 $this -> cname = $data['cname'];
 	 	$this -> number = $data['number'];
 	 	$this -> address = $data['address'];
 	 	$this -> phone = $data['phone'];
 		$this -> img = $data['img'];
 		 $this -> area = $data['area'];
+		 $this -> yuanxi = $data['yuanxi'];
+		 $this -> zhuanye = $data['zhuanye'];
 //		$this -> ip = get_client_ip();
 		
 		if($this -> add()) return TRUE;
@@ -35,11 +38,16 @@ class StaffUserModel extends Model{
 	  * */
 	 public function edit($data){
 	     if($this->where('user_id = %d ',$data['user_id'])->find()) {
-	         $this -> user_id = $data['user_id'];
-	         $this -> number = $data['number'];
-	         $this -> address = $data['address'];
-	         $this -> phone = $data['phone'];
-	 
+			 $this -> id = $data['id'];
+			 $this -> user_id = $data['user_id'];
+			 $this -> cname = $data['cname'];
+			 $this -> number = $data['number'];
+			 $this -> address = $data['address'];
+			 $this -> phone = $data['phone'];
+			 $this -> img = $data['img'];
+			 $this -> area = $data['area'];
+			 $this -> yuanxi = $data['yuanxi'];
+			 $this -> zhuanye = $data['zhuanye'];
 	         if($this -> save()) return TRUE;
 	         return FALSE;
 	     }

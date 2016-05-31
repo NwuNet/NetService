@@ -63,6 +63,7 @@
 						<thead>
 							<th>ID</th>
 							<th>用户名</th>
+							<th>姓名</th>
 							<th>注册时间</th>
 							<th>最近登录ip</th>
 							<th>所属校区</th>
@@ -73,6 +74,7 @@
 						<tfoot>
 							<th>ID</th>
 							<th>用户名</th>
+							<th>姓名</th>
 							<th>注册时间</th>
 							<th>最近登录ip</th>
 							<th>所属校区</th>
@@ -101,6 +103,10 @@
 						<div class="form-group">
 							<label for="addname" class="control-label">用户名</label>
 							<input type="text" class="form-control" id="addname" />
+						</div>
+						<div class="form-group">
+							<label for="cname" class="control-label">姓名</label>
+							<input type="text" class="form-control" id="cname" />
 						</div>
 						<div class="form-group">
 							<label for="addpwd" class="control-label">密码</label>
@@ -148,6 +154,7 @@
 			var $btn = $(this).button('loading');
 			$.post("<php>echo U('Admin/User/bossadd')</php>", {
 					uname: $("#addname")[0].value,
+					cname : $("#cname")[0].value,
 					password: $("#addpwd")[0].value,
 					repassword: $("#repwd")[0].value,
 					area: $("#area")[0].value

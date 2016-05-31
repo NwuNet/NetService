@@ -59,12 +59,10 @@ class UserLogic extends Model {
 		$data['level'] = 2;
 		$user = D('User');
 		$bossuser = D('BossUser');
-		if($user -> edit($data) ){
-			$tid = $user->where('uname = "%s" and level = 2',$data['uname'])->field("uname,user_id")->find();
-			$data['user_id'] = $tid['user_id'];
-//			$bossuser->edit($data);
+//		$tid = $user->where('uname = "%s" and level = 2',$data['uname'])->field("uname,user_id")->find();
+//		$data['user_id'] = $tid['user_id'];
+		if($bossuser->edit($data)||$user -> edit($data))
 			return TRUE;
-		}
 		return FALSE;
 	}
 	/**
@@ -75,7 +73,7 @@ class UserLogic extends Model {
 		$user = D('Admin/User');
 		$staffuser = D('Admin/StaffUser');
 		if($user->plus($data)){
-			$tid = $user->where('uname = "%s" and and level = 3',$data['uname'])->field("uname,user_id")->find();
+			$tid = $user->where('uname = "%s" and level = 3',$data['uname'])->field("uname,user_id")->find();
 			$data['user_id'] = $tid['user_id'];
 			$staffuser->plus($data);
 			return TRUE;
@@ -89,12 +87,10 @@ class UserLogic extends Model {
 		$data['level'] = 3;
 		$user = D('Admin/User');
 		$staffuser = D('Admin/StaffUser');
-		if($user -> edit($data) ){
-			$tid = $user->where('uname = "%s" and level = 3',$data['uname'])->field("uname,user_id")->find();
-			$data['user_id'] = $tid['user_id'];
-			$staffuser->edit($data);
+//		$tid = $user->where('id',$data['user_id'])->field("uname,user_id")->find();
+//		$data['user_id'] = $tid['user_id'];
+		if($staffuser->edit($data)||$user -> edit($data))
 			return TRUE;
-		}
 		return FALSE;
 	}
 	/**

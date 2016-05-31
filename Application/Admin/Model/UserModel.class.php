@@ -48,6 +48,7 @@ class UserModel extends Model {
 		$this -> uname = $data['uname'];
 		$this -> password = md5($data['password']);
 		$this -> level = $data['level'];
+		$this -> status = $data['status'];
 		if($this -> save()) return true;
 		return false;
 	}

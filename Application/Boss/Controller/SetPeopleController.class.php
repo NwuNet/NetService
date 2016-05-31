@@ -41,14 +41,19 @@ class SetPeopleController extends BaseController {
     }
     public function staffadd() {
         $User = D('Admin/User', 'Logic');
-        if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
+//        if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
         $data = array();
         $data['ip'] = get_client_ip();
         $data['uname'] = I('post.uname');
-        $data['password'] = I('post.password');
+        $data['password'] = I('post.number');
         $data['number'] = I('post.number');
         $data['phone'] = I('post.phone');
         $data['address'] = I('post.address');
+        $data['cname'] = '';
+        $data['img'] = 'Public/Images/User/default.png';
+        $data['area'] = I('post.area');
+        $data['yuanxi'] = '';
+        $data['zhuanye'] = '';
         if ($User -> staffadd($data)) {
             $this -> ajaxReturn(TRUE);
         } else {

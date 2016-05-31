@@ -23,6 +23,7 @@ class BossUserModel extends Model{
 		$this -> ip = get_client_ip();
 		$this -> img  = $data['img'];
 		 $this -> area  = $data['area'];
+		 $this -> cname  = $data['cname'];
 		if($this -> add()) return TRUE;
 		return FALSE;
 	 }
@@ -31,6 +32,11 @@ class BossUserModel extends Model{
 	  * */
 	public function edit($data){
 		$this-> id = $data['id'];
+		$this -> user_id = $data['user_id'];
+		$this -> ip = get_client_ip();
+		$this -> img  = $data['img'];
+		$this -> area  = $data['area'];
+		$this -> cname  = $data['cname'];
 		//$this -> ip = get_client_ip();
 //		$this -> img  = $data['img'];
 		if($this -> save()) return TRUE;

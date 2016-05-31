@@ -93,7 +93,19 @@
 						</div>
 						<div class="form-group margin">
 							<label for="area">所属校区</label>
-							<input type="text" id="area" name="area" disabled="true" class="form-control" value="{$area}">
+							<select id="area" name="area" class="form-control" value="{$area}">
+								<foreach name="userarea" item="vo">
+									<option>{$vo.area}</option>
+								</foreach>
+							</select>
+						</div>
+						<div class="form-group margin">
+							<label for="address">院系</label>
+							<input type="text"  class="form-control" id="yuanxi" value="{$yuanxi}">
+						</div>
+						<div class="form-group margin">
+							<label for="address">专业</label>
+							<input type="text"  class="form-control" id="zhuanye" value="{$zhuanye}">
 						</div>
 						<button id="updatebtn" type="button" class="btn btn-primary margin">修改</button>
 					</div>
@@ -135,20 +147,23 @@
 
 <block name="script">
 	<script type="text/javascript">
+		$("#area").val('{$area}');
 	/*
 	 * 修改用户
 	 * */
 	$("#updatebtn").click(function() {
 		var $btn = $(this).button('loading');
 		$.post("<php>echo U('Admin/User/homeedit')</php>", {
-			    id: $("#id")[0].value,
-			    user_id:{$user_id},
+			    id: {$id},
 				uname: $("#uname")[0].value,
 				number: $("#number")[0].value,
 				phone: $("#phone")[0].value,
 				address: $("#address")[0].value,
 				password: $("#password")[0].value,
-				repassword: $("#repassword")[0].value
+				repassword: $("#repassword")[0].value,
+				area: $("#area")[0].value,
+				yuanxi : $("#yuanxi")[0].value,
+				zhuanye: $("#zhuanye")[0].value
 			},			
 			function(data) {
 				$btn.button('reset');

@@ -46,12 +46,16 @@ class UserController extends BaseController {
 	}
 	public function bosscard($id=''){
 	    if(!empty($id)){
+			$Area = M('UserArea');
+			$userarea = $Area->select();
+			$this->assign('userarea',$userarea);
 	        $bossUser = D('BossUserView');
 	        $table = $bossUser->where('id=%d',$id)->select();
 	        $this->assign('id',$id);
 			$this->assign('user_id',$table[0]['user_id']);
 	        $this->assign('img',$table[0]['img']);
 	        $this->assign('uname',$table[0]['uname']);
+			$this->assign('cname',$table[0]['cname']);
 	        $this->assign('begintime',$table[0]['begintime']);
 	        $this->assign('ip',$table[0]['ip']);
 			$this->assign('area',$table[0]['area']);
@@ -60,6 +64,9 @@ class UserController extends BaseController {
 	}
 	public function homecard($id=''){
 	    if(!empty($id)){
+			$Area = M('UserArea');
+			$userarea = $Area->select();
+			$this->assign('userarea',$userarea);
 	        $homeUser = M('HomeUser');
 	        $table = $homeUser->where('id=%d',$id)->select();
 	        $this->assign('id',$id);
@@ -70,17 +77,23 @@ class UserController extends BaseController {
 			$this->assign('phone',$table[0]['phone']);
 	        $this->assign('address',$table[0]['address']);
 	        $this->assign('begintime',$table[0]['begintime']);
-	        $this->assign('ip',$table[0]['ip']);
+//	        $this->assign('ip',$table[0]['ip']);
 			$this->assign('area',$table[0]['area']);
+			$this->assign('yuanxi',$table[0]['yuanxi']);
+			$this->assign('zhuanye',$table[0]['zhuanye']);
 	        $this->display();
 	    }
 	}
 	public function staffcard($id=''){
 	    if(!empty($id)){
+			$Area = M('UserArea');
+			$userarea = $Area->select();
+			$this->assign('userarea',$userarea);
 	        $staffUser = D('StaffUserView');
 	        $table = $staffUser->where('id=%d',$id)->select();
 	        $this->assign('id',$id);
 			$this->assign('user_id',$table[0]['user_id']);
+			$this->assign('cname',$table[0]['cname']);
 	        $this->assign('img',$table[0]['img']);
 	        $this->assign('uname',$table[0]['uname']);
 	        $this->assign('number',$table[0]['number']);
@@ -89,6 +102,8 @@ class UserController extends BaseController {
 	        $this->assign('begintime',$table[0]['begintime']);
 	        $this->assign('ip',$table[0]['ip']);
 			$this->assign('area',$table[0]['area']);
+			$this->assign('yuanxi',$table[0]['yuanxi']);
+			$this->assign('zhuanye',$table[0]['zhuanye']);
 	        $this->display();
 	    }
 	}
@@ -162,10 +177,11 @@ class UserController extends BaseController {
 	        $i = intval($order_column);
 	        switch($i) {
 	            case 0 :$orderSql = " id " . $order_dir;break;
-	            case 1 :$orderSql = " uname " . $order_dir;break;
-	            case 2 :$orderSql = " begintime " . $order_dir;break;
-	            case 3 :$orderSql = " ip " . $order_dir;break;
-				case 4 :$orderSql = " area " . $order_dir;break;
+				case 1 :$orderSql = " uname " . $order_dir;break;
+				case 2 :$orderSql = " cname " . $order_dir;break;
+	            case 3 :$orderSql = " begintime " . $order_dir;break;
+	            case 4 :$orderSql = " ip " . $order_dir;break;
+				case 5 :$orderSql = " area " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -178,7 +194,7 @@ class UserController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $bossUser->count();
 	
-	    $map['id|uname|begintime|ip|area']=array('like',"%".$search."%");
+	    $map['id|uname|cname|begintime|ip|area']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($bossUser->where($map)->select());
 	        $table = $bossUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -189,7 +205,7 @@ class UserController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['begintime'],$row['ip'],$row['area']);
+	        $obj = array($row['id'],$row['uname'],$row['cname'],$row['begintime'],$row['ip'],$row['area']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -269,11 +285,12 @@ class UserController extends BaseController {
 	        switch($i) {
 	            case 0 :$orderSql = " id " . $order_dir;break;
 	            case 1 :$orderSql = " uname " . $order_dir;break;
-	            case 2 :$orderSql = " number " . $order_dir;break;
-	            case 3 :$orderSql = " address " . $order_dir;break;
-	            case 4 :$orderSql = " phone " . $order_dir;break;
-	            case 5 :$orderSql = " begintime " . $order_dir;break;
-				case 6 :$orderSql = " area " . $order_dir;break;
+				case 2 :$orderSql = " cname " . $order_dir;break;
+	            case 3 :$orderSql = " number " . $order_dir;break;
+	            case 4 :$orderSql = " address " . $order_dir;break;
+	            case 5 :$orderSql = " phone " . $order_dir;break;
+	            case 6 :$orderSql = " begintime " . $order_dir;break;
+				case 7 :$orderSql = " area " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -286,7 +303,7 @@ class UserController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $staffUser->count();
 	
-	    $map['id|uname|number|address|phone|begintime|area']=array('like',"%".$search."%");
+	    $map['id|uname|cname|number|address|phone|begintime|area']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($staffUser->where($map)->select());
 	        $table = $staffUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -297,7 +314,7 @@ class UserController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['uname'],$row['number'],$row['address'],$row['phone'],$row['begintime'],$row['area']);
+	        $obj = array($row['id'],$row['uname'],$row['cname'],$row['number'],$row['address'],$row['phone'],$row['begintime'],$row['area']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -340,6 +357,7 @@ class UserController extends BaseController {
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
 		$data['area'] = I('post.area');
+		$data['cname'] = I('post.cname');
 	    if ($User -> bossadd($data)) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
@@ -349,15 +367,18 @@ class UserController extends BaseController {
 	}
 	public function homeadd() {
 	    $User = D('User', 'Logic');
-	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
+//	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
 		$data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
-	    $data['number'] = I('post.number');
-		$data['phone'] = I('post.phone');
-	    $data['address'] = I('post.address');
+	    $data['number'] = I('post.password');
+		$data['phone'] = '';
+	    $data['address'] = '';
 		$data['area'] = I('post.area');
+		$data['status'] = 1;
+		$data['yuanxi'] = '';
+		$data['zhuanye'] = '';
 	    if ($User -> homeadd($data)) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
@@ -369,14 +390,17 @@ class UserController extends BaseController {
 	    $User = D('User', 'Logic');
 	    if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
 	    $data = array();
-	    $data['ip'] = get_client_ip();
+//	    $data['ip'] = get_client_ip();
 		$data['img'] = '/Images/User/default.png';
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
-	    $data['number'] = I('post.number');
-	    $data['phone'] = I('post.phone');
-	    $data['address'] = I('post.address');
+	    $data['number'] = '';
+	    $data['phone'] = '';
+	    $data['address'] = '';
 		$data['area'] = I('post.area');
+		$data['cname'] = '';
+		$data['yuanxi'] = '';
+		$data['zhuanye'] = '';
 	    if ($User -> staffadd($data)) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
@@ -410,8 +434,12 @@ class UserController extends BaseController {
 	    $data = array();
 	    $data['id'] = I('post.id');
 		$data['user_id'] = I('post.user_id');
+		$data['cname'] = I('post.cname');
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
+		$data['area'] = I('post.area');
+		$data['img'] = '/Images/User/default.png';
+		$data['status'] = 1;
 	    if ($User -> bossedit($data)) {
 	        $msg = "修改成功！";
 	        $this -> ajaxReturn(TRUE);
@@ -431,6 +459,10 @@ class UserController extends BaseController {
 	    $data['number'] = I('post.number');
 		$data['phone'] = I('post.phone');
 	    $data['address'] = I('post.address');
+		$data['area'] = I('post.area');
+		$data['status'] = 1;
+		$data['yuanxi'] = I('post.yuanxi');
+		$data['zhuanye'] = I('post.zhuanye');
 	    if ($User -> homeedit($data)) {
 	        $msg = "修改成功！";
 	        $this -> ajaxReturn(TRUE);
@@ -446,10 +478,16 @@ class UserController extends BaseController {
 	    $data['id'] = I('post.id');
 		$data['user_id'] = I('post.user_id');
 	    $data['uname'] = I('post.uname');
+		$data['cname'] = I('post.cname');
 	    $data['password'] = I('post.password');
 	    $data['number'] = I('post.number');
 	    $data['address'] = I('post.address');
 	    $data['phone'] = I('post.phone');
+		$data['area'] = I('post.area');
+		$data['status'] = 1;
+		$data['img'] = '/Images/User/default.png';
+		$data['yuanxi'] = I('post.yuanxi');
+		$data['zhuanye'] = I('post.zhuanye');
 	    if ($User -> staffedit($data)) {
 	        $msg = "修改成功！";
 	        $this -> ajaxReturn(TRUE);

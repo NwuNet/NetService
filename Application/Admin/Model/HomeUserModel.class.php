@@ -51,7 +51,5 @@ class HomeUserModel extends Model{
 	         if($this -> save($data)) return TRUE;
 	         return FALSE;
 	     }
-	     
-	     
 	 }
 }

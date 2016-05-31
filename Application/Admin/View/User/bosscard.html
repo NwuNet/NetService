@@ -65,7 +65,11 @@
 						</div>
 						<div class="form-group margin">
 							<label for="uname">用户名</label>
-							<input type="email"  class="form-control" id="uname" value="{$uname}">
+							<input type="text"  class="form-control" id="uname" value="{$uname}">
+						</div>
+						<div class="form-group margin">
+							<label for="uname">姓名</label>
+							<input type="text"  class="form-control" id="cname" value="{$cname}">
 						</div>
 						<div class="form-group margin">
 							<label for="password">新密码</label>
@@ -81,7 +85,11 @@
 						</div>
 						<div class="form-group margin">
 							<label for="area">所属校区</label>
-							<input type="text" id="area" name="area" disabled="true" class="form-control" value="{$area}">
+							<select id="area" name="area" class="form-control" value="{$area}">
+								<foreach name="userarea" item="vo">
+									<option>{$vo.area}</option>
+								</foreach>
+							</select>
 						</div>
 						<button id="updatebtn" type="button" class="btn btn-primary margin">修改</button>
 					</div>
@@ -121,6 +129,7 @@
 
 <block name="script">
 	<script type="text/javascript">
+		$("#area").val('{$area}');
 		/**
 		 * 确认密码
 		 * */
@@ -140,10 +149,12 @@
 		var $btn = $(this).button('loading');
 		$.post("<php>echo U('Admin/User/bossedit')</php>", {
 			id: $("#id")[0].value,
-			user_id:{$user_id},
+			user_id: {$user_id},
 			uname: $("#uname")[0].value,
+			cname: $("#cname")[0].value,
 			password: $("#password")[0].value,
-			repassword: $("#repassword")[0].value
+			repassword: $("#repassword")[0].value,
+			area : $("#area")[0].value
 			},
 			function(data) {
 				$btn.button('reset');
