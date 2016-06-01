@@ -32,9 +32,11 @@
 </block>
 
 <block name="content-header">
-	<h1>
-	个人建议反馈
-  </h1>
+	<h1><i class="fa fa-fw fa-list-alt"></i>
+		个人建议
+		<i class="fa fa-fw fa-arrow-right"></i>
+		<a href="<php>echo U('Home/User/suggestfeedback')</php>">历史建议</a>
+	</h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-fw fa-dashboard"></i> Network Service</a></li>
 		<li class="active">个人建议反馈</li>
@@ -66,23 +68,7 @@
 									<a class="btn btn-danger " id="delservice" data-toggle="modal" data-target="#delmodal">删除建议</a>
 								</div>
 							</div>
-						</li>
-						   
-						<foreach name="servicerepair" item="vo">
-							<li>
-								<li>
-									<i class="fa fa-user bg-blue"></i>
-									<div class="timeline-item">
-										<span class="time"><i class="fa fa-clock-o"></i> {$vo.time|substr=11,18}</span>
-										<h3 class="timeline-header"><a href="#">维修进行时，时间：</a> {$vo.time|substr=0,10}</h3>
-										<div class="timeline-body">
-											<p class="text-primary">维修人：{$vo.operator} </p>
-											
-										</div>
-									</div>
-								</li>
-							</li>
-						</foreach>
+						</li>						   						
 						<else/><h3>您目前没有提交过个人建议...</h3>
 				</if>	
 						<li>

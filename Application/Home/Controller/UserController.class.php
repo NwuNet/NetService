@@ -205,15 +205,8 @@ class UserController extends BaseController {
 	public function suggest(){
 		$homeuser = D('Login','Service')->getuserInfo();
 		$Suggest = M('Suggest');
-		$suginfo = $Suggest->where('status=0 and uname = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->find();
-			
-		$this->assign("suginfo",$suginfo);
-		
-		if($suginfo){
-			$feedback = M('SuggestFeedback');
-			$suggestfeedback = $feedback->where(' suggest_id = %d',$suginfo['id'])->select();
-			$this->assign("suggestfeedback",$suggestfeedback);
-		}
+		$suginfo = $Suggest->where('status=0 and uname = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->find();			
+		$this->assign("suginfo",$suginfo);		
 		
 		$this->display();
 	}
@@ -254,6 +247,30 @@ class UserController extends BaseController {
 		} else{
 			$this->ajaxReturn("提交失败");
 		}
+	}
+	public function suggestfeedback() {
+		$homeuser = D('Login','Service')->getuserInfo();
+		$Suggest = M('Suggest');
+		$suginfo = $Suggest->where('status=1 and uname = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->select();
+			
+		$this->assign("suginfo",$suginfo);
+		
+		if($suginfo){
+			$feedback = M('SuggestFeedback');
+			$suggestfeedbackinfos = array();
+			foreach($suginfo as $vo){
+				
+			    $suggestfeedback = $feedback->where(' suggest_id = %d',$vo['id'])->field('reply,operator,time')->select();
+			    array_push($suggestfeedbackinfos,array_merge($vo,$suggestfeedback));
+		    }
+			$this->assign("feedbackinfos",$suggestfeedbackinfos);
+		//	$this->ajaxReturn($suggestfeedbackinfos);
+			/*$feedback = M('SuggestFeedback');
+			$suggestfeedback = $feedback->where(' suggest_id = %d',$suginfo[0]['id'])->select();
+			$this->assign("suggestfeedback",$suggestfeedback);*/
+		}
+				
+		$this->display();
 	}	
 	public function _empty($name) {
 		echo "Not Found!";
