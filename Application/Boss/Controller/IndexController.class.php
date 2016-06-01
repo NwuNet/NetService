@@ -6,7 +6,13 @@ class IndexController extends BaseController{
     public function index(){
         $Card = M('ServiceCard');
         $servicecardinfo = $Card->where('status = 0')->order('dormitory')->select();
+        $CardRepair = M('ServiceRepair');
+        foreach ($servicecardinfo as $key => $value){
+            $servicecardinfo[$key]['isrepair'] = count($CardRepair->where('servicecard_id = %d',$value['id'])->select());
+        }
+        trace($servicecardinfo);
         $this -> assign('servicecardinfo',$servicecardinfo );//服务单表
+
 
         $staff =D('Admin/StaffUserView')->where('status = 1')->field('uname')->select();
         $this->assign('staff',$staff);
@@ -27,7 +33,7 @@ class IndexController extends BaseController{
         if($tooltime[0]['number'] == 0){
             $this->assign('toolcolor','bg-red-gradient');
         }else{
-            $subnum = $tooltime[0]['number'] - $tooltime[$timenum]['number'];
+            $subnum = $tooltime[0]['number'] - $tooltime[1]['number'];
             if($subnum>0){
                 $this->assign('toolcolor','bg-green-gradient');
             }else{
@@ -48,12 +54,12 @@ class IndexController extends BaseController{
             $timenum++;
         }
         $this->assign('exhausttime',$exhausttime);
-        trace($exhausttime);
+//        trace($exhausttime);
 
         if($exhausttime[0]['num'] == 0){
             $this->assign('exhaustcolor','bg-red-gradient');
         }else{
-            $subnum = $exhausttime[0]['num'] - $exhausttime[$timenum]['num'];
+            $subnum = $exhausttime[0]['num'] - $exhausttime[1]['num'];
             if($subnum>0){
                 $this->assign('exhaustcolor','bg-green-gradient');
             }else{
@@ -78,7 +84,7 @@ class IndexController extends BaseController{
         if($devicetime[0]['number'] == 0){
             $this->assign('devicecolor','bg-red-gradient');
         }else{
-            $subnum = $devicetime[0]['number'] - $devicetime[$timenum]['number'];
+            $subnum = $devicetime[0]['number'] - $devicetime[1]['number'];
             if($subnum>0){
                 $this->assign('devicecolor','bg-green-gradient');
             }else{

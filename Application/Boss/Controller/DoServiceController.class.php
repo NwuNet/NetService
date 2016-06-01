@@ -108,35 +108,35 @@ class DoServiceController extends BaseController {
     }
 	// --------------------维修单添加状态---------------------
 	public function servicerepairadd(){
-		$servicecard_id = I('post.servicecard_id');
-		$state = I('post.state');
-		$operator = I('post.operator');
-		if($servicecard_id==''||$state==''||$operator==''){
+		$id = I('post.id');
+		$description = I('post.description');
+		$status = I('post.status');
+		if($id==''||$description==''||$status==''){
 			$this->ajaxReturn("数据为空");
-		}elseif($operator=='请选择'||$state=='请选择'){
-			$this->ajaxReturn("请选择");
 		}
-		$repair = M('ServiceRepair');
-		$repair->create();
-		$repair->time  = date("Y-m-d H:i:s",NOW_TIME);
-		$repair->add();
-		if($state=='完成' && $repair){						
-				$Card = M('ServiceCard');
-				$data = $Card->where('id = "%d"',$servicecard_id)->field("id")->find();
-		        $Card->id = $data['id'];
-		        $Card->status = '1' ;
-		        $Card ->save();
-				if($Card){
-			        $this->ajaxReturn(true);
-		        }else{
-			        $this->ajaxReturn("添加失败");
-				}
-		
-		}else if($repair){
-			        $this->ajaxReturn(true);
-		        } else{
-			        $this->ajaxReturn("添加失败");
-		        }
+		$card = M('ServiceCard');
+		$data = $card ->where('id = %d',$id)->find();
+		$data['description'] = $description;
+		$data['status'] = $status;
+		$data['end']  = date("Y-m-d H:i:s",NOW_TIME);
+		if($card->save($data)){
+			$this->ajaxReturn(true);
+		} else{
+			$this->ajaxReturn("添加失败");
+		}
+//		if($state=='完成' && $repair){
+//				$Card = M('ServiceCard');
+//				$data = $Card->where('id = "%d"',$servicecard_id)->field("id")->find();
+//		        $Card->id = $data['id'];
+//		        $Card->status = '1' ;
+//		        $Card ->save();
+//				if($Card){
+//			        $this->ajaxReturn(true);
+//		        }else{
+//			        $this->ajaxReturn("添加失败");
+//				}
+//
+//		}
 	}
 	// --------------------服务查询---------------------
     public function query(){

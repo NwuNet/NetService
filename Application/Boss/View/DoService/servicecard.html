@@ -55,12 +55,13 @@
 				<div class="box-footer no-padding">
 					<ul class="nav nav-stacked">
 						<li><a href="#">id <span class="pull-right badge bg-yellow">{$id}</span></a></li>
+						<li><a href="#">宿舍号 <span class="pull-right  ">{$cardinfo.0.dormitory}</span></a></li>
+						<li><a href="#">预约时间 <span class="pull-right  ">{$cardinfo.0.appointment_time}</span></a></li>
 						<li><a href="#">姓名 <span class="pull-right  ">{$cardinfo.0.name}</span></a></li>
 						<li><a href="#">学号 <span class="pull-right  ">{$cardinfo.0.student_no}</span></a></li>
-						<li><a href="#">宿舍号 <span class="pull-right  ">{$cardinfo.0.dormitory}</span></a></li>
 						<li><a href="#">电话 <span class="pull-right  ">{$cardinfo.0.phone}</span></a></li>
-						<li><a href="#">问题 <span class="pull-right  ">{$cardinfo.0.question}</span></a></li>
-						<li><a href="#">描述 <span class="pull-right  ">{$cardinfo.0.description}</span></a></li>
+						<li><a href="#">提交时间 <span class="pull-right  ">{$cardinfo.0.start}</span></a></li>
+						<li><a href="#">所属校区 <span class="pull-right  ">{$cardinfo.0.area}</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -82,75 +83,60 @@
 						</li>
 						<foreach name="servicerepair" item="vo">
 							<li class="time-label"><span class="bg-blue">{$vo.time}</span></li>
-								<li>
-									<i class="fa fa-user bg-blue"></i>
-									<div class="timeline-item">
-										<span class="time"><i class="fa fa-clock-o"></i> {$vo.time|substr=11,18}</span>
-										<h3 class="timeline-header"><a href="#">{$vo.state}</a> {$vo.time|substr=0,10}</h3>
-										<div class="timeline-body">
-											<p class="text-primary">操作者：{$vo.operator} </p>
-											
-										</div>
+							<li>
+								<i class="fa fa-user bg-blue"></i>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> {$vo.time|substr=11,18}</span>
+									<h3 class="timeline-header"><a href="#">{$vo.state}</a> {$vo.time|substr=0,10}</h3>
+									<div class="timeline-body">
+										<h4>{$vo.breakinfo}</h4>
+										<p>{$vo.breaksubinfo}</p>
+										<p class="text-primary">维修者：{$vo.operator} </p>
 									</div>
-								</li>
+								</div>
 							</li>
 						</foreach>
-						<li>
-							<i class="fa fa-clock-o bg-gray"></i>
-							<div class="timeline-item">
-								<div class="timeline-body">
-									<form id="stateform">
-										请选择<label>下一步状态</label>
-										<select id="state" name = "state" class="form-control" style="width: 100%;">
-											<option selected="selected">请选择</option>
-											
-												<option>维修</option>
-												<option>完成</option>
-											
-										</select>
-										请选择<label>操作者</label>
-										<select id="operator" name = "operator" class="form-control" style="width: 100%;">
-											<option selected="selected">请选择</option>
-											<option>胡洋</option>
-											<option>亢喜年</option>
-										</select>
-									</form>
-								</div>
-								<div class="timeline-footer">
-									<a id="stateadd" class="btn btn-primary">提交</a>
-								</div>
-							</div>
-						</li>
-						<li>
-							<i class="fa fa-user bg-green"></i>
-							<div class="timeline-item">
-								<span class="time"><i class="fa fa-clock-o"></i> 18:21</span>
-								<h3 class="timeline-header no-border"><a href="#">维修完成</a> 维修人：陈登州
-				  </h3>
-								<div class="timeline-body">
-									<div class="form-group">
-										<label>问题第一次确认</label>
-										<select class="form-control select2" style="width: 100%;">
-											<option selected="selected">请选择</option>
-											<option selected="selected">认证问题</option>
-											<option>无客户端</option>
-											<option>网卡故障</option>
-											<option>接入方式错误</option>
-											<option>接入交换机故障</option>
-											<option>供电故障</option>
-										</select>
-										<label>备注</label>
-										<div class="input-group">
-											<div class="input-group-addon">
-												备注
-											</div>
-											<input type="text" placeholder="请添加备注" class="form-control" />
-										</div>
+
+						<if condition = "$cardinfo[0]['status'] eq 1">
+							<li class="time-label"><span class="bg-blue">{$cardinfo.0.end}</span></li>
+							<li>
+								<i class="fa fa-user bg-blue"></i>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.end|substr=11,18}</span>
+									<h3 class="timeline-header"><a href="#">管理员确认服务单</a> {$cardinfo.0.end|substr=0,10}</h3>
+									<div class="timeline-body">
+										<h4>备注：{$cardinfo.0.description}</h4>
+										<p class="text-primary">确认完成人：{$cardinfo.0.operator} </p>
 									</div>
-									<button class="btn btn-primary" type="submit">确认</button>
 								</div>
-							</div>
-						</li>
+							</li>
+						<else/>
+							<li>
+								<i class="fa fa-user bg-green"></i>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> 18:21</span>
+									<h3 class="timeline-header no-border"><a href="#">服务单确认完成</a> </h3>
+									<div class="timeline-body">
+										<div class="form-group">
+											<label>请添加备注</label>
+											<div class="input-group">
+												<div class="input-group-addon">
+													确认人
+												</div>
+												<input type="text" id="operator" disabled="disabled" value="{$user.cname}" class="form-control" />
+											</div>
+											<div class="input-group">
+												<div class="input-group-addon">
+													备注
+												</div>
+												<input type="text" id="description" placeholder="请添加备注" class="form-control" />
+											</div>
+										</div>
+										<button id="beizhu" class="btn btn-primary" type="submit">确认</button>
+									</div>
+								</div>
+							</li>
+						</if>
 					</ul>
 					
 					</div>
@@ -167,12 +153,12 @@
 			/*
 		 * 添加维修状态
 		 * */
-		$("#stateadd").click(function() {
+		$("#beizhu").click(function() {
 			var $btn = $(this).button('loading');
 			$.post("<php>echo U('Boss/DoService/servicerepairadd')</php>",{
-				servicecard_id : {$id},
-				state : $("#state").val(),
-				operator : $("#operator").val(),				
+				id : {$id},
+				description : $("#description").val(),
+				status : 1
 //				actor : '{$user.uname}'
 			}, function(data) {
 				$btn.button('reset');
