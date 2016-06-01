@@ -58,21 +58,37 @@
 					<div class="row">
 						<div class="form-group margin">
 							<label for="uname">用户名</label>
-							<input type="text" class="form-control" id="uname" value="{$user.uname}">
+							<input type="text" class="form-control" id="uname" name="uname" value="{$user.uname}">
+						</div>
+						<div class="form-group margin">
+							<label for="uname">姓名</label>
+							<input type="text" class="form-control" id="cname" name="cname" value="{$user.cname}">
 						</div>
 						<div class="form-group margin">
 							<label for="password">密码</label>
-							<input type="password" class="form-control" id="password" placeholder="密码">
+							<input type="password" class="form-control" name="password" id="password" placeholder="密码">
 						</div>
 						<div class="form-group margin">
 							<label for="repassword">确认密码</label>
-							<input type="password" class="form-control" id="repassword" placeholder="确认密码">
+							<input type="password" class="form-control" name="repassword" id="repassword" placeholder="确认密码">
+						</div>
+						<div class="form-group margin sr-only">
+							<label for="time">注册时间</label>
+							<input type="text" id="time" disabled="true" class="form-control" value="{$user.begintime}">
+						</div>
+						<div class="form-group margin sr-only">
+							<label for="time">用户头像</label>
+							<input type="text" id="img" disabled="true" class="form-control" value="{$user.img}">
 						</div>
 						<div class="form-group margin">
-							<label for="">注册时间</label>
-							<input type="text" disabled="true" class="form-control" value="{$user.begintime}">
+							<label for="area">所属校区</label>
+							<select id="area" name="area" class="form-control" value="{$user.area}">
+								<foreach name="userarea" item="vo">
+									<option>{$vo.area}</option>
+								</foreach>
+							</select>
 						</div>
-						<button id="editbtn" disabled="disabled" class="btn btn-primary margin">修改</button>
+						<button id="updatebtn" disabled="disabled" class="btn btn-primary margin">修改</button>
 					</div>
 					<!-- /.row -->
 				</div>
@@ -126,6 +142,7 @@
 
 <block name="script">
 	<script type="text/javascript">
+		$("#area").val('{$user.area}');
 		/*
 		 * 选择图片
 		 * */
@@ -209,14 +226,39 @@
 		/**
 		 * 确认密码
 		 * */
-		$("#repassword,#password").keyup(function() {
-			if ($("#repassword")[0].value != $("#password")[0].value) {
+		$("#repassword,#password,#uname,#cname").keyup(function() {
+			if ( ($("#repassword")[0].value != $("#password")[0].value) || $("#cname").val =='' ||$("#uname").val =='') {
 				$("#repassword").parent().addClass("has-error");
-				$("#editbtn").attr("disabled", "disabled");
+				$("#updatebtn").attr("disabled", "disabled");
 			} else {
 				$("#repassword").parent().removeClass("has-error");
-				$("#editbtn").removeAttr("disabled");
+				$("#updatebtn").removeAttr("disabled");
 			}
+		});
+		/*
+		 * 修改用户
+		 * */
+		$("#updatebtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Boss/Self/edit')</php>", {
+						id: '{$user.id}',
+						user_id:'{$user.user_id}',
+						uname: $("#uname")[0].value,
+						cname: $("#cname")[0].value,
+						password: $("#password")[0].value,
+						repassword: $("#repassword")[0].value,
+						area : $("#area")[0].value,
+						img : '{$user.img}'
+					},
+					function(data) {
+						$btn.button('reset');
+						if (data == true) {
+							alert("修改成功");
+						} else {
+							alert(data);
+						}
+						location.reload();
+					});
 		});
 	</script>
 </block>

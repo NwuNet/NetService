@@ -64,6 +64,7 @@
 						<th>姓名</th>
 						<th>学号</th>
 						<th>校区</th>
+						<th>状态</th>
 						<!--<th>现象描述</th>-->
 						<!--<th>派单</th>-->
 						</thead>
@@ -72,12 +73,27 @@
 							<tr>
 								<td class="sr-only">{$vo.id}</td>
 								<td>{$vo.dormitory}</td>
-								<td>{$vo.appointment_time} {$vo.appointment_time|strtotime|getweek}</td>
+								<td>
+									<if condition="strtotime($vo['appointment_time']) lt strtotime('now')">
+										<label class="badge bg-red">{$vo.appointment_time}</label>
+										<else/>
+										{$vo.appointment_time}
+									</if>
+									<if condition="getweek(strtotime($vo['appointment_time'])) eq getweek(strtotime('now'))">
+										<label class="badge bg-yellow">{$vo.appointment_time|strtotime|getweek}</label>
+										<else/>
+										{$vo.appointment_time|strtotime|getweek}
+									</if>
+								</td>
 								<td>{$vo.phone}</td>
 								<td>{$vo.name}</td>
 								<td>{$vo.student_no}</td>
 								<!--<td>{$vo.description}</td>-->
 								<td>{$vo.area}</td>
+								<if condition = '$vo["isrepair"] egt 1'>
+									<td><label class="badge bg-green">已维修</label></td>
+									<else /><td><label class="badge bg-yellow">未维修</label></td>
+								</if>
 							</tr>
 						</volist>
 						</tbody>

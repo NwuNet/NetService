@@ -3,7 +3,30 @@ namespace Boss\Controller;
 use Think\Controller;
 class SelfController extends BaseController {
 	public function index() {
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
 		$this -> display();
+	}
+	public function edit(){
+		$User = D('Admin/User', 'Logic');
+		if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
+		$data = array();
+		$data['id'] = I('post.id');
+		$data['user_id'] = I('post.user_id');
+		$data['cname'] = I('post.cname');
+		$data['uname'] = I('post.uname');
+		$data['password'] = I('post.password');
+		$data['area'] = I('post.area');
+		$data['img'] = I('post.img');
+		$data['status'] = 1;
+		if ($User -> bossedit($data)) {
+			$msg = "修改成功！";
+			$this -> ajaxReturn(TRUE);
+		} else {
+			$msg = "修改失败！";
+			$this -> ajaxReturn(FALSE);
+		}
 	}
 	/**
 	 * @param file,fname,id

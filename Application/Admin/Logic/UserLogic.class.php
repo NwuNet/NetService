@@ -12,8 +12,8 @@ class UserLogic extends Model {
 	 * */
 	public function adminadd($data) {
 		$data['level'] = 1;
-		$user = D('User');
-		$adminuser = D('AdminUser');
+		$user = D('Admin/User');
+		$adminuser = D('Admin/AdminUser');
 		if($user -> plus($data) ){
 			$tid = $user->where('uname = "%s" and level = 1',$data['uname'])->field("uname,user_id")->find();
 			$data['user_id'] = $tid['user_id'];
@@ -27,8 +27,8 @@ class UserLogic extends Model {
 	 * */
 	public function adminedit($data){
 		$data['level'] = 1;
-		$user = D('User');
-		$adminuser = D('AdminUser');
+		$user = D('Admin/User');
+		$adminuser = D('Admin/AdminUser');
 		if($user -> edit($data) ){
 			$tid = $user->where('uname = "%s" and level = 1',$data['uname'])->field("uname,user_id")->find();
 			$data['user_id'] = $tid['user_id'];
@@ -42,8 +42,8 @@ class UserLogic extends Model {
 	 */
 	public function bossadd($data){
 		$data['level'] = 2;
-		$user = D('User');
-		$bossuser = D('BossUser');
+		$user = D('Admin/User');
+		$bossuser = D('Admin/BossUser');
 		if($user->plus($data)){
 			$tid = $user->where('uname = "%s" and level = 2',$data['uname'])->field("uname,user_id")->find();
 			$data['user_id'] = $tid['user_id'];
@@ -57,8 +57,8 @@ class UserLogic extends Model {
 	 * */
 	public function bossedit($data){
 		$data['level'] = 2;
-		$user = D('User');
-		$bossuser = D('BossUser');
+		$user = D('Admin/User');
+		$bossuser = D('Admin/BossUser');
 //		$tid = $user->where('uname = "%s" and level = 2',$data['uname'])->field("uname,user_id")->find();
 //		$data['user_id'] = $tid['user_id'];
 		if($bossuser->edit($data)||$user -> edit($data))

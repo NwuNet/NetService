@@ -10,7 +10,7 @@ class IndexController extends BaseController{
         foreach ($servicecardinfo as $key => $value){
             $servicecardinfo[$key]['isrepair'] = count($CardRepair->where('servicecard_id = %d',$value['id'])->select());
         }
-        trace($servicecardinfo);
+//        trace($servicecardinfo);
         $this -> assign('servicecardinfo',$servicecardinfo );//服务单表
 
 
