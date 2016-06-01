@@ -16,7 +16,8 @@ class DoPeopleController extends BaseController {
 		}else{
 			$Register = M('StaffRegister');	
 			$map['time']=array('between',array($start,$end));
-			$map['uname']=$user.uname;//筛选当前员工'{$user.uname}'
+			$user = D('Login','Service')->getuserInfo();
+			$map['uname']=$user['uname'];//筛选当前员工
 			$data =$Register->where($map)->select();
 			foreach($data as $key => $value){
 				$returndata[$key]['title'] =$data[$key]['uname'].':'.$data[$key]['state'];

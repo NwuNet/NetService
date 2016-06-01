@@ -66,7 +66,7 @@
 								</div>
 								<div class="timeline-body">
 									<form id="feedbackform">
-										<label>请回复建议</label>
+										<label>请回复建议</label>										
 										<div class="input-group">
 											<div class="input-group-addon">
 												<h4>回复</h4>
@@ -75,10 +75,12 @@
 											<input type="text" id='reply' placeholder="请添加回复" class="form-control" />
 										</div>
 									</form>
+									
 								</div>
 								<div class="timeline-footer">
-									<a id="feedbackadd" class="btn btn-primary">提交</a>
-									<!--<button id="feedbackadd" type="submit" class="btn btn-warning">提交</button>-->
+									<!--<a id="addbtn" class="btn btn-primary">提交</a>-->
+									<button id="addbtn" class="btn btn-primary">提交</button>
+									
 								</div>
 							</div>
 						</li>
@@ -92,20 +94,12 @@
 		</div>
 	</div>
 </block>
-<block name="script">
-	
-	<!--form validation-->
-	<js href="__PUBLIC__/formvalidation/js/formValidation.min.js" />
-	<js href="__PUBLIC__/formvalidation/js/framework/bootstrap.js" />
-	<js href="__PUBLIC__/formvalidation/js/language/zh_CN.js" />
-	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/bootstrap-datepicker.js" />
-	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" />
-	<script type="text/javascript">
-		
+<block name="script">		
+	<script type="text/javascript">		
        	/*
 		 * 添加建议
 		 * */
-		$("#feedbackadd").click(function() {
+		$("#addbtn").click(function() {
 			var $btn = $(this).button('loading');
 			$.post("<php>echo U('Staff/DoInformation/feedbackadd')</php>",{
 				uname: '{$user.uname}',
