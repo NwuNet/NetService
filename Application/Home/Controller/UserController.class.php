@@ -199,7 +199,36 @@ class UserController extends BaseController {
 	}
 	// --------------------申请兼职---------------------
 	public function apply(){
+		$applyrepply = D('ApplyView');
+		$homeuser = D('Login','Service')->getuserInfo();
+	//	$apply = M('ApplyHome');
+		
+		$state = $applyrepply->where('home_id=%d',$homeuser['id'])->select();
+		$this->assign('state',$state);
+	//	$this->ajaxReturn($homeuser.id);
+
 		$this->display();
+	}
+	// --------------------兼职申请单添加--------------------
+	public function applyadd(){
+		$home_id = I('post.home_id');
+		$start_time = I('post.start_time');
+		$end_time = I('post.end_time');
+		$specialty = I('post.specialty');
+		$intro = I('post.intro');
+		if($home_id==''||$start_time==''||$end_time==''||$specialty==''||$intro==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$Apply = M('ApplyHome');
+		$Apply->create();
+		$Apply->status=0;
+		$Apply->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Apply->add();
+		if($Apply){
+			$this->ajaxReturn(true);
+		} else{
+			$this->ajaxReturn("提交失败");
+		}
 	}
 	// --------------------建议反馈---------------------
 	public function suggest(){
@@ -210,7 +239,7 @@ class UserController extends BaseController {
 		
 		$this->display();
 	}
-    // --------------------维修单信息变更---------------------
+    // --------------------建议信息变更---------------------
 	public function suggestedit(){
 		$id = I('post.id');
 		$uname = I('post.uname');
@@ -229,7 +258,7 @@ class UserController extends BaseController {
 			$this->ajaxReturn($info);
 		}
 	}
-	// --------------------维修单添加完成状态---------------------
+	// --------------------建议信息添加---------------------
 	public function suggestadd(){
 		$uname = I('post.uname');
 		$student_no = I('post.student_no');
@@ -250,26 +279,10 @@ class UserController extends BaseController {
 	}
 	public function suggestfeedback() {
 		$homeuser = D('Login','Service')->getuserInfo();
-		$Suggest = M('Suggest');
-		$suginfo = $Suggest->where('status=1 and uname = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->select();
-			
+		$Suggest = D('SuggestView');
+		$suginfo = $Suggest->where('status=1 and uname = "%s" and student_no ="%s" ',$homeuser['uname'],$homeuser['number'])->select();			
 		$this->assign("suginfo",$suginfo);
-		
-		if($suginfo){
-			$feedback = M('SuggestFeedback');
-			$suggestfeedbackinfos = array();
-			foreach($suginfo as $vo){
-				
-			    $suggestfeedback = $feedback->where(' suggest_id = %d',$vo['id'])->field('reply,operator,time')->select();
-			    array_push($suggestfeedbackinfos,array_merge($vo,$suggestfeedback));
-		    }
-			$this->assign("feedbackinfos",$suggestfeedbackinfos);
-		//	$this->ajaxReturn($suggestfeedbackinfos);
-			/*$feedback = M('SuggestFeedback');
-			$suggestfeedback = $feedback->where(' suggest_id = %d',$suginfo[0]['id'])->select();
-			$this->assign("suggestfeedback",$suggestfeedback);*/
-		}
-				
+								
 		$this->display();
 	}	
 	public function _empty($name) {
