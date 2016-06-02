@@ -92,7 +92,11 @@
 										<div class="timeline-body">
 											<h4>{$vo.breakinfo}</h4>
 											<p>{$vo.breaksubinfo}</p>
-											<p class="text-primary">维修者：{$vo.operator} </p>
+											<if condition="$vo.state eq '完成'">
+										        <p class="text-primary">本次服务评价：{$vo.operator} </p>
+                                            <else/><p class="text-primary">维修者：{$vo.operator} </p>
+                                            </if>
+											
 										</div>
 									</div>
 								</li>
