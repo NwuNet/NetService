@@ -3,6 +3,9 @@ namespace Staff\Controller;
 use Think\Controller;
 class SelfController extends BaseController {
 	public function index() {
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
 		$this -> display();
 	}
 	/**
