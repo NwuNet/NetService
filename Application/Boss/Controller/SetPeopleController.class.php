@@ -37,23 +37,34 @@ class SetPeopleController extends BaseController {
     }
 	// --------------------员工设置---------------------
     public function staff(){
+        $Area = M('UserArea');
+        $userarea = $Area->select();
+        $this->assign('userarea',$userarea);
+        $Job = M('PositionState');
+        $jobstate = $Job->select();
+        $this->assign('job',$jobstate);
         $this->display();
     }
+    //------------------------------staffuser key 12-----------------------------
     public function staffadd() {
         $User = D('Admin/User', 'Logic');
 //        if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
         $data = array();
-        $data['ip'] = get_client_ip();
-        $data['uname'] = I('post.uname');
-        $data['password'] = I('post.number');
-        $data['number'] = I('post.number');
-        $data['phone'] = I('post.phone');
-        $data['address'] = I('post.address');
-        $data['cname'] = '';
-        $data['img'] = 'Public/Images/User/default.png';
-        $data['area'] = I('post.area');
-        $data['yuanxi'] = '';
-        $data['zhuanye'] = '';
+        if(I('post.cname')==''||I('post.number')==''||I('post.phone')==''){
+            $this->ajaxReturn('数据为空');
+        }
+        $data['uname'] = I('post.cname');//------------------------1
+        $data['cname'] = I('post.cname');//------------------------2
+        $data['password'] = I('post.number');//------------------------3
+        $data['number'] = I('post.number');//------------------------4
+        $data['phone'] = I('post.phone');//------------------------5
+        $data['area'] = I('post.area');//------------------------6
+        $data['img'] = '/Images/User/default.png';//------------------------7
+        $data['yuanxi'] = '';//------------------------8
+        $data['zhuanye'] = '';//------------------------9
+        $data['status'] = 1;//------------------------10
+        $data['address'] = '';//------------------------11
+        $data['job'] = I('post.job');//------------------------12
         if ($User -> staffadd($data)) {
             $this -> ajaxReturn(TRUE);
         } else {
@@ -94,11 +105,13 @@ class SetPeopleController extends BaseController {
             $i = intval($order_column);
             switch($i) {
                 case 0 :$orderSql = " id " . $order_dir;break;
-                case 1 :$orderSql = " uname " . $order_dir;break;
+                case 1 :$orderSql = " cname " . $order_dir;break;
                 case 2 :$orderSql = " number " . $order_dir;break;
                 case 3 :$orderSql = " address " . $order_dir;break;
                 case 4 :$orderSql = " phone " . $order_dir;break;
                 case 5 :$orderSql = " begintime " . $order_dir;break;
+                case 6 :$orderSql = " area " . $order_dir;break;
+                case 7 :$orderSql = " job " . $order_dir;break;
                 default :$orderSql = '';
             }
         }
@@ -111,7 +124,7 @@ class SetPeopleController extends BaseController {
         //表的总记录数 必要
         $recordsTotal = $staffUser->count();
 
-        $map['id|uname|number|address|phone|begintime']=array('like',"%".$search."%");
+        $map['id|cname|number|address|phone|begintime|area|job']=array('like',"%".$search."%");
         if(strlen($search)>0){
             $recordsFiltered = count($staffUser->where($map)->select());
             $table = $staffUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -122,7 +135,7 @@ class SetPeopleController extends BaseController {
 
         $infos = array();
         foreach($table as $row){
-            $obj = array($row['id'],$row['uname'],$row['number'],$row['address'],$row['phone'],$row['begintime']);
+            $obj = array($row['id'],$row['cname'],$row['number'],$row['address'],$row['phone'],$row['begintime'],$row['area'],$row['job']);
             array_push($infos,$obj);
         }
 
@@ -136,15 +149,22 @@ class SetPeopleController extends BaseController {
 
 	// --------------------排班设置---------------------
     public function schedule(){
+        $loginService = D('Login','Service')->getuserInfo();//user
+
+        $Area = M('UserArea');
+        $userarea = $Area->select();
+        $this->assign('userarea',$userarea);//area
+
         $schStaff = M('ScheduleStaff');
-        $removestaff = $schStaff->where('status =1')->select();
+        $removestaff = $schStaff->where('status =1 and area = "%s" ',$loginService['area'])->select();
         $staffUser = D('Admin/StaffUserView');
-        $staff =$staffUser->where('status = 1')->field('uname')->select();
+        $staff =$staffUser->where('status = 1 and area = "%s" ',$loginService['area'])->field('uname,cname')->select();
         $index = 0;$addstaff=[];
+//        trace($staff);
         foreach($staff as $user => $value){
             $state = 0;
             for($i=0;$i<count($removestaff);$i++){
-                if($staff[$user]['uname'] == $removestaff[$i]['uname']){
+                if($staff[$user]['cname'] == $removestaff[$i]['uname']){
                     $state = 1;break;
                 }
             }
@@ -156,16 +176,19 @@ class SetPeopleController extends BaseController {
         $this->assign('removestaff',$removestaff);
         $this->display();
     }
+    // --------------------排班设置添加---------------------
     public function scheduleuser(){
         $type = I('post.type');
-        $uname = I('post.uname');
-        if($type == ''||$uname==''){
+        $cname = I('post.cname');
+        $area = I('post.area');
+        if($type == ''||$cname==''||$area==''){
             $this->ajaxReturn('数据为空');
         }
         if($type == 'add'){
             $schStaff = M('ScheduleStaff');
-            if(count($schStaff->where('uname = "%s"',$uname)->find())>0){
+            if(count($schStaff->where('uname = "%s"',$cname)->find())>0){
                 $schStaff->status = 1;
+                $schStaff->area = $area;
                 if($schStaff->save()){
                     $this->ajaxReturn(true);
                 }else{
@@ -173,6 +196,7 @@ class SetPeopleController extends BaseController {
                 }
             }else{
                 $schStaff->create();
+                $schStaff->uname = $cname;
                 $schStaff->status = 1;
                 if($schStaff->add()){
                     $this->ajaxReturn(true);
@@ -182,7 +206,7 @@ class SetPeopleController extends BaseController {
             }
         }elseif($type == 'remove'){
             $schStaff = M('ScheduleStaff');
-            $data = $schStaff->where('uname = "%s"',$uname)->find();
+            $data = $schStaff->where('uname = "%s"',$cname)->find();
             if(count($data)==0){
                 $this->ajaxReturn('移除失败');
             }else{
@@ -197,7 +221,7 @@ class SetPeopleController extends BaseController {
         $this->ajaxReturn(false);
     }
     public function schedulechange(){
-        if(I('post.uname')==''||I('post.type')==''){
+        if(I('post.uname')==''||I('post.type')==''||I('post.area')==''){
             $this->ajaxReturn('数据为空');
         }
         $schStaff = M('ScheduleStaff');

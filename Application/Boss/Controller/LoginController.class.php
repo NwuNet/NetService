@@ -25,6 +25,7 @@ class LoginController extends Controller {
 			$this->ajaxReturn(FALSE);
 		}
 		if($user['password']<>md5($password)){
+			trace(md5($password));
 			$this->ajaxReturn(FALSE);
 		}
 		if($this -> check_c($verify)){

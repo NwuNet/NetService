@@ -44,12 +44,12 @@
 <block name="content">
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="box box-widget widget-user">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header bg-green">
-					<h3 class="widget-user-username">{$user.uname}</h3>
-					<h5 class="widget-user-desc" id="userid">ID: {$user.id}</h5>
+					<h3 class="widget-user-username">姓名：{$user.cname}</h3>
+					<h5 class="widget-user-desc" id="userid">{$user.job}</h5>
 				</div>
 				<div class="widget-user-image">
 					<img class="img-circle" src="__PUBLIC__{$user.img}" alt="{user.$uname}">
@@ -57,7 +57,7 @@
 				<div class="box-footer">
 					<div class="row">
 						<div class="form-group margin">
-							<label for="uname">用户名</label>
+							<label for="uname">用户名(登陆使用)</label>
 							<input type="text" class="form-control" id="uname" value="{$user.uname}">
 						</div>
 						<div class="form-group margin">
@@ -69,21 +69,41 @@
 							<input type="password" class="form-control" id="repassword" placeholder="确认密码">
 						</div>
 						<div class="form-group margin">
-							<label for="time">注册时间</label>
-							<input type="text" id="time" disabled="true" class="form-control" value="{$user.begintime}">
+							<label for="number">学号</label>
+							<input type="text" class="form-control" id="number" placeholder="学号" value="{$user.number}">
 						</div>
 						<div class="form-group margin">
-							<label for="time">所属校区</label>
-							<input type="text" id="area" disabled="true" class="form-control" value="{$user.area}">
+							<label for="address">宿舍号</label>
+							<input type="text" class="form-control" id="address" placeholder="宿舍号" value="{$user.address}">
 						</div>
-						<button id="editbtn" disabled="disabled" class="btn btn-primary margin">修改</button>
+						<div class="form-group margin">
+							<label for="phone">手机号</label>
+							<input type="text" class="form-control" id="phone" placeholder="手机号" value="{$user.phone}">
+						</div>
+						<div class="form-group margin">
+							<label for="yuanxi">院系</label>
+							<input type="text" class="form-control" id="yuanxi" placeholder="院系" value="{$user.yuanxi}">
+						</div>
+						<div class="form-group margin">
+							<label for="zhuanye">专业</label>
+							<input type="text" class="form-control" id="zhuanye" placeholder="专业" value="{$user.zhuanye}">
+						</div>
+						<div class="form-group margin">
+							<label for="area">所属校区</label>
+							<select id="area" name="area" class="form-control">
+								<foreach name="userarea" item="vo">
+									<option>{$vo.area}</option>
+								</foreach>
+							</select>
+						</div>
+						<button id="editbtn" class="btn btn-primary margin">修改</button>
 					</div>
 					<!-- /.row -->
 				</div>
 			</div>
 		</div>
 
-		<div class="col-md-8">
+		<div class="col-md-6">
 			<div class="box box-success">
 				<div class="box-header">
 					<h3 class="box-title">个人头像</h3>
@@ -130,6 +150,7 @@
 
 <block name="script">
 	<script type="text/javascript">
+		$("#area").val('{$user.area}');
 		/*
 		 * 选择图片
 		 * */
@@ -221,6 +242,32 @@
 				$("#repassword").parent().removeClass("has-error");
 				$("#editbtn").removeAttr("disabled");
 			}
+		});
+		/*
+		 * 修改用户
+		 * */
+		$("#editbtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Staff/Self/edit')</php>", {
+						id: '{$user.id}',
+						user_id:'{$user.user_id}',
+						uname: $("#uname")[0].value,
+						password: $("#password")[0].value,
+						repassword: $("#repassword")[0].value,
+						number: $("#number")[0].value,
+						address: $("#address")[0].value,
+						yuanxi: $("#yuanxi")[0].value,
+						zhuanye: $("#zhuanye")[0].value,
+						area : $("#area")[0].value
+					},
+					function(data) {
+						$btn.button('reset');
+						if (data == true) {
+							alert("修改成功");
+						} else {
+							alert(data);
+						}
+					});
 		});
 	</script>
 </block>

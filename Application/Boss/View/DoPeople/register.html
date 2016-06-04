@@ -69,7 +69,7 @@
 									</select>
 									<label>考勤日期</label><br/>
 									<div class="input-group" style="width: 100%;">
-										<input type="date" id="time" class="form-control" >
+										<input type="date" id="time" class="form-control" value="<php>echo date('Y-m-d',strtotime('now'))</php>" >
 									</div>
 									<label>考勤类别</label>
 									<select id="state" class="form-control" style="width: 100%;">
@@ -161,16 +161,17 @@
 			$.post("<php>echo U('Boss/DoPeople/registeradd')</php>", {
 						uname: $("#uname")[0].value,
 						time: $("#time")[0].value,
-						state: $("#state")[0].value
+						state: $("#state")[0].value,
+						area: '{$user.area}'
 					},
 					function(data) {
 						$("div").remove(".overlay");
 						if (data == true) {
 							alert("添加成功");
+							location.reload();
 						} else {
 							alert(data);
 						}
-						location.reload();
 					});
 		});
 		/**
@@ -186,10 +187,10 @@
 						$("div").remove(".overlay");
 						if (data == true) {
 							alert("删除成功");
+							location.reload();
 						} else {
 							alert(data);
 						}
-						location.reload();
 					});
 		});
 		$('#external-events .external-event').each(function() {

@@ -4,9 +4,10 @@ use Think\Controller;
 class DoPeopleController extends BaseController {
 	// --------------------考勤信息---------------------
     public function register(){
+		$loginService = D('Login','Service')->getuserInfo();//user
     	
-		$staffUser = D('Admin/StaffUserView');
-        $staffname = $staffUser->field('uname')->select();
+		$staffUser = M('ScheduleStaff');
+        $staffname = $staffUser->where('area = "%s"',$loginService['area'])->field('uname')->select();
         $this->assign('staffname',$staffname);//员工名称
         
     	$select = M('RegisterSelect');
@@ -24,13 +25,14 @@ class DoPeopleController extends BaseController {
 		$uname = I('post.uname');
 		$time = I('post.time');
 		$state = I('post.state');
-		if($uname==''||$time==''||$state==''){
+		if($uname==''||$time==''||$state==''||I('post.area')==''){
 			$this->ajaxReturn("数据为空");
 		}elseif($uname=='请选择'||$state=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
 		$register = M('StaffRegister');
-		if(count($register->where('uname = "%s" and time ="%s"',$uname,$time)->find())>0){
+		$loginService = D('Login','Service')->getuserInfo();//user
+		if(count($register->where('uname = "%s" and time ="%s" and area = "%s"',$uname,$time,$loginService['area'])->find())>0){
 			$this->ajaxReturn("该员工当天考勤已存在");
 		}else{
 			$register->create();
@@ -50,14 +52,15 @@ class DoPeopleController extends BaseController {
 		$uname = $arr[0];
 		$time = I('post.time');
 		$state = $arr[1];
-		if($uname==''||$time==''||$state==''){
+		if($uname==''||$time==''||$state==''||I('post.area')){
 			$this->ajaxReturn("数据为空");
 		}elseif($uname=='请选择'||$state=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
 		$register = M('StaffRegister');
-		$deldata = $register->where('uname = "%s" and time ="%s" and state ="%s"',$uname,$time,$state)->find();
-		trace($deldata);
+		$loginService = D('Login','Service')->getuserInfo();//user
+		$deldata = $register->where('uname = "%s" and time ="%s" and state ="%s" and area="%s"',$uname,$time,$state,$loginService['area'])->find();
+//		trace($deldata);
 		if(count($deldata)>0){
 			$register->where($deldata)->delete();
 			$this->ajaxReturn(true);
@@ -72,9 +75,12 @@ class DoPeopleController extends BaseController {
 		if($start==''||$end==''){
 			$this->ajaxReturn("数据为空");
 		}else{
+			$loginService = D('Login','Service')->getuserInfo();//user
 			$Register = M('StaffRegister');
 			$map['time']=array('between',array($start,$end));
+			$map['area']=$loginService['area'];
 			$data =$Register->where($map)->select();
+			$returndata=[];
 			foreach($data as $key => $value){
 				$returndata[$key]['title'] =$data[$key]['uname'].':'.$data[$key]['state'];
 				$returndata[$key]['start'] =$data[$key]['time'];

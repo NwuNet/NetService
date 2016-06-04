@@ -47,7 +47,7 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-check-square-o"></i>
-					<h3 class="box-title">排班表</h3>&nbsp;
+					<h3 class="box-title">{$user.area} 排班表</h3>&nbsp;
 					<button class="btn btn-sm btn-primary" id="addsch" data-toggle="modal" data-target="#addmodel">
 						<i class="fa fa-plus">添加</i>
 					</button>
@@ -149,8 +149,14 @@
 							<input type="text" class="form-control" id="type" name="type" />
 						</div>
 						<div class="form-group">
-							<label for="uname" class="control-label">姓名</label>
-							<select id="uname" name="uname" class="form-control select2" style="width: 100%;">
+							<label for="cname" class="control-label">姓名</label>
+							<select id="cname" name="cname" class="form-control " style="width: 100%;">
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="area">所属校区</label>
+							<select id="area" name="area" class="form-control" value="{$user.area}">
+								<option>{$user.area}</option>
 							</select>
 						</div>
 					</form>
@@ -165,7 +171,7 @@
 	<script type="text/javascript">
 		/*checkbox*/
 		$(".chklist").labelauty("chklist", "check");
-		var addname=[<foreach name="addstaff" item="vo">"{$vo.uname}",</foreach>null];
+		var addname=[<foreach name="addstaff" item="vo">"{$vo.cname}",</foreach>null];
 		var removename = [<foreach name="removestaff" item="vo">"{$vo.uname}",</foreach>null];
 		$("#addsch").click(function(){
 			$("#type").empty().val("add");
@@ -175,7 +181,7 @@
 					html+='<option>'+name+'</option>'
 				}
 			});
-			$("#uname").empty().append(html);
+			$("#cname").empty().append(html);
 		});
 		$("#removesch").click(function(){
 			$("#type").empty().val("remove");
@@ -185,10 +191,10 @@
 					html+='<option>'+name+'</option>'
 				}
 			});
-			$("#uname").empty().append(html);
+			$("#cname").empty().append(html);
 		});
-		$("#uname").change(function(){
-			if($("#uname").val()!=='请选择'){
+		$("#cname").change(function(){
+			if($("#cname").val()!=='请选择'){
 				$("#addbtn").removeAttr("disabled");
 			}else{
 				$("#addbtn").attr("disabled","disabled");
@@ -201,16 +207,16 @@
 						$btn.button('reset');
 						if (data == true) {
 							alert("添加成功");
+							location.reload();
 						} else {
 							alert(data);
 						}
-						location.reload();
 					});
 		});
 		var tbl = document.getElementById("schtable");
 		var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 		for(var i=0;i<tbl.rows.length;i++){
-			for(var j=0;j<tbl.rows[i].cells.length;j++){
+			for(var j=1;j<tbl.rows[i].cells.length;j++){
 				tbl.rows[i].cells[j].onclick = (function(x, y){
 					var ix = i;
 					var iy = j;
@@ -219,6 +225,7 @@
 						$.post("<php>echo U('Boss/SetPeople/schedulechange')</php>",
 								{
 									uname: tbl.rows[ix].cells[0].innerHTML,
+									area: '{$user.area}',
 									type: iy
 								},
 								function(data) {

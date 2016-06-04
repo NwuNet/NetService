@@ -41,4 +41,19 @@ class LoginService{
 		session('[destroy]');
 		return TRUE;
     }
+	/*
+	 * 获取用户id
+	 * */
+	public function getuserId(){
+		$user  = session('boss_user');
+		return $user['boss_user_id'];
+	}
+	/*
+	 * 获取用户信息
+	 * */
+	public function getuserInfo(){
+		$userid = $this->getuserId();
+		$bossuser = D('Admin/BossUserView');
+		return $bossuser->where('id = %d',$userid)->find();
+	}
 }
