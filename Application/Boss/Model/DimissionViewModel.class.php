@@ -6,8 +6,9 @@ use Think\Model\ViewModel;
  */
 class DimissionViewModel extends ViewModel {
 	public $viewFields = array(
-	  'DimissionState' => array('id','approve','dimission_time','time'), 
-	   'Dimission' => array(	   
+	  'DimissionState' => array('approve','dimission_time','time'), 
+	   'Dimission' => array(
+	   'id' => 'id',   
 	   'uname' => 'uname',
 	   'position' => 'position',
 	   'start_time' => 'start_time',

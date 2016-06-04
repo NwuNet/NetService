@@ -6,8 +6,9 @@ use Think\Model\ViewModel;
  */
 class StaffVacationViewModel extends ViewModel {	
 	public $viewFields = array(
-	'VacationState' => array('id','approve','time'),
+	'VacationState' => array('approve','time'),
 	'StaffVacation' => array(
+	    'id'=> 'id',
 		'uname'=> 'uname',
         'start_time'=> 'start_time',
         'end_time'=> 'end_time',
