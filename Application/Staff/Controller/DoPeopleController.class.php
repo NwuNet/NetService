@@ -72,19 +72,27 @@ class DoPeopleController extends BaseController {
 	
 	// --------------------员工请假---------------------
     public function vacation(){
+    	$staffuser = D('Login','Service')->getuserInfo();
     	$Vacation = D('Boss/StaffVacationView');
-		$state = $Vacation->where('uname=%s',$user.uname)->select();
+		$state = $Vacation->where('uname="%s"',$staffuser['uname'])->select();
 		$this->assign('state',$state);
+		
+		$Dstate = M('StaffVacation');
+        $vacation = $Dstate->where('status=0 and uname="%s"',$staffuser['uname'])->select();
+        $this->assign('vacation',$vacation);
         $this->display();
     }
 	
 	// --------------------员工离职申请---------------------
     public function dimission(){
+    	$staffuser = D('Login','Service')->getuserInfo();
     	$Dimission = D('Boss/DimissionView');
-		$state = $Dimission->where('uname=%s',$user.uname)->select();
-    //	$Dstate = M('DimissionState');
-     //   $state = $Dstate->where('uname=%s',$user.uname)->select();
-        $this->assign('state',$state);
+		$state = $Dimission->where('uname="%s"',$staffuser['uname'])->select();
+		$this->assign('state',$state);
+	//	$this->ajaxReturn($user.uname);
+    	$Dstate = M('Dimission');
+        $dimission = $Dstate->where('status=0 and uname="%s"',$staffuser['uname'])->select();
+        $this->assign('dimission',$dimission);
         $this->display();
     }
 	// --------------------添加员工离职申请信息---------------------

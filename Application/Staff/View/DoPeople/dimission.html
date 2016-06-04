@@ -132,8 +132,16 @@
                                 <td>{$vo.approve}</td>
                                 <td>{$vo.dimission_time}</td>
                                 <td>{$vo.time}</td>
-                            </tr>
+                            </tr>                           
                         </volist>
+                        <if condition="$dimission neq null">
+                        	<tr>
+                                <td>{$dimission.0.id}</td>
+                                <td>{$dimission.0.end_time}</td>
+                                <td>{$dimission.0.reason}</td>
+                                <td>{$dimission.0.apply_time}</td>                                
+                            </tr>    
+                        </if>
                         </tbody>
                     </table>
                 </div>

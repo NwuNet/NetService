@@ -24,20 +24,19 @@ class DoInformationController extends BaseController {
 		$feedback->time  = date("Y-m-d H:i:s",NOW_TIME);
 		$feedback->add();
 		if($feedback){
-			$Suggest = M('Suggest');
-			$suggestinfo = $Suggest->where('suggest_id',$suggest_id)->find();
-			$suggest->create();
-			$suggest->id=$suggestinfo[0]['id'];
-			$suggest->status=1;
-			$suggest->save();
-			if($suggest){
+			$Suggest = M('Suggest');	
+			$Suggest->create();
+			$Suggest->id = $suggest_id;			
+			$Suggest->status=1;
+			$Suggest->save();
+			if($Suggest){
 				$this->ajaxReturn(true);
 			} else{
-				$this->ajaxReturn("添加失败");
+				$this->ajaxReturn("提交失败！");
 		    }
 			
 		} else{
-			$this->ajaxReturn("添加失败");
+			$this->ajaxReturn("提交失败！");
 		}
 	}
 	// --------------------历史信息反馈---------------------
@@ -46,7 +45,7 @@ class DoInformationController extends BaseController {
 		$this->display();
     }
 	public function suggesttable() {
-		$Suggest = M('Suggest');
+		$Suggest = D('Home/SuggestView');
 		//获取Datatables发送的参数 必要
 		$draw = I('get.draw');//这个值作者会直接返回给前台
 
@@ -63,7 +62,10 @@ class DoInformationController extends BaseController {
 				case 1 :$orderSql = " uname " . $order_dir;break;
 				case 2 :$orderSql = " student_no " . $order_dir;break;
 				case 3 :$orderSql = " suggest " . $order_dir;break;
-				case 4 :$orderSql = " time " . $order_dir;break;				
+				case 4 :$orderSql = " suggest_time " . $order_dir;break;
+				case 5 :$orderSql = " reply " . $order_dir;break;
+				case 6 :$orderSql = " operator " . $order_dir;break;
+				case 7 :$orderSql = " time " . $order_dir;break;				
 				default :$orderSql = '';
 			}
 		}
@@ -75,10 +77,8 @@ class DoInformationController extends BaseController {
 		$length = $_GET['length'];//数据长度
 		//表的总记录数 必要
 		$recordsTotal = $Suggest->count();
-        
-		
-		$map['id|uname|dormitory|suggest|time']=array('like',"%".$search."%");		
-		
+        		
+		$map['id|uname|student_no|suggest|suggest_time|reply|operator|time']=array('like',"%".$search."%");				
 		if(strlen($search)>0){
 			$recordsFiltered = count($Suggest->where($map)->select());
 			$table = $Suggest->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -89,7 +89,7 @@ class DoInformationController extends BaseController {
 
 		$infos = array();
 		foreach($table as $row){
-			$obj = array($row['id'],$row['uname'],$row['student_no'],$row['suggest'],$row['time']);
+			$obj = array($row['id'],$row['uname'],$row['student_no'],$row['suggest'],$row['suggest_time'],$row['reply'],$row['operator'],$row['time']);
 			array_push($infos,$obj);
 		}
 

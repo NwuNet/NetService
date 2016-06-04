@@ -123,6 +123,15 @@
                                 <td>{$vo.time}</td>
                             </tr>
                         </volist>
+                        <if condition="$vacation neq null">
+                        	<tr>
+                                <td>{$vacation.0.id}</td>
+                                <td>{$vacation.0.start_time}</td>
+                                <td>{$vacation.0.end_time}</td>
+                                <td>{$vacation.0.reason}</td>
+                                <td>{$vacation.0.apply_time}</td>                                
+                            </tr>    
+                        </if>
                         </tbody>
                     </table>
                 </div>
