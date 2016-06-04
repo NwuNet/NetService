@@ -12,52 +12,77 @@
   <p class="lead">网络中心全体人员为您服务</p>
   <p class="lead">
 	 <a href="#" class="btn btn-outline-inverse btn-lg">爱心服务</a>
-	 <a href="#satff" class="btn btn-outline-inverse btn-lg">正式员工</a>
-	 <a href="#" class="btn btn-outline-inverse btn-lg">试用生</a>
+	 <a href="#changan" class="btn btn-outline-inverse btn-lg">正式员工</a>
+	 <a href="<php>echo U('Home/User/index')</php>" class="btn btn-outline-inverse btn-lg">加入我们</a>
   </p>
   <p class="version">当前访问量： 666</p>
 </block>
 <block name="content">
-  <div class="col-md-12">
-	  <!-- USERS LIST -->
-	  <div class="box box-success" id="satff">
-		<div class="box-header with-border">
-		  <h3 class="box-title">正式员工</h3>
-		  <div class="box-tools pull-right">
-			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-			</button>
-			<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-			</button>
-		  </div>
+	<div class="row">
+		<div class="col-md-12 pad">
+			<!-- USERS LIST -->
+			<div class="box box-success" id="changan">
+				<div class="box-header ">
+					<h3 class="box-title">长安校区</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body no-padding">
+					<ul class="users-list clearfix">
+						<foreach name="changan" item="vo">
+							<li>
+								<img src="__PUBLIC__{$vo.img}" alt="{$vo.cname}">
+								<a class="users-list-name" href="#">{$vo.cname}</a>
+								<span class="users-list-date">{$vo.job}</span>
+							</li>
+						</foreach>
+					</ul>
+					<!-- /.users-list -->
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!--/.box -->
+			<!-- USERS LIST -->
+			<div class="box box-success" id="taibai">
+				<div class="box-header ">
+					<h3 class="box-title">太白校区</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body no-padding">
+					<ul class="users-list clearfix">
+						<foreach name="taibai" item="vo">
+							<li>
+								<img src="__PUBLIC__{$vo.img}" alt="{$vo.cname}">
+								<a class="users-list-name" href="#">{$vo.cname}</a>
+								<span class="users-list-date">{$vo.job}</span>
+							</li>
+						</foreach>
+					</ul>
+					<!-- /.users-list -->
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!--/.box -->
+			<!-- USERS LIST -->
+			<div class="box box-success" id="taoyuan">
+				<div class="box-header ">
+					<h3 class="box-title">桃园校区</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body no-padding">
+					<ul class="users-list clearfix">
+						<foreach name="taoyuan" item="vo">
+							<li>
+								<img src="__PUBLIC__{$vo.img}" alt="{$vo.cname}">
+								<a class="users-list-name" href="#">{$vo.cname}</a>
+								<span class="users-list-date">{$vo.job}</span>
+							</li>
+						</foreach>
+					</ul>
+					<!-- /.users-list -->
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!--/.box -->
 		</div>
-		<!-- /.box-header -->
-		<div class="box-body no-padding">
-		  <ul class="users-list clearfix">
-			<li>
-			  <img src="__PUBLIC__/AdminLTE2/dist/img/avatar04.png" alt="User Image">
-			  <a class="users-list-name" href="#">胡洋</a>
-			  <span class="users-list-date">技术岗位</span>
-			</li>
-			<li>
-			  <img src="__PUBLIC__/AdminLTE2/dist/img/avatar5.png" alt="User Image">
-			  <a class="users-list-name" href="#">陈登洲</a>
-			  <span class="users-list-date">维护岗位</span>
-			</li>
-			<li>
-			  <img src="__PUBLIC__/AdminLTE2/dist/img/avatar2.png" alt="User Image">
-			  <a class="users-list-name" href="#">喻丽君</a>
-			  <span class="users-list-date">管理岗位</span>
-			</li>
-			<li>
-			  <img src="__PUBLIC__/AdminLTE2/dist/img/avatar.png" alt="User Image">
-			  <a class="users-list-name" href="#">马燕</a>
-			  <span class="users-list-date">维护岗位</span>
-			</li>
-		  </ul>
-		  <!-- /.users-list -->
-		</div>
-		<!-- /.box-body -->
-	  </div>
-	  <!--/.box -->
 	</div>
 </block>
