@@ -227,14 +227,16 @@ class DoServiceController extends BaseController {
 	// --------------------空操作---------------------
 	public function breakgetsub(){
 		$parent = I('post.parent');
-		if($parent==''||empty($parent)){
+		$in = I('post.in');
+		trace($in);
+		if($parent==''||empty($parent)||$in==''||empty($in)){
 			return "Not Found";
 		}else{
 			$breakinfo = M('BreakInfo');
 			$p = $breakinfo->where('id = %d',$parent)->find();
 			$data = $breakinfo->where('parent = %d',$parent)->field('id,name,parent,description,label')->order('label')->select();
 			foreach ($data as $key => $val){
-				$data[$key]['seq'] = $p['label']-1;
+				$data[$key]['seq'] = $in;
 			}
 			$this->ajaxReturn($data);
 		}

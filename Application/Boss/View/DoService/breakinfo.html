@@ -143,6 +143,7 @@
 		});
 		$("#openparent").click(function () {
 			$("#level").val('1');$("#parent").val("0");
+			$("#id,#name,#description,#label").val();
 		});
 		$(".editbtn").click(function () {
 			$("#id").val($(this).parent().children().eq(0)[0].firstChild.textContent);
@@ -196,15 +197,15 @@
 			for (var i=0;i<biglength;i++){
 				var bid = $(".table-data").eq(i).parent().parent().siblings().eq(0).children().eq(0)[0].textContent;
 				$.post("<php>echo U('Boss/DoService/breakgetsub')</php>", {
-					parent : bid
+					parent : bid,
+					in: i+1
 				},function(data) {
-					var index = 0;
 					if(data.length>0){
 						list = '';
 						data.forEach(function (item) {
 							list += '<tr><td class="sr-only">'+item.id+'</td>' +'<td>'+item.label+'</td>' + '<td>'+item.name+'</td>' +'<td>'+item.description+'</td></tr>'
 						});
-						$(".table-data")[data[0]['seq']].innerHTML = list;
+						$(".table-data")[data[0]['seq']-1].innerHTML = list;
 					}
 				});
 			}
