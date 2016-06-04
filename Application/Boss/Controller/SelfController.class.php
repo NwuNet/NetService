@@ -8,18 +8,55 @@ class SelfController extends BaseController {
 		$this->assign('userarea',$userarea);
 		$this -> display();
 	}
+	//---------------------------boss key 8-----------------------------------
 	public function edit(){
 		$User = D('Admin/User', 'Logic');
 		if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
+		$BossView = D('Admin/BossUserView');
 		$data = array();
-		$data['id'] = I('post.id');
-		$data['user_id'] = I('post.user_id');
-		$data['cname'] = I('post.cname');
-		$data['uname'] = I('post.uname');
-		$data['password'] = I('post.password');
-		$data['area'] = I('post.area');
-		$data['img'] = I('post.img');
-		$data['status'] = 1;
+		if(I('post.id')==''||I('post.user_id')==''){
+			$this->ajaxReturn('数据为空');
+		}
+		$data['id'] = I('post.id');//---------------------1
+		$data['user_id'] = I('post.user_id');//---------------------2
+		$boss = $BossView->where('id = %d',$data['id'])->find();
+
+		if(I('post.cname')==''){//---------------------3
+			$data['cname'] = $boss['cname'];
+		}else{
+			$data['cname'] = I('post.cname');
+		}
+
+		if(I('post.uname')==''){//---------------------4
+			$data['uname'] = $boss['uname'];
+		}else{
+			$data['uname'] = I('post.uname');
+		}
+
+		if(I('post.area')==''){//---------------------5
+			$data['area'] = $boss['area'];
+		}else{
+			$data['area'] = I('post.area');
+		}
+
+		if(I('post.img')==''){//---------------------6
+			$data['img'] = $boss['img'];
+		}else{
+			$data['img'] = I('post.img');
+		}
+
+		if(I('post.status')==''){//---------------------7
+			$data['status'] = $boss['status'];
+		}else{
+			$data['status'] = I('post.status');
+		}
+
+		if(I('post.password')==''){//---------------------8
+			$data['password'] = $boss['password'];
+		}else{
+			$data['password'] = I('post.password');
+		}
+
 		if ($User -> bossedit($data)) {
 			$msg = "修改成功！";
 			$this -> ajaxReturn(TRUE);

@@ -37,23 +37,30 @@ class SetPeopleController extends BaseController {
     }
 	// --------------------员工设置---------------------
     public function staff(){
+        $Area = M('UserArea');
+        $userarea = $Area->select();
+        $this->assign('userarea',$userarea);
         $this->display();
     }
+    //------------------------------staffuser key 12-----------------------------
     public function staffadd() {
         $User = D('Admin/User', 'Logic');
 //        if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
         $data = array();
-        $data['ip'] = get_client_ip();
-        $data['uname'] = I('post.uname');
-        $data['password'] = I('post.number');
-        $data['number'] = I('post.number');
-        $data['phone'] = I('post.phone');
-        $data['address'] = I('post.address');
-        $data['cname'] = '';
-        $data['img'] = 'Public/Images/User/default.png';
-        $data['area'] = I('post.area');
-        $data['yuanxi'] = '';
-        $data['zhuanye'] = '';
+        if(I('post.cname')==''||I('post.number')==''||I('post.phone')==''){
+            $this->ajaxReturn('数据为空');
+        }
+        $data['uname'] = I('post.cname');//------------------------1
+        $data['cname'] = I('post.cname');//------------------------2
+        $data['password'] = I('post.number');//------------------------3
+        $data['number'] = I('post.number');//------------------------4
+        $data['phone'] = I('post.phone');//------------------------5
+        $data['area'] = I('post.area');//------------------------6
+        $data['img'] = '/Images/User/default.png';//------------------------7
+        $data['yuanxi'] = '';//------------------------8
+        $data['zhuanye'] = '';//------------------------9
+        $data['status'] = 1;//------------------------10
+        $data['address'] = '';//------------------------11
         if ($User -> staffadd($data)) {
             $this -> ajaxReturn(TRUE);
         } else {
@@ -94,11 +101,12 @@ class SetPeopleController extends BaseController {
             $i = intval($order_column);
             switch($i) {
                 case 0 :$orderSql = " id " . $order_dir;break;
-                case 1 :$orderSql = " uname " . $order_dir;break;
+                case 1 :$orderSql = " cname " . $order_dir;break;
                 case 2 :$orderSql = " number " . $order_dir;break;
                 case 3 :$orderSql = " address " . $order_dir;break;
                 case 4 :$orderSql = " phone " . $order_dir;break;
                 case 5 :$orderSql = " begintime " . $order_dir;break;
+                case 6 :$orderSql = " area " . $order_dir;break;
                 default :$orderSql = '';
             }
         }
@@ -111,7 +119,7 @@ class SetPeopleController extends BaseController {
         //表的总记录数 必要
         $recordsTotal = $staffUser->count();
 
-        $map['id|uname|number|address|phone|begintime']=array('like',"%".$search."%");
+        $map['id|cname|number|address|phone|begintime|area']=array('like',"%".$search."%");
         if(strlen($search)>0){
             $recordsFiltered = count($staffUser->where($map)->select());
             $table = $staffUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -122,7 +130,7 @@ class SetPeopleController extends BaseController {
 
         $infos = array();
         foreach($table as $row){
-            $obj = array($row['id'],$row['uname'],$row['number'],$row['address'],$row['phone'],$row['begintime']);
+            $obj = array($row['id'],$row['cname'],$row['number'],$row['address'],$row['phone'],$row['begintime'],$row['area']);
             array_push($infos,$obj);
         }
 

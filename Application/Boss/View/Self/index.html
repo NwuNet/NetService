@@ -88,7 +88,7 @@
 								</foreach>
 							</select>
 						</div>
-						<button id="updatebtn" disabled="disabled" class="btn btn-primary margin">修改</button>
+						<button id="updatebtn" class="btn btn-primary margin">修改</button>
 					</div>
 					<!-- /.row -->
 				</div>
@@ -226,8 +226,8 @@
 		/**
 		 * 确认密码
 		 * */
-		$("#repassword,#password,#uname,#cname").keyup(function() {
-			if ( ($("#repassword")[0].value != $("#password")[0].value) || $("#cname").val =='' ||$("#uname").val =='') {
+		$("#repassword,#password").keyup(function() {
+			if ( $("#repassword")[0].value != $("#password")[0].value ) {
 				$("#repassword").parent().addClass("has-error");
 				$("#updatebtn").attr("disabled", "disabled");
 			} else {
