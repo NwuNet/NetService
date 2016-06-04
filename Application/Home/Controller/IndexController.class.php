@@ -87,7 +87,13 @@ class IndexController extends Controller {
         $this->display();
     }
 	public function staff(){
-		
+		$staffUser = D('Admin/StaffUserView');
+		$changan = $staffUser->where('status = 1 and area = "长安校区"')->order('cname')->select();
+		$taibai = $staffUser->where('status = 1 and area = "太白校区"')->order('cname')->select();
+		$taoyuan = $staffUser->where('status = 1 and area = "桃园校区"')->order('cname')->select();
+		$this->assign('changan',$changan);
+		$this->assign('taibai',$taibai);
+		$this->assign('taoyuan',$taoyuan);
         $this->display();
     }
 }
