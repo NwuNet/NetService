@@ -28,6 +28,7 @@ class StaffUserModel extends Model{
 		 $this -> area = $data['area'];//-----------------7
 		 $this -> yuanxi = $data['yuanxi'];//-----------------8
 		 $this -> zhuanye = $data['zhuanye'];//-----------------9
+		 $this -> job = $data['job'];//-----------------10
 		
 		if($this -> add()) return TRUE;
 		return FALSE;
@@ -47,6 +48,7 @@ class StaffUserModel extends Model{
 			 $this -> area = $data['area'];//-----------------8
 			 $this -> yuanxi = $data['yuanxi'];//-----------------9
 			 $this -> zhuanye = $data['zhuanye'];//-----------------10
+			 $this -> job = $data['job'];//-----------------10
 	         if($this -> save()) return TRUE;
 	         return FALSE;
 	     }

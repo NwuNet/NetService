@@ -104,6 +104,7 @@ class UserController extends BaseController {
 			$this->assign('area',$table[0]['area']);
 			$this->assign('yuanxi',$table[0]['yuanxi']);
 			$this->assign('zhuanye',$table[0]['zhuanye']);
+			$this->assign('job',$table[0]['job']);
 	        $this->display();
 	    }
 	}
@@ -401,6 +402,7 @@ class UserController extends BaseController {
 		$data['cname'] = '';
 		$data['yuanxi'] = '';
 		$data['zhuanye'] = '';
+		$data['job'] = '';
 	    if ($User -> staffadd($data)) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
@@ -488,6 +490,7 @@ class UserController extends BaseController {
 		$data['img'] = '/Images/User/default.png';
 		$data['yuanxi'] = I('post.yuanxi');
 		$data['zhuanye'] = I('post.zhuanye');
+		$data['job'] = I('post.job');
 	    if ($User -> staffedit($data)) {
 	        $msg = "修改成功！";
 	        $this -> ajaxReturn(TRUE);

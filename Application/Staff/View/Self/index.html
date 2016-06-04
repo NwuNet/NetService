@@ -49,7 +49,7 @@
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header bg-green">
 					<h3 class="widget-user-username">姓名：{$user.cname}</h3>
-					<!--<h5 class="widget-user-desc" id="userid">用户名: {$user.uname}</h5>-->
+					<h5 class="widget-user-desc" id="userid">{$user.job}</h5>
 				</div>
 				<div class="widget-user-image">
 					<img class="img-circle" src="__PUBLIC__{$user.img}" alt="{user.$uname}">
@@ -248,7 +248,7 @@
 		 * */
 		$("#editbtn").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Boss/Self/edit')</php>", {
+			$.post("<php>echo U('Staff/Self/edit')</php>", {
 						id: '{$user.id}',
 						user_id:'{$user.user_id}',
 						uname: $("#uname")[0].value,

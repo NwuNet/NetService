@@ -8,86 +8,56 @@ class SelfController extends BaseController {
 		$this->assign('userarea',$userarea);
 		$this -> display();
 	}
-	//---------------------------boss key 13-----------------------------------
+	//---------------------------boss key 8-----------------------------------
 	public function edit(){
 		$User = D('Admin/User', 'Logic');
 		if(I('post.repassword') != I('post.password')) $this -> ajaxReturn("确认密码失败");
-		$StaffView = D('Admin/StaffUserView');
+		$BossView = D('Admin/BossUserView');
 		$data = array();
 		if(I('post.id')==''||I('post.user_id')==''){
 			$this->ajaxReturn('数据为空');
 		}
-		$data['id'] = I('post.id');//---------------------1
-		$data['user_id'] = I('post.user_id');//---------------------2
-		$staff = $StaffView->where('id = %d',$data['id'])->find();
-
-		if(I('post.cname')==''){//---------------------3
-			$data['cname'] = $staff['cname'];
+		$data['id'] = I('post.id');
+		$data['user_id'] = I('post.user_id');
+		$boss = $BossView->where('id = %d',$data['id'])->find();
+		
+		if(I('post.cname')==''){
+			$data['cname'] = $boss['cname'];
 		}else{
 			$data['cname'] = I('post.cname');
 		}
 
-		if(I('post.uname')==''){//---------------------4
-			$data['uname'] = $staff['uname'];
+		if(I('post.uname')==''){
+			$data['uname'] = $boss['uname'];
 		}else{
 			$data['uname'] = I('post.uname');
 		}
 
-		if(I('post.area')==''){//---------------------5
-			$data['area'] = $staff['area'];
+		if(I('post.area')==''){
+			$data['area'] = $boss['area'];
 		}else{
 			$data['area'] = I('post.area');
 		}
 
-		if(I('post.img')==''){//---------------------6
-			$data['img'] = $staff['img'];
+		if(I('post.img')==''){
+			$data['img'] = $boss['img'];
 		}else{
 			$data['img'] = I('post.img');
 		}
 
-		if(I('post.status')==''){//---------------------7
-			$data['status'] = $staff['status'];
+		if(I('post.status')==''){
+			$data['status'] = $boss['status'];
 		}else{
 			$data['status'] = I('post.status');
 		}
 
-		if(I('post.password')==''){//---------------------8
-			$data['password'] = $staff['password'];
+		if(I('post.password')==''){
+			$data['password'] = $boss['password'];
 		}else{
 			$data['password'] = I('post.password');
 		}
 
-		if(I('post.phone')==''){//---------------------9
-			$data['phone'] = $staff['phone'];
-		}else{
-			$data['phone'] = I('post.phone');
-		}
-
-		if(I('post.number')==''){//---------------------10
-			$data['number'] = $staff['number'];
-		}else{
-			$data['number'] = I('post.number');
-		}
-
-		if(I('post.address')==''){//---------------------11
-			$data['address'] = $staff['address'];
-		}else{
-			$data['address'] = I('post.address');
-		}
-
-		if(I('post.yuanxi')==''){//---------------------12
-			$data['yuanxi'] = $staff['yuanxi'];
-		}else{
-			$data['yuanxi'] = I('post.yuanxi');
-		}
-
-		if(I('post.zhuanye')==''){//---------------------13
-			$data['zhuanye'] = $staff['zhuanye'];
-		}else{
-			$data['zhuanye'] = I('post.zhuanye');
-		}
-
-		if ($User -> staffedit($data)) {
+		if ($User -> bossedit($data)) {
 			$msg = "修改成功！";
 			$this -> ajaxReturn(TRUE);
 		} else {

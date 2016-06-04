@@ -87,6 +87,7 @@ class IndexController extends Controller {
         $this->display();
     }
 	public function staff(){
+		
         $this->display();
     }
 }

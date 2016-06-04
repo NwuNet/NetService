@@ -40,6 +40,9 @@ class SetPeopleController extends BaseController {
         $Area = M('UserArea');
         $userarea = $Area->select();
         $this->assign('userarea',$userarea);
+        $Job = M('PositionState');
+        $jobstate = $Job->select();
+        $this->assign('job',$jobstate);
         $this->display();
     }
     //------------------------------staffuser key 12-----------------------------
@@ -61,6 +64,7 @@ class SetPeopleController extends BaseController {
         $data['zhuanye'] = '';//------------------------9
         $data['status'] = 1;//------------------------10
         $data['address'] = '';//------------------------11
+        $data['job'] = I('post.job');//------------------------12
         if ($User -> staffadd($data)) {
             $this -> ajaxReturn(TRUE);
         } else {
@@ -107,6 +111,7 @@ class SetPeopleController extends BaseController {
                 case 4 :$orderSql = " phone " . $order_dir;break;
                 case 5 :$orderSql = " begintime " . $order_dir;break;
                 case 6 :$orderSql = " area " . $order_dir;break;
+                case 7 :$orderSql = " job " . $order_dir;break;
                 default :$orderSql = '';
             }
         }
@@ -119,7 +124,7 @@ class SetPeopleController extends BaseController {
         //表的总记录数 必要
         $recordsTotal = $staffUser->count();
 
-        $map['id|cname|number|address|phone|begintime|area']=array('like',"%".$search."%");
+        $map['id|cname|number|address|phone|begintime|area|job']=array('like',"%".$search."%");
         if(strlen($search)>0){
             $recordsFiltered = count($staffUser->where($map)->select());
             $table = $staffUser->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -130,7 +135,7 @@ class SetPeopleController extends BaseController {
 
         $infos = array();
         foreach($table as $row){
-            $obj = array($row['id'],$row['cname'],$row['number'],$row['address'],$row['phone'],$row['begintime'],$row['area']);
+            $obj = array($row['id'],$row['cname'],$row['number'],$row['address'],$row['phone'],$row['begintime'],$row['area'],$row['job']);
             array_push($infos,$obj);
         }
 
