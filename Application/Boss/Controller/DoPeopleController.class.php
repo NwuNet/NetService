@@ -116,6 +116,7 @@ class DoPeopleController extends BaseController {
 		$vacation = $Staff->where('status=0')->select();
 		$this->assign('vacation',$vacation);//
         $this->display();
+		
     }
 	
 	// --------------------员工请假条审批---------------------
@@ -286,6 +287,136 @@ class DoPeopleController extends BaseController {
 	    $infos = array();
 	    foreach($table as $row){
 	        $obj = array($row['id'],$row['uname'],$row['position'],$row['start_time'],$row['end_time'],$row['reason'],$row['apply_time'],$row['approve'],$row['dimission_time']);
+	        array_push($infos,$obj);
+	    }
+	
+	    $this->ajaxReturn(array(
+	        "draw" => intval($draw),
+	        "recordsTotal" => intval($recordsTotal),
+	        "recordsFiltered" => intval($recordsFiltered),
+	        "data" => $infos
+	    ));
+	}
+    // --------------------兼职申请管理---------------------
+    public function apply(){
+    	
+		$ApplyReply = D('ApplyView');
+		$Apply = $ApplyReply->where('a_status= 0')->select();
+		$this->assign('Apply',$Apply);//
+        $this->display();
+    }
+	public function applycard($id){		
+    	if($id!=''){
+    //		$this->ajaxReturn($id);
+		    $ApplyReply = D('ApplyView');
+		    $apply = $ApplyReply->where('ApplyHome.id= %d',$id)->select();
+		    $this->assign('apply',$apply);
+			
+			$Reply = M('ApplyReply');
+			$replyinfo = $Reply->where('apply_id=%d',$id)->select();
+			$this->assign('replyinfo',$replyinfo);
+		    $this->assign('id',$id);
+	//		$this->ajaxReturn($apply);
+		    $this->display();
+		}
+
+    }
+	// --------------------兼职审批---------------------
+	public function replyadd(){
+		$apply_id = I('post.apply_id');
+		$operator = I('post.operator');
+		$reply = I('post.reply');		
+				
+		if($apply_id==''||$reply==''||$operator==''){
+			$this->ajaxReturn("数据为空");
+		}								
+		$Reply = M('ApplyReply');
+		$Reply->create();	
+		$Reply->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Reply->add();
+		if($Reply){
+			$Apply = M('ApplyHome');
+   		    $Apply->id=$apply_id;
+		    $Apply->a_status=1;
+			$Apply->save();
+			if($Apply){
+				$this->ajaxReturn(true);
+		    }else{
+			$this->ajaxReturn("审批失败");
+		    }			
+		}else{
+			$this->ajaxReturn("审批失败");
+		}
+	}
+	// --------------------兼职审批修改---------------------
+	public function replyedit(){
+		$id = I('post.reply_id');
+		$operator = I('post.operator');
+		$reply = I('post.reply');		
+				
+		if($id==''||$reply==''||$operator==''){
+			$this->ajaxReturn("数据为空");
+		}								
+		$Reply = M('ApplyReply');
+		$Reply->create();	
+		$Reply->id = $id;
+		$Reply->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Reply->save();
+		if($Reply){
+			$this->ajaxReturn(true);
+		}else{
+			$this->ajaxReturn("修改失败");
+		}
+	}		
+	public function applyreplytable() {
+	    $ApplyReply = D('ApplyReplyView');	
+	    //获取Datatables发送的参数 必要
+	    $draw = I('get.draw');//这个值作者会直接返回给前台
+	
+	    //排序
+	    $order_column = I('get.order')['0']['column'];//那一列排序，从0开始
+	    $order_dir = I('get.order')['0']['dir'];//ase desc 升序或者降序
+	    //拼接排序sql
+	    $orderSql = "";
+	    if (isset($order_column)) {
+	        $i = intval($order_column);
+	        switch($i) {
+	            case 0 :$orderSql = " id " . $order_dir;break;
+	            case 1 :$orderSql = " uname " . $order_dir;break;
+				case 2 :$orderSql = " position " . $order_dir;break;
+				case 3 :$orderSql = " phone " . $order_dir;break;
+	            case 4 :$orderSql = " specialty " . $order_dir;break;
+				case 5 :$orderSql = " zhuanye " . $order_dir;break;
+				case 6 :$orderSql = " yuanxi " . $order_dir;break;
+				case 7 :$orderSql = " area " . $order_dir;break;
+				case 8 :$orderSql = " time " . $order_dir;break;
+	            case 9 :$orderSql = " reply " . $order_dir;break;
+				case 10 :$orderSql = " operator " . $order_dir;break;
+				case 11 :$orderSql = " reply_time " . $order_dir;break;
+	            default :$orderSql = '';
+	        }
+	    }
+	
+	    //搜索
+	    $search = $_GET['search']['value'];//获取前台传过来的过滤条件
+	    //分页
+	    $start = $_GET['start'];//从多少开始
+	    $length = $_GET['length'];//数据长度
+	    //表的总记录数 必要
+	    $recordsTotal = $ApplyReply->count();
+	
+	    $map['id|unameposition||phone|specialty|zhuanye|yuanxi|area|time|reply|operator|reply_time']=array('like',"%".$search."%");
+	    if(strlen($search)>0){
+	        $recordsFiltered = count($ApplyReply->where($map)->select());
+	        $table = $ApplyReply->where($map)->order($orderSql)->limit($start.','.$length)->select();
+	    }else{
+	        $recordsFiltered = $recordsTotal;
+	        $table = $ApplyReply->order($orderSql)->limit($start.','.$length)->select();
+	    }
+	
+	    $infos = array();
+	    foreach($table as $row){
+	        $obj = array($row['id'],$row['uname'],$row['position'],$row['phone'],$row['specialty'],$row['zhuanye'],$row['yuanxi'],$row['area'],$row['time'],$row['reply'],$row['operator'],$row['reply_time']);
 	        array_push($infos,$obj);
 	    }
 	

@@ -1,0 +1,218 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('dopeople','doapply'))}
+	<!--menu widget-->
+
+</block>
+
+<block name="content-header">
+	<h1>
+		人事管理
+		<small><span class="fa fa-fw fa-calendar-plus-o"></span>兼职审批</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li class="active">首页</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<i class="fa fa-fw fa-user-plus"></i>
+							<h3 class="box-title">兼职审批</h3>
+							<div class="box-notes pull-right">
+								<button type="button" class="btn btn-box-note" data-widget="collapse"><i class="fa fa-minus"></i>
+								</button>
+								<button type="button" class="btn btn-box-note" data-widget="remove"><i class="fa fa-times"></i></button>
+							</div>
+						</div>
+						<div class="box-body table-responsive">
+							<table id="applyhome" class="table no-margin table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>姓名</th>
+										<th>申请职位</th>
+										<th>电话</th>
+										<th>特长</th>
+										<th>专业</th>
+										<th>院系</th>
+										<th>预计任职时间</th>
+										<th>校区</th>
+										<th>申请时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<volist name="Apply" id="vo">
+										<tr>
+											<td>{$vo.id}</td>
+											<td>{$vo.uname}</td>
+											<td>{$vo.position}</td>
+											<td>{$vo.phone}</td>
+											<td>{$vo.specialty}</td>											
+											<td>{$vo.zhuanye}</td>
+											<td>{$vo.yuanxi}</td>											
+											<td>{$vo.start_time}至{$vo.end_time}</td>
+											<td>{$vo.area}</td>
+											<td>{$vo.time}</td>
+											<!--<td>
+											<if condition="$vo['status'] eq 1">
+												<span class="badge bg-green"><i class="fa fa-fw fa-check"></i></span>
+												<else/> <span class="badge bg-red"><i class="fa fa-fw fa-close"></i></span>
+											</if>
+										</td>
+										<td>
+											<select id="status" class="form-control">
+												<option selected>请选择</option>
+												<option>批准</option>
+												<option>不批准</option>
+
+											</select>
+										</td>-->
+										</tr>
+									</volist>
+								</tbody>
+								<tfoot>
+									
+								</tfoot>
+							</table>
+						</div>
+						<!-- box-body -->
+					</div>
+					<!-- box -->
+				</div>
+				<!-- col -->
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<i class="fa fa-fw fa-table"></i>
+							<h3 class="box-title">兼职审批记录</h3>&ensp;
+							<div class="box-states pull-right">
+								<button type="button" class="btn btn-box-state" data-widget="collapse"><i class="fa fa-minus"></i>
+								</button>
+								<button type="button" class="btn btn-box-state" data-widget="remove"><i class="fa fa-times"></i></button>
+							</div>
+						</div>
+						<div class="box-body table-responsive">
+							<table id="applyreply" class="table table-bordered table-hover">
+								<thead>
+									<th>ID</th>
+										<th>姓名</th>
+										<th>申请职位</th>
+										<th>电话</th>
+										<th>特长</th>
+										<th>专业</th>
+										<th>院系</th>										
+										<th>校区</th>
+										<th>申请时间</th>
+										<th>审批结果</th>
+										<th>审批人</th>
+										<th>审批时间</th>
+								</thead>
+								<tbody>
+
+								</tbody>
+								<tfoot>
+									<th>ID</th>
+									<th>姓名</th>
+									<th>申请职位</th>
+										<th>电话</th>
+										<th>特长</th>
+										<th>专业</th>
+										<th>院系</th>										
+										<th>校区</th>
+										<th>申请时间</th>
+										<th>审批结果</th>
+										<th>审批人</th>
+										<th>审批时间</th>
+								</tfoot>
+							</table>
+						</div>
+						<!-- box-body -->
+					</div>
+				</div>
+				<!-- col -->
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">	
+	
+<!-- fullCalendar 2.4.0 -->
+<js href="__PUBLIC__/AdminLTE2/plugins/fullcalendar/fullcalendar.min.js" />
+<js href="__PUBLIC__/AdminLTE2/plugins/fullcalendar/lang-all.js" />
+<script type="text/javascript">
+	/*
+	 * datatables
+	 * */
+	var table = $("#applyreply").DataTable({
+		"processing": true,
+		"serverSide": true,
+		"ajax": "<php>echo U('Boss/DoPeople/applyreplytable')</php>",
+		"language": {
+			"sProcessing": "处理中...",
+			"lengthMenu": "每页 _MENU_ 条记录",
+			"zeroRecords": "没有找到记录",
+			"info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+			"infoEmpty": "无记录",
+			"infoFiltered": "(从 _MAX_ 条记录过滤)",
+			"search": "搜索",
+			"sLoadingRecords": "载入中...",
+			"paginate": {
+				"previous": "前页",
+				"next": "后页"
+			}
+		}
+	});
+	/**
+	 * 
+	 * */
+	$('#applyhome tbody').on('click', 'tr', function() {
+		var id = $(this).children().first().html();
+		location.href = "index.php?s=/Boss-DoPeople-applycard-id-" + id;
+	});
+	/**
+	 * 
+	 * */
+	$('#applyreply tbody').on('click', 'tr', function() {
+		var id = $(this).children().first().html();
+		location.href = "index.php?s=/Boss-DoPeople-applycard-id-" + id;
+	});
+</script>
+</block>

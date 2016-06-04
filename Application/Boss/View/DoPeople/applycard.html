@@ -1,0 +1,234 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+	<div class="pull-left image">
+		<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+	</div>
+	<div class="pull-left info">
+		<p>{$user.uname}</p>
+		<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+	</div>
+</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('dopeople','doapplycard'))}
+	<!--menu widget-->
+</block>
+
+<block name="content-header">	
+	<h1>
+		<a href="<php>echo U('Boss/DoPeople/apply')</php>" class="">
+			<i class="ion ion-backspace" data-toggle="tooltip" data-placement="top" title="返回"></i>
+		</a> <i class="fa fa-fw fa-check-square-o"></i>个人简历详细信息
+  </h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li>人事管理</li>
+		<li class="active">个人简历详细信息</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="box box-widget widget-user">
+				<!-- Add the bg color to the header using any of the bg-* classes -->
+				<div class="widget-user-header bg-aqua-active">
+					<h3 class="widget-user-username">{$apply.0.uname}</h3>
+					<!--	<h5 class="widget-user-desc">{$apply.0.zhuanye}</h5>-->
+				</div>
+				<div class="widget-user-image">
+					<img class="img-circle" src="__PUBLIC__{$apply.0.img}" alt="User Avatar">
+				</div>
+				<div class="box-footer">
+					<div class="row">
+						<div class="col-sm-4 border-right">
+							<div class="description-block">
+								<h5 class="description-header">学号</h5>
+								<span class="description-text">{$apply.0.number}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-4 border-right">
+							<div class="description-block">
+								<h5 class="description-header">宿舍号</h5>
+								<span class="description-text">{$apply.0.address}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-4">
+							<div class="description-block">
+								<h5 class="description-header">联系电话</h5>
+								<span class="description-text">{$apply.0.phone}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+					<div class="row">
+						<div class="col-sm-12 border-radius" >
+							<strong><i class="fa fa-user"></i> 申请职位：</strong>
+							<span class="description-text">{$apply.0.position}</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<strong><i class="fa fa-user"></i> 专业：</strong>
+							<span class="description-text">{$apply.0.zhuanye}</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<strong><i class="fa fa-user"></i> 特长：</strong>
+							<p>{$apply.0.specialty}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<strong><i class="fa fa-user"></i> 预计任职时间：</strong>
+							<span class="description-text">从{$apply.0.start_time}至{$apply.0.end_time}</span>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<strong><i class="fa fa-user"></i> 个人简介：</strong>
+							<p>{$apply.0.intro}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<strong><i class="fa fa-user"></i> 院系：</strong>
+							<span class="description-text">{$apply.0.yuanxi}</span>
+
+						</div>
+						<div class="col-sm-6">
+							<strong><i class="fa fa-user"></i> 校区：</strong>
+							<span class="description-text">{$apply.0.area}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.widget-user -->
+		</div>
+		<div class="col-md-6">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">兼职审批</h4>
+				</div>
+				<if condition = "$replyinfo eq null">
+				<div class="modal-body">
+					<form id="addform">
+						<div class="form-group sr-only">
+							<!---->
+							<label for="id" class="control-label">ID</label>
+							<input type="text" class="form-control" id="id" name="id" value="{$id}"/>
+						</div>
+						<div class="form-group">
+							<label for="reply" class="control-label">审批意见</label>
+							<input type="text" class="form-control" id="reply" name="reply" />
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="addbtn" type="button" class="btn btn-primary">确认</button>
+				</div>
+				<else/>
+				<div class="modal-body">
+					<form id="addform">
+						<div class="form-group sr-only">
+							<!---->
+							<label for="id" class="control-label">ID</label>
+							<input type="text" class="form-control" id="id" name="id" value="{$replyinfo.0.id}"/>
+						</div>
+						<div class="form-group">
+							<label for="reply" class="control-label">审批意见</label>
+							<input type="text" class="form-control" id="reply" name="reply" value="{$replyinfo.0.reply}"/>
+						</div>
+                        <div class="form-group">
+							<label for="operator" class="control-label">审批人</label>
+							<input type="text" disabled="disabled" class="form-control" id="operator" name="operator" value="{$replyinfo.0.operator}"/>
+						</div>
+						<div class="form-group">
+							<label for="time" class="control-label">审批时间</label>
+							<input type="text" disabled="disabled" class="form-control" id="time" name="time" value="{$replyinfo.0.time}"/>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="editbtn" type="button" class="btn btn-primary">确认修改</button>
+				</div>
+				</if>
+
+			</div>
+		</div>
+	</div>
+
+</block>
+<block name="script">
+	<script type="text/javascript">
+	    /**
+         * 审批兼职
+         * */   
+        $('#addbtn').click(function() { 
+        	$.post("<php>echo U('Boss/DoPeople/replyadd')</php>",{
+                apply_id: $("#id")[0].value,
+                operator: '{$user.uname}',
+				reply: $("#reply")[0].value
+				
+            }, function(data) {                
+                if (data == true) {
+                    alert("审批成功");
+                } else {
+                    alert(data);
+                }
+                location.reload();
+            });
+           
+        });
+        /**
+         * 审批修改
+         * */   
+        $('#editbtn').click(function() { 
+        	$.post("<php>echo U('Boss/DoPeople/replyedit')</php>",{
+                reply_id: $("#id")[0].value,
+                operator: '{$user.uname}',
+				reply: $("#reply")[0].value
+				
+            }, function(data) {                
+                if (data == true) {
+                    alert("修改成功");
+                } else {
+                    alert(data);
+                }
+                location.reload();
+            });
+           
+        });
+	
+	</script>
+
+</block>
