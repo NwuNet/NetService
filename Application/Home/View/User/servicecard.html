@@ -58,9 +58,11 @@
 						<li><a href="#">姓名 <span class="pull-right  ">{$cardinfo.0.name}</span></a></li>
 						<li><a href="#">学号 <span class="pull-right  ">{$cardinfo.0.student_no}</span></a></li>
 						<li><a href="#">宿舍号 <span class="pull-right  ">{$cardinfo.0.dormitory}</span></a></li>
+						<li><a href="#">预约时间 <span class="pull-right  ">{$cardinfo.0.appointment_time}</span></a></li>						
 						<li><a href="#">电话 <span class="pull-right  ">{$cardinfo.0.phone}</span></a></li>						
 						<li><a href="#">描述 <span class="pull-right  ">{$cardinfo.0.description}</span></a></li>
-						<li><a href="#">校区 <span class="pull-right  ">{$cardinfo.0.area}</span></a></li>
+						<li><a href="#">提交时间 <span class="pull-right  ">{$cardinfo.0.start}</span></a></li>						
+						<li><a href="#">所属校区 <span class="pull-right  ">{$cardinfo.0.area}</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -69,7 +71,6 @@
 			<div class="box">
 				<div class="box-body">
 					<!-- The timeline -->
-
 					<ul class="timeline timeline-inverse">
 						<!-- timeline time label -->
 						<li class="time-label"><span class="bg-blue">{$cardinfo.0.start}</span></li>
@@ -97,8 +98,7 @@
 							</li>
 							</li>
 						</foreach>
-						<!-- timeline time label -->
-						<li class="time-label"><span class="bg-red">{$cardinfo.0.end}</span></li>
+						<!-- timeline time label -->				
 						<li>
 							<i class="fa fa-clock-o bg-red"></i>
 							<div class="timeline-item">

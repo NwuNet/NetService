@@ -31,7 +31,10 @@
 </block>
 
 <block name="content-header">
-	<h1><i class="fa fa-fw fa-calendar-check-o"></i>兼职申请</h1>
+	<h1><i class="fa fa-fw fa-calendar-check-o"></i>兼职申请
+		<i class="fa fa-fw fa-arrow-right"></i>
+		<a href="<php>echo U('Home/User/applyreply')</php>">兼职申请结果</a>
+	</h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
 		<li class="active">兼职申请</li>
@@ -39,7 +42,7 @@
 </block>
 <block name="content">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="box box-primary">
@@ -55,39 +58,45 @@
 						<div class="box-body">
 							<form id="addform">
 								<div class="form-group">
-									<div class="form-group">
-										<label>姓名</label>
-										<div class="input-group" style="width: 100%;">
-											<input type="text" disabled="disabled" class="form-control" id="uname" name="uname" value="{$user.uname}" />
-										</div>
-										<label>学号</label>
-										<div class="input-group" style="width: 100%;">
-											<input type="text" disabled="disabled" class="form-control" id="student_no" name="student_no" value="{$user.number}"/>
-										</div>									
-										<label>特长</label>
-										<div class="input-group" style="width: 100%;">
-											<input type="text" class="form-control" id="specialty" name="specialty" />
-										</div>
-										<label>个人简介</label>
-										<div class="input-group" style="width: 100%;">
-											<input type="text" class="form-control" id="intro" name="intro" />
-										</div>
-										<label>预计任职时间段</label>
-										<br/>
-										<label>从</label>
-										<div class="input-group" style="width: 100%;">											
-											<input type="date" id="time1" class="form-control">											
-										</div>
-										<label>到</label>
-										<div class="input-group" style="width: 100%;">
-											<input type="date" id="time2" class="form-control">
-										</div>
-										
 
+									<label>姓名</label>
+									<div class="input-group" style="width: 100%;">
+										<input type="text" disabled="disabled" class="form-control" id="uname" name="uname" value="{$user.uname}" />
 									</div>
+									<label>学号</label>
+									<div class="input-group" style="width: 100%;">
+										<input type="text" disabled="disabled" class="form-control" id="student_no" name="student_no" value="{$user.number}" />
+									</div>
+									<label>申请岗位</label>
+									<select id="position" class="form-control" style="width: 100%;">
+										<option selected="selected">请选择</option>
+										<foreach name="positionname" item="vo">
+											<option>{$vo.name}</option>
+										</foreach>
+									</select>
+									<label>特长</label>
+									<div class="input-group" style="width: 100%;">
+										<input type="text" class="form-control" id="specialty" name="specialty" />
+									</div>
+									<label>个人简介</label>
+									<div class="input-group" style="width: 100%;">
+										<textarea type="text" class="form-control" id="intro" name="intro" ></textarea>
+									</div>
+									<label>预计任职时间段</label>
+									<br/>
+									<label>从</label>
+									<div class="input-group" style="width: 100%;">
+										<input type="date" id="time1" class="form-control">
+									</div>
+									<label>到</label>
+									<div class="input-group" style="width: 100%;">
+										<input type="date" id="time2" class="form-control">
+									</div>
+
+								</div>
 							</form>
 							<button type="submit" id="addbtn" class="btn btn-primary btn-block">提交</button>
-							</div>
+
 							<!-- box-body -->
 						</div>
 						<!-- box -->
@@ -97,61 +106,212 @@
 			</div>
 			<!-- /.col -->
 		</div>
-		<div class="col-md-8">
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<i class="fa fa-fw fa-table"></i>
-					<h3 class="box-title">审批信息</h3>&ensp;
-					<div class="box-notes pull-right">
-						<button type="button" class="btn btn-box-note" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-						<button type="button" class="btn btn-box-note" data-widget="remove"><i class="fa fa-times"></i></button>
-					</div>
+		<if condition = "$applyinfo neq null">
+		<div class="row">
+			<div class="col-md-6">
+				<!-- Widget: user widget style 1 -->
+				<div class="box box-widget widget-user">
+					<form id="addform">
+						<div class="form-group">
+							<!-- Add the bg color to the header using any of the bg-* classes -->
+							<div class="widget-user-header bg-aqua-active">
+								<h3 class="widget-user-username">个人简历</h3>
+
+							</div>
+							<div class="widget-user-image">
+								<img class="img-circle" src="__PUBLIC__{$applyinfo.img}" alt="User Avatar">
+							</div>
+							<div class="box-footer">
+								<div class="row">
+									<div class="col-sm-4 border-right">
+										<div class="description-block">
+											<h5 class="description-header">学号</h5>
+											<span class="description-text">{$applyinfo.number}</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-sm-4 border-right">
+										<div class="description-block">
+											<h5 class="description-header">宿舍号</h5>
+											<span class="description-text">{$applyinfo.address}</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-sm-4">
+										<div class="description-block">
+											<h5 class="description-header">联系电话</h5>
+											<span class="description-text">{$applyinfo.phone}</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+								</div>
+								<!-- /.row -->
+								<div class="row">
+									<div class="col-sm-6">
+										<strong><i class="fa fa-user"></i> 姓名：</strong>
+										<span class="description-text">{$applyinfo.uname}</span>
+									</div>
+									<div class="col-sm-6">
+										<strong><i class="fa fa-user"></i> 专业：</strong>
+										<span class="description-text">{$applyinfo.zhuanye}</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<strong><i class="fa fa-user"></i> 申请职位：</strong>
+										<span class="description-text">{$applyinfo.position}</span>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-sm-12">										
+											<strong><i class="fa fa-user"></i> 特长：</strong>
+											<span class="description-text">{$applyinfo.specialty}</span>
+										</div>
+									</div>
+								
+								<div class="row">
+									<div class="col-sm-12">										
+										<strong><i class="fa fa-user"></i> 预计任职时间：</strong>																			
+									</div>
+									<div class="col-sm-6">										
+										<span class="description-text"> 从：</span>
+										<span class="description-text">{$applyinfo.start_time}</span>									
+										
+									</div>
+									<div class="col-sm-6">
+										<span class="description-text"> 到：</span>
+										<span class="description-text">{$applyinfo.end_time}</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<strong><i class="fa fa-user"></i> 个人简介</strong>
+										<span class="description-text">{$applyinfo.intro}</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<strong><i class="fa fa-user"></i> 院系：</strong>
+										<span class="description-text">{$applyinfo.yuanxi}</span>
+									</div>
+									<div class="col-sm-6">
+										<strong><i class="fa fa-user"></i> 校区：</strong>
+										<span class="description-text">{$applyinfo.area}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+					            <a class="btn btn-warning btn-block" id="editservice" data-toggle="modal" data-target="#addmodal">修改</a>
+								
+							</div>
+							<div class="col-sm-6">
+					            
+								<a class="btn btn-danger btn-block" id="delservice" data-toggle="modal" data-target="#delmodal">删除</a>
+							</div>
+						</div>
+				<!-- /.widget-user -->
+
+			</div>
+			</if>
+		</div>
+	</div>		
+</block>
+<block name="script">	
+    <!-- add Modal -->
+	<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addlabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">修改简历信息</h4>
 				</div>
-				<div class="box-body table-responsive no-padding">
-					<table id="state" class="table table-hover">
-						<thead>
-							<th>ID</th>
-							<th>姓名</th>						
-							<th>特长</th>
-							<th>个人简介</th>
-							<th>预计任职时间段</th>
-							<th>申请时间</th>
-							<th>审批结果</th>
-							<th>审批时间</th>
-						</thead>
-						<tbody>
-							<volist name="state" id="vo">
-								<tr>
-									<td>{$vo.id}</td>
-									<td>{$user.uname}</td>
-									<td>{$vo.specialty}</td>
-									<td>{$vo.intro}</td>
-									<td>{$vo.start_time}至{$vo.end_time}</td>																	
-									<td>{$vo.time}</td>
-									<td>{$vo.reply}</td>
-									<td>{$vo.reply_time}</td>
-								</tr>
-							</volist>
-						</tbody>
-					</table>
+				<div class="modal-body">
+					<form id="addform" class="form-horizontal">
+						<div class="form-group sr-only">
+							<label for="id" class="control-label col-sm-2"></label>
+							<div class="col-sm-10">
+								<input value="{$applyinfo.id}" disabled="disabled" type="text" class="form-control" id="sid" name="id" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="position" class="control-label col-sm-2">职位</label>
+							<div class="col-sm-10">
+								<!--<input value="{$applyinfo.position}"  class="form-control" name="position" type="text" id="position"  />-->
+							    <select id="sposition" value="" class="form-control" style="width: 100%;">
+										<option selected="selected">{$applyinfo.position}</option>
+										<option>请选择</option>
+										<foreach name="positionname" item="vo">
+											<option>{$vo.name}</option>
+										</foreach>
+									</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="student_no" class="control-label col-sm-2">特长</label>
+							<div class="col-sm-10">
+								<input value="{$applyinfo.specialty}"  class="form-control" id="sspecialty" name="specialty"   />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">个人简介</label>
+							<div class="col-sm-10">
+								<textarea  class="form-control" name="intro" id="sintro" type="text">{$applyinfo.intro}</textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">时间从</label>
+							<div class="col-sm-10">
+								<input value="{$applyinfo.start_time}" class="form-control" name="start_time" id="sstart_time" type="date"  />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">至</label>
+							<div class="col-sm-10">
+								<input value="{$applyinfo.end_time}" class="form-control" name="end_time" id="send_time" type="date"  />
+							</div>
+						</div>
+					</form>
 				</div>
-				<!-- box-body -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default " data-dismiss="modal">关闭</button>
+					<button id="editbtn" type="button" class="btn btn-warning">确认</button>
+				</div>
 			</div>
 		</div>
-</block>
-<block name="script">
-	
-	
+	</div>
+	<!-- add Modal -->
+	<div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="dellabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+					<h4 class="modal-title">确认删除本简历</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="delbtn" type="button" class="btn btn-danger">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
 		var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 		/**
-		 * 添加考勤
+		 * 添加兼职申请
 		 * */
 		$("#addbtn").click(function() {
 			$(".box").append(loading);
 			$.post("<php>echo U('Home/User/applyadd')</php>", {
-						home_id: '{$user.id}',
+						home_id: $("#id")[0].value,
+						position: $("#position")[0].value,
 						start_time: $("#time1")[0].value,
 						end_time: $("#time2")[0].value,
 						specialty: $("#specialty")[0].value,
@@ -161,6 +321,29 @@
 						$("div").remove(".overlay");
 						if (data == true) {
 							alert("添加成功");
+						} else {
+							alert(data);
+						}
+						location.reload();
+					});
+		});
+		/**
+		 * 兼职申请修改
+		 * */
+		$("#editbtn").click(function() {
+			$(".box").append(loading);
+			$.post("<php>echo U('Home/User/applyedit')</php>", {
+						apply_id: '{$id}',
+						position: $("#sposition")[0].value,
+						start_time: $("#sstart_time")[0].value,
+						end_time: $("#send_time")[0].value,
+						specialty: $("#sspecialty")[0].value,
+						intro: $("#sintro")[0].value	
+					},
+					function(data) {
+						$("div").remove(".overlay");
+						if (data == true) {
+							alert("修改成功");
 						} else {
 							alert(data);
 						}
