@@ -201,12 +201,28 @@ class UserController extends BaseController {
 	public function apply(){
 		$applyrepply = D('ApplyView');
 		$homeuser = D('Login','Service')->getuserInfo();
-	//	$apply = M('ApplyHome');
+			
+	/*	$state = $applyrepply->where('home_id=%d',$homeuser['id'])->select();
+		$this->assign('state',$state);*/
 		
+		$apply = D('Boss/ApplyView');					
+		$applyinfo = $apply->where('a_status=0 and home_id=%d',$homeuser['id'])->find();
+		$this->assign('applyinfo',$applyinfo);
+		$this->assign('id',$applyinfo['id']);
+	//	$this->ajaxReturn($applyinfo);
+	    $Position = M('PositionState');
+	    $positionname = $Position->select();
+		$this->assign('positionname',$positionname);
+	
+		$this->display();
+	}
+	// --------------------申请兼职结果---------------------
+	public function applyreply(){
+		$applyrepply = D('ApplyView');
+		$homeuser = D('Login','Service')->getuserInfo();			
 		$state = $applyrepply->where('home_id=%d',$homeuser['id'])->select();
-		$this->assign('state',$state);
-	//	$this->ajaxReturn($homeuser.id);
-
+		$this->assign('state',$state);				
+	
 		$this->display();
 	}
 	// --------------------兼职申请单添加--------------------
@@ -215,19 +231,47 @@ class UserController extends BaseController {
 		$start_time = I('post.start_time');
 		$end_time = I('post.end_time');
 		$specialty = I('post.specialty');
+		$position = I('post.position');
 		$intro = I('post.intro');
-		if($home_id==''||$start_time==''||$end_time==''||$specialty==''||$intro==''){
+		if($home_id==''||$start_time==''||$end_time==''||$specialty==''||$intro==''||$position==''){
 			$this->ajaxReturn("数据为空");
 		}
 		$Apply = M('ApplyHome');
 		$Apply->create();
-		$Apply->status=0;
+		$Apply->a_status=0;
 		$Apply->time  = date("Y-m-d H:i:s",NOW_TIME);
 		$Apply->add();
 		if($Apply){
 			$this->ajaxReturn(true);
 		} else{
 			$this->ajaxReturn("提交失败");
+		}
+	}
+	// --------------------兼职申请单修改--------------------
+	public function applyedit(){
+		$apply_id = I('post.apply_id');
+		$start_time = I('post.start_time');
+		$end_time = I('post.end_time');
+		$specialty = I('post.specialty');
+		$position = I('post.position');
+		$intro = I('post.intro');
+		if($apply_id==''){
+			$this->ajaxReturn("数据为空");
+		}
+		
+		$Apply = M('ApplyHome');
+		$Apply->create();
+		$Apply->id = $apply_id;
+		$Apply->start_time = $start_time;
+		$Apply->end_time = $end_time;
+		$Apply->specialty = $specialty;
+		$Apply->position = $position;
+		$Apply->intro = $intro;		
+		$Apply->save();
+		if($Apply){
+			$this->ajaxReturn(true);
+		} else{
+			$this->ajaxReturn("修改失败");
 		}
 	}
 	// --------------------建议反馈---------------------
