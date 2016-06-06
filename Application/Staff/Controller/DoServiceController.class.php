@@ -82,6 +82,9 @@ class DoServiceController extends BaseController {
 			$breakinfo = $BreakInfo->where('level = 1')->select();
 			$this->assign('breakinfo',$breakinfo);
 			
+			$evaluate = M('ServiceEvaluate');
+			$servicevaluate = $evaluate->where('servicecard_id =%d',$id)->select();
+			$this->assign('servicevaluate',$servicevaluate);
 //			$staffUser = D('Admin/StaffUserView');
 //            $staffname = $staffUser->field('uname')->select();
 //            $this->assign('staffname',$staffname);//员工名称

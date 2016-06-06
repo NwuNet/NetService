@@ -70,8 +70,7 @@
 									<a class="btn btn-danger " id="delservice" data-toggle="modal" data-target="#delmodal">删除服务单</a>
 								</div>
 							</div>
-						</li>
-						    
+						</li>						    
 						<foreach name="servicerepair" item="vo">
 							<li>
 								<li>
@@ -218,11 +217,12 @@
 			$("#addform").submit();
 		});
        	/*
-		 * 添加完成状态
+		 * 添加评价
 		 * */
 		$("#stateadd").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Home/User/servicerepairadd')</php>",{
+			$.post("<php>echo U('Home/User/servicevaluateadd')</php>",{
+				servicecard_id:'{$cardinfo.id}',
 				evaluation : $("#evaluation").val()							
 			}, function(data) {
 				$btn.button('reset');

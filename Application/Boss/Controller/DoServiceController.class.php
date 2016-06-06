@@ -103,6 +103,10 @@ class DoServiceController extends BaseController {
 			$this->assign("servicerepair",$servicerepair);
 			trace($servicerepair);
 			$this->assign('id',$id);
+			
+			$evaluate = M('ServiceEvaluate');
+			$servicevaluate = $evaluate->where('servicecard_id =%d',$id)->select();
+			$this->assign('servicevaluate',$servicevaluate);
 			$this->display();
 		}
     }

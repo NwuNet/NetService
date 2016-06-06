@@ -41,7 +41,6 @@
 		<li class="active">服务单详细信息</li>
 	</ol>
 </block>
-
 <block name="content">
 	<div class="row">
 		<div class="col-md-4">
@@ -96,11 +95,26 @@
 								</div>
 							</li>
 						</foreach>
-
-						<if condition = "$cardinfo[0]['status'] eq 1">
-							<li class="time-label"><span class="bg-blue">{$cardinfo.0.end}</span></li>
+						<if condition="$servicevaluate neq null">
+							<foreach name="servicevaluate" item="vo">
+								<li class="time-label"><span class="bg-red">{$vo.time}</span></li>
+								<li>
+									<i class="fa fa-user bg-red"></i>
+									<div class="timeline-item">
+										<span class="time"><i class="fa fa-clock-o"></i> {$vo.time|substr=11,18}</span>
+										<h3 class="timeline-header"><a href="#">服务完成</a> {$vo.time|substr=0,10}</h3>
+										<div class="timeline-body">
+											<p class="text-primary">本次服务评价：{$vo.evaluation} </p>
+										</div>
+									</div>
+								</li>
+								</li>
+							</foreach>
+						</if>
+						<if condition="$cardinfo[0]['status'] eq 1">
+							<li class="time-label"><span class="bg-yellow">{$cardinfo.0.end}</span></li>
 							<li>
-								<i class="fa fa-user bg-blue"></i>
+								<i class="fa fa-user bg-yellow"></i>
 								<div class="timeline-item">
 									<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.end|substr=11,18}</span>
 									<h3 class="timeline-header"><a href="#">管理员确认服务单</a> {$cardinfo.0.end|substr=0,10}</h3>
@@ -110,7 +124,7 @@
 									</div>
 								</div>
 							</li>
-						<else/>
+							<else/>
 							<li>
 								<i class="fa fa-user bg-green"></i>
 								<div class="timeline-item">
@@ -138,14 +152,12 @@
 							</li>
 						</if>
 					</ul>
-					
-					</div>
 				</div>
 			</div>
-			<!-- col -->
 		</div>
+		<!-- col -->
+	</div>
 </block>
-
 <block name="script">
 	<script type="text/javascript">
 			//select2

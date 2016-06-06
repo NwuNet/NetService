@@ -74,40 +74,22 @@ class UserController extends BaseController {
 			$this->ajaxReturn($info);
 		}
 	}
-    // --------------------维修单添加完成状态---------------------
-	public function servicerepairadd(){
-		$homeuser = D('Login','Service')->getuserInfo();
-		$Card = M('ServiceCard');
-		$cardinfo = $Card->where('status=0 and student_no = "%s" ',$homeuser['number'])->select();
-		$servicecard_id = $cardinfo[0]['id'];
+    // --------------------维修单添加评价---------------------
+	public function servicevaluateadd(){	
+		$servicecard_id = I('post.servicecard_id');
 		$evaluation = I('post.evaluation');
 		if($evaluation==''){
 			$this->ajaxReturn("数据为空");
 		}
-		$repair = M('ServiceRepair');
-		$repair->create();
-		$repair->state='完成';
-		$repair->servicecard_id=$servicecard_id;
-		$repair->operator=$evaluation;
-		$repair->time  = date("Y-m-d H:i:s",NOW_TIME);
-		$repair->add();
-		if($repair){						
-				$Card = M('ServiceCard');
-				$data = $Card->where('id = "%d"',$servicecard_id)->field("id")->find();
-		        $Card->id = $data['id'];
-		        $Card->status = '1' ;
-		        $Card ->save();
-				if($Card){
-			        $this->ajaxReturn(true);
-		        }else{
-			        $this->ajaxReturn("提交失败");
-				}
-		
-		}else if($repair){
-			        $this->ajaxReturn(true);
-		        } else{
-			        $this->ajaxReturn("提交失败");
-		        }
+		$evaluate = M('ServiceEvaluate');
+		$evaluate->create();		
+		$evaluate->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$evaluate->add();
+		if($evaluate){						
+			$this->ajaxReturn(true);	
+		}else{ 			        		       
+			$this->ajaxReturn("提交失败");
+		}
 	}
     public function service() {
     	$homeuser = D('Login','Service')->getuserInfo();		
@@ -194,6 +176,10 @@ class UserController extends BaseController {
 			$staffUser = D('Admin/StaffUserView');
             $staffname = $staffUser->field('uname')->select();
             $this->assign('staffname',$staffname);//员工名称
+            
+            $evaluate = M('ServiceEvaluate');
+			$servicevaluate = $evaluate->where('servicecard_id =%d',$id)->select();
+			$this->assign('servicevaluate',$servicevaluate);
 			$this->display();
 		}
 	}

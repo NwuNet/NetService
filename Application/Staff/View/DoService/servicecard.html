@@ -92,17 +92,28 @@
 										<div class="timeline-body">
 											<h4>{$vo.breakinfo}</h4>
 											<p>{$vo.breaksubinfo}</p>
-											<if condition="$vo.state eq '完成'">
-										        <p class="text-primary">本次服务评价：{$vo.operator} </p>
-                                            <else/><p class="text-primary">维修者：{$vo.operator} </p>
-                                            </if>
-											
+											<p class="text-primary">维修者：{$vo.operator} </p>											
 										</div>
 									</div>
 								</li>
 							</li>
 						</foreach>
-
+                        <if condition="$servicevaluate neq null">
+							<foreach name="servicevaluate" item="vo">
+							<li class="time-label"><span class="bg-red">{$vo.time}</span></li>
+							<li>
+								<i class="fa fa-user bg-red"></i>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> {$vo.time|substr=11,18}</span>
+									<h3 class="timeline-header"><a href="#">服务完成</a> {$vo.time|substr=0,10}</h3>
+									<div class="timeline-body">										
+										<p class="text-primary">本次服务评价：{$vo.evaluation} </p>                                      
+									</div>
+								</div>
+							</li>
+							</li>
+						    </foreach>
+						</if>
 						<if condition="$cardinfo[0]['status'] eq 0">
 						<li>
 							<i class="fa fa-clock-o bg-gray"></i>
@@ -139,13 +150,18 @@
 						</if>
 						<if condition="$cardinfo[0]['status'] eq 1">
 
-						<li>
-							<i class="fa fa-user bg-yellow"></i>
-							<div class="timeline-item">
-								<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.end|substr=11,18}</span>
-								<h3 class="timeline-header no-border">
-									<a href="#">{$cardinfo.0.description}</a> {$cardinfo.0.end|substr=0,10}
-								</h3>
+						<li class="time-label"><span class="bg-yellow">{$cardinfo.0.end}</span></li>
+							<li>
+								<i class="fa fa-user bg-yellow"></i>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.end|substr=11,18}</span>
+									<h3 class="timeline-header"><a href="#">管理员确认服务单</a> {$cardinfo.0.end|substr=0,10}</h3>
+									<div class="timeline-body">
+										<h4>备注：{$cardinfo.0.description}</h4>
+										<p class="text-primary">确认完成人：{$cardinfo.0.operator} </p>
+									</div>
+								</div>
+							</li>
 
 								<!--<div class="timeline-body">-->
 									<!--<div class="form-group">-->
@@ -169,8 +185,7 @@
 									<!--</div>-->
 									<!--<button class="btn btn-primary" type="submit">确认</button>-->
 								<!--</div>-->
-							</div>
-						</li>
+							
 						</if>
 					</ul>
 					
