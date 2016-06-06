@@ -16,7 +16,9 @@ class IndexController extends Controller {
 		$description = "null";
 		$appointment_time = I('post.appointment_time');
 		$area = I('post.area');
-
+		if($appointment_time == ''){
+			$this->ajaxReturn("请选择预约时间");
+		}
 		if($uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}
