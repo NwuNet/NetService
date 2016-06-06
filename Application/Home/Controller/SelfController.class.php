@@ -3,6 +3,9 @@ namespace Home\Controller;
 use Think\Controller;
 class SelfController extends BaseController {
 	public function index() {
+		$area = M('UserArea');			
+		$areaname = $area->select();
+		$this->assign('areaname',$areaname);	
 		$this -> display();
 	}
 	/**
@@ -78,6 +81,8 @@ class SelfController extends BaseController {
 	    $data['number'] = I('post.number');
 		$data['phone'] = I('post.phone');
 	    $data['address'] = I('post.address');
+		$data['zhuanye'] = I('post.zhuanye');
+		$data['yuanxi'] = I('post.yuanxi');
 		$data['area'] = I('post.area');
 	    if ($User -> homeedit($data)) {
 	        $msg = "修改成功！";

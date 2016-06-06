@@ -310,7 +310,7 @@
 		$("#addbtn").click(function() {
 			$(".box").append(loading);
 			$.post("<php>echo U('Home/User/applyadd')</php>", {
-						home_id: $("#id")[0].value,
+						home_id: '{$user.id}',
 						position: $("#position")[0].value,
 						start_time: $("#time1")[0].value,
 						end_time: $("#time2")[0].value,
