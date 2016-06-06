@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">预约时间--周内16:00-18:00</label>
-                        <input type="text" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="on" data-provide="datepicker"  />
+                        <input type="text" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
                     </div>
                     <div class="form-group">
                         <label class="control-label" id="captchaOperation"></label>
@@ -151,9 +151,6 @@
                 },
                 appointment_time: {
                     validators: {
-                        notEmpty: {
-                            message: '必须填写预约时间'
-                        },
                         date: {
                             format: "YYYY-MM-DD"
                         }

@@ -170,8 +170,8 @@
 			$.post("<php>echo U('Boss/DoService/servicerepairadd')</php>",{
 				id : {$id},
 				description : $("#description").val(),
-				status : 1
-//				actor : '{$user.uname}'
+				status : 1,
+				operator : '{$user.cname}'
 			}, function(data) {
 				$btn.button('reset');
 				if (data == true) {
