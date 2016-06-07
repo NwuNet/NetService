@@ -18,7 +18,7 @@ class HomeUserModel extends Model{
 	 * 添加
 	 * */
 	 public function plus($data){
-	 	if($this->where('uname = "%s" and number = %d ',$data['uname'],$data['number'])->find()) return FALSE;
+	 	if($this->where('id = %d ',$data['id'])->find()) return FALSE;
 //		 $this -> uname = $data['uname'];
 		 $data['password'] = md5($data['password']);
 		 $data['begintime'] = date("Y-m-d H:i:s",NOW_TIME);
@@ -36,7 +36,7 @@ class HomeUserModel extends Model{
 	  * 修改
 	  * */
 	 public function edit($data){
-	     if(count($this->where('uname = "%s" and number = %d ',$data['uname'],$data['number'] )->find())>0) {
+	     if(count($this->where('id = %d ',$data['id'] )->find())>0) {
 
 //			 $this -> uname = $data['uname'];
 			 $data['password'] = md5($data['password']);

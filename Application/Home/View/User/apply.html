@@ -42,7 +42,7 @@
 </block>
 <block name="content">
 	<div class="row">
-		<div class="col-md-5">
+		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="box box-primary">
@@ -51,12 +51,12 @@
 							<h3 class="box-title">兼职申请</h3>
 
 							<div class="box-vacations pull-right">
-								<button type="button" class="btn btn-box-vacation" data-widget="collapse"><i class="fa fa-minus"></i></button>
-								<button type="button" class="btn btn-box-vacation" data-widget="remove"><i class="fa fa-times"></i></button>
+								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+								<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
 							</div>
 						</div>
 						<div class="box-body">
-							<form id="addform">
+							<form id="addform1">
 								<div class="form-group">
 
 									<label>姓名</label>
@@ -86,11 +86,11 @@
 									<br/>
 									<label>从</label>
 									<div class="input-group" style="width: 100%;">
-										<input type="date" id="time1" class="form-control">
+										<input type="date" id="time1" class="form-control" data-provide="datepicker">
 									</div>
 									<label>到</label>
 									<div class="input-group" style="width: 100%;">
-										<input type="date" id="time2" class="form-control">
+										<input type="date" id="time2" class="form-control" data-provide="datepicker">
 									</div>
 
 								</div>
@@ -107,16 +107,14 @@
 			<!-- /.col -->
 		</div>
 		<if condition = "$applyinfo neq null">
-		<div class="row">
 			<div class="col-md-6">
 				<!-- Widget: user widget style 1 -->
 				<div class="box box-widget widget-user">
-					<form id="addform">
+					<form id="addform2">
 						<div class="form-group">
 							<!-- Add the bg color to the header using any of the bg-* classes -->
 							<div class="widget-user-header bg-aqua-active">
 								<h3 class="widget-user-username">个人简历</h3>
-
 							</div>
 							<div class="widget-user-image">
 								<img class="img-circle" src="__PUBLIC__{$applyinfo.img}" alt="User Avatar">
@@ -150,6 +148,7 @@
 								</div>
 								<!-- /.row -->
 								<div class="row">
+									<p></p>
 									<div class="col-sm-6">
 										<strong><i class="fa fa-user"></i> 姓名：</strong>
 										<span class="description-text">{$applyinfo.uname}</span>
@@ -160,6 +159,7 @@
 									</div>
 								</div>
 								<div class="row">
+									<p></p>
 									<div class="col-sm-12">
 										<strong><i class="fa fa-user"></i> 申请职位：</strong>
 										<span class="description-text">{$applyinfo.position}</span>
@@ -167,6 +167,7 @@
 								</div>
 								
 								<div class="row">
+									<p></p>
 									<div class="col-sm-12">										
 											<strong><i class="fa fa-user"></i> 特长：</strong>
 											<span class="description-text">{$applyinfo.specialty}</span>
@@ -174,6 +175,7 @@
 									</div>
 								
 								<div class="row">
+									<p></p>
 									<div class="col-sm-12">										
 										<strong><i class="fa fa-user"></i> 预计任职时间：</strong>																			
 									</div>
@@ -188,12 +190,14 @@
 									</div>
 								</div>
 								<div class="row">
+									<p></p>
 									<div class="col-sm-12">
 										<strong><i class="fa fa-user"></i> 个人简介</strong>
 										<span class="description-text">{$applyinfo.intro}</span>
 									</div>
 								</div>
 								<div class="row">
+									<p></p>
 									<div class="col-sm-6">
 										<strong><i class="fa fa-user"></i> 院系：</strong>
 										<span class="description-text">{$applyinfo.yuanxi}</span>
@@ -206,6 +210,7 @@
 							</div>
 						</div>
 						<div class="row">
+							<p></p>
 							<div class="col-sm-6">
 					            <a class="btn btn-warning btn-block" id="editservice" data-toggle="modal" data-target="#addmodal">修改</a>
 								
@@ -216,10 +221,10 @@
 							</div>
 						</div>
 				<!-- /.widget-user -->
-
+					</form>
+				</div>
 			</div>
-			</if>
-		</div>
+		</if>
 	</div>		
 </block>
 <block name="script">	
@@ -235,7 +240,7 @@
 				<div class="modal-body">
 					<form id="addform" class="form-horizontal">
 						<div class="form-group sr-only">
-							<label for="id" class="control-label col-sm-2"></label>
+							<label for="sid" class="control-label col-sm-2"></label>
 							<div class="col-sm-10">
 								<input value="{$applyinfo.id}" disabled="disabled" type="text" class="form-control" id="sid" name="id" />
 							</div>
@@ -268,13 +273,13 @@
 						<div class="form-group">
 							<label class="control-label col-sm-2">时间从</label>
 							<div class="col-sm-10">
-								<input value="{$applyinfo.start_time}" class="form-control" name="start_time" id="sstart_time" type="date"  />
+								<input value="{$applyinfo.start_time}" class="form-control" name="start_time" id="sstart_time" type="text" data-provide="datepicker"  />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label col-sm-2">至</label>
 							<div class="col-sm-10">
-								<input value="{$applyinfo.end_time}" class="form-control" name="end_time" id="send_time" type="date"  />
+								<input value="{$applyinfo.end_time}" class="form-control" name="end_time" id="send_time" type="text" data-provide="datepicker"   />
 							</div>
 						</div>
 					</form>
@@ -302,6 +307,9 @@
 			</div>
 		</div>
 	</div>
+
+	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/bootstrap-datepicker.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" />
 	<script>
 		var loading = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 		/**

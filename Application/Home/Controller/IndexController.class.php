@@ -26,6 +26,11 @@ class IndexController extends Controller {
 			$info['status'] = false;
 			$this->ajaxReturn($info);
 		}
+		if(date("w",$appointment_time)==0||date("w",$appointment_time)==6){
+			$info['msg'] = '无法预约在周末';
+			$info['status'] = false;
+			$this->ajaxReturn($info);
+		}
 		if($uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}
@@ -64,7 +69,8 @@ class IndexController extends Controller {
 			$setlogin = D('Login','Service')->setlogin($user['id']);
 			$this->ajaxReturn($setlogin);
 		}else{
-			$info['msg'] = '您的上一个服务单还未处理完成，请处理';
+			$info['msg'] = '添加失败';
+			$info['status'] = false;
 			$this->ajaxReturn($info);
 		}
 	}
