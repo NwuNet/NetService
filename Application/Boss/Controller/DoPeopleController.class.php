@@ -7,7 +7,8 @@ class DoPeopleController extends BaseController {
 		$loginService = D('Login','Service')->getuserInfo();//user
     	
 		$staffUser = M('ScheduleStaff');
-        $staffname = $staffUser->where('area = "%s"',$loginService['area'])->field('uname')->select();
+		$attr = getdaykey(NOW_TIME);
+        $staffname = $staffUser->where('area = "%s" and status = 1 and %s =1',$loginService['area'],$attr)->field('uname')->select();
         $this->assign('staffname',$staffname);//员工名称
         
     	$select = M('RegisterSelect');

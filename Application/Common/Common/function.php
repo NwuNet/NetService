@@ -403,3 +403,35 @@ function getdayofweek($str){
         case '星期天':return date("Y-m-d",strtotime('Sunday'));break;
     }
 }
+
+function getdaykey($str){
+    switch (date("w",$str)){
+        case 0:
+            $attr = 'sun';break;
+        case 1:
+            $attr = 'mon';break;
+        case 2:
+            $attr = 'tues';break;
+        case 3:
+            $attr = 'wed';break;
+        case 4:
+            $attr = 'thurs';break;
+        case 5:
+            $attr = 'fri';break;
+        case 6:
+            $attr = 'sun';break;
+        default: $attr = 'sun';
+    }
+    return $attr;
+}
+
+function getpercentcolor($percent){
+    if($percent == 100){
+        $reg_color = 'progress-bar-green';
+    }else if($percent == 0){
+        $reg_color = 'progress-bar-red';
+    }else{
+        $reg_color = 'progress-bar-yellow';
+    }
+    return $reg_color;
+}
