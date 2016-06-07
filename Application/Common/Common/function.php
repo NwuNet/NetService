@@ -428,7 +428,7 @@ function getdaykey($str){
 function getpercentcolor($percent){
     if($percent == 100){
         $reg_color = 'progress-bar-green';
-    }else if($percent == 0){
+    }else if($percent < 50){
         $reg_color = 'progress-bar-red';
     }else{
         $reg_color = 'progress-bar-yellow';
