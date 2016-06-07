@@ -44,8 +44,8 @@
 <block name="content">
 	<div class="row">
 		<div class="col-md-12">
-			<ul class="timeline">
-				<if condition="$cardinfo.id neq null">
+			<if condition="$cardinfo.id neq null">
+				<ul class="timeline">
 						<!-- timeline time label -->
 						<li class="time-label"><span class="bg-blue">{$cardinfo.start}</span></li>
 						<li>
@@ -106,9 +106,12 @@
 								</div>
 							</div>
 						</li>
-				<else/><h3>您目前没有未完成的个人预约服务...</h3>
-				</if>	
-			</ul>
+					</ul>
+				<else/>
+				<h3>您目前没有未完成的个人预约服务...</h3>
+				<a class="btn btn-primary" href="<php>echo U('Home/Index/index').'#repair_form'</php>">预约服务</a>
+				<a class="btn btn-primary" href="<php>echo U('Home/User/service')</php>">查看历史服务单</a>
+			</if>
 		</div>
 	</div>
 </block>

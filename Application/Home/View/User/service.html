@@ -57,7 +57,7 @@
 						<div class="box-body table-responsive">
 							<table id="servicecardinfo" class="table table-bordered table-hover">
 								<thead>
-									<th>ID</th>
+									<th class="sr-only">ID</th>
 									<th>姓名</th>
 									<th>学号</th>
 									<th>宿舍</th>									
@@ -70,7 +70,7 @@
 								<tbody>
 									<volist name="servicecardinfo" id="vo">
 							    <tr>
-								<td>{$vo.id}</td>
+								<td class="sr-only">{$vo.id}</td>
 								<td>{$vo.name}</td>
 								<td>{$vo.student_no}</td>
 								<td>{$vo.dormitory}</td>
@@ -85,7 +85,7 @@
 
 								</tbody>
 								<tfoot>
-									<th>ID</th>
+									<th class="sr-only">ID</th>
 									<th>姓名</th>
 									<th>学号</th>
 									<th>宿舍</th>								

@@ -104,7 +104,7 @@ class UserController extends BaseController {
     public function service() {
     	$homeuser = D('Login','Service')->getuserInfo();		
     	$Card = M('ServiceCard');
-        $servicecardinfo = $Card->where('status = 1 and student_no = "%s"',$homeuser['number'])->select();
+        $servicecardinfo = $Card->where('status = 1 and student_id = %d',$homeuser['id'])->select();
         $this -> assign('servicecardinfo',$servicecardinfo );//服务单表
     	$this -> display();
 	}

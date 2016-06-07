@@ -74,7 +74,7 @@
 						</div>
 						<div class="form-group margin">
 							<label for="number">学号</label>
-							<input type="text" disabled="true" class="form-control" id="number" value="{$user.number}">
+							<input type="text" class="form-control" id="number" value="{$user.number}">
 						</div>
 						<div class="form-group margin">
 							<label for="address">宿舍</label>
@@ -85,17 +85,16 @@
 							<input type="text" class="form-control" id="phone" value="{$user.phone}">
 						</div>
 						<div class="form-group margin">
-							<label for="zhuanye">专业</label>
-							<input type="text" class="form-control" id="zhuanye" value="{$user.zhuanye}">
-						</div>
-						<div class="form-group margin">
 							<label for="yuanxi">院系</label>
 							<input type="text" class="form-control" id="yuanxi" value="{$user.yuanxi}">
 						</div>
 						<div class="form-group margin">
+							<label for="zhuanye">专业</label>
+							<input type="text" class="form-control" id="zhuanye" value="{$user.zhuanye}">
+						</div>
+						<div class="form-group margin">
 							<label for="area">所属校区</label>					
 							<select id="area" value="" class="form-control" style="width: 100%;">
-								<option selected="selected">{$user.area}</option>								
 								<foreach name="areaname" item="vo">
 									<option>{$vo.area}</option>
 								</foreach>
@@ -159,6 +158,7 @@
 
 <block name="script">
 	<script type="text/javascript">
+		$("#area").val("{$user.area}");
 		/*
 		 * 选择图片
 		 * */
