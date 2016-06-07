@@ -33,7 +33,11 @@ class UserModel extends Model {
 	 public function plus($data){
 	 	if($this->where('uname = "%s"',$data['uname'])->find()) return FALSE;
 		$this -> uname = $data['uname'];
-		$this -> password = md5($data['password']);
+		 if(strlen(md5($data['password'])) == strlen($data['password'])){
+			 $this -> password = $data['password'];
+		 }else{
+			 $this -> password = md5($data['password']);
+		 }
 		$this -> begintime = date("Y-m-d H:i:s",NOW_TIME);
 		$this -> status = 1;
 		 $this -> level = $data['level'];
@@ -46,7 +50,11 @@ class UserModel extends Model {
 	public function edit($data){
 		$this -> user_id = $data['user_id'];
 		$this -> uname = $data['uname'];
-		$this -> password = md5($data['password']);
+		if(strlen(md5($data['password'])) == strlen($data['password'])){
+			$this -> password = $data['password'];
+		}else{
+			$this -> password = md5($data['password']);
+		}
 		$this -> level = $data['level'];
 		$this -> status = $data['status'];
 		if($this -> save()) return true;

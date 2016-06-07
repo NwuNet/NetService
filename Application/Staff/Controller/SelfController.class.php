@@ -87,6 +87,12 @@ class SelfController extends BaseController {
 			$data['zhuanye'] = I('post.zhuanye');
 		}
 
+		if(I('post.job')==''){//---------------------14
+			$data['job'] = $staff['job'];
+		}else{
+			$data['job'] = I('post.job');
+		}
+
 		if ($User -> staffedit($data)) {
 			$msg = "修改成功！";
 			$this -> ajaxReturn(TRUE);

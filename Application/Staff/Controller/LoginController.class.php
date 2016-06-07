@@ -38,6 +38,7 @@ class LoginController extends Controller {
 	public function verify_c() {
 		ob_clean();
 		$Verify = new \Think\Verify();
+		$Verify -> codeSet = '123456789netsrvic';
 		$Verify -> entry();
 	}
 
