@@ -115,6 +115,7 @@ class DoServiceController extends BaseController {
 		$id = I('post.id');
 		$description = I('post.description');
 		$status = I('post.status');
+		$operator = I('post.operator');
 		if($id==''||$description==''||$status==''){
 			$this->ajaxReturn("数据为空");
 		}
@@ -122,6 +123,7 @@ class DoServiceController extends BaseController {
 		$data = $card ->where('id = %d',$id)->find();
 		$data['description'] = $description;
 		$data['status'] = $status;
+		$data['operator'] = $operator;
 		$data['end']  = date("Y-m-d H:i:s",NOW_TIME);
 		if($card->save($data)){
 			$this->ajaxReturn(true);
