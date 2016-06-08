@@ -18,7 +18,7 @@ class HomeUserModel extends Model{
 	 * 添加
 	 * */
 	 public function plus($data){
-	 	if($this->where('id = %d ',$data['id'])->find()) return FALSE;
+	 	if($this->where('uname = "%s" and number = %d ',$data['uname'],$data['number'])->find()) return FALSE;
 //		 $this -> uname = $data['uname'];
 		 if(strlen(md5($data['password'])) == strlen($data['password'])){
 			 $this -> password = $data['password'];
