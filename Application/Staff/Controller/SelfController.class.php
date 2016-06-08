@@ -92,6 +92,7 @@ class SelfController extends BaseController {
 		}else{
 			$data['job'] = I('post.job');
 		}
+		trace(I('post.phone'));
 
 		if ($User -> staffedit($data)) {
 			$msg = "修改成功！";

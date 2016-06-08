@@ -402,7 +402,7 @@ class UserController extends BaseController {
 		$data['cname'] = '';
 		$data['yuanxi'] = '';
 		$data['zhuanye'] = '';
-		$data['job'] = '';
+		$data['job'] = I('post.job');
 	    if ($User -> staffadd($data)) {
 	        $this -> ajaxReturn(TRUE);
 	    } else {
