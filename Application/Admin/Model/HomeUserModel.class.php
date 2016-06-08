@@ -20,7 +20,7 @@ class HomeUserModel extends Model{
 	 public function plus($data){
 	 	if($this->where('uname = "%s" and number = %d ',$data['uname'],$data['number'])->find()) return FALSE;
 //		 $this -> uname = $data['uname'];
-		 if(strlen(md5($data['password'])) == strlen($data['password'])){
+		 if(strlen(md5($data['password'])) == strlen($data['password']) ){
 			 $this -> password = $data['password'];
 		 }else{
 			 $this -> password = md5($data['password']);
@@ -40,11 +40,11 @@ class HomeUserModel extends Model{
 	  * 修改
 	  * */
 	 public function edit($data){
-	     if(count($this->where('id = %d ',$data['id'] )->find())>0) {
-			 if(strlen(md5($data['password'])) == strlen($data['password'])){
-				 $this -> password = $data['password'];
+	     if( count($this->where('id = %d ',$data['id'] )->find())>0 ) {
+			 if( strlen(md5($data['password'])) == strlen($data['password']) ){
+
 			 }else{
-				 $this -> password = md5($data['password']);
+				 $data['password'] = md5($data['password']);
 			 }
 //			 $this -> uname = $data['uname'];
 //			 $data['password'] = md5($data['password']);

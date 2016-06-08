@@ -20,7 +20,7 @@
 <block name="content">
   
   <div class="row"><!-- 解决故障 -->
-    <div class="col-md-12">
+    <div class="col-sm-offset-2 col-md-8 pad">
           <div class="box box-success" id="problem">
             <div class="box-header with-border">
               <h3 class="box-title">解决故障</h3>
@@ -31,48 +31,18 @@
               </div><!-- box-tools -->
             </div><!-- box-header -->
             <div class="box-body no-padding">
-              <table class="table table-striped">
-                <thead>
-				  <tr>
-                    <th style="width: 40px">#</th>
-                    <th>名称</th>
-                    <th>下载量</th>
-                    <th>百分比</th>
-                  </tr>
-				</thead>
-				<tbody>
-                <tr>
-                  <td>1</td>
-                  <td><a href="#">西北大学校园网接入服务业务维修岗位常见问题及解决办法汇总.doc </a></td>
-                  <td>
-                    300
-                  </td>
-                  <td><span class="badge bg-yellow">53%</span></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td><a href="#">校园网模型.doc </a></td>
-                  <td>
-                    200
-                  </td>
-                  <td><span class="badge bg-blue">35%</span></td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td><a href="#">苹果电脑联网设置.doc </a></td>
-                  <td>
-                    66
-                  </td>
-                  <td><span class="badge bg-green">12%</span></td>
-                </tr>
-              </tbody></table>
+              <ul class="nav nav-stacked">
+                <li><a href="Public/Files/Home/V2.0.1.pdf">维护岗位常见问题及解决办法汇总2.0.1.pdf <span class="badge pull-right bg-blue">{$files.0.size}</span> </a></li>
+                <li><a href="Public/Files/Home/StudentNetwork.pdf">学生区校园网模型.pdf <span class="badge pull-right bg-blue">{$files.1.size}</span> </a></li>
+                <li><a href="Public/Files/Home/Apple.pdf">苹果电脑联网设置.pdf <span class="badge pull-right bg-blue">{$files.2.size}</span> </a></li>
+              </ul>
             </div><!-- box-body -->
           </div><!-- box -->
         </div><!-- col-md-12 -->
   </div><!-- row -->
   
   <div class="row"><!-- 网络学习资料 -->
-    <div class="col-md-12">
+    <div class="col-sm-offset-2 col-md-8">
           <div class="box box-success" id="study">
             <div class="box-header with-border">
               <h3 class="box-title">网络学习资料</h3>
@@ -83,56 +53,19 @@
               </div><!-- box-tools -->
             </div><!-- box-header -->
             <div class="box-body no-padding">
-              <table class="table table-striped">
-                <thead>
-				  <tr>
-                    <th style="width: 40px">#</th>
-                    <th>名称</th>
-                    <th>下载量</th>
-                    <th>百分比</th>
-                  </tr>
-				</thead>
-				<tbody>
-                <tr>
-                  <td>1</td>
-                  <td><a href="#">综合布线.ppt </a></td>
-                  <td>
-                    35
-                  </td>
-                  <td><span class="badge bg-yellow">28%</span></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td><a href="#">Vlan学习.doc </a></td>
-                  <td>
-                    50
-                  </td>
-                  <td><span class="badge bg-blue">40%</span></td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td><a href="#">Windows下网络命令.ppt </a></td>
-                  <td>
-                    30
-                  </td>
-                  <td><span class="badge bg-green">24%</span></td>
-                </tr>
-				<tr>
-                  <td>4</td>
-                  <td><a href="#">Linux下网络命令.ppt </a></td>
-                  <td>
-                    10
-                  </td>
-                  <td><span class="badge bg-aqua">8%</span></td>
-                </tr>
-              </tbody></table>
+              <ul class="nav nav-stacked">
+                <li><a href="Public/Files/Home/Wiring.pdf">综合布线.pdf <span class="badge pull-right bg-blue">{$files.3.size}</span> </a></li>
+                <li><a href="Public/Files/Home/VLAN_study.pdf">VLAN学习资料.pdf <span class="badge pull-right bg-blue">{$files.4.size}</span> </a></li>
+                <li><a href="Public/Files/Home/Windows_console.pdf">Windows下常用的网络命令.pdf <span class="badge pull-right bg-blue">{$files.5.size}</span> </a></li>
+                <li><a href="Public/Files/Home/Network_exchange.pdf">网络交换技术.pdf <span class="badge pull-right bg-blue">{$files.5.size}</span> </a></li>
+              </ul>
             </div><!-- box-body -->
           </div><!-- box -->
         </div><!-- col-md-12 -->
   </div><!-- row -->
   
   <div class="row"><!-- 驱动下载 -->
-    <div class="col-md-12">
+    <div class="col-sm-offset-2 col-md-8">
           <div class="box box-success" id="drive">
             <div class="box-header with-border">
               <h3 class="box-title">驱动下载</h3>
@@ -143,33 +76,10 @@
               </div><!-- box-tools -->
             </div><!-- box-header -->
             <div class="box-body no-padding">
-              <table class="table table-striped" style="margin-left:0px;">
-                <thead>
-				  <tr>
-                    <th style="width: 40px">#</th>
-                    <th>名称</th>
-                    <th>下载量</th>
-                    <th>百分比</th>
-                  </tr>
-				</thead>
-				<tbody>
-                <tr>
-                  <td>1</td>
-                  <td><a href="#">驱动精灵万能网卡版.exe </a></td>
-                  <td>
-                    999
-                  </td>
-                  <td><span class="badge bg-yellow">99%</span></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td><a href="#">驱动精灵网络版.zip </a></td>
-                  <td>
-                    6
-                  </td>
-                  <td><span class="badge bg-blue">1%</span></td>
-                </tr>
-              </tbody></table>
+              <ul class="nav nav-stacked">
+                <li><a href="Public/Files/Home/DG2015Setup_1197E.exe">驱动精灵万能网卡版.exe <span class="badge pull-right bg-blue">{$files.7.size}</span> </a></li>
+                <li><a href="Public/Files/Home/USB_DB9.exe">USB转串口驱动.exe <span class="badge pull-right bg-blue">{$files.8.size}</span> </a></li>
+              </ul>
             </div><!-- box-body -->
           </div><!-- box -->
         </div><!-- col-md-12 -->

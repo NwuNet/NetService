@@ -94,6 +94,24 @@ class IndexController extends Controller {
 	    }
 	}
 	public function download(){
+		$list = array(
+			'0' => 'Public/Files/Home/v2.0.1.pdf',
+			'1' => 'Public/Files/Home/StudentNetwork.pdf',
+			'2' => 'Public/Files/Home/Apple.pdf',
+			'3' => 'Public/Files/Home/Wiring.pdf',
+			'4' => 'Public/Files/Home/VLAN_study.pdf',
+			'5' => 'Public/Files/Home/Windows_console.pdf',
+			'6' => 'Public/Files/Home/Network_exchange.pdf',
+			'7' => 'Public/Files/Home/DG2015Setup_1197E.exe',
+			'8' => 'Public/Files/Home/USB_DB9.exe'
+		);
+		$files = array();
+		foreach ($list as $key => $item){
+			$tmp = stat($item);
+			$files[$key]['size'] = sizeFormat($tmp['size']);
+		}
+		trace($list);
+		$this->assign('files',$files);
         $this->display();
     }
 	public function apply(){
