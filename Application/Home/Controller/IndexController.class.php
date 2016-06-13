@@ -94,24 +94,28 @@ class IndexController extends Controller {
 	    }
 	}
 	public function download(){
+		$root = 'Public/Files/Home/';
 		$list = array(
-			'0' => 'Public/Files/Home/v2.0.1.pdf',
-			'1' => 'Public/Files/Home/StudentNetwork.pdf',
-			'2' => 'Public/Files/Home/Apple.pdf',
-			'3' => 'Public/Files/Home/Wiring.pdf',
-			'4' => 'Public/Files/Home/VLAN_study.pdf',
-			'5' => 'Public/Files/Home/Windows_console.pdf',
-			'6' => 'Public/Files/Home/Network_exchange.pdf',
-			'7' => 'Public/Files/Home/DG2015Setup_1197E.exe',
-			'8' => 'Public/Files/Home/USB_DB9.exe'
+			'0' => $root.'V2.0.1.pdf',
+			'1' => $root.'StudentNetwork.pdf',
+			'2' => $root.'Apple.pdf',
+			'3' => $root.'Wiring.pdf',
+			'4' => $root.'VLAN-study.pdf',
+			'5' => $root.'Windows-console.pdf',
+			'6' => $root.'Network-exchange.pdf',
+			'7' => $root.'DG2015Setup-1197E.exe',
+			'8' => $root.'USB-DB9.exe',
+			'9' => $root.'chrome-and.apk',
+			'10' => $root.'chrome-win.exe'
 		);
 		$files = array();
 		foreach ($list as $key => $item){
 			$tmp = stat($item);
 			$files[$key]['size'] = sizeFormat($tmp['size']);
 		}
-		trace($list);
+//		trace($list);
 		$this->assign('files',$files);
+		$this->assign('lists',$list);
         $this->display();
     }
 	public function apply(){

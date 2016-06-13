@@ -59,6 +59,20 @@
 
     <script type="text/javascript">
 
+        var browser=navigator.appName;
+        var version=parseFloat(navigator.appVersion);
+        var platform = navigator.platform;
+        if ( (browser=="Microsoft Internet Explorer") && (version<5)) {
+            alert("您的浏览器需要升级了！");
+            if(platform.indexOf('Win')>=0){
+                location.href='Public/Files/Home/chrome-win.exe'
+            }
+            if(platform.indexOf('Linux')>=0) {
+                location.href='Public/Files/Home/chrome-and.apk'
+            }
+        }
+
+
         function randomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
         }

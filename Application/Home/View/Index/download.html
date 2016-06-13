@@ -14,6 +14,7 @@
 	 <a href="#problem" class="btn btn-outline-inverse btn-lg">解决故障</a>
 	 <a href="#study" class="btn btn-outline-inverse btn-lg">网络学习资料</a>
 	 <a href="#drive" class="btn btn-outline-inverse btn-lg">驱动下载</a>
+    <a href="#chrome" class="btn btn-outline-inverse btn-lg">浏览器下载</a>
   </p>
   <p class="version">当前访问量： 666</p>
 </block>
@@ -32,9 +33,9 @@
             </div><!-- box-header -->
             <div class="box-body no-padding">
               <ul class="nav nav-stacked">
-                <li><a href="Public/Files/Home/V2.0.1.pdf">维护岗位常见问题及解决办法汇总2.0.1.pdf <span class="badge pull-right bg-blue">{$files.0.size}</span> </a></li>
-                <li><a href="Public/Files/Home/StudentNetwork.pdf">学生区校园网模型.pdf <span class="badge pull-right bg-blue">{$files.1.size}</span> </a></li>
-                <li><a href="Public/Files/Home/Apple.pdf">苹果电脑联网设置.pdf <span class="badge pull-right bg-blue">{$files.2.size}</span> </a></li>
+                <li><a href="<php>echo $lists[0]</php>">维护岗位常见问题及解决办法汇总2.0.1.pdf <span class="badge pull-right bg-blue">{$files.0.size}</span> </a></li>
+                <li><a href="<php>echo $lists[1]</php>">学生区校园网模型.pdf <span class="badge pull-right bg-blue">{$files.1.size}</span> </a></li>
+                <li><a href="<php>echo $lists[2]</php>">苹果电脑联网设置.pdf <span class="badge pull-right bg-blue">{$files.2.size}</span> </a></li>
               </ul>
             </div><!-- box-body -->
           </div><!-- box -->
@@ -54,10 +55,10 @@
             </div><!-- box-header -->
             <div class="box-body no-padding">
               <ul class="nav nav-stacked">
-                <li><a href="Public/Files/Home/Wiring.pdf">综合布线.pdf <span class="badge pull-right bg-blue">{$files.3.size}</span> </a></li>
-                <li><a href="Public/Files/Home/VLAN_study.pdf">VLAN学习资料.pdf <span class="badge pull-right bg-blue">{$files.4.size}</span> </a></li>
-                <li><a href="Public/Files/Home/Windows_console.pdf">Windows下常用的网络命令.pdf <span class="badge pull-right bg-blue">{$files.5.size}</span> </a></li>
-                <li><a href="Public/Files/Home/Network_exchange.pdf">网络交换技术.pdf <span class="badge pull-right bg-blue">{$files.5.size}</span> </a></li>
+                <li><a href="<php>echo $lists[3]</php>">综合布线.pdf <span class="badge pull-right bg-blue">{$files.3.size}</span> </a></li>
+                <li><a href="<php>echo $lists[4]</php>">VLAN学习资料.pdf <span class="badge pull-right bg-blue">{$files.4.size}</span> </a></li>
+                <li><a href="<php>echo $lists[5]</php>">Windows下常用的网络命令.pdf <span class="badge pull-right bg-blue">{$files.5.size}</span> </a></li>
+                <li><a href="<php>echo $lists[6]</php>">网络交换技术.pdf <span class="badge pull-right bg-blue">{$files.5.size}</span> </a></li>
               </ul>
             </div><!-- box-body -->
           </div><!-- box -->
@@ -77,11 +78,32 @@
             </div><!-- box-header -->
             <div class="box-body no-padding">
               <ul class="nav nav-stacked">
-                <li><a href="Public/Files/Home/DG2015Setup_1197E.exe">驱动精灵万能网卡版.exe <span class="badge pull-right bg-blue">{$files.7.size}</span> </a></li>
-                <li><a href="Public/Files/Home/USB_DB9.exe">USB转串口驱动.exe <span class="badge pull-right bg-blue">{$files.8.size}</span> </a></li>
+                <li><a href="<php>echo $lists[7]</php>">驱动精灵万能网卡版.exe <span class="badge pull-right bg-blue">{$files.7.size}</span> </a></li>
+                <li><a href="<php>echo $lists[8]</php>">USB转串口驱动.exe <span class="badge pull-right bg-blue">{$files.8.size}</span> </a></li>
               </ul>
             </div><!-- box-body -->
           </div><!-- box -->
         </div><!-- col-md-12 -->
+  </div><!-- row -->
+
+  <div class="row"><!-- 浏览器下载 -->
+    <div class="col-sm-offset-2 col-md-8">
+      <div class="box box-success" id="chrome">
+        <div class="box-header with-border">
+          <h3 class="box-title">浏览器下载</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          </div><!-- box-tools -->
+        </div><!-- box-header -->
+        <div class="box-body no-padding">
+          <ul class="nav nav-stacked">
+            <li><a href="<php>echo $lists[9]</php>">谷歌浏览器Android.apk <span class="badge pull-right bg-blue">{$files.9.size}</span> </a></li>
+            <li><a href="<php>echo $lists[10]</php>">谷歌浏览器Windows.exe <span class="badge pull-right bg-blue">{$files.10.size}</span> </a></li>
+          </ul>
+        </div><!-- box-body -->
+      </div><!-- box -->
+    </div><!-- col-md-12 -->
   </div><!-- row -->
 </block>

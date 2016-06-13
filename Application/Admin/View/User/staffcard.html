@@ -88,8 +88,8 @@
 							<input type="text" class="form-control" id="address" value="{$address}">
 						</div>
 						<div class="form-group margin">
-							<label for="phone">电话</label>
-							<input type="number" class="form-control" id="phone" value="{$phone}">
+							<label for="userphone">电话</label>
+							<input type="number" class="form-control" id="userphone" value="{$phone}">
 						</div>
 							<div class="form-group margin">
 								<label for="time">注册时间</label>
@@ -167,12 +167,13 @@
 				cname: $("#cname")[0].value,
 				number: $("#number")[0].value,
 				address: $("#address")[0].value,
-				phone: $("#phone")[0].value,
+				phone: $("#userphone")[0].value,
 				password: $("#password")[0].value,
 				repassword: $("#repassword")[0].value,
 				area: $("#area")[0].value,
 				yuanxi : $("#yuanxi")[0].value,
-				zhuanye: $("#zhuanye")[0].value
+				zhuanye: $("#zhuanye")[0].value,
+				job: $("#job")[0].value
 			},
 			function(data) {
 				$btn.button('reset');
