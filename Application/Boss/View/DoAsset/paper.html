@@ -59,7 +59,7 @@
 				<div class="box-body">
 					<form id="addform">
 					  <div class="form-group">
-						  <label>类别</label>
+						  <label>证照类别</label>
 						  <select id="class" class="form-control select2" style="width: 100%;">
 							  <option selected="selected">请选择</option>
 							  <foreach name="paperclass" item="vo">
@@ -72,12 +72,12 @@
 						  <label>负责人</label>
                           <select id="unit" class="form-control select2" style="width: 100%;">
 							  <option selected="selected">请选择</option>
-							  <foreach name="assetunit" item="vo">
-								  <option>{$vo.name}</option>
+							  <foreach name="staffuser" item="vo">
+								  <option>{$vo.cname}</option>
 							  </foreach>
 						  </select>
 						  <label>发放时间</label>
-						  <input type="date" id="number" class="form-control" placeholder="请输入时间" />
+						  <input type="text" class="form-control" id="end_time" name="end_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
 					</div>
 					</form>
 					<button type="submit" id="addbtn" class="btn btn-primary btn-block">提交</button>
@@ -96,6 +96,9 @@
 					<p class="text-muted text-center">校园网用户服务人员</p>
 					<ul class="list-group list-group-unbordered">
 						<li class="list-group-item">
+							<b>证照类别</b> <a class="pull-right">个人证照</a>
+						</li>
+						<li class="list-group-item">
 							<b>名称</b> <a class="pull-right">工作证</a>
 						</li>
 						<li class="list-group-item">
@@ -105,13 +108,12 @@
 							<b>发证时间</b> <a class="pull-right"><php>echo date("Y-m-d H:i:s",NOW_TIME)</php></a>
 						</li>
 					</ul>
-					<a href="#" class="btn btn-primary btn-block">查看详细使用情况</a>
 				</div>
 				<!-- /.box-body -->
 			</div>
 			<!-- /.box -->
 		</div>
-		<!--col-->
+
 		<div class="col-md-4">
 			<div class="box box-primary">
 				<div class="box-body box-profile">
@@ -120,6 +122,9 @@
 					<p class="text-muted text-center">校园网用户服务人员</p>
 					<ul class="list-group list-group-unbordered">
 						<li class="list-group-item">
+							<b>证照类别</b> <a class="pull-right">个人证照</a>
+						</li>
+						<li class="list-group-item">
 							<b>名称</b> <a class="pull-right">工作证</a>
 						</li>
 						<li class="list-group-item">
@@ -129,17 +134,18 @@
 							<b>发证时间</b> <a class="pull-right"><php>echo date("Y-m-d H:i:s",NOW_TIME)</php></a>
 						</li>
 					</ul>
-					<a href="#" class="btn btn-primary btn-block">查看详细使用情况</a>
 				</div>
 				<!-- /.box-body -->
 			</div>
 			<!-- /.box -->
 		</div>
-		<!--col-->
 	</div>
 </block>
 
 <block name="script">
+	<!--datepicker-->
+	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/bootstrap-datepicker.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" />
 	<script type="text/javascript">
 		/**
 		 * 名称选项联动

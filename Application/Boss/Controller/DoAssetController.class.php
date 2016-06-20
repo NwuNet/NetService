@@ -514,6 +514,10 @@ class DoAssetController extends BaseController {
 		$select = M('PaperSelect');
 		$paperclass = $select->field('class,count(class)')->group('class')->select();
 		$this->assign('paperclass',$paperclass);//选项名
+
+		$StaffUser = D('Admin/StaffUserView');
+		$staffuser = $StaffUser->where('status = 1')->select();
+		$this -> assign('staffuser',$staffuser);
         $this->display();
     }
 	// --------------------证照选项---------------------
