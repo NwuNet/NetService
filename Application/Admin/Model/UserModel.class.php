@@ -48,9 +48,13 @@ class UserModel extends Model {
 	 * User修改
 	 * */
 	public function edit($data){
+		$old = $this->where('user_id = %d',$data['user_id'])->find();
+		if($old['uname'] =='') return false;
 		$this -> user_id = $data['user_id'];
 		$this -> uname = $data['uname'];
-		if(strlen(md5($data['password'])) == strlen($data['password'])){
+		if($data['password'] == ''){
+			$this->password = $old['password'];
+		}elseif(strlen(md5($data['password'])) == strlen($data['password'])){
 			$this -> password = $data['password'];
 		}else{
 			$this -> password = md5($data['password']);
