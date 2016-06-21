@@ -17,6 +17,7 @@ class DataServiceController extends BaseController {
             $this->assign('userarea',$userarea);
 
             $Service = M('ServiceCard');
+            $Repair = M('ServiceRepair');
 
             //-------------------------graph bar line--------------------
             $map = array();
@@ -48,6 +49,29 @@ class DataServiceController extends BaseController {
             }
             $this->areacount = $areacount;
             $this->areadata = $areadata;
+
+            //-----------------------------done or not done ---------------------------
+            $doneornot = array();
+            foreach ($userarea as $key => $item){
+                $map['start'] = array('between', array( I('post.begin_time'), I('post.end_time') ) );
+                $map['area'] = $item['area'];
+                $tmp = $Service->field('count(status) as count')->group('status')->where($map)->select();
+                if($tmp[0]['count']==''){
+                    $tmp[0]['count'] = 0;
+                }
+                if($tmp[1]['count']==''){
+                    $tmp[1]['count'] = 0;
+                }
+                $doneornot[$key] = $tmp;
+            }
+            $this->doneornot = $doneornot;
+
+            //-----------------------------故障大类------------------------------------
+            $map['time'] = array('between', array( I('post.begin_time'), I('post.end_time') ) );
+            $breakinfo = $Repair->field('breakinfo,count(breakinfo) as count')->group('breakinfo')->where($map)->select();
+            $this->breakinfo = $breakinfo;
+            $staffdo = $Repair->field('operator,count(operator) as count')->group('operator')->where($map)->select();
+            $this->staffdo = $staffdo;
 
             $this->display();
         }
