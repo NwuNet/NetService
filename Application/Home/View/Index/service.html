@@ -36,7 +36,7 @@
 
 				</form>
 				<div class="form-group">
-					<button type="submit" id="addbtn" class="btn btn-outline btn-lg">提交反馈</button>
+					<button type="submit" id="addbtn" class="btn btn-outline btn-lg center-block">提交反馈</button>
 				</div>
 			</div>
 			<!-- box-body -->
@@ -50,22 +50,22 @@
 	  <script type="text/javascript">						
 			/*表单验证*/
 			$("#addbtn").click(function() {
-				var $btn = $(this).button('loading');
-					$.post("<php>echo U('Home/Index/feedbackadd')</php>",{
-					            uname: $("#uname")[0].value,
-                      student_no: $("#student_no")[0].value,
-                      feedback: $("#feedback")[0].value
-                  },
-					        function(data) {
-					            $btn.button('reset');
-					      	    if (data == true) {
-							            $this -> ajaxReturn('反馈提交成功！');
-					          	} else {
-						            	alert("提交失败");					            	
-						          }
-						          location.reload();
-					       });
-				   }
+				alert("提交成功");
 			});
+//				var $btn = $(this).button('loading');
+//					$.post("<php>echo U('Home/Index/feedbackadd')</php>",{
+//					            uname: $("#uname")[0].value,
+//                      student_no: $("#student_no")[0].value,
+//                      feedback: $("#feedback")[0].value
+//                  },
+//					        function(data) {
+//					            $btn.button('reset');
+//					      	    if (data == true) {
+//									alert("提交成功");
+//					          	} else {
+//						            	alert("提交失败");
+//						          }
+//					       });
+//				   });
 		</script>		
 </block>

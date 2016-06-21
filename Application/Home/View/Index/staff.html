@@ -11,9 +11,9 @@
   <h1>员工风采</h1>
   <p class="lead">网络中心全体人员为您服务</p>
   <p class="lead">
-	 <a href="#" class="btn btn-outline-inverse btn-lg">爱心服务</a>
-	 <a href="#changan" class="btn btn-outline-inverse btn-lg">正式员工</a>
-	 <a href="<php>echo U('Home/User/index')</php>" class="btn btn-outline-inverse btn-lg">加入我们</a>
+	 <a href="#changan" class="btn btn-outline-inverse btn-lg">长安校区</a>
+	 <a href="#taibai" class="btn btn-outline-inverse btn-lg">太白校区</a>
+	 <a href="#taoyuan" class="btn btn-outline-inverse btn-lg">桃园校区</a>
   </p>
   <p class="version">当前访问量： 666</p>
 </block>
@@ -27,7 +27,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body no-padding">
-					<ul class="users-list clearfix">
+					<ul class="users-list clearfix" style="float:left">
 						<foreach name="changan" item="vo">
 							<li>
 								<img src="__PUBLIC__{$vo.img}" alt="{$vo.cname}">

@@ -422,6 +422,7 @@ class UserController extends BaseController {
 //	    $data['ip'] = get_client_ip();
 	    $data['uname'] = I('post.uname');
 	    $data['password'] = I('post.password');
+		$data['status'] = 1;
 	    if ($User -> adminedit($data)) {
 	        $msg = "修改成功！";
 	        $this -> ajaxReturn(TRUE);
