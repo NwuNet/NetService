@@ -20,12 +20,12 @@ class DoContactsController extends BaseController {
 	    if (isset($order_column)) {
 	        $i = intval($order_column);
 	        switch($i) {
-	            case 0 :$orderSql = " id " . $order_dir;break;
-	            case 1 :$orderSql = " cname " . $order_dir;break;
-	            case 2 :$orderSql = " phone " . $order_dir;break;
-				case 3 :$orderSql = " area " . $order_dir;break;
-				case 4 :$orderSql = " yuanxi " . $order_dir;break;
-				case 5 :$orderSql = " zhuanye " . $order_dir;break;
+	            //case 0 :$orderSql = " id " . $order_dir;break;
+	            case 0 :$orderSql = " cname " . $order_dir;break;
+	            case 1 :$orderSql = " phone " . $order_dir;break;
+				case 2 :$orderSql = " area " . $order_dir;break;
+				case 3 :$orderSql = " yuanxi " . $order_dir;break;
+				case 4 :$orderSql = " zhuanye " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -38,7 +38,7 @@ class DoContactsController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $staffPhone->count();
 	
-	    $map['id|cname|phone|area|yuanxi|zhuanye']=array('like',"%".$search."%");
+	    $map['cname|phone|area|yuanxi|zhuanye']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($staffPhone->where($map)->select());
 	        $table = $staffPhone->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -49,7 +49,7 @@ class DoContactsController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['cname'],$row['phone'],$row['area'],$row['yuanxi'],$row['zhuanye']);
+	        $obj = array($row['cname'],$row['phone'],$row['area'],$row['yuanxi'],$row['zhuanye']);
 	        array_push($infos,$obj);
 	    }
 	
