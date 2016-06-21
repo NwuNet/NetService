@@ -363,9 +363,9 @@
 			tooltip: {},
 			xAxis: {
 				data: [
-					<foreach name='staffdo' item='vo'> '{$vo.operator}', </foreach>
+					'员工处理服务数量'
 				],
-				silent: false,
+				silent: true,
 				splitLine: {
 					show: false
 				}
@@ -373,7 +373,13 @@
 			yAxis: {
 			},
 			series: [
-				<foreach name='staffdo' item='vo'> {type: 'bar', data: ['{$vo.count}']}, </foreach>
+				<foreach name='staffdo' item='vo'> { name: '{$vo.operator}', type: 'bar',label: {
+					normal: {
+						show: true,
+						position: 'inside',
+						formatter: '{a}: {c}'
+					}
+				}, data: ['{$vo.count}'] }, </foreach>
 			]
 		};
 		var myChart1 = echarts.init(document.getElementById('area_1'), "shine");
