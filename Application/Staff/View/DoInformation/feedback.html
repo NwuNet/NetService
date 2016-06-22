@@ -100,7 +100,7 @@
 		$("#addbtn").click(function() {
 			$(".box").append(loading);
 			$.post("<php>echo U('Staff/DoInformation/feedbackadd')</php>", {
-						operator: '{$user.uname}',
+						operator: '{$user.cname}',
 				        suggest_id : $("#suggest_id")[0].value,		
 				        reply : $("#reply")[0].value	
 					},
@@ -108,10 +108,10 @@
 						$("div").remove(".overlay");
 						if (data == true) {
 							alert("提交成功！");
+							location.reload();
 						} else {
 							alert(data);
 						}
-						location.reload();
 					});
 		});
 		

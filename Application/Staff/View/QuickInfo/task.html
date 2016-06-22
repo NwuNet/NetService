@@ -30,26 +30,32 @@
 				</if>
 
 				<!--服务单任务-->
-				<li>
-					<a href="<php>echo U('Staff/Index/index')</php>">
-						<h3>待维修服务单 {$service_leave}<small class="pull-right">{$service_sum}</small></h3>
-						<div class="progress xs">
-							<div class="progress-bar {$ser_color}" style="width: {$ser_percent}%" role="progressbar" aria-valuenow="{$ser_percent}" aria-valuemin="0" aria-valuemax="100">
+				<if condition="$service_sum eq 0">
+					<else/>
+					<li>
+						<a href="<php>echo U('Staff/Index/index')</php>">
+							<h3>待维修服务单 {$service_leave}<small class="pull-right">{$service_sum}</small></h3>
+							<div class="progress xs">
+								<div class="progress-bar {$ser_color}" style="width: {$ser_percent}%" role="progressbar" aria-valuenow="{$ser_percent}" aria-valuemin="0" aria-valuemax="100">
+								</div>
 							</div>
-						</div>
-					</a>
-				</li>
+						</a>
+					</li>
+				</if>
 
 				<!--信息反馈任务-->
-				<li>
-					<a href="<php>echo U('Staff/DoInformation/feedback')</php>">
-						<h3>信息反馈{$sug_sum} <small class="pull-right">{$sug_sum}</small></h3>
-						<div class="progress xs">
-							<div class="progress-bar progress-bar-yellow" style="width: 100%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+				<if condition="$sug_sum eq 0">
+					<else/>
+					<li>
+						<a href="<php>echo U('Staff/DoInformation/feedback')</php>">
+							<h3>信息反馈{$sug_sum} <small class="pull-right">{$sug_sum}</small></h3>
+							<div class="progress xs">
+								<div class="progress-bar progress-bar-yellow" style="width: 100%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+								</div>
 							</div>
-						</div>
-					</a>
-				</li>
+						</a>
+					</li>
+				</if>
 			</ul>
 		</li>
 		<li class="footer">
