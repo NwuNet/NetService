@@ -74,11 +74,11 @@ class DoPeopleController extends BaseController {
     public function vacation(){
     	$staffuser = D('Login','Service')->getuserInfo();
     	$Vacation = D('Boss/StaffVacationView');
-		$state = $Vacation->where('uname="%s"',$staffuser['uname'])->select();
+		$state = $Vacation->where('uname="%s"',$staffuser['cname'])->select();
 		$this->assign('state',$state);
 		
 		$Dstate = M('StaffVacation');
-        $vacation = $Dstate->where('status=0 and uname="%s"',$staffuser['uname'])->select();
+        $vacation = $Dstate->where('status=0 and uname="%s"',$staffuser['cname'])->select();
         $this->assign('vacation',$vacation);
         $this->display();
     }
