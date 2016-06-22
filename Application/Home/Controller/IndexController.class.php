@@ -64,7 +64,7 @@ class IndexController extends Controller {
 		$card->start  = date("Y-m-d H:i:s",NOW_TIME);
 //		trace(getdayofweek($appointment_time));
 		$card->appointment_time = date("Y-m-d",strtotime($appointment_time));
-		$card->sutdent_id = $user['id'];
+		$card->student_id = $user['id'];
 		if($card->add()){
 			$setlogin = D('Login','Service')->setlogin($user['id']);
 			$this->ajaxReturn($setlogin);
