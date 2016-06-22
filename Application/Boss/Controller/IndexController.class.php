@@ -5,7 +5,8 @@ class IndexController extends BaseController{
 
     public function index(){
         $Card = M('ServiceCard');
-        $servicecardinfo = $Card->where('status = 0')->order('dormitory')->select();
+        $bossUser = D('Login','Service')->getuserInfo();
+        $servicecardinfo = $Card->where('status = 0 AND area = "%s"',$bossUser['area'])->order('dormitory')->select();
         $CardRepair = M('ServiceRepair');
         foreach ($servicecardinfo as $key => $value){
             $servicecardinfo[$key]['isrepair'] = count($CardRepair->where('servicecard_id = %d',$value['id'])->select());
