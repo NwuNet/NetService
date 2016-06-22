@@ -21,9 +21,9 @@ class HomeUserModel extends Model{
 	 	if($this->where('uname = "%s" and number = %d ',$data['uname'],$data['number'])->find()) return FALSE;
 //		 $this -> uname = $data['uname'];
 		 if(strlen(md5($data['password'])) == strlen($data['password']) ){
-			 $this -> password = $data['password'];
+
 		 }else{
-			 $this -> password = md5($data['password']);
+			 $data['password'] = md5($data['password']);
 		 }
 		 $data['begintime'] = date("Y-m-d H:i:s",NOW_TIME);
 		 $data['status'] = 1;
