@@ -158,13 +158,20 @@ class DoAssetController extends BaseController {
 			$Tool = M('AssetTool');
 			$state = M('ToolState');
 			$content = M('AssetContent');
+
+			$staff = D('Admin/StaffUserView');
+			$staffuser = $staff->where('status=1')->field('cname')->select();
+			$this->assign('staffuser',$staffuser);
+
 			$toolinfo = $Tool->where('id = %d',$id)->select();
 			$toolstate = $state ->where('status = 1')->select();
 			$toolcontent = $content->where('class = 1 and asset_id =%d',$id)->select();
+
 			$this->assign("toolinfo",$toolinfo);
 			$this->assign('toolstate',$toolstate);
 			$this->assign('toolcontent',$toolcontent);
-			trace($toolcontent);
+
+//			trace($toolcontent);
 			$this->assign('id',$id);
 			$this->display();
 		}
@@ -343,6 +350,11 @@ class DoAssetController extends BaseController {
 			$Exhaust = M('AssetExhaust');
 			$state = M('ExhaustState');
 			$content = M('AssetContent');
+
+			$staff = D('Admin/StaffUserView');
+			$staffuser = $staff->where('status=1')->field('cname')->select();
+			$this->assign('staffuser',$staffuser);
+
 			$exhaustinfo = $Exhaust->where('id = %d',$id)->select();
 			$exhauststate = $state ->where('status = 1')->select();
 			$exhaustcontent = $content->where('class = 2 and asset_id =%d',$id)->select();
@@ -556,6 +568,11 @@ class DoAssetController extends BaseController {
 			$Deivce = M('AssetDevice');
 			$state = M('DeviceState');
 			$content = M('AssetContent');
+
+			$staff = D('Admin/StaffUserView');
+			$staffuser = $staff->where('status=1')->field('cname')->select();
+			$this->assign('staffuser',$staffuser);
+
 			$deviceinfo = $Deivce->where('id = %d',$id)->select();
 			$devicestate = $state ->where('status = 1')->select();
 			$devicecontent = $content->where('class = 3 and asset_id =%d',$id)->select();
@@ -750,6 +767,11 @@ class DoAssetController extends BaseController {
 			$Other = M('AssetOther');
 			$state = M('OtherState');
 			$content = M('AssetContent');
+
+			$staff = D('Admin/StaffUserView');
+			$staffuser = $staff->where('status=1')->field('cname')->select();
+			$this->assign('staffuser',$staffuser);
+
 			$otherinfo = $Other->where('id = %d',$id)->select();
 			$otherstate = $state ->where('status = 1')->select();
 			$othercontent = $content->where('class = 5 and asset_id =%d',$id)->select();

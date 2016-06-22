@@ -53,7 +53,7 @@
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header bg-green">
 					<div class="widget-user-image">
-						<img class="img-circle" src="__PUBLIC__/Images/Asset/tool_lsd.jpg" alt="User Avatar">
+						<span style="font-size: 40px;float: left;"><i class="fa fa-wrench"></i></span>
 					</div>
 					<!-- /.widget-user-image -->
 					<h3 class="widget-user-username">工具信息</h3>
@@ -114,10 +114,11 @@
 											</foreach>
 										</select>
 										请选择<label>使用者</label>
-										<select id="user" name = "user" class="form-control" style="width: 100%;">
+										<select id="user" name = "user" class="form-control select2" style="width: 100%;">
 											<option selected="selected">请选择</option>
-											<option>胡洋</option>
-											<option>亢喜年</option>
+											<foreach name="staffuser" item="vo">
+												<option>{$vo.cname}</option>
+											</foreach>
 										</select>
 										<label>描述</label>
 										<input type="label" id="label" autocomplete="on" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入该操作的描述" placeholder="请输入该操作的描述" />
@@ -188,6 +189,8 @@
 
 <block name="script">
 	<script type="text/javascript">
+		//select2
+		$(".select2").select2();
 		var table = $("#tool1").DataTable({
 			"processing": true,
 			"serverSide": true,
@@ -222,7 +225,7 @@
 				class : 1,
 				user : $("#user").val(),
 				label : $("#label").val(),
-				actor : '{$user.uname}'
+				actor : '{$user.cname}'
 			}, function(data) {
 				$btn.button('reset');
 				if (data == true) {
