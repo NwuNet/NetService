@@ -87,11 +87,11 @@ class DoPeopleController extends BaseController {
     public function dimission(){
     	$staffuser = D('Login','Service')->getuserInfo();
     	$Dimission = D('Boss/DimissionView');
-		$state = $Dimission->where('uname="%s"',$staffuser['uname'])->select();
+		$state = $Dimission->where('uname="%s"',$staffuser['cname'])->select();
 		$this->assign('state',$state);
 	//	$this->ajaxReturn($user.uname);
     	$Dstate = M('Dimission');
-        $dimission = $Dstate->where('status=0 and uname="%s"',$staffuser['uname'])->select();
+        $dimission = $Dstate->where('status=0 and uname="%s"',$staffuser['cname'])->select();
         $this->assign('dimission',$dimission);
         $this->display();
     }
