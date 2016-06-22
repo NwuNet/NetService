@@ -67,17 +67,17 @@
 							  </foreach>
 						  </select>
 						  <label>名称</label>
-						  <select id="name" class="form-control select2" style="width: 100%;">
+						  <select id="cname" class="form-control select2" style="width: 100%;">
 						  </select>
 						  <label>负责人</label>
-                          <select id="unit" class="form-control select2" style="width: 100%;">
+                          <select id="actor" class="form-control select2" style="width: 100%;">
 							  <option selected="selected">请选择</option>
 							  <foreach name="staffuser" item="vo">
 								  <option>{$vo.cname}</option>
 							  </foreach>
 						  </select>
 						  <label>发放时间</label>
-						  <input type="text" class="form-control" id="end_time" name="end_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
+						  <input type="text" class="form-control" id="end_time" name="end_time" placeholder="选择发证日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
 					</div>
 					</form>
 					<button type="submit" id="addbtn" class="btn btn-primary btn-block">提交</button>
@@ -88,57 +88,36 @@
 		</div>
 		<!-- col -->
 
-		<div class="col-md-4">
-			<div class="box box-primary">
-				<div class="box-body box-profile">
-					<img class="profile-user-img img-responsive img-circle" src="__PUBLIC__{$user.img}" alt="用户头像">
-					<h3 class="profile-username text-center">胡洋</h3>
-					<p class="text-muted text-center">校园网用户服务人员</p>
-					<ul class="list-group list-group-unbordered">
-						<li class="list-group-item">
-							<b>证照类别</b> <a class="pull-right">个人证照</a>
-						</li>
-						<li class="list-group-item">
-							<b>名称</b> <a class="pull-right">工作证</a>
-						</li>
-						<li class="list-group-item">
-							<b>职位</b> <a class="pull-right">服务技术岗位</a>
-						</li>
-						<li class="list-group-item">
-							<b>发证时间</b> <a class="pull-right"><php>echo date("Y-m-d H:i:s",NOW_TIME)</php></a>
-						</li>
-					</ul>
-				</div>
-				<!-- /.box-body -->
-			</div>
-			<!-- /.box -->
-		</div>
+		<foreach name="paper" item="vo">
+			<div class="col-sm-4">
+				<div class="box box-primary">
+					<div class="box-body box-profile">
 
-		<div class="col-md-4">
-			<div class="box box-primary">
-				<div class="box-body box-profile">
-					<img class="profile-user-img img-responsive img-circle" src="__PUBLIC__{$user.img}" alt="用户头像">
-					<h3 class="profile-username text-center">胡洋</h3>
-					<p class="text-muted text-center">校园网用户服务人员</p>
-					<ul class="list-group list-group-unbordered">
-						<li class="list-group-item">
-							<b>证照类别</b> <a class="pull-right">个人证照</a>
-						</li>
-						<li class="list-group-item">
-							<b>名称</b> <a class="pull-right">工作证</a>
-						</li>
-						<li class="list-group-item">
-							<b>职位</b> <a class="pull-right">服务技术岗位</a>
-						</li>
-						<li class="list-group-item">
-							<b>发证时间</b> <a class="pull-right"><php>echo date("Y-m-d H:i:s",NOW_TIME)</php></a>
-						</li>
-					</ul>
+						<h3 class="profile-username text-center">{$vo.actor}</h3>
+						<p class="text-muted text-center">{$vo.job}</p>
+						<ul class="list-group list-group-unbordered">
+							<li class="list-group-item">
+								<b>证照类别</b> <a class="pull-right">{$vo.class}</a>
+							</li>
+							<li class="list-group-item">
+								<b>名称</b> <a class="pull-right">{$vo.name}</a>
+							</li>
+							<li class="list-group-item">
+								<b>职位</b> <a class="pull-right">{$vo.job}</a>
+							</li>
+							<li class="list-group-item">
+								<b>发证时间</b> <a class="pull-right">{$vo.time}</a>
+							</li>
+							<li class="list-group-item">
+								<b>发证人</b> <a class="pull-right">{$vo.operator}</a>
+							</li>
+						</ul>
+					</div>
+					<!-- /.box-body -->
 				</div>
-				<!-- /.box-body -->
+				<!-- /.box -->
 			</div>
-			<!-- /.box -->
-		</div>
+		</foreach>
 	</div>
 </block>
 
@@ -160,26 +139,7 @@
 					for(var key in data){
 						please+='<option>'+data[key]['name']+'</option>';
 					}
-					$("#name").empty().append(please);
-					$(".select2").select2();
-				}
-			});
-		});
-		/**
-		 * 品牌选项联动
-		 * */
-		$("#brand").change(function(){
-			$.post("<php>echo U('Boss/DoAsset/toolselect')</php>",{
-				num: 2,
-				name: $("#name").val(),
-				brand: $("#brand").val()
-			},function(data){
-				if(data){
-					var please = '<option class="selected">请选择</option>';
-					for(var key in data){
-						please+='<option>'+data[key]['model']+'</option>';
-					}
-					$("#model").empty().append(please);
+					$("#cname").empty().append(please);
 					$(".select2").select2();
 				}
 			});
@@ -189,21 +149,21 @@
 		 * */
 		$("#addbtn").click(function() {
 			var $btn = $(this).button('loading');
-			$.post("<php>echo U('Boss/DoAsset/tooladd')</php>", {
-					names: $("#name")[0].value,
-					brand: $("#brand")[0].value,
-					model: $("#model")[0].value,
-					number: $("#number")[0].value,
-					unit: $("#unit")[0].value
+			$.post("<php>echo U('Boss/DoAsset/paperadd')</php>", {
+					class: $("#class")[0].value,
+					name: $("#cname")[0].value,
+					actor: $("#actor")[0].value,
+					time: $("#end_time")[0].value,
+					operator: '{$user.cname}'
 				},
 				function(data) {
 					$btn.button('reset');
 					if (data == true) {
 						alert("添加成功");
+						location.reload();
 					} else {
 						alert(data);
 					}
-					location.reload();
 				});
 		});
 

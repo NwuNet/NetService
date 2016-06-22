@@ -527,11 +527,36 @@ class DoAssetController extends BaseController {
 		$paperclass = $select->field('class,count(class)')->group('class')->select();
 		$this->assign('paperclass',$paperclass);//选项名
 
+		$Paper = M('AssetPaper');
+		$paperlist = $Paper->order('time desc')->select();
+		$this->assign('paper',$paperlist);
+
 		$StaffUser = D('Admin/StaffUserView');
 		$staffuser = $StaffUser->where('status = 1')->select();
 		$this -> assign('staffuser',$staffuser);
         $this->display();
     }
+	public function paperadd(){
+		$class = I('post.class');
+		$name = I('post.name');
+		$actor = I('post.actor');
+		if($class=='请选择'||$name=='请选择'||$actor=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		if($class==''||$name==''||$actor==''||I('post.time')==''||I('post.operator')==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$StaffUser = D('Admin/StaffUserView');
+		$staffuser = $StaffUser->where('cname = "%s"',$actor)->field('job')->find();
+
+		$Paper = M('AssetPaper');
+		$Paper->create();
+		$Paper->job = $staffuser['job'];
+		if($Paper->add()){
+			$this->ajaxReturn(true);
+		}
+		$this->ajaxReturn(false);
+	}
 	// --------------------证照选项---------------------
 	public function paperselect(){
 		$num = I('post.num');
