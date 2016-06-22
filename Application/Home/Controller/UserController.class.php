@@ -10,6 +10,11 @@ class UserController extends BaseController {
 		$cardinfo['building'] = $dormitory[0];
 		$cardinfo['room'] = $dormitory[1];		
 		$this->assign("cardinfo",$cardinfo);
+
+		$evaluate = M('ServiceEvaluate');
+		$servicevaluate = $evaluate->where('servicecard_id =%d',$cardinfo['id'])->select();
+		$this->assign('evaluate',count($servicevaluate));
+		$this->assign('servicevaluate',$servicevaluate);
 		
 		if($cardinfo){
 			$repair = M('ServiceRepair');

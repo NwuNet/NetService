@@ -86,26 +86,38 @@
 								</li>
 							</li>
 						</foreach>
-						<li>
-							<i class="fa fa-user bg-green"></i>
-							<div class="timeline-item">
-								<div class="timeline-body">
-									<form id="stateform">
-										<label>维修完成，可以正常使用网络</label>									
-									    <label>本次服务评价</label>
-										<div class="input-group">
-											<div class="input-group-addon">
-												评价
+						<if condition="$evaluate eq 1">
+							<li>
+								<i class="fa fa-user bg-green"></i>
+								<div class="timeline-item">
+									<h3 class="timeline-header"><a href="#">时间</a> {$servicevaluate.0.time}</h3>
+									<div class="timeline-body">
+										<h3>评价：{$servicevaluate.0.evaluation}</h3>
+									</div>
+								</div>
+							</li>
+							<else/>
+							<li>
+								<i class="fa fa-user bg-green"></i>
+								<div class="timeline-item">
+									<div class="timeline-body">
+										<form id="stateform">
+											<label>维修完成，可以正常使用网络</label>
+											<label>本次服务评价</label>
+											<div class="input-group">
+												<div class="input-group-addon">
+													评价
+												</div>
+												<input type="text" id='evaluation' placeholder="请添加评价" class="form-control" />
 											</div>
-											<input type="text" id='evaluation' placeholder="请添加评价" class="form-control" />
-										</div>
-									</form>
+										</form>
+									</div>
+									<div class="timeline-footer">
+										<a id="stateadd" class="btn btn-primary">提交</a>
+									</div>
 								</div>
-								<div class="timeline-footer">
-									<a id="stateadd" class="btn btn-primary">提交</a>
-								</div>
-							</div>
-						</li>
+							</li>
+						</if>
 					</ul>
 				<else/>
 				<h3>您目前没有未完成的个人预约服务...</h3>
