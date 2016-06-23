@@ -68,6 +68,7 @@
 						<li><a href="#">型号 <span class="pull-right  ">{$exhaustinfo.0.model}</span></a></li>
 						<li><a href="#">剩余数量 <span class="pull-right  ">{$exhaustinfo.0.renumber}</span></a></li>
 						<li><a href="#">单位 <span class="pull-right  ">{$exhaustinfo.0.unit}</span></a></li>
+						<li><a href="#">校区 <span class="pull-right  ">{$exhaustinfo.0.area}</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -116,7 +117,7 @@
 											</foreach>
 										</select>
 										请输入<label>数量</label>
-										<input type="label" id="num" autocomplete="on" class="form-control" data-toggle="exhausttip" data-placement="top" title="请输入正整数" placeholder="请输入正整数" />						
+										<input type="number" min="1" id="num" autocomplete="on" class="form-control" data-toggle="exhausttip" data-placement="top" title="请输入正整数" placeholder="请输入正整数" />
 										请选择<label>使用者</label>
 										<select id="user" name = "user" class="form-control select2" style="width: 100%;">
 											<option selected="selected">请选择</option>
@@ -165,6 +166,7 @@
 							<th>型号</th>
 							<th>剩余数量</th>
 							<th>单位</th>
+							<th>校区</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -179,6 +181,7 @@
 							<th>型号</th>
 							<th>剩余数量</th>
 							<th>单位</th>
+							<th>校区</th>
 						</tr>
 						</tfoot>
 					</table>

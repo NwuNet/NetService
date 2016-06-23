@@ -42,6 +42,10 @@ class DoAssetController extends BaseController {
 			}
 		}
 
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
+
         $this->display();
     }
 	// --------------------工具选项---------------------
@@ -81,6 +85,7 @@ class DoAssetController extends BaseController {
 				case 4 :$orderSql = " model " . $order_dir;break;
 	            case 5 :$orderSql = " unit " . $order_dir;break;
 				case 6 :$orderSql = " start " . $order_dir;break;
+				case 7 :$orderSql = " area " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -93,7 +98,7 @@ class DoAssetController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $Tool->count();
 	
-	    $map['id|seq|names|brand|model|unit|start']=array('like',"%".$search."%");
+	    $map['id|seq|names|brand|model|unit|start|area']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($Tool->where($map)->select());
 	        $table = $Tool->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -104,7 +109,7 @@ class DoAssetController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['seq'],$row['names'],$row['brand'],$row['model'],$row['unit'],$row['start']);
+	        $obj = array($row['id'],$row['seq'],$row['names'],$row['brand'],$row['model'],$row['unit'],$row['start'],$row['area']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -122,7 +127,8 @@ class DoAssetController extends BaseController {
 		$model = I('post.model');
 		$number = I('post.number');
 		$unit = I('post.unit');
-		if($names==''||$brand==''||$model==''||$number==''||$unit==''){
+		$area = I('post.area');
+		if($names==''||$brand==''||$model==''||$number==''||$unit==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}elseif($names=='请选择'||$brand=='请选择'||$model=='请选择'){
 			$this->ajaxReturn("请选择");
@@ -240,6 +246,10 @@ class DoAssetController extends BaseController {
 				$this->assign('color','bg-yellow-gradient');
 			}
 		}
+
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
 		
         $this->display();
     }
@@ -280,7 +290,7 @@ class DoAssetController extends BaseController {
 				case 4 :$orderSql = " model " . $order_dir;break;
 				case 5 :$orderSql = " renumber " . $order_dir;break;
 	            case 6 :$orderSql = " unit " . $order_dir;break;
-				case 7 :$orderSql = " start " . $order_dir;break;
+				case 7 :$orderSql = " area " . $order_dir;break;
 	            default :$orderSql = '';
 	        }
 	    }
@@ -293,7 +303,7 @@ class DoAssetController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $Exhaust->count();
 	
-	    $map['id|day|names|brand|model|renumber|unit|start']=array('like',"%".$search."%");
+	    $map['id|day|names|brand|model|renumber|unit|start|area']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
 	        $recordsFiltered = count($Exhaust->where($map)->select());
 	        $table = $Exhaust->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -304,7 +314,7 @@ class DoAssetController extends BaseController {
 	
 	    $infos = array();
 	    foreach($table as $row){
-	        $obj = array($row['id'],$row['day'],$row['names'],$row['brand'],$row['model'],$row['renumber'],$row['unit'],$row['start']);
+	        $obj = array($row['id'],$row['day'],$row['names'],$row['brand'],$row['model'],$row['renumber'],$row['unit'],$row['area']);
 	        array_push($infos,$obj);
 	    }
 	
@@ -322,7 +332,8 @@ class DoAssetController extends BaseController {
 		$model = I('post.model');
 		$number = I('post.number');
 		$unit = I('post.unit');
-		if($names==''||$brand==''||$model==''||$number==''||$unit==''){
+		$area = I('post.area');
+		if($names==''||$brand==''||$model==''||$number==''||$unit==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}elseif($names=='请选择'||$brand=='请选择'||$model=='请选择'){
 			$this->ajaxReturn("请选择");
@@ -444,6 +455,11 @@ class DoAssetController extends BaseController {
 				$this->assign('color','bg-yellow-gradient');
 			}
 		}
+
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
+
 		$this->display();
     }
 	public function devicetable() {
@@ -465,6 +481,7 @@ class DoAssetController extends BaseController {
 				case 4 :$orderSql = " series " . $order_dir;break;
 				case 5 :$orderSql = " serial_number " . $order_dir;break;
 				case 6 :$orderSql = " start " . $order_dir;break;
+				case 7 :$orderSql = " area " . $order_dir;break;
 				default :$orderSql = '';
 			}
 		}
@@ -476,7 +493,7 @@ class DoAssetController extends BaseController {
 		//表的总记录数 必要
 		$recordsTotal = $Device->count();
 
-		$map['id|names|brand|model|series|serial_number|start']=array('like',"%".$search."%");
+		$map['id|names|brand|model|series|serial_number|start|area']=array('like',"%".$search."%");
 		if(strlen($search)>0){
 			$recordsFiltered = count($Device->where($map)->select());
 			$table = $Device->where($map)->order($orderSql)->limit($start.','.$length)->select();
@@ -487,7 +504,7 @@ class DoAssetController extends BaseController {
 
 		$infos = array();
 		foreach($table as $row){
-			$obj = array($row['id'],$row['names'],$row['brand'],$row['model'],$row['series'],$row['serial_number'],$row['start']);
+			$obj = array($row['id'],$row['names'],$row['brand'],$row['model'],$row['series'],$row['serial_number'],$row['start'],$row['area']);
 			array_push($infos,$obj);
 		}
 
@@ -505,7 +522,8 @@ class DoAssetController extends BaseController {
 		$model = I('post.model');
 		$series = I('post.series');
 		$serial_number = I('post.serial_number');
-		if($names==''||$brand==''||$model==''||$series==''||$serial_number==''){
+		$area = I('post.area');
+		if($names==''||$brand==''||$model==''||$series==''||$serial_number==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}elseif($names=='请选择'||$brand=='请选择'||$model=='请选择'){
 			$this->ajaxReturn("请选择");
@@ -534,16 +552,22 @@ class DoAssetController extends BaseController {
 		$StaffUser = D('Admin/StaffUserView');
 		$staffuser = $StaffUser->where('status = 1')->select();
 		$this -> assign('staffuser',$staffuser);
+
+		$Area = M('UserArea');
+		$userarea = $Area->select();
+		$this->assign('userarea',$userarea);
+
         $this->display();
     }
 	public function paperadd(){
 		$class = I('post.class');
 		$name = I('post.name');
 		$actor = I('post.actor');
+		$area = I('post.area');
 		if($class=='请选择'||$name=='请选择'||$actor=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
-		if($class==''||$name==''||$actor==''||I('post.time')==''||I('post.operator')==''){
+		if($class==''||$name==''||$actor==''||I('post.time')==''||I('post.operator')==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}
 		$StaffUser = D('Admin/StaffUserView');

@@ -75,13 +75,20 @@
 						  <label>入库数量</label>
 						  <div class="input-group">
 							  <div class="input-group-addon">Number</div>
-							  <input type="number" id="number" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
+							  <input type="number" id="number" min="1" class="form-control" data-toggle="tooltip" data-placement="top" title="请输入数字" placeholder="请输入数字" />
 						  </div>
 						  <label>数量单位</label>						  
                           <select id="unit" class="form-control select2" style="width: 100%;">
 							  <option selected="selected">请选择</option>
 							  <foreach name="assetunit" item="vo">
 								  <option>{$vo.name}</option>
+							  </foreach>
+						  </select>
+						  <label>所属校区</label>
+						  <select id="area" class="form-control" style="width: 100%;">
+							  <option selected="selected">请选择</option>
+							  <foreach name="userarea" item="vo">
+								  <option>{$vo.area}</option>
 							  </foreach>
 						  </select>
 						  
@@ -154,7 +161,8 @@
 								<th>品牌</th>
 								<th>型号</th>
 								<th>剩余数量</th>
-								<th>单位</th>						
+								<th>单位</th>
+								<th>校区</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -168,7 +176,8 @@
 								<th>品牌</th>
 								<th>型号</th>
 								<th>剩余数量</th>
-								<th>单位</th>								
+								<th>单位</th>
+								<th>校区</th>
 							</tr>
 						</tfoot>
 					</table>
@@ -183,6 +192,7 @@
 
 <block name="script">
 	<script type="text/javascript">
+		$("#area").val('{$user.area}');
 		/**
 		 * 名称选项联动
 		 * */
@@ -231,7 +241,8 @@
 					brand: $("#brand")[0].value,
 					model: $("#model")[0].value,
 					number: $("#number")[0].value,
-					unit: $("#unit")[0].value
+					unit: $("#unit")[0].value,
+					area: $("#area")[0].value
 				},
 				function(data) {
 					$btn.button('reset');
@@ -254,7 +265,7 @@
 		    </foreach> ],
 			xkey: 'y',
 			ykeys: ['item1'],
-			labels: ['耗材总数'],
+			labels: ['耗材入库次数'],
 			lineColors: ['#efefef'],
 			lineWidth: 2,
 			hideHover: 'auto',

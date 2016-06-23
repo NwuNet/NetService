@@ -78,6 +78,13 @@
 						  </select>
 						  <label>发放时间</label>
 						  <input type="text" class="form-control" id="end_time" name="end_time" placeholder="选择发证日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
+						  <label>所属校区</label>
+						  <select id="area" class="form-control" style="width: 100%;">
+							  <option selected="selected">请选择</option>
+							  <foreach name="userarea" item="vo">
+								  <option>{$vo.area}</option>
+							  </foreach>
+						  </select>
 					</div>
 					</form>
 					<button type="submit" id="addbtn" class="btn btn-primary btn-block">提交</button>
@@ -94,7 +101,7 @@
 					<div class="box-body box-profile">
 
 						<h3 class="profile-username text-center">{$vo.actor}</h3>
-						<p class="text-muted text-center">{$vo.job}</p>
+						<p class="text-muted text-center">{$vo.area}</p>
 						<ul class="list-group list-group-unbordered">
 							<li class="list-group-item">
 								<b>证照类别</b> <a class="pull-right">{$vo.class}</a>
@@ -126,6 +133,7 @@
 	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/bootstrap-datepicker.js" />
 	<js href="__PUBLIC__/AdminLTE2/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" />
 	<script type="text/javascript">
+		$("#area").val('{$user.area}');
 		/**
 		 * 名称选项联动
 		 * */
@@ -154,7 +162,8 @@
 					name: $("#cname")[0].value,
 					actor: $("#actor")[0].value,
 					time: $("#end_time")[0].value,
-					operator: '{$user.cname}'
+					operator: '{$user.cname}',
+					area: $("#area")[0].value
 				},
 				function(data) {
 					$btn.button('reset');
