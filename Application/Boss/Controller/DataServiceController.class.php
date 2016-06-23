@@ -73,7 +73,7 @@ class DataServiceController extends BaseController {
             $map['time'] = array('between', array( I('post.begin_time'), I('post.end_time') ) );
             $breakinfo = $Repair->field('breakinfo,count(breakinfo) as count')->group('breakinfo')->where($map)->select();
             $this->breakinfo = $breakinfo;
-            $staffdo = $Repair->field('staff,count(staff) as count')->group('staff')->where($map)->select();
+            $staffdo = $Repair->field('operator,count(operator) as count')->group('operator')->where($map)->select();
             $this->staffdo = $staffdo;
 
             $this->display();
