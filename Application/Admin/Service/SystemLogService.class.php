@@ -22,6 +22,10 @@ class SystemLogService{
 			return false;
 		}
     }
+	public function count(){
+		$log = M('SystemLog');
+		return count($log->field('log_id')->select());
+	}
 	/**
 	 * 访问量
 	 * */

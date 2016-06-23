@@ -37,8 +37,8 @@
 		<div class="col-lg-3 col-xs-6">
 			<div class="small-box bg-aqua">
 				<div class="inner">
-					<h3>150</h3>
-					<p>本月访问量</p>
+					<h3>{$log_sum}</h3>
+					<p>系统登录量</p>
 				</div>
 				<div class="icon">
 					<i class="ion ion-earth"></i>
@@ -48,110 +48,141 @@
 		</div>
 		<!-- ./col -->
 		<div class="col-lg-3 col-xs-6">
-			<div class="small-box bg-green">
+			<if condition="($file['Log']['level'] eq 1) ">
+					<div class="small-box bg-green">
+				<elseif condition="($file['Log']['level'] eq 2) "/>
+					<div class="small-box bg-blue">
+				<elseif condition="($file['Log']['level'] eq 3) "/>
+						<div class="small-box bg-yellow">
+				<elseif condition="($file['Log']['level'] eq 4) "/>
+							<div class="small-box bg-red">
+				<else />
+								<div class="small-box bg-green">
+			</if>
 				<div class="inner">
-					<h3>33<sup style="font-size: 20px">%</sup></h3>
-					<p>系统存储</p>
+					<h3>{$file.Log.size}<sup style="font-size: 20px"></sup></h3>
+					<p>日志缓存</p>
 				</div>
 				<div class="icon">
 					<i class="ion ion-filing"></i>
 				</div>
-				<a href="#" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
+				<a href="<php>echo U('Admin/SystemFile/index')</php>" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 		<!-- ./col -->
+
 		<div class="col-lg-3 col-xs-6">
-			<div class="small-box bg-yellow">
+			<if condition="($file['Backup']['level'] eq 1) ">
+				<div class="small-box bg-green">
+					<elseif condition="($file['Backup']['level'] eq 2) "/>
+					<div class="small-box bg-blue">
+						<elseif condition="($file['Backup']['level'] eq 3) "/>
+						<div class="small-box bg-yellow">
+							<elseif condition="($file['Backup']['level'] eq 4) "/>
+							<div class="small-box bg-red">
+								<else />
+								<div class="small-box bg-green">
+			</if>
 				<div class="inner">
-					<h3>50</h3>
-					<p>用户相关</p>
-				</div>
-				<div class="icon">
-					<i class="ion ion-person-stalker"></i>
-				</div>
-				<a href="#" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
-		<!-- ./col -->
-		<div class="col-lg-3 col-xs-6">
-			<div class="small-box bg-red">
-				<div class="inner">
-					<h3>1024 M</h3>
-					<p>系统缓存</p>
+					<h3>{$file.Backup.size}</h3>
+					<p>数据备份大小</p>
 				</div>
 				<div class="icon">
 					<i class="ion ion-load-b"></i>
 				</div>
-				<a href="#" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
+				<a href="<php>echo U('Admin/SystemFile/index')</php>" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
+		</div>
+		<!-- ./col -->
+		<div class="col-lg-3 col-xs-6">
+			<if condition="($file['Images']['level'] eq 1) ">
+				<div class="small-box bg-green">
+					<elseif condition="($file['Images']['level'] eq 2) "/>
+					<div class="small-box bg-blue">
+						<elseif condition="($file['Images']['level'] eq 3) "/>
+						<div class="small-box bg-yellow">
+							<elseif condition="($file['Images']['level'] eq 4) "/>
+							<div class="small-box bg-red">
+								<else />
+								<div class="small-box bg-green">
+			</if>
+			<div class="inner">
+				<h3>{$file.Images.size}</h3>
+				<p>图片缓存</p>
+			</div>
+			<div class="icon">
+				<i class="ion ion-person-stalker"></i>
+			</div>
+			<a href="<php>echo U('Admin/SystemFile/index')</php>" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
+		</div>
 		</div>
 		<!-- ./col -->
 	</div>
 	<!-- row -->
 
-	<div class="row">
-		<div class="col-md-8">
-			<div class="box box-info">
-				<div class="box-header with-border">
-					<h3 class="box-title">系统访问量</h3>
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-						</button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-					</div>
-				</div>
-				<!-- box-header -->
+	<!--<div class="row">-->
+		<!--<div class="col-md-8">-->
+			<!--<div class="box box-info">-->
+				<!--<div class="box-header with-border">-->
+					<!--<h3 class="box-title">系统访问量</h3>-->
+					<!--<div class="box-tools pull-right">-->
+						<!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>-->
+						<!--</button>-->
+						<!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--&lt;!&ndash; box-header &ndash;&gt;-->
 
-				<div class="box-body no-padding">
-					<div class="row">
-						<div class="col-md-12">
-							<p class="text-center"><strong>近5个月的访问量</strong></p>
-							<div id="visitor_bar" style="position: relative; height: 300px;"></div>
-						</div>
-						<!-- col-md-8 -->
-					</div>
-					<!-- row -->
-				</div>
-				<!-- box-body -->
-			</div>
-			<!-- box -->
-		</div>
-		<!-- col-md-8 -->
-		<div class="col-md-4">
-			<div class="box box-info">
-				<div class="box-header with-border">
-					<h3 class="box-title">系统访问量</h3>
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-						</button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-					</div>
-				</div>
-				<!-- box-header -->
+				<!--<div class="box-body no-padding">-->
+					<!--<div class="row">-->
+						<!--<div class="col-md-12">-->
+							<!--<p class="text-center"><strong>近5个月的访问量</strong></p>-->
+							<!--<div id="visitor_bar" style="position: relative; height: 300px;"></div>-->
+						<!--</div>-->
+						<!--&lt;!&ndash; col-md-8 &ndash;&gt;-->
+					<!--</div>-->
+					<!--&lt;!&ndash; row &ndash;&gt;-->
+				<!--</div>-->
+				<!--&lt;!&ndash; box-body &ndash;&gt;-->
+			<!--</div>-->
+			<!--&lt;!&ndash; box &ndash;&gt;-->
+		<!--</div>-->
+		<!--&lt;!&ndash; col-md-8 &ndash;&gt;-->
+		<!--<div class="col-md-4">-->
+			<!--<div class="box box-info">-->
+				<!--<div class="box-header with-border">-->
+					<!--<h3 class="box-title">系统访问量</h3>-->
+					<!--<div class="box-tools pull-right">-->
+						<!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>-->
+						<!--</button>-->
+						<!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--&lt;!&ndash; box-header &ndash;&gt;-->
 
-				<div class="box-body">
-					<div class="row">
-						<div class="col-md-12">
-							<p class="text-center"><strong>近5个月的访问量</strong></p>
-							<div id="visitor_pie" style="position: relative; height: 300px;"></div>
-						</div>
-						<!-- col-md-8 -->
-					</div>
-					<!-- row -->
-				</div>
-				<!-- box-body -->
-			</div>
-			<!-- box -->
-		</div>
-		<!-- col-md-4 -->
-	</div>
-	<!-- row -->
+				<!--<div class="box-body">-->
+					<!--<div class="row">-->
+						<!--<div class="col-md-12">-->
+							<!--<p class="text-center"><strong>近5个月的访问量</strong></p>-->
+							<!--<div id="visitor_pie" style="position: relative; height: 300px;"></div>-->
+						<!--</div>-->
+						<!--&lt;!&ndash; col-md-8 &ndash;&gt;-->
+					<!--</div>-->
+					<!--&lt;!&ndash; row &ndash;&gt;-->
+				<!--</div>-->
+				<!--&lt;!&ndash; box-body &ndash;&gt;-->
+			<!--</div>-->
+			<!--&lt;!&ndash; box &ndash;&gt;-->
+		<!--</div>-->
+		<!--&lt;!&ndash; col-md-4 &ndash;&gt;-->
+	<!--</div>-->
+	<!--&lt;!&ndash; row &ndash;&gt;-->
 
 	<div class="row">
 		<div class="col-md-8">
 			<div class="box box-success">
 				<div class="box-header with-border">
-					<h3 class="box-title">后台登录记录</h3>
+					<h3 class="box-title">后台日志记录</h3>
 
 					<div class="box-tools pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -162,58 +193,30 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<div class="table-responsive">
-						<table class="table no-margin">
+						<table class="table no-margin no-padding">
 							<thead>
 								<tr>
-									<th>用户名</th>
-									<th>登陆ip</th>
-									<th>身份</th>
-									<th>登陆时间</th>
+									<th>IP</th>
+									<th>时间</th>
+									<th>描述</th>
+									<th>状态</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><a href="#">胡洋</a></td>
-									<td>111.114.115.116</td>
-									<td><span class="label label-success">超级管理员</span></td>
-									<td>2015-11-11 21:41</td>
-								</tr>
-								<tr>
-									<td><a href="#">唐嫣</a></td>
-									<td>8.8.8.8</td>
-									<td><span class="label label-info">管理员</span></td>
-									<td>2015-11-11 19:41</td>
-								</tr>
-								<tr>
-									<td><a href="#">周杰伦</a></td>
-									<td>192.168.1.1</td>
-									<td><span class="label label-info">管理员</span></td>
-									<td>2015-11-10 12:41</td>
-								</tr>
-								<tr>
-									<td><a href="#">胡歌</a></td>
-									<td>172.16.1.129</td>
-									<td><span class="label label-info">管理员</span></td>
-									<td>2015-11-09 00:19</td>
-								</tr>
-								<tr>
-									<td><a href="#">唐嫣</a></td>
-									<td>8.8.8.8</td>
-									<td><span class="label label-info">管理员</span></td>
-									<td>2015-11-11 19:41</td>
-								</tr>
-								<tr>
-									<td><a href="#">周杰伦</a></td>
-									<td>192.168.1.1</td>
-									<td><span class="label label-info">管理员</span></td>
-									<td>2015-11-10 12:41</td>
-								</tr>
-								<tr>
-									<td><a href="#">胡歌</a></td>
-									<td>172.16.1.129</td>
-									<td><span class="label label-info">管理员</span></td>
-									<td>2015-11-09 00:19</td>
-								</tr>
+								<foreach name="log" item="vo">
+									<tr>
+										<td><a href="#">{$vo.ip}</a></td>
+										<td>{$vo.time}</td>
+										<td>{$vo.info}</td>
+										<td>
+											<if condition="$vo['status'] eq 1">
+												<span class="badge label-success">成功</span>
+												<else/>
+												<span class="badge bg-red">失败</span>
+											</if>
+										</td>
+									</tr>
+								</foreach>
 							</tbody>
 						</table>
 					</div>
@@ -280,107 +283,107 @@
 
 <block name="script">
 	<!--Step:2 引入echarts.js-->
-	<script src="__PUBLIC__/AdminLTE2/plugins/echarts/echarts.js"></script>
+	<!--<script src="__PUBLIC__/AdminLTE2/plugins/echarts/echarts.js"></script>-->
 	<script type="text/javascript">
 		// Step:3 conifg ECharts's path, link to echarts.js from current page.
 		// Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
-		require.config({
-			paths: {
-				echarts: '__PUBLIC__/AdminLTE2/plugins/echarts'
-			}
-		});
-		// Step:4 require echarts and use it in the callback.
-		// Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
-		require(
-			[
-				'echarts',
-				'echarts/chart/bar',
-				'echarts/chart/line',
-				'echarts/chart/pie'
-			],
-			function(ec) {
-				//--- 折柱 ---
-				var myChart = ec.init(document.getElementById('visitor_bar'), 'macarons');
-				myChart.setOption({
-					tooltip: {
-						trigger: 'axis'
-					},
-					legend: {
-						data: ['Admin', 'Boss', 'Home', 'Staff']
-					},
-					toolbox: {
-						show: true,
-						feature: {
-							magicType: {
-								show: true,
-								type: ['line', 'bar']
-							}
-						}
-					},
-					calculable: true,
-					xAxis: [{
-						type: 'category',
-						data: ['7月', '8月', '9月', '10月', '11月']
-					}],
-					yAxis: [{
-						type: 'value',
-						splitArea: {
-							show: true
-						}
-					}],
-					series: [{
-						name: 'Admin',
-						type: 'bar',
-						data: [1, 5, 6, 9, 5]
-					}, {
-						name: 'Boss',
-						type: 'bar',
-						data: [3, 3, 5, 7, 9]
-					}, {
-						name: 'Home',
-						type: 'bar',
-						data: [5, 29, 35, 25, 19]
-					}, {
-						name: 'Staff',
-						type: 'bar',
-						data: [9, 15, 29, 23, 16]
-					}]
-				});
-				var myChart2 = ec.init(document.getElementById('visitor_pie'), 'macarons');
-				myChart2.setOption({
-					tooltip: {
-						trigger: 'item',
-						formatter: "{a} <br/>{b} : {c} ({d}%)"
-					},
-					legend: {
-						orient: 'vertical',
-						x: 'left',
-						data: ['Admin', 'Boss', 'Home', 'Staff']
-					},
-					calculable: true,
-					series: [{
-						name: '访问来源',
-						type: 'pie',
-						radius: ['40%', '60%'],
-						center: ['50%', '50%'],
-						data: [{
-							value: 26,
-							name: 'Admin'
-						}, {
-							value: 27,
-							name: 'Boss'
-						}, {
-							value: 113,
-							name: 'Home'
-						}, {
-							value: 92,
-							name: 'Staff'
-						}]
-					}]
-				});
-				window.onresize = myChart.resize;
-			}
-		);
+//		require.config({
+//			paths: {
+//				echarts: '__PUBLIC__/AdminLTE2/plugins/echarts'
+//			}
+//		});
+//		// Step:4 require echarts and use it in the callback.
+//		// Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+//		require(
+//			[
+//				'echarts',
+//				'echarts/chart/bar',
+//				'echarts/chart/line',
+//				'echarts/chart/pie'
+//			],
+//			function(ec) {
+//				//--- 折柱 ---
+//				var myChart = ec.init(document.getElementById('visitor_bar'), 'macarons');
+//				myChart.setOption({
+//					tooltip: {
+//						trigger: 'axis'
+//					},
+//					legend: {
+//						data: ['Admin', 'Boss', 'Home', 'Staff']
+//					},
+//					toolbox: {
+//						show: true,
+//						feature: {
+//							magicType: {
+//								show: true,
+//								type: ['line', 'bar']
+//							}
+//						}
+//					},
+//					calculable: true,
+//					xAxis: [{
+//						type: 'category',
+//						data: ['7月', '8月', '9月', '10月', '11月']
+//					}],
+//					yAxis: [{
+//						type: 'value',
+//						splitArea: {
+//							show: true
+//						}
+//					}],
+//					series: [{
+//						name: 'Admin',
+//						type: 'bar',
+//						data: [1, 5, 6, 9, 5]
+//					}, {
+//						name: 'Boss',
+//						type: 'bar',
+//						data: [3, 3, 5, 7, 9]
+//					}, {
+//						name: 'Home',
+//						type: 'bar',
+//						data: [5, 29, 35, 25, 19]
+//					}, {
+//						name: 'Staff',
+//						type: 'bar',
+//						data: [9, 15, 29, 23, 16]
+//					}]
+//				});
+//				var myChart2 = ec.init(document.getElementById('visitor_pie'), 'macarons');
+//				myChart2.setOption({
+//					tooltip: {
+//						trigger: 'item',
+//						formatter: "{a} <br/>{b} : {c} ({d}%)"
+//					},
+//					legend: {
+//						orient: 'vertical',
+//						x: 'left',
+//						data: ['Admin', 'Boss', 'Home', 'Staff']
+//					},
+//					calculable: true,
+//					series: [{
+//						name: '访问来源',
+//						type: 'pie',
+//						radius: ['40%', '60%'],
+//						center: ['50%', '50%'],
+//						data: [{
+//							value: 26,
+//							name: 'Admin'
+//						}, {
+//							value: 27,
+//							name: 'Boss'
+//						}, {
+//							value: 113,
+//							name: 'Home'
+//						}, {
+//							value: 92,
+//							name: 'Staff'
+//						}]
+//					}]
+//				});
+//				window.onresize = myChart.resize;
+//			}
+//		);
 		var msg = '<div class="callout callout-success" id="call1">你好{$user.uname}，欢迎登录Net Service后台管理</div>'
 		$(".content").prepend(msg);
 		setTimeout(function() {
@@ -388,6 +391,6 @@
 				function() {
 					$(this).remove();
 				});
-		}, 5000);
+		}, 3000);
 	</script>
 </block>
