@@ -3,6 +3,10 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
     public function index(){
+		$log = D('Admin/SystemLog','Service');
+		$log->addhome();
+		$this->assign('day_sum',$log->dayhome());
+		$this->assign('all_sum',$log->allhome());
         $this->display();
     }
 	// --------------------添加服务单---------------------
@@ -116,12 +120,18 @@ class IndexController extends Controller {
 //		trace($list);
 		$this->assign('files',$files);
 		$this->assign('lists',$list);
+		$log = D('Admin/SystemLog','Service');
+		$this->assign('day_sum',$log->dayhome());
+		$this->assign('all_sum',$log->allhome());
         $this->display();
     }
 	public function apply(){
         $this->display();
     }
 	public function service(){
+		$log = D('Admin/SystemLog','Service');
+		$this->assign('day_sum',$log->dayhome());
+		$this->assign('all_sum',$log->allhome());
         $this->display();
     }
 	public function staff(){
@@ -132,6 +142,9 @@ class IndexController extends Controller {
 		$this->assign('changan',$changan);
 		$this->assign('taibai',$taibai);
 		$this->assign('taoyuan',$taoyuan);
+		$log = D('Admin/SystemLog','Service');
+		$this->assign('day_sum',$log->dayhome());
+		$this->assign('all_sum',$log->allhome());
         $this->display();
     }
 }

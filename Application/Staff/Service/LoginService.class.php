@@ -19,6 +19,13 @@ class LoginService{
 		//session(array('name'=>$userId,'expire'=>3600));
         session('staff_user', $auth);
         session('staff_user_sign', data_auth_sign($auth));
+
+		$log = D('Admin/SystemLog','Service');
+		$data['module'] = 'Staff';
+		$data['controller'] = 'LoginService';
+		$data['user'] = $userId;
+		$data['info'] = '登录';
+		$data['status'] = 1;
 		return TRUE;
     }
 	/**

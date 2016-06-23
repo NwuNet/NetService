@@ -22,6 +22,14 @@ class LoginService{
 		session('admin_user',$auth);
         session(array('name'=>'admin_user_sign','expire'=>3600));
 		session('admin_user_sign',data_auth_sign($auth));
+
+		$log = D('Admin/SystemLog','Service');
+		$data['module'] = 'Admin';
+		$data['controller'] = 'LoginService';
+		$data['user'] = $userId;
+		$data['info'] = '登录';
+		$data['status'] = 1;
+		$log->add($data);
 		return TRUE;
     }
 	/**
@@ -44,4 +52,19 @@ class LoginService{
 		session('[destroy]');
 		return TRUE;
     }
+	/*
+	 * 获取用户id
+	 * */
+	public function getuserId(){
+		$user  = session('admin_user');
+		return $user['admin_user_id'];
+	}
+	/*
+	 * 获取用户信息
+	 * */
+	public function getuserInfo(){
+		$userid = $this->getuserId();
+		$bossuser = D('Admin/AdminUserView');
+		return $bossuser->where('id = %d',$userid)->find();
+	}
 }
