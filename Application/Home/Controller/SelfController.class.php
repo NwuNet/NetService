@@ -38,7 +38,9 @@ class SelfController extends BaseController {
 		//trace($info);
 		$user = M('HomeUser');
 		$data = $user -> where('id = %d',$id)->find();
-		unlink('Public/'.$data['img']);
+		if($data['img']!='/Images/User/default.png'){
+			unlink('Public/'.$data['img']);
+		}
 		$data['img'] = '/Images/User/'.$fname.'/'.$info['photo']['savename'];
 		$status = $user -> save($data);
 		if ($info && $status) {// 上传成功
