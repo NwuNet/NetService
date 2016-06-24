@@ -1,0 +1,413 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('setdata','dataservice'))}
+	<!--menu widget-->
+
+</block>
+
+<block name="content-header">
+	<h1>
+		数据报表
+		<small><span class="fa fa-fw fa-hand-o-up"></span>人事报表</small>
+		<a class="btn btn-primary" href="#" target="_blank">导出pdf</a>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li>数据报表</li>
+		<li class="active">人事报表</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-hand-o-up"></i>
+					<h3 class="box-title">员工人数 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-6">
+						<div id="area_1" style="width: 550px;height:350px;"></div>
+					</div>
+					<div class="col-sm-6">
+						<div id="area_2" style="width: 550px;height:350px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-hand-o-up"></i>
+					<h3 class="box-title">请假 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-6">
+						<div id="area_3" style="width: 550px;height:350px;"></div>
+					</div>
+					<div class="col-sm-6">
+						<div id="area_4" style="width: 550px;height:350px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-hand-o-up"></i>
+					<h3 class="box-title">考勤 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-4">
+						<div id="area_5" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-8">
+						<div id="area_6" style="width: 720px;height:300px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+	<js href="__PUBLIC__/AdminLTE2/plugins/echarts/echarts.common.min.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/echarts/theme/shine.js" />
+	<script type="text/javascript">
+
+		option1 = {
+			title : {
+				text: '员工总人数: {$areacount|array_sum}',
+				subtext: '{$area}',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: ['{$positionarea.0.name}','{$positionarea.1.name}','{$positionarea.2.name}']
+			},
+			series : [
+				{
+					name: '员工人数',
+					type: 'pie',
+					radius : '55%',
+					center: ['50%', '60%'],
+					data:[
+						{value:'{$areacount.0}', name:'{$positionarea.0.name}'},
+						{value:'{$areacount.1}', name:'{$positionarea.1.name}'},
+						{value:'{$areacount.2}', name:'{$positionarea.2.name}'}
+					],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		option2 = {
+			title: {
+				text: '员工总人数: {$areacount|array_sum}'
+			},
+			legend: {
+				data: ['{$positionarea.0.name}','{$positionarea.1.name}','{$positionarea.2.name}'],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='areax' item='vo'> '{$vo}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},
+			series: [{
+				name: '{$positionarea.0.name}',
+				type: 'bar',
+				data: [
+					<foreach name='areadata[0]' item='vo'> '{$vo}', </foreach>
+				]
+			}, {
+				name: '{$positionarea.1.name}',
+				type: 'bar',
+				data: [
+					<foreach name='areadata[1]' item='vo'> '{$vo}', </foreach>
+				]
+			}, {
+				name: '{$positionarea.2.name}',
+				type: 'bar',
+				data: [
+					<foreach name='areadata[2]' item='vo'> '{$vo}', </foreach>
+				]
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		option3 = {
+			title : {
+				text: '人员请假情况',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='vacationcount' item='vo'> '{$vo.uname}', </foreach>]
+			},
+			series : [{
+				name: '员工',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='vacationdata' item='vo'> {value: '{$vo.count}',name: '{$vo.uname}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};		
+		option4 = {
+			title: {
+				text: '员工请假情况'
+			},
+			toolbox: {
+				feature: {
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [
+					'员工请假次数'
+				],
+				silent: true,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},
+			series: [
+				<foreach name='vacationdata' item='vo'> { name: '{$vo.uname}', type: 'bar',label: {
+					normal: {
+						show: true,
+						position: 'inside',
+						formatter: '{a}: {c}'
+					}
+				}, data: ['{$vo.count}'] }, </foreach>
+			]
+		};
+		option5 = {
+			title : {
+				text: '员工考勤情况',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='registerdata' item='vo'> '{$vo.uname}', </foreach>]
+			},
+			series : [{
+				name: '员工',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='registerdata' item='vo'> {value: '{$vo.count}',name: '{$vo.uname}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option6 = {
+			title: {
+				text: '员工考勤情况: '
+			},
+			legend: {
+				data: ['{$registerarea.0.name}','{$registerarea.1.name}','{$registerarea.2.name}'],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='vacationstaff' item='vo'> '{$vo.uname}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},			
+			series: [{
+				name: '{$registerarea.0.name}',
+				type: 'bar',
+				data: [
+					<foreach name='registerdata2[0]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$registerarea.1.name}',
+				type: 'bar',
+				data: [
+					<foreach name='registerdata2[1]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$registerarea.2.name}',
+				type: 'bar',
+				data: [
+					<foreach name='registerdata2[2]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		option = {
+			title: {
+				text: '员工考勤情况'
+			},
+			toolbox: {
+				feature: {
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [
+					'员工考勤情况'
+				],
+				silent: true,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},
+			series: [
+			<foreach name='registerdata' item='vo'> { name: '{$vo.uname}', type: 'bar',label: {
+					normal: {
+						show: true,
+						position: 'inside',
+						formatter: '{a}: {c}'
+					}
+				}, data: ['{$vo.count}'] }, </foreach>
+		]
+		};
+		var myChart1 = echarts.init(document.getElementById('area_1'), "shine");
+		var myChart2 = echarts.init(document.getElementById('area_2'), "shine");
+		var myChart3 = echarts.init(document.getElementById('area_3'), "shine");
+		var myChart4 = echarts.init(document.getElementById('area_4'));
+		var myChart5 = echarts.init(document.getElementById('area_5'), "shine");
+		var myChart6 = echarts.init(document.getElementById('area_6'), "shine");
+//		var myChart7 = echarts.init(document.getElementById('area_7'), "shine");
+		myChart1.setOption(option1);
+		myChart2.setOption(option2);
+		myChart3.setOption(option3);
+		myChart4.setOption(option4);
+		myChart5.setOption(option5);
+		myChart6.setOption(option6);
+//		myChart7.setOption(option7);
+
+	</script>
+</block>
