@@ -22,6 +22,7 @@ class DataPeopleController extends BaseController {
 
 			$Staff = D('Admin/StaffUserView');
 			$Vacation = M('StaffVacation');
+			$Model = new \Think\Model();
 
 			//-------------------------graph bar line--------------------
 			$map = array();
@@ -63,7 +64,7 @@ class DataPeopleController extends BaseController {
 				//   $map['area'] = $item['area'];
 				//    $tmp = $Vacation->field('count(StaffVacation.status) as count')->group('StaffVacation.status')->where($map)->select();
 
-				$tmp = $Vacation -> query("SELECT 
+				$tmp = $Model -> query("SELECT 
 				net_staff_user.area,
                 net_staff_vacation.`status`,
                 count(net_staff_vacation.`status`)as count
@@ -86,10 +87,9 @@ class DataPeopleController extends BaseController {
 			$this -> vacationdoneornot = $vacationdoneornot;
 
 			//-----------------------------Dimission done or not done ---------------------------
-			$Dimission = M('Dimission');
 			$dimissiondoneornot = array();
 			foreach ($userarea as $key => $item) {
-				$tmp = $Dimission -> query("SELECT 
+				$tmp = $Model -> query("SELECT 
                 net_staff_user.area,
                 net_dimission.`status`,
                 count(net_dimission.`status`)as count
@@ -111,10 +111,9 @@ class DataPeopleController extends BaseController {
 			}
 			$this -> dimissiondoneornot = $dimissiondoneornot;
 			//-----------------------------Apply done or not done ---------------------------
-			$Apply = M('ApplyHome');
 			$applydoneornot = array();
 			foreach ($userarea as $key => $item) {
-				$tmp = $Apply -> query("SELECT 
+				$tmp = $Model -> query("SELECT 
                 net_home_user.area,
                 net_apply_home.a_status,
                 COUNT(net_apply_home.a_status)AS count
@@ -159,7 +158,7 @@ class DataPeopleController extends BaseController {
 				//    $map['time'] = array('between', array( I('post.begin_time'), I('post.end_time') ) );
 				//   $map['name'] = $item['name'];
 				//    $tmp = $Staff -> where($map) ->select();
-				$tmp = $Register -> query("SELECT                
+				$tmp = $Model -> query("SELECT                
                 count(net_staff_register.state)as count
                 FROM
                 net_staff_register ,
@@ -187,7 +186,7 @@ class DataPeopleController extends BaseController {
 				//    $map['time'] = array('between', array( I('post.begin_time'), I('post.end_time') ) );
 				//   $map['name'] = $item['name'];
 				//    $tmp = $Staff -> where($map) ->select();
-				$tmp = $Register -> query("SELECT                
+				$tmp = $Model -> query("SELECT                
                 count(net_staff_register.state)as count
                 FROM
                 net_staff_register ,
@@ -216,7 +215,7 @@ class DataPeopleController extends BaseController {
 				//    $map['time'] = array('between', array( I('post.begin_time'), I('post.end_time') ) );
 				//   $map['name'] = $item['name'];
 				//    $tmp = $Staff -> where($map) ->select();
-				$tmp = $Register -> query("SELECT                
+				$tmp = $Model -> query("SELECT                
                 count(net_staff_register.state)as count
                 FROM
                 net_staff_register ,
@@ -259,6 +258,7 @@ class DataPeopleController extends BaseController {
 			$this -> assign('positionarea', $positionarea);
 
 			$Staff = D('Admin/StaffUserView');
+			$Model = new \Think\Model();
 			//-------------------------graph bar line--------------------
 			$map = array();
 			$map['begintime'] = array('between', array(I('post.begin_time'), I('post.end_time')));
@@ -294,13 +294,11 @@ class DataPeopleController extends BaseController {
 			$vacationstaff = D("Admin/StaffUserView") -> where("area='%s'", $area) -> group('uname') -> field('uname') -> select();
 			//$this->ajaxReturn($vacationstaff);
 			$this -> vacationstaff = $vacationstaff;
-			//-------------------------vacation--------------------
-			$Vacation = M('StaffVacation');
-
+			//-------------------------vacation--------------------			
 			$vacationcount = array();
 			$vacationdata = array();
 			foreach ($vacationstaff as $key => $item) {				
-				$tmp = $Vacation -> query("SELECT 
+				$tmp = $Model -> query("SELECT 
                 net_staff_vacation.uname,              
                 count(net_staff_vacation.uname)as count
                 FROM
@@ -326,7 +324,7 @@ class DataPeopleController extends BaseController {
 			$RegisterSelect = M('RegisterSelect');
 			$registerarea = $RegisterSelect -> select();
 			$this -> assign('registerarea', $registerarea);
-			$Register = M('StaffRegister');
+			
 			$registerareax = array();
 			foreach ($registerarea as $key => $item) {
 				$registerareax[$key] = $item['name'];
@@ -335,7 +333,7 @@ class DataPeopleController extends BaseController {
 			//	$this->ajaxReturn($areax);
 			$registerdata = array();
 			foreach ($vacationstaff as $key => $item) {
-				$tmp = $Register -> query("SELECT 
+				$tmp = $Model -> query("SELECT 
                 net_staff_register.uname,              
                 count(net_staff_register.uname)as count
                 FROM
@@ -358,7 +356,7 @@ class DataPeopleController extends BaseController {
 			$registerdata2 = array();
 			foreach ($vacationstaff as $key => $item) {
 				foreach ($registerarea as $key2 => $item2) {
-					$tmp = $Register -> query("SELECT 
+					$tmp = $Model -> query("SELECT 
                 net_staff_register.state,             
                 count(net_staff_register.state)as count
                 FROM
