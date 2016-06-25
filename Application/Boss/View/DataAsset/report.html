@@ -1,0 +1,795 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('setdata','dataservice'))}
+	<!--menu widget-->
+
+</block>
+
+<block name="content-header">
+	<h1>
+		数据报表
+		<small><span class="fa fa-fw fa-truck"></span>资产报表</small>
+		<a class="btn btn-primary" href="#" target="_blank">导出pdf</a>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li>数据报表</li>
+		<li class="active">资产报表</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<!--<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">工具 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-6">
+						<div id="area_1" style="width: 550px;height:350px;"></div>
+					</div>
+					<div class="col-sm-6">
+						<div id="area_2" style="width: 550px;height:350px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>-->
+
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">工具 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-4">
+						<div id="area_3" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_4" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_5" style="width: 360px;height:300px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">耗材 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-4">
+						<div id="area_6" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_7" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_8" style="width: 360px;height:300px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">设备 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-4">
+						<div id="area_9" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_10" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_11" style="width: 360px;height:300px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">证照 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-4">
+						<div id="area_12" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_13" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_14" style="width: 360px;height:300px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">其他 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-4">
+						<div id="area_15" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_16" style="width: 360px;height:300px;"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="area_17" style="width: 360px;height:300px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+	<js href="__PUBLIC__/AdminLTE2/plugins/echarts/echarts.common.min.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/echarts/theme/shine.js" />
+	<script type="text/javascript">
+		/*option1 = {
+			title : {
+				text: '故障报修数量: {$areacount|array_sum}',
+				subtext: '三个校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: ['{$userarea.0.area}','{$userarea.1.area}','{$userarea.2.area}']
+			},
+			series : [
+				{
+					name: '报修数量',
+					type: 'pie',
+					radius : '55%',
+					center: ['50%', '60%'],
+					data:[
+						{value:'{$areacount.0}', name:'{$userarea.0.area}'},
+						{value:'{$areacount.1}', name:'{$userarea.1.area}'},
+						{value:'{$areacount.2}', name:'{$userarea.2.area}'}
+					],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		option2 = {
+			title: {
+				text: '故障报修数量: {$areacount|array_sum}'
+			},
+			legend: {
+				data: ['{$userarea.0.area}','{$userarea.1.area}','{$userarea.2.area}'],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='areax' item='vo'> '{$vo}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},
+			series: [{
+				name: '{$userarea.0.area}',
+				type: 'bar',
+				data: [
+					<foreach name='areadata[0]' item='vo'> '{$vo}', </foreach>
+				]
+			}, {
+				name: '{$userarea.1.area}',
+				type: 'bar',
+				data: [
+					<foreach name='areadata[1]' item='vo'> '{$vo}', </foreach>
+				]
+			}, {
+				name: '{$userarea.2.area}',
+				type: 'bar',
+				data: [
+					<foreach name='areadata[2]' item='vo'> '{$vo}', </foreach>
+				]
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};*/
+		option3 = {
+			title : {
+				text: '长安校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='tooldata[0]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '工具',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='tooldata[0]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option4 = {
+			title : {
+				text: '太白校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='tooldata[1]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '工具',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='tooldata[1]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option5 = {
+			title : {
+				text: '桃园校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='tooldata[2]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '工具',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='tooldata[2]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option6 = {
+			title : {
+				text: '长安校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='exhaustdata[0]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '耗材',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='exhaustdata[0]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option7 = {
+			title : {
+				text: '太白校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='exhaustdata[1]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '耗材',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='exhaustdata[1]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option8 = {
+			title : {
+				text: '桃园校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='exhaustdata[2]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '耗材',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='exhaustdata[2]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option9 = {
+			title : {
+				text: '长安校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='devicedata[0]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '设备',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='devicedata[0]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option10 = {
+			title : {
+				text: '太白校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='devicedata[1]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '设备',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='devicedata[1]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option11 = {
+			title : {
+				text: '桃园校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='devicedata[2]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '设备',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='devicedata[2]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option12 = {
+			title : {
+				text: '长安校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='paperdata[0]' item='vo'> '{$vo.name}', </foreach>]
+			},
+			series : [{
+				name: '证照',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='paperdata[0]' item='vo'> {value: '{$vo.count}',name: '{$vo.name}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option13 = {
+			title : {
+				text: '太白校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='paperdata[1]' item='vo'> '{$vo.name}', </foreach>]
+			},
+			series : [{
+				name: '证照',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='paperdata[1]' item='vo'> {value: '{$vo.count}',name: '{$vo.name}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option14 = {
+			title : {
+				text: '桃园校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='paperdata[2]' item='vo'> '{$vo.name}', </foreach>]
+			},
+			series : [{
+				name: '证照',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='paperdata[2]' item='vo'> {value: '{$vo.count}',name: '{$vo.name}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option15 = {
+			title : {
+				text: '长安校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='otherdata[0]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '其他',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='otherdata[0]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option16 = {
+			title : {
+				text: '太白校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='otherdata[1]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '其他',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='otherdata[1]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+		option17 = {
+			title : {
+				text: '桃园校区',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: [<foreach name='otherdata[2]' item='vo'> '{$vo.names}', </foreach>]
+			},
+			series : [{
+				name: '其他',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<foreach name='otherdata[2]' item='vo'> {value: '{$vo.count}',name: '{$vo.names}'}, </foreach>
+				],
+			itemStyle: {
+				emphasis: {
+					shadowBlur: 10,
+					shadowOffsetX: 0,
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}
+		}]
+		};
+//		var myChart1 = echarts.init(document.getElementById('area_1'), "shine");
+//		var myChart2 = echarts.init(document.getElementById('area_2'), "shine");
+		var myChart3 = echarts.init(document.getElementById('area_3'));
+		var myChart4 = echarts.init(document.getElementById('area_4'));
+		var myChart5 = echarts.init(document.getElementById('area_5'));
+		var myChart6 = echarts.init(document.getElementById('area_6'));
+		var myChart7 = echarts.init(document.getElementById('area_7'));
+		var myChart8 = echarts.init(document.getElementById('area_8'));
+		var myChart9 = echarts.init(document.getElementById('area_9'));
+		var myChart10 = echarts.init(document.getElementById('area_10'));
+		var myChart11 = echarts.init(document.getElementById('area_11'));
+		var myChart12 = echarts.init(document.getElementById('area_12'));
+		var myChart13 = echarts.init(document.getElementById('area_13'));
+		var myChart14 = echarts.init(document.getElementById('area_14'));
+		var myChart15 = echarts.init(document.getElementById('area_15'));		
+		var myChart16 = echarts.init(document.getElementById('area_16'));
+		var myChart17 = echarts.init(document.getElementById('area_17'));
+//		myChart1.setOption(option1);
+//		myChart2.setOption(option2);
+		myChart3.setOption(option3);
+		myChart4.setOption(option4);
+		myChart5.setOption(option5);
+		myChart6.setOption(option6);
+		myChart7.setOption(option7);
+		myChart8.setOption(option8);
+		myChart9.setOption(option9);
+		myChart10.setOption(option10);
+		myChart11.setOption(option11);
+		myChart12.setOption(option12);
+		myChart13.setOption(option13);
+		myChart14.setOption(option14);
+		myChart15.setOption(option15);
+		myChart16.setOption(option16);
+		myChart17.setOption(option17);
+
+	</script>
+</block>

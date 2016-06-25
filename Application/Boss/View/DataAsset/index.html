@@ -57,7 +57,7 @@
 							<h5 class="widget-user-desc">工具、设备、耗材、证照、其他</h5>
 						</div>
 						<div class="box-footer ">
-							<form >
+							<form id="timeform" action="<php>echo U('Boss/DataAsset/report')</php>" method="post">
 								<div class="form-group">
 									<label class="control-label">开始时间</label>
 									<input type="text" class="form-control" id="begin_time" name="begin_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
@@ -73,6 +73,41 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-sm-4">
+					<div class="box box-widget widget-user-2">
+						<div class="widget-user-header bg-blue">
+							<div class="widget-user-image">
+								<span style="font-size: 40px;float: left;"><i class="fa fa-truck"></i></span>
+							</div>
+							<h3 class="widget-user-username">校区报表</h3>
+							<h5 class="widget-user-desc">工具、设备、耗材、证照、其他</h5>
+						</div>
+						<div class="box-footer ">
+							<form id="areaform" action="<php>echo U('Boss/DataAsset/areareport')</php>" method="post">
+								<div class="form-group">
+									<label class="control-label">开始时间</label>
+									<input type="text" class="form-control" id="b_time" name="begin_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
+								</div>
+								<div class="form-group">
+									<label class="control-label">结束时间</label>
+									<input type="text" class="form-control" id="e_time" name="end_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
+								</div>
+								<div class="form-group">
+									<label>所属校区</label>
+									<select id="area" name="area" class="form-control" style="width: 100%;">
+										<option selected="selected">请选择</option>
+										<foreach name="userarea" item="vo">
+											<option>{$vo.area}</option>
+										</foreach>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" id="areabtn" class="btn btn-primary ">生成报表</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -80,6 +115,6 @@
 
 <block name="script">
 	<script type="text/javascript">
-
+     $("#area").val('{$user.area}');
 	</script>
 </block>
