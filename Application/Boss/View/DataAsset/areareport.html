@@ -1,0 +1,474 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('setdata','dataservice'))}
+	<!--menu widget-->
+
+</block>
+
+<block name="content-header">
+	<h1>
+		数据报表
+		<small><span class="fa fa-fw fa-truck"></span>资产报表</small>
+		<a class="btn btn-primary" href="#" target="_blank">导出pdf</a>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li>数据报表</li>
+		<li class="active">资产报表</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">工具 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-12">
+						<div id="area_1" style="width: 1200px;height:350px;"></div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">设备 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-12">
+						<div id="area_2" style="width: 1200px;height:350px;"></div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">耗材 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-12">
+						<div id="area_3" style="width: 1200px;height:350px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">证照 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-12">
+						<div id="area_4" style="width: 1200px;height:350px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-truck"></i>
+					<h3 class="box-title">其他 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-12">
+						<div id="area_5" style="width: 1200px;height:350px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</block>
+
+<block name="script">
+	<js href="__PUBLIC__/AdminLTE2/plugins/echarts/echarts.common.min.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/echarts/theme/shine.js" />
+	<script type="text/javascript">
+
+		option1 = {
+			title: {
+				text: '{$area}工具使用情况: '
+			},
+			legend: {
+				data: ['{$toolstate.0.name}','{$toolstate.1.name}','{$toolstate.2.name}','{$toolstate.3.name}'],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='toolname' item='vo'> '{$vo.names}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},			
+			series: [{
+				name: '{$toolstate.0.name}',
+				type: 'bar',
+				data: [
+					<foreach name='tooldata[0]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$toolstate.1.name}',
+				type: 'bar',
+				data: [
+					<foreach name='tooldata[1]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$toolstate.2.name}',
+				type: 'bar',
+				data: [
+					<foreach name='tooldata[2]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$toolstate.3.name}',
+				type: 'bar',
+				data: [
+					<foreach name='tooldata[3]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		option2 = {
+			title: {
+				text: '{$area}设备使用情况: '
+			},
+			legend: {
+				data: ['{$devicestate.0.name}','{$devicestate.1.name}','{$devicestate.2.name}','{$devicestate.3.name}','{$devicestate.4.name}','{$devicestate.5.name}','{$devicestate.6.name}'],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='devicename' item='vo'> '{$vo.names}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},			
+			series: [{
+				name: '{$devicestate.0.name}',
+				type: 'bar',
+				data: [
+					<foreach name='devicedata[0]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$devicestate.1.name}',
+				type: 'bar',
+				data: [
+					<foreach name='devicedata[1]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$devicestate.2.name}',
+				type: 'bar',
+				data: [
+					<foreach name='devicedata[2]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$devicestate.3.name}',
+				type: 'bar',
+				data: [
+					<foreach name='devicedata[3]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$devicestate.4.name}',
+				type: 'bar',
+				data: [
+					<foreach name='devicedata[4]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$devicestate.5.name}',
+				type: 'bar',
+				data: [
+					<foreach name='devicedata[5]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$devicestate.6.name}',
+				type: 'bar',
+				data: [
+					<foreach name='devicedata[6]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		option3 = {
+			title: {
+				text: '{$area}耗材使用情况: '
+			},
+			legend: {
+			/*	data: ['{$exhauststate.0.name}','{$exhauststate.1.name}'],*/
+			    data: [ <foreach name='exhauststate' item='vo'> '{$vo.name}', </foreach> ],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='exhaustname' item='vo'> '{$vo.names}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},			
+			series: [{
+				name: '{$exhauststate.0.name}',
+				type: 'bar',
+				data: [
+					<foreach name='exhaustdata[0]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$exhauststate.1.name}',
+				type: 'bar',
+				data: [
+					<foreach name='exhaustdata[1]' item='vo'> '{$vo.count}', </foreach>
+				]
+			
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		option4 = {
+			title: {
+				text: '{$area}证照使用情况: '
+			},
+			legend: {
+				data: ['{$paperstate.0.name}','{$paperstate.1.name}','{$paperstate.2.name}','{$paperstate.3.name}'],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='papername' item='vo'> '{$vo.name}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},			
+			series: [{
+				name: '{$paperstate.0.name}',
+				type: 'bar',
+				data: [
+					<foreach name='paperdata[0]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$paperstate.1.name}',
+				type: 'bar',
+				data: [
+					<foreach name='paperdata[1]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$paperstate.2.name}',
+				type: 'bar',
+				data: [
+					<foreach name='paperdata[2]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$paperstate.3.name}',
+				type: 'bar',
+				data: [
+					<foreach name='paperdata[3]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		option5 = {
+			title: {
+				text: '{$area}其他使用情况: '
+			},
+			legend: {
+				data: ['{$otherstate.0.name}','{$otherstate.1.name}','{$otherstate.2.name}'],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='othername' item='vo'> '{$vo.names}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},			
+			series: [{
+				name: '{$otherstate.0.name}',
+				type: 'bar',
+				data: [
+					<foreach name='otherdata[0]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$otherstate.1.name}',
+				type: 'bar',
+				data: [
+					<foreach name='otherdata[1]' item='vo'> '{$vo.count}', </foreach>
+				]
+			}, {
+				name: '{$otherstate.2.name}',
+				type: 'bar',
+				data: [
+					<foreach name='otherdata[2]' item='vo'> '{$vo.count}', </foreach>
+				]			
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		var myChart1 = echarts.init(document.getElementById('area_1'), "shine");
+		var myChart2 = echarts.init(document.getElementById('area_2'), "shine");
+		var myChart3 = echarts.init(document.getElementById('area_3'), "shine");
+		var myChart4 = echarts.init(document.getElementById('area_4'), "shine");
+		var myChart5 = echarts.init(document.getElementById('area_5'), "shine");
+//		var myChart6 = echarts.init(document.getElementById('area_6'), "shine");
+//		var myChart7 = echarts.init(document.getElementById('area_7'), "shine");
+		myChart1.setOption(option1);
+		myChart2.setOption(option2);
+		myChart3.setOption(option3);
+		myChart4.setOption(option4);
+		myChart5.setOption(option5);
+//		myChart6.setOption(option6);
+//		myChart7.setOption(option7);
+
+	</script>
+</block>
