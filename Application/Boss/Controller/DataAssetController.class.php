@@ -169,18 +169,13 @@ class DataAssetController extends BaseController {
 
 			
 			$Model = new \Think\Model();
-
 			
 			$time_begin = date('Y-m-d 00:00:00', strtotime($begin_time));
 			$time_end = date('Y-m-d 23:59:59', strtotime($end_time));
 				
 		//	$this -> ajaxReturn($time_end);
-
 			
-			
-			$this -> area = $area;
-            			
-			//-----------------------------Tool ---------------------------
+			$this -> area = $area;            			
 			//-----------------------------工具 ---------------------------
 			$Toolstate = M('ToolState');
 			$toolstate = $Toolstate->where('status=1')->field('name')->select();
