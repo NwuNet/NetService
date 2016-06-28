@@ -1,0 +1,197 @@
+<extend name="base" />
+<block name="title">
+	<title>Network Service 管理</title>
+</block>
+
+<block name="quick-information">
+	{:W('QuickInfo/message')}
+	{:W('QuickInfo/notice')}
+	{:W('QuickInfo/task')}
+	{:W('QuickInfo/self')}
+</block>
+
+<block name="navigation">
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="__PUBLIC__{$user.img}" class="img-circle" alt="User Image">
+		</div>
+		<div class="pull-left info">
+			<p>{$user.uname}</p>
+			<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+		</div>
+	</div>
+
+	<!--search widget-->
+	{:W('Search/index')}
+	<!-- search widget -->
+
+	<!--menu widget-->
+	{:W('Menu/index',array('setdata','dataservice'))}
+	<!--menu widget-->
+
+</block>
+
+<block name="content-header">
+	<h1>
+		数据报表
+		<small><span class="fa fa-fw fa-commenting"></span>反馈报表</small>
+		<a class="btn btn-primary" href="#" target="_blank">导出pdf</a>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
+		<li>数据报表</li>
+		<li class="active">反馈报表</li>
+	</ol>
+</block>
+
+<block name="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-commenting"></i>
+					<h3 class="box-title">用户建议 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-12">
+						<div id="area_1" style="width: 1200px;height:350px;"></div>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-commenting"></i>
+					<h3 class="box-title"> 服务评价 {$begin_time} 到 {$end_time}</h3>
+
+					<div class="box-cards pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="box-body table-responsive">
+					<div class="col-sm-12">
+						<div id="area_2" style="width: 1200px;height:350px;"></div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</block>
+
+<block name="script">
+	<js href="__PUBLIC__/AdminLTE2/plugins/echarts/echarts.common.min.js" />
+	<js href="__PUBLIC__/AdminLTE2/plugins/echarts/theme/shine.js" />
+	<script type="text/javascript">
+
+		option1 = {
+			title: {
+				text: '{$area}用户建议次数'
+			},
+			legend: {
+				data: [''],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='suggesttime' item='vo'> '{$vo.time}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},
+			series: [{
+				name: '用户建议次数',
+				type: 'bar',
+				data: [
+					<foreach name='suggestdata' item='vo'> '{$vo.count}', </foreach>
+				]
+			
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		option2 = {
+			title: {
+				text: '{$area}服务评价次数'
+			},
+			legend: {
+				data: [''],
+				align: 'left'
+			},
+			toolbox: {
+				// y: 'bottom',
+				feature: {
+					magicType: {
+						type: ['stack', 'tiled' , 'bar', 'line']
+					},
+					dataView: {},
+					saveAsImage: {
+						pixelRatio: 2
+					}
+				}
+			},
+			tooltip: {},
+			xAxis: {
+				data: [ <foreach name='evaluatetime' item='vo'> '{$vo.time}', </foreach> ],
+				silent: false,
+				splitLine: {
+					show: false
+				}
+			},
+			yAxis: {
+			},
+			series: [{
+				name: '用户建议次数',
+				type: 'bar',
+				data: [
+					<foreach name='evaluatedata' item='vo'> '{$vo.count}', </foreach>
+				]
+			
+			}],
+			animationEasing: 'elasticOut',
+			animationDelayUpdate: function (idx) {
+				return idx * 5;
+			}
+		};
+		
+		var myChart1 = echarts.init(document.getElementById('area_1'), "shine");
+		var myChart2 = echarts.init(document.getElementById('area_2'), "shine");
+//		var myChart3 = echarts.init(document.getElementById('area_3'));
+//		var myChart4 = echarts.init(document.getElementById('area_4'));
+		
+		myChart1.setOption(option1);
+		myChart2.setOption(option2);
+//		myChart3.setOption(option3);
+//		myChart4.setOption(option4);
+
+
+	</script>
+</block>
