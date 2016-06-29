@@ -12,7 +12,7 @@ class UserController extends BaseController {
 		$this->assign("cardinfo",$cardinfo);
 
 		$evaluate = M('ServiceEvaluate');
-		$servicevaluate = $evaluate->where('servicecard_id =%d',$cardinfo['id'])->select();
+		$servicevaluate = $evaluate->where('servicecard_id = "%d" ',$cardinfo['id'])->select();
 		$this->assign('evaluate',count($servicevaluate));
 		$this->assign('servicevaluate',$servicevaluate);
 		
@@ -275,6 +275,21 @@ class UserController extends BaseController {
 			$this->ajaxReturn("修改失败");
 		}
 	}
+	// --------------------兼职申请删除---------------------
+	public function applydelete(){
+		$id = I('post.id');		
+		if($id=''){
+			$this->ajaxReturn("数据为空");
+		}
+		$Apply = M('ApplyHome');
+		$Apply->create();		
+		if($Apply->delete()){
+			$this->ajaxReturn(true);
+		}else{
+			$info['msg'] = '删除失败';
+			$this->ajaxReturn($info);
+		}
+	}
 	// --------------------建议反馈---------------------
 	public function suggest(){
 		$homeuser = D('Login','Service')->getuserInfo();
@@ -311,15 +326,33 @@ class UserController extends BaseController {
 		if($suggest==''){
 			$this->ajaxReturn("数据为空");
 		}
+		$homeuser = D('Login','Service')->getuserInfo();
 		$Suggest = M('Suggest');
 		$Suggest->create();
 		$Suggest->status=0;
 		$Suggest->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Suggest->area = $homeuser['area'];
 		$Suggest->add();
 		if($Suggest){
 			$this->ajaxReturn(true);
 		} else{
 			$this->ajaxReturn("提交失败");
+		}
+	}
+	// --------------------建议信息删除---------------------
+	public function suggestdelete(){
+		$id = I('post.id');
+		
+		if($id=''){
+			$this->ajaxReturn("数据为空");
+		}
+		$Suggest = M('Suggest');
+		$Suggest->create();		
+		if($Suggest->delete()){
+			$this->ajaxReturn(true);
+		}else{
+			$info['msg'] = '删除失败';
+			$this->ajaxReturn($info);
 		}
 	}
 	public function suggestfeedback() {

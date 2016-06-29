@@ -58,10 +58,12 @@ class DoPeopleController extends BaseController {
 		}elseif($uname=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
+		$staffuser = D('Login','Service')->getuserInfo();
 		$Vacation = M('StaffVacation');
 		$Vacation->create();
 		$Vacation->status = 0;
 		$Vacation->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Vacation->user_id = $staffuser['user_id'];
 		$Vacation->add();
 		if($Vacation){
 			$this->ajaxReturn(true);
@@ -108,10 +110,12 @@ class DoPeopleController extends BaseController {
 		}elseif($uname=='请选择'||$position=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
+		$staffuser = D('Login','Service')->getuserInfo();
 		$Dimission = M('Dimission');
 		$Dimission->create();
 		$Dimission->status = 0;
 		$Dimission->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$Dimission->user_id = $staffuser['user_id'];
 		$Dimission->add();
 		if($Dimission){
 			$this->ajaxReturn(true);

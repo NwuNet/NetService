@@ -4,11 +4,11 @@ use Think\Controller;
 class DoInformationController extends BaseController {
 	// --------------------信息反馈---------------------
     public function feedback(){
-    	$Suggest = M('Suggest');
-		$suginfo = $Suggest->where('status=0')->select();			
+    	$loginService = D('Login','Service')->getuserInfo();
+    	$Suggest = M('Suggest');		
+		$suginfo = $Suggest->where('area = "%s" and status = 0',$loginService['area'])->select();			
 		$this->assign("suginfo",$suginfo);
-	//	$this->ajaxReturn($suginfo);
-    	
+	   	
 		$this->display();
     }
 	// --------------------回复添加---------------------

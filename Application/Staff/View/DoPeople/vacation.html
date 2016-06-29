@@ -123,14 +123,16 @@
 							</tr>
 						</volist>
 						<if condition="$vacation neq null">
+							<volist name="vacation" id="vo">
 							<tr>
-								<td class="sr-only">{$vacation.0.id}</td>
-								<td>{$vacation.0.start_time}</td>
-								<td>{$vacation.0.end_time}</td>
-								<td>{$vacation.0.reason}</td>
-								<td>{$vacation.0.time}</td>
+								<td class="sr-only">{$vo.id}</td>
+								<td>{$vo.start_time}</td>
+								<td>{$vo.end_time}</td>
+								<td>{$vo.reason}</td>
+								<td>{$vo.time}</td>
 							</tr>
-						</if>
+						</volist>
+						</if>						
 						</tbody>
 					</table>
 				</div>

@@ -130,12 +130,14 @@
                             </tr>                           
                         </volist>
                         <if condition="$dimission neq null">
+                        	<volist name="dimission" id="vo">
                         	<tr>
-                                <td>{$dimission.0.id}</td>
-                                <td>{$dimission.0.end_time}</td>
-                                <td>{$dimission.0.reason}</td>
-                                <td>{$dimission.0.time}</td>
-                            </tr>    
+                                <td>{$vo.id}</td>
+                                <td>{$vo.end_time}</td>
+                                <td>{$vo.reason}</td>
+                                <td>{$vo.time}</td>
+                            </tr> 
+                            </volist>
                         </if>
                         </tbody>
                     </table>

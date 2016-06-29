@@ -358,9 +358,22 @@
 						location.reload();
 					});
 		});
-		
-		
-	
-		
+		/*
+		 * 删除兼职申请
+		 * */
+		$("#delbtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Home/User/applydelete')</php>",{
+				id: '{$id}'				
+			}, function(data) {
+				$btn.button('reset');
+				if (data == true) {
+					alert("删除成功");
+				} else {
+					alert(data);
+				}
+				location.reload();
+			});
+		});				
 	</script>
 </block>

@@ -183,6 +183,23 @@
 				location.reload();
 			});
 		});
+		/*
+		 * 删除建议
+		 * */
+		$("#delbtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Home/User/suggestdelete')</php>",{
+				id: $("#id")[0].value				
+			}, function(data) {
+				$btn.button('reset');
+				if (data == true) {
+					alert("删除成功");
+				} else {
+					alert(data);
+				}
+				location.reload();
+			});
+		});
 		$('#addform').formValidation({
 			message: '数据非法',
 			icon: {

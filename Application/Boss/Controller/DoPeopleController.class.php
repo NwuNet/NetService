@@ -14,11 +14,7 @@ class DoPeopleController extends BaseController {
     	$select = M('RegisterSelect');
 		$registername = $select->field('name')->group('name')->select();
 		$this->assign('registername',$registername);//考勤类别
-		
-		/*$Register = M('StaffRegister');
-		$registertable = $Register -> select();
-		$this -> assign('register1',$registertable );//服务单表*/
-		
+			
         $this->display();
     }
 	// --------------------添加员工考勤信息---------------------
@@ -46,7 +42,7 @@ class DoPeopleController extends BaseController {
 			}
 		}
 	}
-	// --------------------添加员工考勤信息---------------------
+	// --------------------删除员工考勤信息---------------------
 	public function registerdel(){
 		$str = I('post.uname');
 		$arr = explode(':',$str);
@@ -118,9 +114,18 @@ class DoPeopleController extends BaseController {
     }
 	// --------------------员工请假管理---------------------
     public function staff(){
-    	
-		$Staff = M('StaffVacation');
-		$vacation = $Staff->where('status=0')->select();
+    	$loginService = D('Login','Service')->getuserInfo();//user		
+		$Model = new \Think\Model();
+		$vacation = $Staff -> query("SELECT 
+				*
+                FROM
+                net_staff_user ,
+                net_staff_vacation
+                where net_staff_vacation.user_id=net_staff_user.user_id and net_staff_vacation.`status`=0
+                and net_staff_user.area='%s'                              
+                ", $loginService['area']);
+	//	$Staff = M('StaffVacation');
+	//	$vacation = $Staff->where('status=0')->select();
 		$this->assign('vacation',$vacation);//
         $this->display();
 		
@@ -213,9 +218,18 @@ class DoPeopleController extends BaseController {
 	}
     // --------------------员工离职管理---------------------
     public function dimission(){
-    	
-		$DimissionStaff = M('Dimission');
-		$Dimission = $DimissionStaff->where('status=0')->select();
+    	$loginService = D('Login','Service')->getuserInfo();//user
+		$Model = new \Think\Model();
+		$Dimission = $Model -> query("SELECT 
+				*
+                FROM
+                net_staff_user ,
+                net_dimission
+                where net_dimission.user_id=net_staff_user.user_id and net_dimission.`status`=0
+                and net_staff_user.area='%s'                              
+                ", $loginService['area']);
+	//	$DimissionStaff = M('Dimission');
+	//	$Dimission = $DimissionStaff->where('status=0')->select();
 		$this->assign('dimission',$Dimission);//
         $this->display();
     }
