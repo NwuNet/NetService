@@ -305,8 +305,21 @@ class DataPeopleController extends BaseController {
                 and net_staff_user.area='%s' 
                 and net_user.begintime>='%s' and net_user.begintime<='%s'                            
                 ", $area, $time_begin, $time_end);
+            $tmpareastaff3 = $Model -> query("SELECT 
+                net_dimission.id,
+                net_staff_user.user_id,
+                net_staff_user.area,
+                net_staff_user.job
+                FROM
+                net_dimission ,
+                net_dimission_state,
+                net_staff_user
+                WHERE net_dimission.user_id=net_staff_user.user_id and net_dimission.id=net_dimission_state.dimission_id
+                and net_staff_user.area='%s' 
+                and net_dimission_state.dimission_time>='%s' and net_dimission_state.dimission_time<='%s'                            
+                ", $area, $time_begin, $time_end);
 
-			//	$this->ajaxReturn($tmpareastaff2);
+		//		$this->ajaxReturn($tmpareastaff3);
 			foreach ($position as $key => $item) {
 				$count = 0;
 				foreach ($tmpareastaff1 as $key2 => $item2) {
@@ -331,9 +344,23 @@ class DataPeopleController extends BaseController {
 					$areastaff2[$key]['count'] = 0;
 				}
 			}
+			foreach ($position as $key => $item) {
+				$count = 0;
+				foreach ($tmpareastaff3 as $key2 => $item2) {
+					if ($item['name'] == $item2['job']) {
+						$count = $count + 1;
+						$areastaff3[$key]['count'] = $count;
+					}
+				}
+				if ($count == 0) {
+					$areastaff3[$key]['count'] = 0;
+				}
+			}
+			
 			$areastaff = array();
 			$areastaff[0] = $areastaff1;
 			$areastaff[1] = $areastaff2;
+			$areastaff[2] = $areastaff3;
 			
 
 			foreach ($areastaffdata as $key => $item) {
