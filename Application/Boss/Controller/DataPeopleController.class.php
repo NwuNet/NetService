@@ -86,7 +86,7 @@ class DataPeopleController extends BaseController {
 			}
 
 			$this -> areastaffdata = $areastaffdata2;
-			$this -> ajaxReturn($areastaffdata);
+//			$this -> ajaxReturn($areastaffdata);
 
 			//---------------Vacation done or not done -----------------		
 			$vacationdoneornot = array();

@@ -116,7 +116,7 @@ class DoPeopleController extends BaseController {
     public function staff(){
     	$loginService = D('Login','Service')->getuserInfo();//user		
 		$Model = new \Think\Model();
-		$vacation = $Staff -> query("SELECT 
+		$vacation = $Model -> query("SELECT 
 				*
                 FROM
                 net_staff_user ,
