@@ -22,16 +22,33 @@ class QuickInfoWidget extends Controller {
         $this->assign('reg_color',getpercentcolor($reg_percent));
         $this->assign('reg_all',count($staffname));
 
-        $staffVacation = M('StaffVacation');
-        $staffvac = $staffVacation->where('status = 0')->select();
+    //    $staffVacation = M('StaffVacation');
+    //    $staffvac = $staffVacation->where('status = 0')->select();
+       $Model = new \Think\Model();
+	   $staffvac = $Model -> query("SELECT 
+				*
+                FROM
+                net_staff_user ,
+                net_staff_vacation
+                where net_staff_vacation.user_id=net_staff_user.user_id and net_staff_vacation.`status`=0
+                and net_staff_user.area='%s'                              
+                ", $loginService['area']);
         $this->assign('vac_sum',count($staffvac));
 
-        $staffDimission = M('Dimission');
-        $staffdim = $staffDimission->where('status = 0')->select();
+    //    $staffDimission = D('DimissionView');
+    //    $staffdim = $staffDimission->where('status = 0 and area = "%s"',$loginService['area'])->select();
+       $staffdim = $Model -> query("SELECT 
+				*
+                FROM
+                net_staff_user ,
+                net_dimission
+                where net_dimission.user_id=net_staff_user.user_id and net_dimission.`status`=0
+                and net_staff_user.area='%s'                              
+                ", $loginService['area']);
         $this->assign('dim_sum',count($staffdim));
 
-        $homeApply = M('ApplyHome');
-        $homeapp = $homeApply->where('a_status = 0')->select();
+        $homeApply = D('ApplyView');
+        $homeapp = $homeApply->where('a_status = 0 and area = "%s"',$loginService['area'])->select();
         $this->assign('app_sum',count($homeapp));
 
         $this->assign('task_sum',$reg_leave+count($staffvac)+count($staffdim)+count($homeapp));

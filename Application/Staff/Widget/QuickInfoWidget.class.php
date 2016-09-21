@@ -34,7 +34,7 @@ class QuickInfoWidget extends Controller {
         $this->assign('ser_color',getpercentcolor($ser_percent));
 
         $Suggest = M('Suggest');
-        $sug = $Suggest->where('status = 0')->select();
+        $sug = $Suggest->where('status = 0 and area = "%s"',$loginService['area'])->select();
         $this->assign('sug_sum',count($sug));
 
         $this->assign('task_sum', $service_leave + count($staffname)-count($staffreg) +count($sug) );

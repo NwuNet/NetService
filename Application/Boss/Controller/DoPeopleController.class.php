@@ -386,7 +386,7 @@ class DoPeopleController extends BaseController {
 		if($Reply){
 			$this->ajaxReturn(true);
 		}else{
-			$this->ajaxReturn("修改失败");
+			$this->ajaxReturn("审批失败");
 		}
 	}		
 	public function applyreplytable() {
