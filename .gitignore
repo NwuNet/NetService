@@ -1,0 +1,10 @@
+Backup/
+.idea/
+*.project
+Application/Runtime
+Application/Common/Conf
+*.pdf
+*.png
+*.jpg
+*.exe
+*.apk

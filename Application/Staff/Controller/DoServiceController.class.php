@@ -44,7 +44,7 @@ class DoServiceController extends BaseController {
 		//表的总记录数 必要
 		$recordsTotal = $Card->count();
 
-		$map['id|name|area|dormitory|phone|description|start|appointment_time|status']=array('like',"%".$search."%");
+		$map['id|name|area|dormitory|phone|description|status']=array('like',"%".$search."%");
 		if(strlen($search)>0){
 			$recordsFiltered = count($Card->where($map)->select());
 			$table = $Card->where($map)->order($orderSql)->limit($start.','.$length)->select();

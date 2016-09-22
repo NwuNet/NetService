@@ -58,7 +58,7 @@
 					<table id="card1" class="table table-bordered table-hover">
 						<thead>
 							<th>id</th>
-							<th>姓名</th>
+							<th>校区</th>
 							<th>学号</th>
 							<th>宿舍号</th>
 							<th>电话</th>
@@ -72,7 +72,7 @@
 						</tbody>
 						<tfoot>
 							<th>id</th>
-							<th>姓名</th>
+							<th>校区</th>
 							<th>学号</th>
 							<th>宿舍号</th>
 							<th>电话</th>
@@ -210,7 +210,8 @@
 					"previous": "前页",
 					"next": "后页"
 				}
-			}
+			},
+			"order": [[0,"desc"]]
 		});
 		$('#card1 tbody').on('click', 'tr', function() {
 			var id = $(this).children().first().html();
