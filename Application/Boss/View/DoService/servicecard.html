@@ -111,10 +111,11 @@
 								</li>
 							</foreach>
 						</if>
+						
 						<if condition="$cardinfo[0]['status'] eq 1">
 							<li class="time-label"><span class="bg-yellow">{$cardinfo.0.end}</span></li>
 							<li>
-								<i class="fa fa-user bg-yellow"></i>
+								<i class="fa fa-ban bg-yellow"></i>
 								<div class="timeline-item">
 									<span class="time"><i class="fa fa-clock-o"></i> {$cardinfo.0.end|substr=11,18}</span>
 									<h3 class="timeline-header"><a href="#">管理员确认服务单</a> {$cardinfo.0.end|substr=0,10}</h3>
@@ -126,10 +127,47 @@
 							</li>
 							<else/>
 							<li>
-								<i class="fa fa-user bg-green"></i>
+								<i class="fa fa-clock-o bg-gray"></i>
 								<div class="timeline-item">
-									<span class="time"><i class="fa fa-clock-o"></i> 18:21</span>
+									<div class="timeline-header">
+										<a>维修</a>
+									</div>
+									<div class="timeline-body">
+										<form id="stateform">
+											<select id="state" name = "state" class="form-control sr-only" style="width: 100%;">
+												<option selected="selected">请选择</option>
+													<option>维修</option>
+											</select>
+											<label>请选择维修者</label>
+											<select id="uname" class="form-control" style="width: 100%;">
+												<option selected="selected">请选择</option>
+												<foreach name="staffname" item="vo">
+													<option>{$vo.uname}</option>
+												</foreach>
+											</select>
+											请选择<label>故障大类</label>
+											<select id="breakinfo" name = "breakinfo" class="form-control" style="width: 100%;">
+												<option selected="selected">请选择</option>
+												<volist name="breakinfo" id="vo">
+													<option>{$vo.label}.{$vo.name}</option>
+												</volist>
+											</select>
+											请选择<label>故障小类</label>
+											<select id="breaksubinfo" name = "breaksubinfo" class="form-control" style="width: 100%;">
+												<option selected="selected">请选择</option>
+											</select>
+										</form>
+									</div>
+									<div class="timeline-footer">
+										<button id="stateadd" class="btn btn-primary">提交</button>
+									</div>
+								</div>
+							</li>
+							<li>
+								<i class="fa fa-ban bg-red"></i>
+								<div class="timeline-item">
 									<h3 class="timeline-header no-border"><a href="#">服务单确认完成</a> </h3>
+									<h4><span class="text-red">&nbsp;注意：请确定修好后再确认完成</span></h4>
 									<div class="timeline-body">
 										<div class="form-group">
 											<label>请添加备注</label>
@@ -146,7 +184,7 @@
 												<input type="text" id="description" placeholder="请添加备注" class="form-control" />
 											</div>
 										</div>
-										<button id="beizhu" class="btn btn-primary" type="submit">确认</button>
+										<button id="beizhu" class="btn btn-danger" type="submit">确认完成</button>
 									</div>
 								</div>
 							</li>
@@ -180,6 +218,43 @@
 					alert(data);
 				}
 				location.reload();
+			});
+		});
+		/*
+		 * 添加维修状态
+		 * */
+		$("#stateadd").click(function() {
+//			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Boss/DoService/servicestateadd')</php>",{
+				servicecard_id : {$id},
+				breakinfo : $("#breakinfo").val(),
+				breaksubinfo : $("#breaksubinfo").val(),
+				operator : $("#uname").val()
+//				actor : '{$user.uname}'
+			}, function(data) {
+//				$btn.button('reset');
+				if (data == true) {
+					alert("操作成功");
+					location.reload();
+				} else {
+					alert(data);
+				}
+			});
+		});
+		/**
+		 * 故障选项联动
+		 * */
+		$("#breakinfo").change(function(){
+			$.post("<php>echo U('Boss/DoService/servicebreak')</php>",{
+				bname: $(this).val()
+			},function(data){
+				if(data){
+					var please = '<option class="selected">请选择</option>';
+					for(var key in data){
+						please+='<option>'+parseInt($("#breakinfo").val())+'.'+data[key]['label']+data[key]['name']+'</option>';
+					}
+					$("#breaksubinfo").empty().append(please);
+				}
 			});
 		});
 		</script>

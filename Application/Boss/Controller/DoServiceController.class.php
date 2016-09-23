@@ -107,9 +107,59 @@ class DoServiceController extends BaseController {
 			$evaluate = M('ServiceEvaluate');
 			$servicevaluate = $evaluate->where('servicecard_id =%d',$id)->select();
 			$this->assign('servicevaluate',$servicevaluate);
+
+			$BreakInfo = M('BreakInfo');
+			$breakinfo = $BreakInfo->where('level = 1')->select();
+			$this->assign('breakinfo',$breakinfo);
+
+			$loginService = D('Login','Service')->getuserInfo();//user
+    	
+			$staffUser = M('ScheduleStaff');
+			$staffname = $staffUser->where('area = "%s" and status = 1',$loginService['area'])->field('uname')->select();
+			$this->assign('staffname',$staffname);//员工名称
+
 			$this->display();
 		}
     }
+	// --------------------服务单信息---------------------
+	public function servicebreak(){
+//		$this->ajaxReturn('error');
+		$bname = I("post.bname");
+		if($bname==''||empty($bname)){
+			$this->ajaxReturn('数据为空');
+		}
+		$name = explode('.',$bname);
+		$BreakInfo = M('BreakInfo');
+		$parentid = $BreakInfo->where('name = "%s"',$name[1])->find();
+		$breaksubinfo = $BreakInfo->where('parent = %d',$parentid['id'])->select();
+		foreach ($breaksubinfo as $key =>$value){
+			$breaksubinfo[$key]['parentlabel'] = $parentid['id'];
+		}
+//		trace($breaksubinfo);
+		$this->ajaxReturn($breaksubinfo);
+	}
+	// --------------------维修单添加状态---------------------
+	public function servicestateadd(){
+		$servicecard_id = I('post.servicecard_id');
+		$breakinfo = I('post.breakinfo');
+		$breaksubinfo = I('post.breaksubinfo');
+		$operator = I('post.operator');
+		if($servicecard_id==''||$breakinfo==''||$breaksubinfo==''||$operator==''){
+			$this->ajaxReturn("数据为空");
+		}elseif($breakinfo=='请选择'||$breaksubinfo=='请选择'){
+			$this->ajaxReturn("请选择");
+		}
+		$repair = M('ServiceRepair');
+		$repair->create();
+		$repair->time  = date("Y-m-d H:i:s",NOW_TIME);
+		$repair->state = '维修';
+		$repair->add();
+		if($repair){
+			$this->ajaxReturn(true);
+		} else{
+			$this->ajaxReturn("添加失败");
+		}
+	}
 	// --------------------维修单添加状态---------------------
 	public function servicerepairadd(){
 		$id = I('post.id');
