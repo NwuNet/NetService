@@ -149,16 +149,40 @@ class DoServiceController extends BaseController {
 		}elseif($breakinfo=='请选择'||$breaksubinfo=='请选择'){
 			$this->ajaxReturn("请选择");
 		}
-		$repair = M('ServiceRepair');
-		$repair->create();
-		$repair->time  = date("Y-m-d H:i:s",NOW_TIME);
-		$repair->state = '维修';
-		$repair->add();
-		if($repair){
-			$this->ajaxReturn(true);
-		} else{
-			$this->ajaxReturn("添加失败");
+		$repair = M('ServiceRepair');	
+		if(count($repair->where('servicecard_id = %d',$servicecard_id)->select())==0){
+			$repair->startTrans();
+		    $repair->create();
+		    $repair->time  = date("Y-m-d H:i:s",NOW_TIME);
+		    $repair->state = '维修';
+		    $repair->add();
+		    
+		    $card = M('ServiceCard');
+		    $data = $card ->where('id = %d',$servicecard_id)->find();		
+		    $data['status'] = 2;
+		    $card->save($data);
+		    
+		    if($repair && $card){
+		    	$repair->commit();
+		    	$this->ajaxReturn(true);
+		    }else{
+		    	$repair->rollback();
+		    	$this->ajaxReturn("操作失败");
+		    }
+		}else{
+			$repair->create();
+		    $repair->time  = date("Y-m-d H:i:s",NOW_TIME);
+		    $repair->state = '维修';
+		    $repair->add();
+		    if($repair){
+		    	$this->ajaxReturn(true);
+		    	
+		    } else{
+		    	$this->ajaxReturn("操作失败");
+		    }
+		    
 		}
+			
 	}
 	// --------------------维修单添加状态---------------------
 	public function servicerepairadd(){

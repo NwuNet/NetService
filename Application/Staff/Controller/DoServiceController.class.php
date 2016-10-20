@@ -125,7 +125,14 @@ class DoServiceController extends BaseController {
 		$repair->state = '维修';
 		$repair->add();
 		if($repair){
-			$this->ajaxReturn(true);
+			$card = M('ServiceCard');
+		    $data = $card ->where('id = %d',$servicecard_id)->find();		
+		    $data['status'] = 2;
+		    if($card->save($data)){
+		    	$this->ajaxReturn(true);
+		    } else{
+		    	$this->ajaxReturn("添加失败");
+		    }
 		} else{
 			$this->ajaxReturn("添加失败");
 		}
