@@ -59,6 +59,7 @@
 									<p><a href="#">学号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.student_no}</span> </p>
 									<p><a href="#">宿舍：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.dormitory}</span> </p>
 									<p><a href="#">电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <span>{$cardinfo.phone}</span> </p>
+									<p><a href="#">故障现象：</a> <span>{$cardinfo.question}</span> </p>
 									<p><a href="#">预约时间：</a> <span>{$cardinfo.appointment_time}</span> </p>
 									<p><a href="#">所属校区：</a> <span>{$cardinfo.area}</span> </p>
                                 </div>
@@ -186,6 +187,17 @@
 								<input value="{$cardinfo.room}" class="form-control" id='room' name="room" type="number" placeholder="输入宿舍号" autocomplete="on" />
 							</div>
 						</div>
+						<div class="form-group ">
+                        <label class="control-label col-sm-2">故障现象</label>
+                        <div class="col-sm-10">
+                        <select class="form-control " id="question" name="question" >
+                            <option selected="selected">{$cardinfo.question}</option>
+								<foreach name="questioninf" item="vo">
+									<option>{$vo.name}</option>
+								</foreach>
+                        </select>
+                        </div>
+                    </div>
 						<div class="form-group">
 							<label class="control-label col-sm-2">预约时间</label>
 							<div class="col-sm-10">
@@ -402,7 +414,7 @@
 						building: $("#building")[0].value,
 						room: $("#room")[0].value,
 						area: $("#area")[0].value,
-//                        description: $("#description")[0].value,
+                        question: $("#question")[0].value,
 						appointment_time: $("#appointment_time")[0].value
 					},
 					function(data) {

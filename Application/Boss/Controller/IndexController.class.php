@@ -7,6 +7,10 @@ class IndexController extends BaseController{
         $Card = M('ServiceCard');
         $bossUser = D('Login','Service')->getuserInfo();
         
+        //显示每日可预约服务单数量
+        $areaquantity = M("ServiceQuantity");
+        $aquantity = $areaquantity->where('area = "%s"',$bossUser['area'])->find();
+        $this -> assign('aquantity',$aquantity );    
         //未维修服务单
         $servicecardinfo = $Card->where('status = 0 AND area = "%s"',$bossUser['area'])->order('dormitory')->select();
     /*    $CardRepair = M('ServiceRepair');
@@ -100,6 +104,22 @@ class IndexController extends BaseController{
 
         $this->display();
     }
+    public function updatequantity(){
+		//$id = I('post.id');
+		$area = I('post.area');
+		$quantity = I('post.quantity');		
+		if($quantity==''||$area==''){
+			$this->ajaxReturn("数据为空");
+		}
+		$aquantity = M('ServiceQuantity');
+		$data = $aquantity->where('area = "%s"',$area)->find();	
+		$data['quantity'] = $quantity;		
+		if($aquantity->save($data)){
+			$this->ajaxReturn(true);
+		} else{
+			$this->ajaxReturn("提交失败");
+		}
+	}
 
     public function _empty($name){
         echo "Not Found!";

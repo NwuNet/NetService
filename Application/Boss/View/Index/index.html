@@ -65,6 +65,7 @@
 						<th>姓名</th>
 						<th>学号</th>
 						<th>校区</th>
+						<th>故障现象</th>
 						<th>状态</th>
 						<!--<th>现象描述</th>-->
 						<!--<th>派单</th>-->
@@ -91,6 +92,7 @@
 								<td>{$vo.student_no}</td>
 								<!--<td>{$vo.description}</td>-->
 								<td>{$vo.area}</td>
+								<td>{$vo.question}</td>
 								<td><label class="badge bg-yellow">未维修</label></td>
 								<!--<if condition = '$vo["isrepair"] egt 1'>
 									<td><label class="badge bg-green">已维修</label></td>
@@ -148,6 +150,7 @@
 						<th>姓名</th>
 						<th>学号</th>
 						<th>校区</th>
+						<th>故障现象</th>
 						<th>状态</th>
 						<!--<th>现象描述</th>-->
 						<!--<th>派单</th>-->
@@ -173,7 +176,8 @@
 								<td>{$vo.name}</td>
 								<td>{$vo.student_no}</td>
 								<!--<td>{$vo.description}</td>-->
-								<td>{$vo.area}</td>								
+								<td>{$vo.area}</td>
+								<td>{$vo.question}</td>
 								<td><label class="badge bg-green">已维修</label></td>							
 							</tr>
 						</volist>						
@@ -184,7 +188,37 @@
 			</div>
 			<!-- box -->
 		</div>
-		<!-- col -->    		
+		<!-- col -->  
+		<div class="col-md-4">
+			<div class="box box-success">
+				<div class="box-header with-border">
+					<i class="fa fa-fw fa-check-square-o"></i>
+					<h3 class="box-title">每日服务单可预约数量设置</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+					</div>
+				</div>	
+				<div class="box-body">
+					<form id="addform">
+					  <div class="form-group">
+						  <label>校区</label>						  						  
+						  <input class="form-control" name="area"  type="text" id="area" value="{$aquantity.area}" disabled="disabled">						  						  						 
+					</div>
+					<div class="form-group">						  						  
+						  <label>每日预约服务单数量</label>
+						  <input class="form-control" name="quantity" type="number" id="quantity" value="{$aquantity.quantity}" autocomplete="on">						  						  						 
+					</div>
+					</form>
+					<button type="submit" id="updatebtn" class="btn btn-primary btn-block">提交</button>
+				</div>
+				<!-- box-body -->
+
+			</div>
+			<!-- box -->
+		</div>
+		<!-- col-md-4 -->
 	</div>
 	<div class="row">
 		<div class="col-md-4">
@@ -308,6 +342,27 @@
 		$('#servicecardinfo tbody').on('click', 'tr', function() {
 			var id = $(this).children().first().html();
 			location.href = "index.php?s=/Boss-DoService-servicecard-id-" + id;
+		});
+		/*
+		 * 修改限制数量
+		 * */
+		$("#updatebtn").click(function() {
+			var $btn = $(this).button('loading');
+			$.post("<php>echo U('Boss/Index/updatequantity')</php>", {
+				//		id: '{$user.id}',						
+						area : $("#area")[0].value,
+						quantity : $("#quantity")[0].value
+						
+					},
+					function(data) {
+						$btn.button('reset');
+						if (data == true) {
+							alert("提交成功");
+						} else {
+							alert(data);
+						}
+						location.reload();
+					});
 		});
 		//Morris
 		var line_tools = new Morris.Line({

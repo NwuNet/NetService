@@ -34,6 +34,15 @@
                         <label class="control-label">宿舍号</label>
                         <input class="form-control" id='room' name="room" type="number" placeholder="输入宿舍号" autocomplete="on" />
                     </div>
+                    <div class="form-group ">
+                        <label class="control-label">故障现象</label>
+                        <select class="form-control" id="question" name="question">
+                            <option selected="selected">请选择</option>
+								<foreach name="questioninf" item="vo">
+									<option>{$vo.name}</option>
+								</foreach>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label class="control-label">预约时间--周内16:00-18:00</label>
                         <input type="text" class="form-control" id="appointment_time" name="appointment_time" placeholder="选择预约日期" autocomplete="off" data-provide="datepicker" value="<php>echo date('Y-m-d',strtotime('now'))</php>"  />
@@ -201,7 +210,7 @@
                         building: $("#building")[0].value,
                         room: $("#room")[0].value,
                         area: $("#area")[0].value,
-//                        description: $("#description")[0].value,
+                        question: $("#question")[0].value,
                         appointment_time: $("#appointment_time")[0].value
                     },
                     function(data) {

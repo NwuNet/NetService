@@ -22,6 +22,10 @@ class UserController extends BaseController {
 			$this->assign("servicerepair",$servicerepair);
 		}
 		
+		$questionlist = M("QuestionList");
+		$questioninf = $questionlist->where()->select();
+		$this->assign('questioninf',$questioninf);
+		
 		$this -> display();
 	}
 	// --------------------维修单信息变更---------------------
@@ -32,7 +36,7 @@ class UserController extends BaseController {
 		$phone = I('post.phone');
 		$building = I('post.building');
 		$room = I('post.room');
-//		$description = I('post.description');
+		$question = I('post.question');
 		$description = "null";
 		$appointment_time = I('post.appointment_time');
 		$area = I('post.area');
@@ -46,7 +50,7 @@ class UserController extends BaseController {
 			$info['status'] = false;
 			$this->ajaxReturn($info);
 		}
-		if($id=''||$uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''||$area==''){
+		if($id=''||$uname==''||$student_no==''||$phone==''||$building==''||$question==''||$room==''||$description==''||$appointment_time==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}
 		$card = M('ServiceCard');

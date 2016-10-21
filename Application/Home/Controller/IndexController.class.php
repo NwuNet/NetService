@@ -7,6 +7,11 @@ class IndexController extends Controller {
 		$log->addhome();
 		$this->assign('day_sum',$log->dayhome());
 		$this->assign('all_sum',$log->allhome());
+		
+		$questionlist = M("QuestionList");
+		$questioninf = $questionlist->where()->select();
+		$this->assign('questioninf',$questioninf);
+		
         $this->display();
     }
 	// --------------------添加服务单---------------------
@@ -16,7 +21,7 @@ class IndexController extends Controller {
 		$phone = I('post.phone');
 		$building = I('post.building');
 		$room = I('post.room');
-//		$description = I('post.description');
+		$question = I('post.question');
 		$description = "null";
 		$appointment_time = I('post.appointment_time');
 		$area = I('post.area');
@@ -35,7 +40,14 @@ class IndexController extends Controller {
 			$info['status'] = false;
 			$this->ajaxReturn($info);
 		}
-		if($uname==''||$student_no==''||$phone==''||$building==''||$room==''||$description==''||$appointment_time==''||$area==''){
+		$card = M('ServiceCard');
+		$cardcount = $card->where('area="%s" and appointment_time="%s" and status =0',$area,$appointment_time)->find();
+		if(count($cardcount)>2){
+			$info['msg'] = '所选预约时间预约服务已满，请重新选择预约时间';
+			$info['status'] = false;
+			$this->ajaxReturn($info);
+		}
+		if($uname==''||$student_no==''||$phone==''||$building==''||$room==''||$question=''||$description==''||$appointment_time==''||$area==''){
 			$this->ajaxReturn("数据为空");
 		}
 		//-------------------------------------添加学生到学生表--------------------------------------
@@ -65,6 +77,7 @@ class IndexController extends Controller {
 		}
 		$card->create();
 		$card->dormitory = $building.'-'.$room ;
+//		$card->question = $question;
 		$card->start  = date("Y-m-d H:i:s",NOW_TIME);
 //		trace(getdayofweek($appointment_time));
 		$card->appointment_time = date("Y-m-d",strtotime($appointment_time));
