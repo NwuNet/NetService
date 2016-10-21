@@ -41,8 +41,12 @@ class IndexController extends Controller {
 			$this->ajaxReturn($info);
 		}
 		$card = M('ServiceCard');
+		$homeUser = D('Login','Service')->getuserInfo();
+		$areaquantity = M("ServiceQuantity");
+        $aquantity = $areaquantity->where('area = "%s"',$bossUser['area'])->find();
+        $quantity = $aquantity['quantity']; 
 		$cardcount = $card->where('area="%s" and appointment_time="%s" and status =0',$area,$appointment_time)->find();
-		if(count($cardcount)>2){
+		if(count($cardcount)>$quantity){
 			$info['msg'] = '所选预约时间预约服务已满，请重新选择预约时间';
 			$info['status'] = false;
 			$this->ajaxReturn($info);

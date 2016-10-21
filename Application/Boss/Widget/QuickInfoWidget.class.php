@@ -14,7 +14,7 @@ class QuickInfoWidget extends Controller {
         $attr = getdaykey(NOW_TIME);
         $staffname = $staffUser->where('area = "%s" and status = 1 and %s =1',$loginService['area'],$attr)->select();
         $staffRegister = M('StaffRegister');
-        $staffreg = $staffRegister->where('time = "%s"',date('Y-m-d',NOW_TIME))->select();
+        $staffreg = $staffRegister->where('time = "%s" and area = "%s"',date('Y-m-d',NOW_TIME),$loginService['area'])->select();
         $reg_leave = count($staffname)-count($staffreg);
         $this->assign('reg_sum',$reg_leave);
         $reg_percent = round( (1-$reg_leave/count($staffname))*100 );
@@ -22,29 +22,12 @@ class QuickInfoWidget extends Controller {
         $this->assign('reg_color',getpercentcolor($reg_percent));
         $this->assign('reg_all',count($staffname));
 
-    //    $staffVacation = M('StaffVacation');
-    //    $staffvac = $staffVacation->where('status = 0')->select();
-       $Model = new \Think\Model();
-	   $staffvac = $Model -> query("SELECT 
-				*
-                FROM
-                net_staff_user ,
-                net_staff_vacation
-                where net_staff_vacation.user_id=net_staff_user.user_id and net_staff_vacation.`status`=0
-                and net_staff_user.area='%s'                              
-                ", $loginService['area']);
+        $staffVacation = D('StaffVacationUserView');
+        $staffvac = $staffVacation->where('status = 0 and area = "%s"',$loginService['area'])->select();
         $this->assign('vac_sum',count($staffvac));
 
-    //    $staffDimission = D('DimissionView');
-    //    $staffdim = $staffDimission->where('status = 0 and area = "%s"',$loginService['area'])->select();
-       $staffdim = $Model -> query("SELECT 
-				*
-                FROM
-                net_staff_user ,
-                net_dimission
-                where net_dimission.user_id=net_staff_user.user_id and net_dimission.`status`=0
-                and net_staff_user.area='%s'                              
-                ", $loginService['area']);
+        $staffDimission = D('DimissionUserView');
+        $staffdim = $staffDimission->where('status = 0 and area = "%s"',$loginService['area'])->select();
         $this->assign('dim_sum',count($staffdim));
 
         $homeApply = D('ApplyView');
