@@ -9,15 +9,15 @@ class IndexController extends BaseController{
         
         //未维修服务单
         $servicecardinfo = $Card->where('status = 0 AND area = "%s"',$bossUser['area'])->order('dormitory')->select();
-    /*    $CardRepair = M('ServiceRepair');
+        $CardRepair = M('ServiceRepair');
        foreach ($servicecardinfo as $key => $value){
             $servicecardinfo[$key]['isrepair'] = count($CardRepair->where('servicecard_id = %d',$value['id'])->select());
-        }*/
+        }
         $this -> assign('servicecardinfo',$servicecardinfo );//服务单表
         
         //已维修未确认服务单
-        $servicecardinfo2 = $Card->where('status = 2 AND area = "%s"',$bossUser['area'])->order('dormitory')->select();        
-        $this -> assign('servicecardinfo2',$servicecardinfo2 );//服务单表
+//        $servicecardinfo2 = $Card->where('status = 2 AND area = "%s"',$bossUser['area'])->order('dormitory')->select();
+//        $this -> assign('servicecardinfo2',$servicecardinfo2 );//服务单表
 
 
         $staff =D('Admin/StaffUserView')->where('status = 1')->field('uname')->select();

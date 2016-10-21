@@ -44,7 +44,7 @@
 <block name="content">
 	<div class="row">
 		<div class="col-md-8">
-			<div class="box box-warning">
+			<div class="box box-danger">
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-hand-o-down"></i>
 					<h3 class="box-title">待维修服务单</h3>
@@ -71,32 +71,34 @@
 						</thead>
 						<tbody>
 						<volist name="servicecardinfo" id="vo">
-							<tr>
-								<td class="sr-only">{$vo.id}</td>
-								<td>{$vo.dormitory}</td>
-								<td>
-									<if condition="strtotime($vo['appointment_time']) lt strtotime('now')">
-										<label class="badge bg-red">{$vo.appointment_time}</label>
-										<else/>
-										{$vo.appointment_time}
-									</if>
-									<if condition="getweek(strtotime($vo['appointment_time'])) eq getweek(strtotime('now'))">
-										<label class="badge bg-yellow">{$vo.appointment_time|strtotime|getweek}</label>
-										<else/>
-										{$vo.appointment_time|strtotime|getweek}
-									</if>
-								</td>
-								<td>{$vo.phone}</td>
-								<td>{$vo.name}</td>
-								<td>{$vo.student_no}</td>
-								<!--<td>{$vo.description}</td>-->
-								<td>{$vo.area}</td>
-								<td><label class="badge bg-yellow">未维修</label></td>
-								<!--<if condition = '$vo["isrepair"] egt 1'>
-									<td><label class="badge bg-green">已维修</label></td>
-								<else /><td><label class="badge bg-yellow">未维修</label></td>
-								</if>-->
-							</tr>
+							<if condition = '$vo["isrepair"] eq 0'>
+								<tr>
+									<td class="sr-only">{$vo.id}</td>
+									<td>{$vo.dormitory}</td>
+									<td>
+										<if condition="strtotime($vo['appointment_time']) lt strtotime('now')">
+											<label class="badge bg-red">{$vo.appointment_time}</label>
+											<else/>
+											{$vo.appointment_time}
+										</if>
+										<if condition="getweek(strtotime($vo['appointment_time'])) eq getweek(strtotime('now'))">
+											<label class="badge bg-yellow">{$vo.appointment_time|strtotime|getweek}</label>
+											<else/>
+											{$vo.appointment_time|strtotime|getweek}
+										</if>
+									</td>
+									<td>{$vo.phone}</td>
+									<td>{$vo.name}</td>
+									<td>{$vo.student_no}</td>
+									<!--<td>{$vo.description}</td>-->
+									<td>{$vo.area}</td>
+									<td><label class="badge bg-red">待维修</label></td>
+									<!--<if condition = '$vo["isrepair"] egt 1'>
+										<td><label class="badge bg-green">已维修</label></td>
+									<else /><td><label class="badge bg-yellow">未维修</label></td>
+									</if>-->
+								</tr>
+							</if>
 						</volist>
 						</tbody>
 					</table>
@@ -130,7 +132,7 @@
 			<div class="box box-warning">
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-hand-o-down"></i>
-					<h3 class="box-title">已维修未确认服务单</h3>
+					<h3 class="box-title">待完成服务单</h3>
 
 					<div class="box-tools pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -139,7 +141,7 @@
 					</div>
 				</div>
 				<div class="box-body no-padding table-responsive">
-					<table id="servicecardinfo" class="table table-hover">
+					<table id="servicecardinfo1" class="table table-hover">
 						<thead>
 						<th class="sr-only">id</th>
 						<th>宿舍号</th>
@@ -153,29 +155,24 @@
 						<!--<th>派单</th>-->
 						</thead>
 						<tbody>						
-						<volist name="servicecardinfo2" id="vo">
-							<tr>
-								<td class="sr-only">{$vo.id}</td>
-								<td>{$vo.dormitory}</td>
-								<td>
-									<if condition="strtotime($vo['appointment_time']) lt strtotime('now')">
-										<label class="badge bg-red">{$vo.appointment_time}</label>
-										<else/>
+						<volist name="servicecardinfo" id="vo">
+							<if condition = '$vo["isrepair"] egt 1'>
+								<tr>
+									<td class="sr-only">{$vo.id}</td>
+									<td>{$vo.dormitory}</td>
+									<td>
 										{$vo.appointment_time}
-									</if>
-									<if condition="getweek(strtotime($vo['appointment_time'])) eq getweek(strtotime('now'))">
-										<label class="badge bg-yellow">{$vo.appointment_time|strtotime|getweek}</label>
-										<else/>
+										&nbsp;
 										{$vo.appointment_time|strtotime|getweek}
-									</if>
-								</td>
-								<td>{$vo.phone}</td>
-								<td>{$vo.name}</td>
-								<td>{$vo.student_no}</td>
-								<!--<td>{$vo.description}</td>-->
-								<td>{$vo.area}</td>								
-								<td><label class="badge bg-green">已维修</label></td>							
-							</tr>
+									</td>
+									<td>{$vo.phone}</td>
+									<td>{$vo.name}</td>
+									<td>{$vo.student_no}</td>
+									<!--<td>{$vo.description}</td>-->
+									<td>{$vo.area}</td>
+									<td><label class="badge bg-yellow">待完成</label></td>
+								</tr>
+							</if>
 						</volist>						
 						</tbody>
 					</table>

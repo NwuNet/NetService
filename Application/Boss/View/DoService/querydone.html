@@ -24,14 +24,14 @@
 	<!-- search widget -->
 
 	<!--menu widget-->
-	{:W('Menu/index',array('doservice','doservicequery'))}
+	{:W('Menu/index',array('doservice','doservicedone'))}
 	<!--menu widget-->
 </block>
 
 <block name="content-header">
 	<h1>
 	服务管理
-	<small><i class="fa fa-fw fa-list-ol"></i>未完成服务单</small>
+	<small><i class="fa fa-fw fa-list-ol"></i>已完成服务单</small>
   </h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-dashboard"></i> Network Service</a></li>
@@ -46,7 +46,7 @@
 			<div class="box box-warning">
 				<div class="box-header with-border">
 					<i class="fa fa-fw fa-list-ol"></i>
-					<h3 class="box-title">未完成服务单</h3>
+					<h3 class="box-title">已完成服务单</h3>
 
 					<div class="box-cards pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -88,6 +88,7 @@
 			<!-- box -->
 		</div>
 		<!-- col -->
+		<!-- col-md-4 -->
 	</div>
 </block>
 
@@ -97,7 +98,7 @@
 		var table = $("#card1").DataTable({
 			"processing": true,
             "serverSide": true,
-            "ajax": "<php>echo U('Boss/DoService/cardtable')</php>",
+            "ajax": "<php>echo U('Boss/DoService/cardtabledone')</php>",
 			"language": {
 				"sProcessing":   "处理中...",
 				"lengthMenu": "每页 _MENU_ 条记录",
