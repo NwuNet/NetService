@@ -306,6 +306,10 @@
 			var id = $(this).children().first().html();
 			location.href = "index.php?s=/Boss-DoService-servicecard-id-" + id;
 		});
+		$('#servicecardinfo1 tbody').on('click', 'tr', function() {
+			var id = $(this).children().first().html();
+			location.href = "index.php?s=/Boss-DoService-servicecard-id-" + id;
+		});
 		//Morris
 		var line_tools = new Morris.Line({
 			element: 'chart_tools',

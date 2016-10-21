@@ -65,7 +65,7 @@ class DoServiceController extends BaseController {
 	    $start = $_GET['start'];//从多少开始
 	    $length = $_GET['length'];//数据长度
 	    //表的总记录数 必要
-	    $recordsTotal = $Card->count();
+	    $recordsTotal = $Card->where('status=0')->count();
 	
 	    $map['id|area|student_no|dormitory|phone|description']=array('like',"%".$search."%");
 	    if(strlen($search)>0){
@@ -124,7 +124,7 @@ class DoServiceController extends BaseController {
 		$start = $_GET['start'];//从多少开始
 		$length = $_GET['length'];//数据长度
 		//表的总记录数 必要
-		$recordsTotal = $Card->count();
+		$recordsTotal = $Card->where('status=1')->count();
 
 		$map['id|area|student_no|dormitory|phone|description']=array('like',"%".$search."%");
 		if(strlen($search)>0){
