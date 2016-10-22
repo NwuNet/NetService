@@ -187,7 +187,7 @@
 		<div class="col-md-4">
 			<div class="box box-success">
 				<div class="box-header with-border">
-					<i class="fa fa-fw fa-check-square-o"></i>
+					<i class="fa fa-fw fa-tasks"></i>
 					<h3 class="box-title">每日服务单可预约数量设置</h3>
 					<div class="box-tools pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -365,77 +365,68 @@
 		});
 
 		//Morris
-		var line_tools = new Morris.Line({
-					element: 'chart_tools',
-					resize: true,
-					data: [ <
-						foreach name = "tooltime"
-						item = "vo" > {
-							y: '{$vo.start}',
-							item1: '{$vo.number}'
-						}, <
-						/foreach> ],
-						xkey: 'y',
-						ykeys: ['item1'],
-						labels: ['工具总数'],
-						lineColors: ['#efefef'],
-						lineWidth: 2,
-						hideHover: 'auto',
-						gridTextColor: "#fff",
-						gridStrokeWidth: 0.4,
-						pointSize: 4,
-						pointStrokeColors: ["#efefef"],
-						gridLineColor: "#efefef",
-						gridTextFamily: "Open Sans",
-						gridTextSize: 10
-					});
-				//Morris
-				var line_exhausts = new Morris.Line({
-							element: 'chart_exhausts',
-							resize: true,
-							data: [ <
-								foreach name = "exhausttime"
-								item = "vo" > {
-									y: '{$vo.start}',
-									item1: '{$vo.num}'
-								}, <
-								/foreach> ],
-								xkey: 'y',
-								ykeys: ['item1'],
-								labels: ['耗材总数'],
-								lineColors: ['#efefef'],
-								lineWidth: 2,
-								hideHover: 'auto',
-								gridTextColor: "#fff",
-								gridStrokeWidth: 0.4,
-								pointSize: 4,
-								pointStrokeColors: ["#efefef"],
-								gridLineColor: "#efefef",
-								gridTextFamily: "Open Sans",
-								gridTextSize: 10
-							});
-						//Morris
-						var line_device = new Morris.Line({
-									element: 'chart_device',
-									resize: true,
-									data: [ < foreach name = "devicetime"
-										item = "vo" > {
-											y: '{$vo.start}',
-											item1: '{$vo.number}'
-										}, < /foreach> ],
-										xkey: 'y',
-										ykeys: ['item1'],
-										labels: ['设备总数'],
-										lineColors: ['#efefef'],
-										lineWidth: 2,
-										hideHover: 'auto',
-										gridTextColor: "#fff",
-										gridStrokeWidth: 0.4,
-										pointSize: 4,
-										pointStrokeColors: ["#efefef"],
-										gridLineColor: "#efefef",
-										gridTextFamily: "Open Sans",
-										gridTextSize: 10
-									});
+  		var line_tools = new Morris.Line({
+ 			element: 'chart_tools',
+ 			resize: true,
+ 			data: [
+ 			<foreach name ="tooltime" item="vo">
+ 				{y: '{$vo.start}',item1: '{$vo.number}'},
+ 		</foreach> ],
+ 		xkey: 'y',
+ 				ykeys: ['item1'],
+ 				labels: ['工具总数'],
+ 				lineColors: ['#efefef'],
+ 				lineWidth: 2,
+ 				hideHover: 'auto',
+ 				gridTextColor: "#fff",
+ 				gridStrokeWidth: 0.4,
+ 				pointSize: 4,
+ 				pointStrokeColors: ["#efefef"],
+ 				gridLineColor: "#efefef",
+ 				gridTextFamily: "Open Sans",
+ 				gridTextSize: 10
+ 		});
+ 		//Morris
+ 		var line_exhausts = new Morris.Line({
+ 			element: 'chart_exhausts',
+ 			resize: true,
+ 			data: [
+ 			<foreach name ="exhausttime" item="vo">
+ 				{y: '{$vo.start}',item1: '{$vo.num}'},
+ 		</foreach> ],
+ 		xkey: 'y',
+ 				ykeys: ['item1'],
+ 				labels: ['耗材总数'],
+ 				lineColors: ['#efefef'],
+ 				lineWidth: 2,
+ 				hideHover: 'auto',
+ 				gridTextColor: "#fff",
+ 				gridStrokeWidth: 0.4,
+ 				pointSize: 4,
+ 				pointStrokeColors: ["#efefef"],
+ 				gridLineColor: "#efefef",
+ 				gridTextFamily: "Open Sans",
+ 				gridTextSize: 10
+ 		});
+ 		//Morris
+ 		var line_device = new Morris.Line({
+ 			element: 'chart_device',
+ 			resize: true,
+ 			data: [<foreach name ="devicetime" item="vo">
+ 				{y: '{$vo.start}',item1: '{$vo.number}'},</foreach> ],
+ 		xkey: 'y',
+ 				ykeys: ['item1'],
+ 				labels: ['设备总数'],
+ 				lineColors: ['#efefef'],
+ 				lineWidth: 2,
+ 				hideHover: 'auto',
+ 				gridTextColor: "#fff",
+ 				gridStrokeWidth: 0.4,
+ 				pointSize: 4,
+ 				pointStrokeColors: ["#efefef"],
+ 				gridLineColor: "#efefef",
+ 				gridTextFamily: "Open Sans",
+ 				gridTextSize: 10
+ 		});
 	</script>
 </block>

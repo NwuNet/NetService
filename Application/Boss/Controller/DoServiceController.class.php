@@ -68,11 +68,9 @@ class DoServiceController extends BaseController {
 	    //表的总记录数 必要
 	    $recordsTotal = $Card->where('status=0')->count();
 	
-<<<<<<< HEAD
 	    $map['id|area|student_no|dormitory|phone|question|description|status']=array('like',"%".$search."%");
-=======
 	    $map['id|area|student_no|dormitory|phone|description']=array('like',"%".$search."%");
->>>>>>> 20c3aaadf5e9480958cc348286cc3224523aa2fb
+
 	    if(strlen($search)>0){
 			$map['status'] = 0;
 	        $recordsFiltered = count($Card->where($map)->select());
